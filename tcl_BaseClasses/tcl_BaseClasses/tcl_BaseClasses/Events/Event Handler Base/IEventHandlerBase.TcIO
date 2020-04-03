@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IEventHandlerBase" Id="{93405f16-7fa2-4417-ba8a-7d9a9d4c70ce}">
+    <Declaration><![CDATA[INTERFACE IEventHandlerBase EXTENDS __SYSTEM.IQueryInterface
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TExecutionTests" Id="{69f2dc94-2c03-0bca-07b7-4d6c037ce7c4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TExecutionTests EXTENDS TcUnit.FB_TestSuite
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[WhenReady_Start_SelectsStarting();
+WhenBusy_Start_RaisesEvent();
+WhenBusy_SetError_RaisesEvent();
+WhenBusy_Abort_SelectsAborting();
+WhenBusy_SetDone_SetsDone();
+WhenBusy_SetAborted_RaisesEvent();
+
+
+
+
+
+]]></ST>
+    </Implementation>
+    <Method Name="WhenBusy_Abort_SelectsAborting" Id="{04b6cfa8-6751-428f-bc04-d1a7b6152888}">
+      <Declaration><![CDATA[METHOD WhenBusy_Abort_SelectsAborting
+VAR
+    Execution : TExecution;
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenBusy_Abort_SelectsAborting');
+Execution.Start();
+Execution.SetBusy();
+Execution.Abort();
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Aborting,
+    Message  := 'Aborting not set');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhenBusy_SetAborted_RaisesEvent" Id="{4d334701-b47c-45b0-a9eb-416d40e44dcd}">
+      <Declaration><![CDATA[METHOD WhenBusy_SetAborted_RaisesEvent
+VAR_INST
+    Execution : TExecution;
+    EventHandler : TEventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenBusy_SetAborted_RaisesEvent');
+
+Events.Event_OnAbort.ClearEventHandlers().AddEventHandler(EventHandler);
+Events.Event_OnError.ClearEventHandlers().AddEventHandler(EventHandler);
+
+Execution.Start();
+Execution.SetBusy();
+Execution.SetAborted(); // raises error event
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := EventHandler.AbortedEventRaised,
+    Message  := 'aborted event not raised');
+    
+    
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhenBusy_SetDone_SetsDone" Id="{b33ad5ef-8111-4692-a4e1-626ba903515f}">
+      <Declaration><![CDATA[METHOD WhenBusy_SetDone_SetsDone
+VAR
+    Execution : TExecution;
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenBusy_SetDone_SetsDone');
+Execution.Start();
+Execution.SetBusy();
+Execution.SetDone();
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Done,
+    Message  := 'Done not set');
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Ready,
+    Message  := 'Ready not set');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhenBusy_SetError_RaisesEvent" Id="{bc2c2b1d-e4ba-4fb5-98f1-3f4310d474f4}">
+      <Declaration><![CDATA[METHOD WhenBusy_SetError_RaisesEvent
+VAR_INST
+    Execution : TExecution;
+    EventHandler : TEventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenBusy_SetError_RaisesEvent');
+
+Events.Event_OnAbort.ClearEventHandlers().AddEventHandler(EventHandler);
+Events.Event_OnError.ClearEventHandlers().AddEventHandler(EventHandler);
+
+Execution.Start(); // sets Starting
+Execution.SetBusy(); // Sets Busy
+Execution.SetError(ErrorId := 16#1234); // Sets Error
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := EventHandler.FailedEventRaised,
+    Message  := 'failed event not raised');
+   
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Error,
+    Message  := 'Error not set');
+    
+AssertEquals_UDINT(
+    Expected := 16#1234,
+    Actual   := Execution.ErrorId,
+    Message  := 'Error Id not set');
+    
+    
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhenBusy_Start_RaisesEvent" Id="{6027a97a-9cb7-4b70-b3e2-62ac4156857d}">
+      <Declaration><![CDATA[METHOD WhenBusy_Start_RaisesEvent
+VAR_INST
+    Execution : TExecution;
+    EventHandler : TEventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenBusy_Start_RaisesEvent');
+
+Events.Event_OnAbort.ClearEventHandlers().AddEventHandler(EventHandler);
+Events.Event_OnError.ClearEventHandlers().AddEventHandler(EventHandler);
+
+Execution.Start(); // sets Starting
+
+Execution.Start(); // raises error event
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := EventHandler.FailedEventRaised,
+    Message  := 'failed event not raised');
+    
+    
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="WhenReady_Start_SelectsStarting" Id="{30446bcc-7cd7-0f77-1020-cb5bb51248ee}">
+      <Declaration><![CDATA[METHOD WhenReady_Start_SelectsStarting
+VAR
+    Execution : TExecution;
+
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TEST(TestName := 'WhenReady_Start_SelectsStarting');
+Execution.Start();
+
+AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Starting,
+    Message  := 'Starting not set');
+
+TEST_FINISHED();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

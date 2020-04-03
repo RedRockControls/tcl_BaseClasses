@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TEventBase" Id="{cd72470e-595a-4175-ae88-1df3e864c471}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'reflection'}
+FUNCTION_BLOCK ABSTRACT TEventBase IMPLEMENTS IEvent
+VAR
+    EventHandlers : TListOfEventHandlers;
+    
+    {attribute 'instance-path'} {attribute 'no_init'}
+    EventName : T_MaxString; // Automatically initialised with the full name of the instance   
+
+END_VAR
+VAR_STAT
+    LicenceCheck : TLicenceCheck(
+        LicenceIdAsString      := '{03ae39d9-bbb2-423e-8ace-d2c791a6b0ec}', // tcl_BaseLib Id
+        LicenceName            := 'tcl_BaseLib',
+        StopTwinCAT_IfNotValid := TRUE);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddEventHandler" Id="{45b5b49c-91e2-43d6-9086-61c390a9e605}">
+      <Declaration><![CDATA[METHOD AddEventHandler : IEvent
+VAR_INPUT
+    Handler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsHandlerSupported(Handler) THEN
+    IF EventHandlers.AddHandler(Handler) = FALSE THEN
+        F_LogError(F_FormatStringEx1('Error adding event handler to %s - list full',EventName));
+	END_IF
+ELSE
+    F_LogError(F_FormatStringEx1('Error adding event handler to %s - handler not implemented',EventName));
+END_IF
+AddEventHandler := THIS^;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CallHandler" Id="{6d686993-9e20-48bd-b9ee-ebb58de791b5}">
+      <Declaration><![CDATA[METHOD ABSTRACT CallHandler
+VAR_INPUT
+    HandlerBase : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearEventHandlers" Id="{f3c44e88-ee71-4132-aa90-1e2b7ea3abab}">
+      <Declaration><![CDATA[METHOD ClearEventHandlers : IEvent
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EventHandlers.Clear();
+ClearEventHandlers := THIS^;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsHandlerSupported" Id="{ece74c95-fa36-4154-9ae5-41ad8aef4487}">
+      <Declaration><![CDATA[METHOD ABSTRACT IsHandlerSupported : BOOL
+VAR_INPUT
+    EventHandler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Raise" Id="{5f8d5550-efac-4741-ac6c-e61436f01ac0}">
+      <Declaration><![CDATA[METHOD Raise
+VAR
+    HandlerBase : IEventHandlerBase;
+    i : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO EventHandlers.Count - 1 DO
+    HandlerBase := EventHandlers.GetHandler(i);
+    CallHandler(HandlerBase);
+END_FOR
+
+LicenceCheck();
+]]></ST>
+      </Implementation>
+    </Method>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="LicenseProperty">
+            <l2 n="Licenses" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="LicenseProperty">{ec6b18ef-cd41-4646-b1b3-985c60f930b9}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_FormatString8" Id="{b59d7f8e-439f-05c1-15f5-7a60f1ac388a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_FormatString8 : T_MaxString
+VAR_INPUT
+	Format	: T_MaxString;
+	arg1	: T_Arg;
+	arg2	: T_Arg;
+	arg3	: T_Arg;
+	arg4	: T_Arg;
+	arg5	: T_Arg;
+	arg6	: T_Arg;
+	arg7	: T_Arg;
+	arg8	: T_Arg;
+END_VAR
+VAR
+    FB_FormatString1 : FB_FormatString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FB_FormatString1(
+	sFormat:= Format, 
+	arg1:= arg1, 
+	arg2:= arg2, 
+	arg3:= arg3, 
+	arg4:= arg4, 
+	arg5:= arg5, 
+	arg6:= arg6, 
+	arg7:= arg7, 
+	arg8:= arg8, 
+	arg9:= , 
+	arg10:= , 
+	bError=> , 
+	nErrId=> , 
+	sOut=> F_FormatString8);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IEvent_ExecutionFailed" Id="{8020b691-7dd5-07d7-319b-109e5a16216d}">
+    <Declaration><![CDATA[INTERFACE IEvent_ExecutionFailed EXTENDS IEvent
+]]></Declaration>
+    <Method Name="RaiseEx" Id="{d168beec-4c21-0572-348b-075d7f983b25}">
+      <Declaration><![CDATA[METHOD RaiseEx
+VAR_INPUT
+    Message : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

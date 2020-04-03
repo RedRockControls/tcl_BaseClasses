@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TOffTimer" Id="{41674d6f-3be8-0a43-194c-c209f1d77075}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TOffTimer
+VAR
+    TOF1 : TOF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Delay" Id="{e4015604-15d0-0b2e-0c9b-4e327928efa4}">
+      <Declaration><![CDATA[METHOD Delay : BOOL
+VAR_INPUT
+    In : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TOF1(IN := In);
+Delay := TOF1.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{3a611803-2504-026b-2a66-962e6c3f8665}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    PresetTime : LREAL; // seconds
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TOF1.PT := LREAL_TO_TIME(PresetTime * 1000);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OutputState" Id="{6e266f24-8214-0bb2-019b-00c12bc3c072}">
+      <Declaration><![CDATA[PROPERTY OutputState : BOOL]]></Declaration>
+      <Get Name="Get" Id="{46336c7a-d2de-0080-14ca-9dc2d99ba2f2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OutputState := TOF1.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PresetTime" Id="{8dc3a5ed-30c1-033d-1873-570fcf6b7ad7}">
+      <Declaration><![CDATA[PROPERTY PresetTime : LREAL]]></Declaration>
+      <Get Name="Get" Id="{0bfc87d1-4ceb-0168-10ae-c4604a854bd4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PresetTime := TIME_TO_LREAL(TOF1.PT)/1000.0; // in seconds]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{51db4b2c-86c4-0f9c-0244-4af693f05f93}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TOF1.PT := LREAL_TO_TIME(PresetTime * 1000);
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

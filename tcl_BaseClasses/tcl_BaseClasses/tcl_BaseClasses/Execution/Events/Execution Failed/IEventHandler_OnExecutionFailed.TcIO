@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IEventHandler_OnExecutionFailed" Id="{74b8c4a1-fb31-444a-a331-482f563eae8d}">
+    <Declaration><![CDATA[INTERFACE IEventHandler_OnExecutionFailed EXTENDS IEventHandlerBase
+
+]]></Declaration>
+    <Method Name="OnExecutionFailed" Id="{789a7f7b-0a73-0296-366d-785fe9e2d47e}">
+      <Declaration><![CDATA[METHOD OnExecutionFailed
+VAR_INPUT
+    Message : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

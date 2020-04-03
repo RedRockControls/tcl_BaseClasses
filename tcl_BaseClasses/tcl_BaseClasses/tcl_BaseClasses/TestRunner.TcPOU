@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TestRunner" Id="{05f63fc0-82d5-4467-8277-011f38ba0570}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM TestRunner
+VAR
+    EventTests        : TEventTests;
+    HandlerList_Tests : THandlerList_Tests;
+    ExecutionTests    : TExecutionTests;
+    Test_LicenceCheck : TTest_LicenceCheck;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TcUnit.RUN();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

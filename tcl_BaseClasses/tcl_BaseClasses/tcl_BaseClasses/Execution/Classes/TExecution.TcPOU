@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TExecution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'reflection'}
+FUNCTION_BLOCK TExecution IMPLEMENTS IExecution
+VAR
+    _State      : TExecutionState;
+    _Done       : BOOL;
+    _Error      : BOOL;
+    _Aborted    : BOOL;
+    
+    {attribute 'displaymode':='hex'}
+    _ErrorId    : UDINT;
+    
+    {attribute 'instance-path'} {attribute 'no_init'}
+    Name        : T_MaxString; // Automatically initialised with the full name of the instance
+    
+    _Event_OnError : IEvent_ExecutionFailed;
+    _Event_OnAbort : IEvent_ExecutionAborted;
+    
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{e45bf685-06c9-4e29-a8a9-cbf0453f59ad}" />
+    <Folder Name="Properties" Id="{a48b7191-6aa5-4ac4-bdc5-b99d3da36639}" />
+    <Method Name="Abort" Id="{b3fb44cc-0bf3-039d-3269-899cc8ea6ebc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Abort 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State <> TExecutionState.Ready THEN
+    _State := TExecutionState.Aborting; // Aborting must be handled by parent class - cleanup and set Ready state
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Aborted" Id="{47f18dce-47db-4b5b-a019-8668343f98f9}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Aborted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f0f7563d-0a03-015d-3c7f-c1748808105b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborted := _Aborted;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Aborting" Id="{f8431846-1954-03c8-30df-5a7e741c3ebe}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Aborting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{eb3b9983-c850-041a-1155-83f5216a49d2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborting := _State = TExecutionState.Aborting;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Busy" Id="{03e849ec-ee28-0870-1ae9-eeb1ed24f4bc}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{945a4888-d71c-0d67-2d11-1ee4fe1836ec}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := _State = TExecutionState.Busy;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Done" Id="{b9177cfb-6140-0c22-2370-60610db97e0d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Done : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bc67d8cf-9e35-059a-2bc9-46701e812750}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Done := _Done;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{4a58af1f-20ba-01b9-3bbb-3123d27f16d2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1bbb2e91-5896-0439-3898-15f12447c831}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := _Error;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ErrorId" Id="{cb1568b5-b7b6-0bbf-203e-a9bc386ae389}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorId : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{fc1eb71c-2366-03df-0c2c-02cf05e67988}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorId := _ErrorId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{499c4a3f-ef02-0a6d-35da-2196b4a8a6ff}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ErrorId := ErrorId;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Event_OnAbort" Id="{55c3e6b7-ea6f-0f60-152d-da45bbe24b75}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Event_OnAbort : IEvent_ExecutionAborted]]></Declaration>
+      <Get Name="Get" Id="{798803c6-6766-026d-1a73-96d7a5f47665}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Event_OnAbort := _Event_OnAbort;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{221b73ba-176a-04ad-23e9-ad553c050eb8}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Event_OnAbort := Event_OnAbort;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Event_OnError" Id="{fbcc515c-e0d9-038d-0c5c-6b86042eb0fe}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Event_OnError : IEvent_ExecutionFailed]]></Declaration>
+      <Get Name="Get" Id="{5da82842-d35c-0a05-1584-7bf583bb72d0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Event_OnError := _Event_OnError;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c92da637-dcf9-058c-1ac2-52262166c464}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Event_OnError := Event_OnError;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="FB_init" Id="{cb8c0a25-6839-0ca3-105e-335fcd806bf2}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Individual TExecution events are assigned here to the global events 
+// so by default, all errors/aborts raise these global events
+// This can be overidden for individual instances or TExecution 
+// by setting the Event properties to zero (or another event)
+
+_Event_OnAbort := Events.Event_OnAbort;
+_Event_OnError := Events.Event_OnError;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Ready : BOOL]]></Declaration>
+      <Get Name="Get" Id="{07819190-be5b-06a7-0f77-77e004f7eaea}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Ready := _State = TExecutionState.Ready;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="SetAborted" Id="{3457d55d-8917-427f-b4b1-3d8dae8fe5f2}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetAborted // used when implementing class signals Aborted
+VAR
+    EventData : T_MaxString;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = TExecutionState.Busy THEN
+    _Aborted := TRUE;
+    _State := TExecutionState.Ready;
+    
+    IF _Event_OnAbort <> 0 THEN
+        _Event_OnAbort.RaiseEx(Message := F_FormatString1('Execution aborted in %s',F_STRING(Name)));
+    END_IF    
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetBusy" Id="{a5a7c695-c8c2-0fa3-058b-7078b33d95e5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetBusy
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = TExecutionState.Starting THEN
+    _State := TExecutionState.Busy;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetDone" Id="{7437ab2d-de97-0db9-2d0a-b86eae15da44}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetDone
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = TExecutionState.Busy THEN
+    _Done := TRUE;
+    _State := TExecutionState.Ready;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetError" Id="{6247352f-ee68-037a-2fe3-925d2cb9b25d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetError
+VAR_INPUT
+    ErrorId : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = TExecutionState.Busy THEN
+    _Error   := TRUE;
+    _ErrorId := ErrorId;
+    _State   := TExecutionState.Ready;
+    
+    IF _Event_OnError <> 0 THEN
+        _Event_OnError.RaiseEx(Message := F_FormatString2('Error %04x in %s',F_UDINT(_ErrorId),F_STRING(Name)));
+    END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Start" Id="{def3bafe-9648-0b74-364e-7150751f5a3a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Start : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = TExecutionState.Ready  THEN
+    _Done    := FALSE;
+    _Aborted := FALSE;
+    _Error   := FALSE;
+    _ErrorId := 0;
+    
+    _State   := TExecutionState.Starting;
+    Start    := TRUE; // Accepted
+ELSE
+    IF _Event_OnError <> 0 THEN
+        _Event_OnError.RaiseEx(Message := F_FormatString1('Start requested while not ready in %s',F_STRING(Name)));
+    END_IF
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Starting" Id="{74926035-220d-03e3-3b86-d5067a70c227}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Starting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{b249388e-1ee2-027a-08c8-85eee11e571e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Starting := _State = TExecutionState.Starting;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="State" Id="{34686f20-e5ce-076a-20fe-0604181ce5eb}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY State : TExecutionState]]></Declaration>
+      <Get Name="Get" Id="{643951a8-dea2-0da6-338f-29e7e986b3be}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[State := _State;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

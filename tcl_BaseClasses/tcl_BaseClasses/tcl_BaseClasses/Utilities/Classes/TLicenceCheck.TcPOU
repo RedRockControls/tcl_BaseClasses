@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TLicenceCheck" Id="{4f874da9-b7ae-0f62-190e-7d4a13ac0831}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TLicenceCheck
+VAR
+    LicenceIdAsString : STRING(38);
+    LicenceName : T_MaxString;
+    StopTwinCAT_IfNotValid : BOOL;
+
+    FB_GetLicenses1 : FB_GetLicenses;
+    FallingEdge_Busy : TFallingEdge;
+    ScanCount : UDINT;
+    OnTimer_CheckComplete : TOnTimer(PresetTime := 0.1);
+    StopTwinCAT : TC_Stop;
+    LicenceId : GUID;
+    i : UDINT;
+    
+    _IsValid : BOOL;
+    _CheckComplete : BOOL;
+    _StopTwinCAT : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF _IsValid THEN
+    RETURN;
+END_IF
+
+ScanCount := ScanCount + 1;
+
+FB_GetLicenses1(
+	bExecute:= TRUE, 
+	tTimeout:= , 
+	sNetId:= , 
+	bBusy=> , 
+	bError=> , 
+	nErrorId=> , 
+	nValidLicenses=> , 
+	aValidLicenses=> , 
+	nInvalidLicenses=> , 
+	aInvalidLicenses=> );
+
+IF FallingEdge_Busy.Test(FB_GetLicenses1.bBusy) THEN
+    _CheckComplete := TRUE;
+    IF FB_GetLicenses1.bError THEN
+            ADSLOGSTR(
+                msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_ERROR OR ADSLOG_MSGTYPE_LOG,
+                msgFmtStr := 'Error retrieving TwinCAT licences',
+                strArg := DWORD_TO_HEXSTR(FB_GetLicenses1.nErrorId,4,FALSE));
+    ELSE
+        IF FB_GetLicenses1.nValidLicenses > 0 THEN
+            LicenceId := REGSTRING_TO_GUID(LicenceIdAsString);
+            FOR i := 1 TO FB_GetLicenses1.nValidLicenses DO
+                IF GuidsEqualByVal(FB_GetLicenses1.aValidLicenses[i].stLicenseId, LicenceId) THEN
+                    _IsValid := TRUE;
+                END_IF
+            END_FOR
+        END_IF	
+    END_IF
+    IF NOT _IsValid THEN
+        IF StopTwinCAT_IfNotValid THEN
+            F_LogError(F_FormatStringEx2('TwinCAT Licence "%s" with ID %s not found: TwinCAT will be stopped!',LicenceName,LicenceIdAsString));
+            ScanCount := 0;
+            OnTimer_CheckComplete.Run();
+            _StopTwinCAT := TRUE;
+        ELSE
+            F_LogError(F_FormatStringEx2('TwinCAT Licence "%s" with ID %s not found.',LicenceName,LicenceIdAsString));
+		END_IF
+    END_IF
+END_IF
+
+IF _StopTwinCAT THEN
+    IF ScanCount > 5 OR OnTimer_CheckComplete.Run() THEN // scan count used when cyclically executed, timer used where executed sporadically
+        StopTwinCAT(
+            NETID:= , 
+            STOP:= TRUE, 
+            TMOUT:= , 
+            BUSY=> , 
+            ERR=> , 
+            ERRID=> );
+	END_IF
+END_IF
+
+]]></ST>
+    </Implementation>
+    <Property Name="CheckComplete" Id="{d511f3c2-bc90-4219-8696-c65f10f7340f}">
+      <Declaration><![CDATA[PROPERTY CheckComplete : BOOL]]></Declaration>
+      <Get Name="Get" Id="{cfe9e3b6-da34-4814-926d-b19f0dcd9816}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CheckComplete := _CheckComplete;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_init" Id="{8a0b0f02-6ceb-42ca-913a-192ce0f34d86}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    LicenceIdAsString : STRING(38);
+    LicenceName : T_MaxString;
+    StopTwinCAT_IfNotValid : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.LicenceIdAsString         := LicenceIdAsString;
+THIS^.LicenceName               := LicenceName;
+THIS^.StopTwinCAT_IfNotValid    := StopTwinCAT_IfNotValid;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsValid" Id="{b9917a4c-9436-0d86-2997-9cf98bd4874e}">
+      <Declaration><![CDATA[PROPERTY IsValid : BOOL]]></Declaration>
+      <Get Name="Get" Id="{32fde665-9de7-0efd-234e-2f4787ce5b6d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsValid := _IsValid;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

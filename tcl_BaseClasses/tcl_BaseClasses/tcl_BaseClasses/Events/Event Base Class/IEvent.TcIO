@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IEvent" Id="{76b46dd0-9b8c-40e6-9cc2-a8255b4b6f41}">
+    <Declaration><![CDATA[INTERFACE IEvent 
+]]></Declaration>
+    <Method Name="AddEventHandler" Id="{f96d4406-f2e0-4ebc-922f-38b4276ed8b0}">
+      <Declaration><![CDATA[METHOD AddEventHandler : IEvent
+VAR_INPUT
+    Handler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="ClearEventHandlers" Id="{4aa8fa4f-350a-4761-929a-75af37e8488f}">
+      <Declaration><![CDATA[METHOD ClearEventHandlers : IEvent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

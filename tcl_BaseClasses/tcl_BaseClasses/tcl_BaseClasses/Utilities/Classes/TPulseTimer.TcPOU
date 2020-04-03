@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TPulseTimer" Id="{6f05ebc1-646f-0297-12f6-3bc75caab056}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TPulseTimer
+VAR
+    TP1 : TP;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="FB_init" Id="{e2b11b30-67e2-050e-0fb0-e3f3555327eb}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    PresetTime : LREAL; // seconds
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TP1.PT := LREAL_TO_TIME(PresetTime * 1000);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OutputState" Id="{68059222-9a8a-0581-2f56-efd6a810cf5c}">
+      <Declaration><![CDATA[PROPERTY OutputState : BOOL]]></Declaration>
+      <Get Name="Get" Id="{48f9aa2d-9ec7-02c5-121a-cc89fb8d806b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OutputState := TP1.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PresetTime" Id="{471f1ec6-dbcb-0c44-1d09-6f49a42994dd}">
+      <Declaration><![CDATA[PROPERTY PresetTime : LREAL]]></Declaration>
+      <Get Name="Get" Id="{e75fc37d-0a84-07d4-35af-998e47490717}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PresetTime := TIME_TO_LREAL(TP1.PT)/1000.0; // in seconds]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{aa4864df-2e13-0fa2-28ac-7b22a5370c7b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TP1.PT := LREAL_TO_TIME(PresetTime * 1000);
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Pulse" Id="{f03700c9-6c18-0988-086b-61a9f7e66e11}">
+      <Declaration><![CDATA[METHOD Pulse : BOOL
+VAR_INPUT
+    In : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TP1(IN := In);
+Pulse := TP1.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{c5405954-40bf-0829-270c-59d5a7f6ec90}">
+      <Declaration><![CDATA[METHOD Reset 
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TP1(IN := FALSE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Run" Id="{d7881203-1b2d-0d85-0052-70ffb08afca4}">
+      <Declaration><![CDATA[METHOD Run : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TP1(IN := TRUE);
+Run := TP1.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TValueMonitor" Id="{83feb238-a6d0-08e1-3d2f-4edc7cda39f9}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
+FUNCTION_BLOCK TValueMonitor
+VAR
+    _CurrentValue : INT := -1;
+    _PreviousValue : INT;
+    _Changed : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Changed" Id="{64ce711e-c886-01bc-2998-59a84e0dabaa}">
+      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d78bc9d3-e9b4-02d1-10c2-43392bf24118}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Changed := _Changed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CurrentValue" Id="{08c4126c-4fb0-030a-15b8-ed065e961df7}">
+      <Declaration><![CDATA[PROPERTY CurrentValue : INT]]></Declaration>
+      <Get Name="Get" Id="{03b0f48f-50fc-0a77-28db-25f1a3089478}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CurrentValue := _CurrentValue;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="PreviousValue" Id="{d5cb63eb-1062-0765-07ce-1c857312fc00}">
+      <Declaration><![CDATA[PROPERTY PreviousValue : INT]]></Declaration>
+      <Get Name="Get" Id="{045dbc11-1e3f-0f62-2567-30f4a71eb43d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PreviousValue := _PreviousValue;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{0448d132-9779-0606-12cd-041f8768b4e1}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_CurrentValue := 0;
+_PreviousValue := 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test" Id="{3611567e-1683-0480-2672-5b7b7e8ea200}">
+      <Declaration><![CDATA[METHOD Test : BOOL
+VAR_INPUT
+    Value : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Changed := Value <> _CurrentValue;
+_PreviousValue := _CurrentValue;
+_CurrentValue := Value;
+
+Test := _Changed;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TListOfEventHandlers" Id="{85f14c8b-0ca5-47ce-99e5-15e5f446cd3d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TListOfEventHandlers
+VAR
+    Handlers : ARRAY[0..Parameters.MaxHandlers] OF IEventHandlerBase;
+    HandlerCount : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddHandler" Id="{e235082a-c1d7-4854-999a-941a93196dcb}">
+      <Declaration><![CDATA[METHOD AddHandler : BOOL
+VAR_INPUT
+    Handler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF HandlerCount < Parameters.MaxHandlers THEN
+    Handlers[HandlerCount] := Handler;
+    HandlerCount := HandlerCount + 1;
+    AddHandler := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{517bde54-a08c-4765-8360-83de883795bf}">
+      <Declaration><![CDATA[METHOD Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[F_ClearMem(Handlers);
+HandlerCount := 0;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{051c0e08-e2d2-40b5-b383-8c8967d01b1e}">
+      <Declaration><![CDATA[PROPERTY Count : DINT]]></Declaration>
+      <Get Name="Get" Id="{27aa9bef-5572-4975-8c54-e9936c87f5b5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := HandlerCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GetHandler" Id="{7ee089ca-859e-40ec-b47d-6295f5fb4514}">
+      <Declaration><![CDATA[METHOD GetHandler : IEventHandlerBase
+VAR_INPUT
+    Index : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < HandlerCount AND Index >= 0 THEN 
+    GetHandler := Handlers[Index];
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
