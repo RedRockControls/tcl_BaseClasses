@@ -33,180 +33,10 @@
     <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Events\Event Base Class\IEvent.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Event Base Class\TEventBase.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Event Handler Base\IEventHandlerBase.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\List Of Handlers\TListOfEventHandlers.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Parameters\Parameters.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="Events\Unit Tests\Test Event Handler\ITestEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\Test Event Handler\IUnsupportedEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\Test Event Handler\TTestEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\Test Event Handler\TUnsupportedEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\Test Event\TTestEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\TEventTests.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Events\Unit Tests\THandlerList_Tests.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Classes\IExecution.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Classes\TExecution.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Classes\TExecutionState.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Aborted\IEventHandler_OnExecutionAborted.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Aborted\IEvent_ExecutionAborted.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Aborted\TEvent_ExecutionAborted.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Failed\IEventHandler_OnExecutionFailed.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Failed\IEvent_ExecutionFailed.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Events\Execution Failed\TEvent_ExecutionFailed.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\GVLs\Events.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="Execution\Unit Tests\TEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Execution\Unit Tests\TExecutionTests.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="TestRunner.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Unit Tests\TTest_LicenceCheck.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TFallingEdge.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TLicenceCheck.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TOffTimer.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TOnTimer.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TPulseTimer.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TRisingEdge.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TValueMonitor.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Classes\TValueMonitorEx.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_ClearMem.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString1.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString10.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString3.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString4.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString5.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString6.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString7.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatString8.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx1.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx10.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx3.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx4.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx5.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx6.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx7.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_FormatStringEx8.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_LogError.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_LogMessage.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_LogWarning.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Functions\F_STRING_TO_ARG.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Version\Global_Version.TcGVL">
@@ -214,25 +44,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\Event Base Class" />
-    <Folder Include="Events\Event Handler Base" />
-    <Folder Include="Events\List Of Handlers" />
-    <Folder Include="Events\Parameters" />
-    <Folder Include="Events\Unit Tests" />
-    <Folder Include="Events\Unit Tests\Test Event" />
-    <Folder Include="Events\Unit Tests\Test Event Handler" />
-    <Folder Include="Execution" />
-    <Folder Include="Execution\Classes" />
-    <Folder Include="Execution\Events" />
-    <Folder Include="Execution\Events\Execution Aborted" />
-    <Folder Include="Execution\Events\Execution Failed" />
-    <Folder Include="Execution\GVLs" />
-    <Folder Include="Execution\Unit Tests" />
-    <Folder Include="Events" />
-    <Folder Include="Utilities" />
-    <Folder Include="Utilities\Unit Tests" />
-    <Folder Include="Utilities\Classes" />
-    <Folder Include="Utilities\Functions" />
     <Folder Include="Version" />
   </ItemGroup>
   <ItemGroup>
@@ -252,9 +63,17 @@
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="TcUnit">
-      <DefaultResolution>TcUnit, * (www.tcunit.org)</DefaultResolution>
-      <Namespace>TcUnit</Namespace>
+    <PlaceholderReference Include="tcl_Events">
+      <DefaultResolution>tcl_Events, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_Events</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="tcl_Execution">
+      <DefaultResolution>tcl_Execution, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_Execution</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="tcl_Utilities">
+      <DefaultResolution>tcl_Utilities, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_Utilities</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -262,13 +81,43 @@
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="tcl_Events">
+      <Resolution>tcl_Events, 1.0.3.0 (Red Rock Controls Limited)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="tcl_Execution">
+      <Resolution>tcl_Execution, 1.0.3.0 (Red Rock Controls Limited)</Resolution>
+    </PlaceholderResolution>
+    <PlaceholderResolution Include="tcl_Utilities">
+      <Resolution>tcl_Utilities, 1.0.8.0 (Red Rock Controls Limited)</Resolution>
+    </PlaceholderResolution>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
+        <o>
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
+          <d n="Values" t="Hashtable" />
+        </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
         <o>
           <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
@@ -284,16 +133,31 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
+        <v>{F66C7017-BDD8-4114-926C-81D6D687E35F}</v>
+        <o>
+          <v n="Name">"{F66C7017-BDD8-4114-926C-81D6D687E35F}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>GlobalVisuImageFilePath</v>
+            <v>%APPLICATIONPATH%\</v>
+          </d>
+        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>
