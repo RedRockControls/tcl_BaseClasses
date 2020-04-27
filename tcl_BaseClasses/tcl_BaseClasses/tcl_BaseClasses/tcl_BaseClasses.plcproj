@@ -2,24 +2,25 @@
   <PropertyGroup>
     <FileVersion>1.0.0.0</FileVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{578923f5-80f9-4f18-ab53-9f035805672f}</ProjectGuid>
+    <ProjectGuid>{77183005-6ced-49e8-8ff6-76b983034ab5}</ProjectGuid>
     <SubObjectsSortedByName>True</SubObjectsSortedByName>
     <DownloadApplicationInfo>true</DownloadApplicationInfo>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>tcl_BaseClasses</Name>
     <ProgramVersion>3.1.4023.0</ProgramVersion>
-    <Application>{0e8e7f5b-7ff9-466d-add0-bf9aa5053d32}</Application>
-    <TypeSystem>{3e9ced2e-4abe-4bab-b382-9e162b03ac2f}</TypeSystem>
-    <Implicit_Task_Info>{819852a5-8f99-4687-a2c4-5c97e37ea5d6}</Implicit_Task_Info>
-    <Implicit_KindOfTask>{63ae177f-5068-4b0e-994d-41eaa2700213}</Implicit_KindOfTask>
-    <Implicit_Jitter_Distribution>{2eb8e39e-c134-4dfa-95e2-a49721debd3b}</Implicit_Jitter_Distribution>
-    <LibraryReferences>{a26bfb93-1e83-4a0f-8785-52dcc6a226ad}</LibraryReferences>
+    <Application>{6784b651-2f80-4523-a2ed-a82009209537}</Application>
+    <TypeSystem>{d87bf44e-a0a9-4971-9c9d-fcf3b02ed5f9}</TypeSystem>
+    <Implicit_Task_Info>{8b64dbcb-0d16-4332-ab5c-11d7458227b1}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{3b863602-9afd-4948-80c7-3e087db780e2}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{dcdca465-2ed2-4bfd-88f7-3efb4dfd53a6}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{1179c462-46b6-4258-88f6-74280586f3e9}</LibraryReferences>
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.0.0</ProjectVersion>
+    <ProjectVersion>1.0.1.0</ProjectVersion>
     <Author>Roger Christopher</Author>
+    <Description>Unit Tests added</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -30,23 +31,168 @@
     <SelectedLibraryCategories>
       <Id xmlns="">{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
     </SelectedLibraryCategories>
-    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TestRunner.TcPOU">
+    <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Version\Global_Version.TcGVL">
+    <Compile Include="Unit Tests\Example Event Handlers\ITestEventHandler.TcIO">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Example Event Handlers\IUnsupportedEventHandler.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Example Event Handlers\TTestEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Example Event Handlers\TUnsupportedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Example Event\TTestEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\PB_TestRunner.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_ChecksInterfaceSupported.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_FailsWhenListFull.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_IncsNumberOfEventHandlers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_EventHandler_HandlesRaisedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_HandlerIsAddedToEventHandlerList.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_HandlerListStoresAndRetreivesHandlers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Example Event Handler\TEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_Abort_SelectsAborting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetAborted_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetDone_SetsDone.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetError_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_Start_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenReady_Start_SelectsStarting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateAsString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateTimeAsString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateTimeAsString_ms.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_24HourFormat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_IncludesLeadingZeros.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_ms.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimestampAsFilenameString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_Handles_Empty_String.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_ReturnsRemainder.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_Splits_On_Tab.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualization Manager.TcVMO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="VISUs\Visualization.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Version" />
+    <Folder Include="DUTs" />
+    <Folder Include="GVLs" />
+    <Folder Include="Unit Tests" />
+    <Folder Include="Unit Tests\Example Event" />
+    <Folder Include="Unit Tests\Example Event Handlers" />
+    <Folder Include="Unit Tests\Unit Tests" />
+    <Folder Include="Unit Tests\Unit Tests\Event Handling" />
+    <Folder Include="Unit Tests\Unit Tests\Execution" />
+    <Folder Include="Unit Tests\Unit Tests\Execution\Example Event Handler" />
+    <Folder Include="Unit Tests\Unit Tests\String Utils" />
+    <Folder Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests" />
+    <Folder Include="Unit Tests\Unit Tests\String Utils\String Split" />
+    <Folder Include="VISUs" />
+    <Folder Include="POUs" />
   </ItemGroup>
   <ItemGroup>
+    <PlaceholderReference Include="System_VisuElemMeter">
+      <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemMeter</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElems">
+      <DefaultResolution>VisuElems, 3.5.13.40 (System)</DefaultResolution>
+      <Namespace>VisuElems</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsSpecialControls">
+      <DefaultResolution>VisuElemsSpecialControls, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemsSpecialControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsWinControls">
+      <DefaultResolution>VisuElemsWinControls, 3.5.13.20 (System)</DefaultResolution>
+      <Namespace>VisuElemsWinControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemTextEditor">
+      <DefaultResolution>VisuElemTextEditor, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemTextEditor</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="system_visuinputs">
+      <DefaultResolution>visuinputs, 3.5.13.0 (system)</DefaultResolution>
+      <Namespace>visuinputs</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuNativeControl">
+      <DefaultResolution>VisuNativeControl, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuNativeControl</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -66,14 +212,27 @@
     <PlaceholderReference Include="tcl_Events">
       <DefaultResolution>tcl_Events, * (Red Rock Controls Limited)</DefaultResolution>
       <Namespace>tcl_Events</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
     <PlaceholderReference Include="tcl_Execution">
       <DefaultResolution>tcl_Execution, * (Red Rock Controls Limited)</DefaultResolution>
       <Namespace>tcl_Execution</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
-    <PlaceholderReference Include="tcl_Utilities">
-      <DefaultResolution>tcl_Utilities, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_Utilities</Namespace>
+    <PlaceholderReference Include="tcl_StringUtils">
+      <DefaultResolution>tcl_StringUtils, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_StringUtils</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
+    </PlaceholderReference>
+    <PlaceholderReference Include="tcl_System">
+      <DefaultResolution>tcl_System, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_System</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
+    </PlaceholderReference>
+    <PlaceholderReference Include="tcl_UnitTest">
+      <DefaultResolution>tcl_UnitTest, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_UnitTest</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
@@ -81,29 +240,27 @@
       <SubType>Content</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <PlaceholderResolution Include="tcl_Events">
-      <Resolution>tcl_Events, 1.0.3.0 (Red Rock Controls Limited)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="tcl_Execution">
-      <Resolution>tcl_Execution, 1.0.3.0 (Red Rock Controls Limited)</Resolution>
-    </PlaceholderResolution>
-    <PlaceholderResolution Include="tcl_Utilities">
-      <Resolution>tcl_Utilities, 1.0.8.0 (Red Rock Controls Limited)</Resolution>
-    </PlaceholderResolution>
-  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-  <Data>
-    <o xml:space="preserve" t="OptionKey">
+        <Data>
+          <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
-        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
         <o>
-          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
+        </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>UnicodeStrings</v>
+            <v>False</v>
+          </d>
         </o>
         <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
         <o>
@@ -127,37 +284,17 @@
             <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
           </d>
         </o>
-        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
-        <o>
-          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" />
-        </o>
-        <v>{F66C7017-BDD8-4114-926C-81D6D687E35F}</v>
-        <o>
-          <v n="Name">"{F66C7017-BDD8-4114-926C-81D6D687E35F}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" />
-        </o>
-        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
-        <o>
-          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="String">
-            <v>GlobalVisuImageFilePath</v>
-            <v>%APPLICATIONPATH%\</v>
-          </d>
-        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-  </Data>
-  <TypeList>
-    <Type n="Hashtable">System.Collections.Hashtable</Type>
-    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-    <Type n="String">System.String</Type>
-  </TypeList>
-</XmlArchive>
+        </Data>
+        <TypeList>
+          <Type n="Boolean">System.Boolean</Type>
+          <Type n="Hashtable">System.Collections.Hashtable</Type>
+          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+          <Type n="String">System.String</Type>
+        </TypeList>
+      </XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

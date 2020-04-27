@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_StringSplitter_ReturnsRemainder" Id="{55a711aa-a147-480e-9672-68a046135dc9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_StringSplitter_ReturnsRemainder EXTENDS TUnitTestBase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{f93bbd42-8b91-4af0-b175-ae69fa6c355b}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    StringSplitter : TStringSplitter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+StringSplitter.Init(
+    Str    := 'Bob$TCharles$TDavid',
+    Delim1 := '$T',
+    Delim2 := '');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := StringSplitter.HasMore(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.HasMore()');
+    
+Assertion.AssertEquals_STRING(
+    Expected := 'Bob',
+    Actual   := StringSplitter.GetNext(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetNext()');
+    
+Assertion.AssertEquals_STRING(
+    Expected := 'Charles$TDavid',
+    Actual   := StringSplitter.GetRemainder(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetRemainder()');
+
+Assertion.AssertEquals_STRING(
+    Expected := '',
+    Actual   := StringSplitter.GetRemainder(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetRemainder()');
+
+Assertion.AssertEquals_BOOL(
+    Expected := FALSE,
+    Actual   := StringSplitter.HasMore(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.HasMore()');
+    
+
+Test_Finished();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

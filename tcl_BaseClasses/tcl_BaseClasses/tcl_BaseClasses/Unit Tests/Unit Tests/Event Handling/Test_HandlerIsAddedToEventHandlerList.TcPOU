@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_HandlerIsAddedToEventHandlerList" Id="{de5a509b-4447-4128-ad4d-78293717de59}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_HandlerIsAddedToEventHandlerList EXTENDS TUnitTestBase
+VAR
+    TestEvent : TTestEvent;
+    TestEventHandler : TTestEventHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{0847b3c0-8b97-40f0-8190-4dde8576ae1c}">
+      <Declaration><![CDATA[METHOD  Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TestEvent
+    .ClearEventHandlers()
+    .AddEventHandler(TestEventHandler);
+    
+Assertion.AssertEquals_DINT(
+    Expected      := 1,
+    Actual        := TestEvent.EventHandlers.Count,
+    ObjectName := _TestName,
+    VariableName  := 'TestEvent.EventHandlers.Count');
+    
+
+_TestFinished := TRUE;
+
+    ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

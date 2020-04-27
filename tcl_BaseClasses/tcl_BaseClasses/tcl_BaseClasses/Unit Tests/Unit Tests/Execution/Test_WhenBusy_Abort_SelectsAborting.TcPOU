@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_WhenBusy_Abort_SelectsAborting" Id="{8318710c-f8d2-4ba9-8dcc-07a00e8e1868}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_WhenBusy_Abort_SelectsAborting EXTENDS TUnitTestbase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{1d623fb4-6290-4231-8fce-d12b4af92c05}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR
+    Execution : TExecution;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+Execution.Start();
+Execution.SetBusy();
+Execution.Abort();
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Aborting,
+    ObjectName := _TestName,
+    VariableName  := 'Execution.Aborting');
+
+Test_Finished();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

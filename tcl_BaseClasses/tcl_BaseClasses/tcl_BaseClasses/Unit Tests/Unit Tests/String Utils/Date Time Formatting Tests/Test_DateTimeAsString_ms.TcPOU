@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_DateTimeAsString_ms" Id="{e1762af4-84bd-4bfa-ad92-86f0b2f3caa5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_DateTimeAsString_ms EXTENDS TUnitTestBase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{79e5e476-6795-4fa2-a45a-8bc959bdbcb2}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    TimeStruct : TIMESTRUCT := (wDay := 23, wMonth := 12, wYear := 1945, wHour := 22, wMinute := 20, wSecond := 18, wMilliseconds := 512);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Assertion.AssertEquals_STRING(
+    Expected := '22:20:18.512 23/12/1945',
+    Actual   := F_DateTimeAsString_ms(TimeStruct),
+    ObjectName := _TestName,
+    VariableName  := 'F_DateTimeAsString_ms(TimeStruct)');
+
+
+Test_Finished();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

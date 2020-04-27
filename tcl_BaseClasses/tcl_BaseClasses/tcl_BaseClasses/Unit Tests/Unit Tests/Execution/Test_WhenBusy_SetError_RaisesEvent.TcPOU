@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_WhenBusy_SetError_RaisesEvent" Id="{4fc5e7b8-f2f4-47de-b505-6b6c246cb88d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_WhenBusy_SetError_RaisesEvent EXTENDS TUnitTestbase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{ccb6365e-d9a0-473f-9d63-348d3c4e2c8a}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    Execution : TExecution;
+    EventHandler : TEventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+Events.Event_OnAbort.ClearEventHandlers().AddEventHandler(EventHandler);
+Events.Event_OnError.ClearEventHandlers().AddEventHandler(EventHandler);
+
+Execution.Start(); // sets Starting
+Execution.SetBusy(); // Sets Busy
+Execution.SetError(ErrorId := 16#1234); // Sets Error
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := EventHandler.FailedEventRaised,
+    ObjectName := _TestName,
+    VariableName  := 'EventHandler.FailedEventRaised');
+   
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Error,
+    ObjectName := _TestName,
+    VariableName  := 'Execution.Error');
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 16#1234,
+    Actual   := Execution.ErrorId,
+    ObjectName := _TestName,
+    VariableName  := 'Execution.ErrorId');
+    
+    
+Test_Finished();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_WhenBusy_SetAborted_RaisesEvent" Id="{db5dce99-ecbe-48eb-b73f-6ce45113ba21}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_WhenBusy_SetAborted_RaisesEvent EXTENDS TUnitTestbase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{711dae55-0d96-4a43-bc19-3c1d9967c54c}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    Execution : TExecution;
+    EventHandler : TEventHandler;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+Events.Event_OnAbort.ClearEventHandlers().AddEventHandler(EventHandler);
+Events.Event_OnError.ClearEventHandlers().AddEventHandler(EventHandler);
+
+Execution.Start();
+Execution.SetBusy();
+Execution.SetAborted(); // raises error event
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := EventHandler.AbortedEventRaised,
+    ObjectName := _TestName,
+    VariableName  := 'EventHandler.AbortedEventRaised');
+    
+    
+Test_Finished();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

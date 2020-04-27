@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_WhenBusy_SetDone_SetsDone" Id="{0711fba5-2047-4dd9-974b-a4271be3afd0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_WhenBusy_SetDone_SetsDone EXTENDS TUnitTestbase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{5bb87ee5-d21b-4074-aa65-95dc1ff4aebd}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    Execution : TExecution;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+Execution.Start();
+Execution.SetBusy();
+Execution.SetDone();
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Done,
+    ObjectName := _TestName,
+    VariableName  := 'Execution.Done');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Ready,
+    ObjectName := _TestName,
+    VariableName  := 'Execution.Ready');
+
+Test_Finished();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

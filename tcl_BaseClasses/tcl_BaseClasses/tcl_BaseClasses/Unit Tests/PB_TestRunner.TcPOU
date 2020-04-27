@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="PB_TestRunner" Id="{e18b5be7-3dbb-41be-b8f1-4eaf6def33c0}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PB_TestRunner
+VAR
+    Test_HandlerIsAddedToEventHandlerList           : Test_HandlerIsAddedToEventHandlerList;
+    Test_HandlerListStoresAndRetreivesHandlers      : Test_HandlerListStoresAndRetreivesHandlers;  
+    Test_AddEventHandler_ChecksInterfaceSupported   : Test_AddEventHandler_ChecksInterfaceSupported; 
+    Test_AddEventHandler_FailsWhenListFull          : Test_AddEventHandler_FailsWhenListFull;
+    Test_AddEventHandler_IncsNumberOfEventHandlers  : Test_AddEventHandler_IncsNumberOfEventHandlers;
+    Test_EventHandler_HandlesRaisedEvent            : Test_EventHandler_HandlesRaisedEvent;
+    
+    Test_WhenBusy_Abort_SelectsAborting : Test_WhenBusy_Abort_SelectsAborting;
+    Test_WhenBusy_SetAborted_RaisesEvent : Test_WhenBusy_SetAborted_RaisesEvent;
+    Test_WhenBusy_SetDone_SetsDone : Test_WhenBusy_SetDone_SetsDone;
+    Test_WhenBusy_SetError_RaisesEvent : Test_WhenBusy_SetError_RaisesEvent;
+    Test_WhenBusy_Start_RaisesEvent : Test_WhenBusy_Start_RaisesEvent;
+    Test_WhenReady_Start_SelectsStarting : Test_WhenReady_Start_SelectsStarting;
+
+    Test_DateAsString                        : Test_DateAsString;
+    Test_DateTimeAsString                    : Test_DateTimeAsString;
+    Test_DateTimeAsString_ms                 : Test_DateTimeAsString_ms;
+    Test_TimeAsString_24HourFormat           : Test_TimeAsString_24HourFormat;
+    Test_TimeAsString_IncludesLeadingZeros   : Test_TimeAsString_IncludesLeadingZeros;
+    Test_TimeAsString_ms                     : Test_TimeAsString_ms;
+    Test_TimestampAsFilenameString           : Test_TimestampAsFilenameString;
+    
+    Test_StringSplitter_Handles_Empty_String : Test_StringSplitter_Handles_Empty_String;
+    Test_StringSplitter_ReturnsRemainder     : Test_StringSplitter_ReturnsRemainder;
+    Test_StringSplitter_Splits_On_Tab        : Test_StringSplitter_Splits_On_Tab;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[tcl_UnitTest.TestFramework.TestRunner();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

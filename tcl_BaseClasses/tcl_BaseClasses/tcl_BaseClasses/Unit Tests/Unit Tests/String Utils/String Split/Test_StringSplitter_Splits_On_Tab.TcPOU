@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_StringSplitter_Splits_On_Tab" Id="{5c0b1d11-51a1-4505-bd9b-cf6f050d59d1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_StringSplitter_Splits_On_Tab EXTENDS TUnitTestBase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{6f7cf1e7-b0ef-4ce2-87a8-915aa635f2c2}">
+      <Declaration><![CDATA[METHOD  Execute
+VAR_INST
+    StringSplitter : TStringSplitter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Test_Started();
+
+StringSplitter.Init(
+    Str    := 'Bob$TCharles$TDavid',
+    Delim1 := '$T',
+    Delim2 := '');
+
+Assertion.AssertEquals_STRING(
+    Expected := 'Bob',
+    Actual   := StringSplitter.GetNext(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetNext()');
+
+Assertion.AssertEquals_STRING(
+    Expected := 'Charles',
+    Actual   := StringSplitter.GetNext(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetNext()');
+
+Assertion.AssertEquals_STRING(
+    Expected := 'David',
+    Actual   := StringSplitter.GetNext(),
+    ObjectName := _TestName,
+    VariableName  := 'StringSplitter.GetNext()');
+
+
+Test_Finished();]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

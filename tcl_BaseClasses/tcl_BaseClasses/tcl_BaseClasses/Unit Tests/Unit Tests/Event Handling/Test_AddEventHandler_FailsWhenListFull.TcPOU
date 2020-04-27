@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="Test_AddEventHandler_FailsWhenListFull" Id="{8d953031-8f81-4063-b7a5-73759d408834}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AddEventHandler_FailsWhenListFull EXTENDS TUnitTestBase
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    TestEvent : TTestEvent;
+    TestEventHandler : TTestEventHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Execute" Id="{51830dec-68d7-422f-af9d-bf9fbef39cee}">
+      <Declaration><![CDATA[METHOD  Execute
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TestEvent
+    .ClearEventHandlers()
+    .AddEventHandler(TestEventHandler)
+    .AddEventHandler(TestEventHandler)
+    .AddEventHandler(TestEventHandler)
+    .AddEventHandler(TestEventHandler)
+    .AddEventHandler(TestEventHandler)  // handler list now full - max handlers = 5
+    .AddEventHandler(TestEventHandler); // should trigger an error message
+    
+Assertion.AssertEquals_DINT(
+    Expected := 5, // should be 5
+    Actual   := TestEvent.EventHandlers.Count,
+    ObjectName := _TestName,
+    VariableName  := 'TestEvent.EventHandlers.Count');
+
+Test_Finished();
+    ]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
