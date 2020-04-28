@@ -3,7 +3,7 @@
   <POU Name="Test_HandlerListStoresAndRetreivesHandlers" Id="{417cd3a4-e763-412b-99d8-2dc7453936bf}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_HandlerListStoresAndRetreivesHandlers EXTENDS TUnitTestBase
 VAR
-    EventHandlers : TListOfEventHandlers;
+    EventHandlers : TListOfEventHandlers(Capacity := 5);
     EventHandler1 : TTestEventHandler;
     EventHandler2 : TTestEventHandler;
     EventHandler3 : TTestEventHandler;

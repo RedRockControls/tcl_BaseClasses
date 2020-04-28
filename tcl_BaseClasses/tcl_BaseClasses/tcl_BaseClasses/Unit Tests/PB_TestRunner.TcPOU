@@ -6,7 +6,7 @@ VAR
     Test_HandlerIsAddedToEventHandlerList           : Test_HandlerIsAddedToEventHandlerList;
     Test_HandlerListStoresAndRetreivesHandlers      : Test_HandlerListStoresAndRetreivesHandlers;  
     Test_AddEventHandler_ChecksInterfaceSupported   : Test_AddEventHandler_ChecksInterfaceSupported; 
-    Test_AddEventHandler_FailsWhenListFull          : Test_AddEventHandler_FailsWhenListFull;
+    Test_AddEventHandler_ResizesListWhenListFull    : Test_AddEventHandler_ResizesListWhenListFull;
     Test_AddEventHandler_IncsNumberOfEventHandlers  : Test_AddEventHandler_IncsNumberOfEventHandlers;
     Test_EventHandler_HandlesRaisedEvent            : Test_EventHandler_HandlesRaisedEvent;
     

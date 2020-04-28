@@ -28,11 +28,11 @@ END_IF
     <Method Name="IsHandlerSupported" Id="{5ddf9687-a363-43ee-941d-d4386fc03b98}">
       <Declaration><![CDATA[METHOD IsHandlerSupported : BOOL
 VAR_INPUT
-    EventHandler : IEventHandlerBase;
+    HandlerBase : IEventHandlerBase;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF __QUERYINTERFACE(EventHandler,Handler) THEN
+        <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
     IsHandlerSupported := TRUE;
 END_IF
 

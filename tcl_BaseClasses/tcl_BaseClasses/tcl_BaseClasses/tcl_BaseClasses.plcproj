@@ -60,7 +60,7 @@
     <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_ChecksInterfaceSupported.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_FailsWhenListFull.TcPOU">
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_ResizesListWhenListFull.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_IncsNumberOfEventHandlers.TcPOU">
