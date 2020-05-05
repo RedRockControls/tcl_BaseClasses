@@ -9,6 +9,7 @@ VAR
     Test_AddEventHandler_ResizesListWhenListFull    : Test_AddEventHandler_ResizesListWhenListFull;
     Test_AddEventHandler_IncsNumberOfEventHandlers  : Test_AddEventHandler_IncsNumberOfEventHandlers;
     Test_EventHandler_HandlesRaisedEvent            : Test_EventHandler_HandlesRaisedEvent;
+    Test_EventHandler_HandlesRaisedEvent_UsesEventArgs : Test_EventHandler_HandlesRaisedEvent_UsesEventArgs;
     
     Test_WhenBusy_Abort_SelectsAborting : Test_WhenBusy_Abort_SelectsAborting;
     Test_WhenBusy_SetAborted_RaisesEvent : Test_WhenBusy_SetAborted_RaisesEvent;

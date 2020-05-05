@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.1.0</ProjectVersion>
+    <ProjectVersion>1.0.2.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Unit Tests added</Description>
+    <Description>EventArgs added to Base Event</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -42,16 +42,25 @@
     <Compile Include="Unit Tests\Example Event Handlers\ITestEventHandler.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Example Event Handlers\ITestEventHandler_UsesEventArgs.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Unit Tests\Example Event Handlers\IUnsupportedEventHandler.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Example Event Handlers\TTestEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Example Event Handlers\TTestEventHandler_UsesEventArgs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Unit Tests\Example Event Handlers\TUnsupportedEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Example Event\TTestEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Example Event\TTestEvent_UsesEventArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\PB_TestRunner.TcPOU">
@@ -67,6 +76,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_EventHandler_HandlesRaisedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_EventHandler_HandlesRaisedEvent_UsesEventArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_HandlerIsAddedToEventHandlerList.TcPOU">
@@ -217,6 +229,11 @@
     <PlaceholderReference Include="tcl_Execution">
       <DefaultResolution>tcl_Execution, * (Red Rock Controls Limited)</DefaultResolution>
       <Namespace>tcl_Execution</Namespace>
+      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
+    </PlaceholderReference>
+    <PlaceholderReference Include="tcl_Stream">
+      <DefaultResolution>tcl_Stream, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_Stream</Namespace>
       <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
     <PlaceholderReference Include="tcl_StringUtils">
