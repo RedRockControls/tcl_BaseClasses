@@ -30,7 +30,12 @@ END_VAR
     .AddEventHandler(TestEventHandler4)
     .AddEventHandler(TestEventHandler5);
     
-TestEvent.EventArgs.Clear().Add_UDINT(21).Add_LREAL(1.23).Add_STRING('OnePointTwoThree').Add_T_MaxString('Big Long String').Add_BOOL(TRUE);    
+TestEvent.Args
+    .Add_UDINT(21)
+    .Add_LREAL(1.23)
+    .Add_STRING('OnePointTwoThree')
+    .Add_T_MaxString('Big Long String')
+    .Add_BOOL(TRUE);    
 TestEvent.Raise();
 
 Assertion.AssertEquals_BOOL(

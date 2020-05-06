@@ -6,7 +6,7 @@
     <Method Name="OnCustomEvent" Id="{421a15e4-156d-4b3c-bbf9-040d84929891}">
       <Declaration><![CDATA[METHOD OnCustomEvent
 VAR_INPUT
-    EventData : UDINT;
+    EventArgs : IStreamReader;
 END_VAR
 ]]></Declaration>
     </Method>

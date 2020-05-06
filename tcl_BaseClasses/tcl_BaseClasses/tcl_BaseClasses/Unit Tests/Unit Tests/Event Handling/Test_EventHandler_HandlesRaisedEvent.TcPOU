@@ -30,7 +30,8 @@ END_VAR
     .AddEventHandler(TestEventHandler4)
     .AddEventHandler(TestEventHandler5);
     
-TestEvent.RaiseEx(21);
+TestEvent.Args.Add_UDINT(21);    
+TestEvent.Raise();
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,

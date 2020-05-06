@@ -29,12 +29,11 @@ END_VAR
     <Method Name="OnThisEvent" Id="{32bca1ad-47a1-4053-b3a9-9525fcd08993}">
       <Declaration><![CDATA[METHOD OnThisEvent
 VAR_INPUT
-    EventArgs : IStream;
+    EventArgs : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[EventArgs.Seek(0);
-Arg1 := EventArgs.Read_UDINT();
+        <ST><![CDATA[Arg1 := EventArgs.Read_UDINT();
 Arg2 := EventArgs.Read_LREAL();
 Arg3 := EventArgs.Read_String();
 Arg4 := EventArgs.Read_T_MaxString();

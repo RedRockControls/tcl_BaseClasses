@@ -6,7 +6,7 @@
     <Method Name="OnThisEvent" Id="{eb402ea7-bd0c-4a40-b0b1-133ce76d3ba0}">
       <Declaration><![CDATA[METHOD OnThisEvent
 VAR_INPUT
-    EventArgs : IStream;
+    EventArgs : IStreamReader;
 END_VAR]]></Declaration>
     </Method>
   </Itf>

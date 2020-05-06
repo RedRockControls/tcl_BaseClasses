@@ -4,7 +4,6 @@
     <Declaration><![CDATA[FUNCTION_BLOCK TTestEvent EXTENDS TEventBase 
 VAR
     Handler : ITestEventHandler;
-    EventData : UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -14,11 +13,12 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE CallHandler
 VAR_INPUT
     HandlerBase : IEventHandlerBase;
+    EventArgs   : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
-    Handler.OnCustomEvent(EventData);
+    Handler.OnCustomEvent(EventArgs);
 ELSE
     F_LogError('Event Handling',F_FormatStringEx1('Error raising %s - invalid handler',EventName));
 END_IF
@@ -37,17 +37,6 @@ END_VAR
 END_IF
 
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="RaiseEx" Id="{408d0f2c-d653-4ed1-b035-7000ee69ab0d}">
-      <Declaration><![CDATA[METHOD RaiseEx
-VAR_INPUT
-    EventData : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^.EventData := EventData;
-SUPER^.Raise();]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -13,6 +13,7 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE CallHandler
 VAR_INPUT
     HandlerBase : IEventHandlerBase;
+    EventArgs   : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>

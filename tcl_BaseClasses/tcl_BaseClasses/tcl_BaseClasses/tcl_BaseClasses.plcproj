@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.2.0</ProjectVersion>
+    <ProjectVersion>1.0.3.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>EventArgs added to Base Event</Description>
+    <Description>Tests updated to test event args</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -39,22 +39,22 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\ITestEventHandler.TcIO">
+    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler With Args\ITestEventHandler_UsesEventArgs.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\ITestEventHandler_UsesEventArgs.TcIO">
+    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler With Args\TTestEventHandler_UsesEventArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\IUnsupportedEventHandler.TcIO">
+    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler\ITestEventHandler.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\TTestEventHandler.TcPOU">
+    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler\TTestEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\TTestEventHandler_UsesEventArgs.TcPOU">
+    <Compile Include="Unit Tests\Example Event Handlers\Unsupported Event Handler\IUnsupportedEventHandler.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\TUnsupportedEventHandler.TcPOU">
+    <Compile Include="Unit Tests\Example Event Handlers\Unsupported Event Handler\TUnsupportedEventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Example Event\TTestEvent.TcPOU">
@@ -152,6 +152,9 @@
     <Folder Include="Unit Tests" />
     <Folder Include="Unit Tests\Example Event" />
     <Folder Include="Unit Tests\Example Event Handlers" />
+    <Folder Include="Unit Tests\Example Event Handlers\Test Event Handler With Args" />
+    <Folder Include="Unit Tests\Example Event Handlers\Test Event Handler" />
+    <Folder Include="Unit Tests\Example Event Handlers\Unsupported Event Handler" />
     <Folder Include="Unit Tests\Unit Tests" />
     <Folder Include="Unit Tests\Unit Tests\Event Handling" />
     <Folder Include="Unit Tests\Unit Tests\Execution" />
@@ -286,10 +289,71 @@
             <v>Rules</v>
             <o>
               <v n="Name">"Rules"</v>
-              <d n="SubKeys" t="Hashtable" />
+              <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+                <v>167</v>
+                <o>
+                  <v n="Name">"167"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>4</v>
+                <o>
+                  <v n="Name">"4"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>33</v>
+                <o>
+                  <v n="Name">"33"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>6</v>
+                <o>
+                  <v n="Name">"6"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>27</v>
+                <o>
+                  <v n="Name">"27"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>28</v>
+                <o>
+                  <v n="Name">"28"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+              </d>
               <d n="Values" t="Hashtable" />
             </o>
           </d>
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" />
         </o>
         <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>

@@ -39,25 +39,6 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Property Name="EventMessage" Id="{1623a7a6-d174-4447-a320-a4160363ceea}">
-      <Declaration><![CDATA[PROPERTY EventMessage : T_MaxString]]></Declaration>
-      <Get Name="Get" Id="{206d8337-4b37-4d70-81a2-bc512455b389}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{b09b8163-efaa-4fd1-a418-7b23b8fe5678}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Property Name="FailedEventRaised" Id="{baf314f0-2868-46c2-bf52-35702b2bd54d}">
       <Declaration><![CDATA[PROPERTY FailedEventRaised : BOOL]]></Declaration>
       <Get Name="Get" Id="{9a9eb52b-fb7c-4514-8a3f-1adc36a2f8b6}">
@@ -82,23 +63,23 @@ END_VAR
     <Method Name="OnExecutionAborted" Id="{43f4685c-b454-47b8-b453-3776181a57de}">
       <Declaration><![CDATA[METHOD OnExecutionAborted
 VAR_INPUT
-	Message	: Tc2_System.T_MaxString;
+	EventArgs : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_AbortedEventRaised := TRUE;
-_EventMessage := Message;]]></ST>
+_EventMessage := EventArgs.Read_T_MaxString();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecutionFailed" Id="{7b6e5be1-7bfd-4bcc-a964-b69bd7943de1}">
       <Declaration><![CDATA[METHOD OnExecutionFailed
 VAR_INPUT
-	Message	: Tc2_System.T_MaxString;
+	EventArgs : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_FailedEventRaised := TRUE;
-_EventMessage := Message;]]></ST>
+_EventMessage := EventArgs.Read_T_MaxString();]]></ST>
       </Implementation>
     </Method>
   </POU>

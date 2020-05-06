@@ -25,11 +25,11 @@ END_VAR
     <Method Name="OnCustomEvent" Id="{d6e5babe-d6eb-4995-8c07-2c5fc8c98c96}">
       <Declaration><![CDATA[METHOD OnCustomEvent
 VAR_INPUT
-    EventData : UDINT;
+    EventArgs : IStreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_EventData := EventData;
+        <ST><![CDATA[_EventData := EventArgs.Read_UDINT();
 _EventWasRaised := TRUE;
 ]]></ST>
       </Implementation>
