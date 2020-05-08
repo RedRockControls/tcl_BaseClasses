@@ -34,7 +34,7 @@ TestEvent.Args
     .Add_UDINT(21)
     .Add_LREAL(1.23)
     .Add_STRING('OnePointTwoThree')
-    .Add_T_MaxString('Big Long String')
+    .Add_STRING('Big Long String')
     .Add_BOOL(TRUE);    
 TestEvent.Raise();
 

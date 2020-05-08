@@ -68,7 +68,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_AbortedEventRaised := TRUE;
-_EventMessage := EventArgs.Read_T_MaxString();]]></ST>
+_EventMessage := EventArgs.Read_STRING();]]></ST>
       </Implementation>
     </Method>
     <Method Name="OnExecutionFailed" Id="{7b6e5be1-7bfd-4bcc-a964-b69bd7943de1}">
@@ -79,7 +79,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_FailedEventRaised := TRUE;
-_EventMessage := EventArgs.Read_T_MaxString();]]></ST>
+_EventMessage := EventArgs.Read_STRING();]]></ST>
       </Implementation>
     </Method>
   </POU>

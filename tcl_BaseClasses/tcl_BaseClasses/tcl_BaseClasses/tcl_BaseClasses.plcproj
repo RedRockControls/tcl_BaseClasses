@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.3.0</ProjectVersion>
+    <ProjectVersion>1.0.4.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Tests updated to test event args</Description>
+    <Description>tcl_Stream ref removed</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -232,11 +232,6 @@
     <PlaceholderReference Include="tcl_Execution">
       <DefaultResolution>tcl_Execution, * (Red Rock Controls Limited)</DefaultResolution>
       <Namespace>tcl_Execution</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
-    </PlaceholderReference>
-    <PlaceholderReference Include="tcl_Stream">
-      <DefaultResolution>tcl_Stream, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_Stream</Namespace>
       <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
     <PlaceholderReference Include="tcl_StringUtils">

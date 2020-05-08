@@ -36,7 +36,7 @@ END_VAR
         <ST><![CDATA[Arg1 := EventArgs.Read_UDINT();
 Arg2 := EventArgs.Read_LREAL();
 Arg3 := EventArgs.Read_String();
-Arg4 := EventArgs.Read_T_MaxString();
+Arg4 := EventArgs.Read_STRING();
 Arg5 := EventArgs.Read_BOOL();
 
 _EventWasRaised := TRUE;
