@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <GVL Name="ExecutionEvents" Id="{64546398-db5d-0d66-2782-a6500d59e54d}">
+    <Declaration><![CDATA[(*
+Global event instances 
+These events are raised by all instances of TExecution by default when an error occurs
+This behaviour can be overidden by setting the Event_OnError or Event_OnAbort properties
+of the instance of TExecution to 0
+*)
+{attribute 'qualified_only'}
+VAR_GLOBAL
+    Event_OnError : TEvent_ExecutionFailed;
+    Event_OnAbort : TEvent_ExecutionAborted;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

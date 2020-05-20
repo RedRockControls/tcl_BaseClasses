@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <DUT Name="TExecutionState" Id="{06db8b1a-766b-063d-044e-a4edc8714d9c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE TExecutionState :
+(
+    Ready := 0,
+	Starting,
+    Busy,
+    Aborting);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

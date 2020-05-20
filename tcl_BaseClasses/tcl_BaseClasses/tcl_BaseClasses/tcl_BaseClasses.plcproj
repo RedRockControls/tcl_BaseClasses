@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.4.0</ProjectVersion>
+    <ProjectVersion>1.0.7.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>tcl_Stream ref removed</Description>
+    <Description>AddBlob, ReadBlob methods added to TStream
+F_TypeClassToString</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -33,181 +34,6 @@
     </SelectedLibraryCategories>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GlobalTextList.TcGTLO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PlcTask.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler With Args\ITestEventHandler_UsesEventArgs.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler With Args\TTestEventHandler_UsesEventArgs.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler\ITestEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Test Event Handler\TTestEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Unsupported Event Handler\IUnsupportedEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event Handlers\Unsupported Event Handler\TUnsupportedEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event\TTestEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Example Event\TTestEvent_UsesEventArgs.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\PB_TestRunner.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_ChecksInterfaceSupported.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_ResizesListWhenListFull.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_AddEventHandler_IncsNumberOfEventHandlers.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_EventHandler_HandlesRaisedEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_EventHandler_HandlesRaisedEvent_UsesEventArgs.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_HandlerIsAddedToEventHandlerList.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Event Handling\Test_HandlerListStoresAndRetreivesHandlers.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Example Event Handler\TEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_Abort_SelectsAborting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetAborted_RaisesEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetDone_SetsDone.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_SetError_RaisesEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenBusy_Start_RaisesEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\Execution\Test_WhenReady_Start_SelectsStarting.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateAsString.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateTimeAsString.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_DateTimeAsString_ms.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_24HourFormat.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_IncludesLeadingZeros.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimeAsString_ms.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests\Test_TimestampAsFilenameString.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_Handles_Empty_String.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_ReturnsRemainder.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Unit Tests\String Utils\String Split\Test_StringSplitter_Splits_On_Tab.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Visualization Manager.TcVMO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VISUs\Visualization.TcVIS">
-      <SubType>Code</SubType>
-      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DUTs" />
-    <Folder Include="GVLs" />
-    <Folder Include="Unit Tests" />
-    <Folder Include="Unit Tests\Example Event" />
-    <Folder Include="Unit Tests\Example Event Handlers" />
-    <Folder Include="Unit Tests\Example Event Handlers\Test Event Handler With Args" />
-    <Folder Include="Unit Tests\Example Event Handlers\Test Event Handler" />
-    <Folder Include="Unit Tests\Example Event Handlers\Unsupported Event Handler" />
-    <Folder Include="Unit Tests\Unit Tests" />
-    <Folder Include="Unit Tests\Unit Tests\Event Handling" />
-    <Folder Include="Unit Tests\Unit Tests\Execution" />
-    <Folder Include="Unit Tests\Unit Tests\Execution\Example Event Handler" />
-    <Folder Include="Unit Tests\Unit Tests\String Utils" />
-    <Folder Include="Unit Tests\Unit Tests\String Utils\Date Time Formatting Tests" />
-    <Folder Include="Unit Tests\Unit Tests\String Utils\String Split" />
-    <Folder Include="VISUs" />
-    <Folder Include="POUs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PlaceholderReference Include="System_VisuElemMeter">
-      <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>
-      <Namespace>VisuElemMeter</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="System_VisuElems">
-      <DefaultResolution>VisuElems, 3.5.13.40 (System)</DefaultResolution>
-      <Namespace>VisuElems</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="System_VisuElemsSpecialControls">
-      <DefaultResolution>VisuElemsSpecialControls, 3.5.13.0 (System)</DefaultResolution>
-      <Namespace>VisuElemsSpecialControls</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="System_VisuElemsWinControls">
-      <DefaultResolution>VisuElemsWinControls, 3.5.13.20 (System)</DefaultResolution>
-      <Namespace>VisuElemsWinControls</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="System_VisuElemTextEditor">
-      <DefaultResolution>VisuElemTextEditor, 3.5.13.0 (System)</DefaultResolution>
-      <Namespace>VisuElemTextEditor</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="system_visuinputs">
-      <DefaultResolution>visuinputs, 3.5.13.0 (system)</DefaultResolution>
-      <Namespace>visuinputs</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
-    <PlaceholderReference Include="System_VisuNativeControl">
-      <DefaultResolution>VisuNativeControl, 3.5.13.0 (System)</DefaultResolution>
-      <Namespace>VisuNativeControl</Namespace>
-      <SystemLibrary>true</SystemLibrary>
-      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
-    </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Standard</Namespace>
@@ -220,40 +46,148 @@
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_DynamicMemory">
+      <DefaultResolution>Tc3_DynamicMemory, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_DynamicMemory</Namespace>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
     </PlaceholderReference>
-    <PlaceholderReference Include="tcl_Events">
-      <DefaultResolution>tcl_Events, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_Events</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
-    </PlaceholderReference>
-    <PlaceholderReference Include="tcl_Execution">
-      <DefaultResolution>tcl_Execution, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_Execution</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
-    </PlaceholderReference>
     <PlaceholderReference Include="tcl_StringUtils">
       <DefaultResolution>tcl_StringUtils, * (Red Rock Controls Limited)</DefaultResolution>
       <Namespace>tcl_StringUtils</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
-    </PlaceholderReference>
-    <PlaceholderReference Include="tcl_System">
-      <DefaultResolution>tcl_System, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_System</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
-    </PlaceholderReference>
-    <PlaceholderReference Include="tcl_UnitTest">
-      <DefaultResolution>tcl_UnitTest, * (Red Rock Controls Limited)</DefaultResolution>
-      <Namespace>tcl_UnitTest</Namespace>
-      <PublishSymbolsInContainer>true</PublishSymbolsInContainer>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_BaseClasses.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Classes\Event Framework" />
+    <Folder Include="Classes\Event Framework\Event Base Class" />
+    <Folder Include="Classes\Event Framework\Event Handler Base" />
+    <Folder Include="Classes\Event Framework\List Of Handlers" />
+    <Folder Include="Classes\Execution" />
+    <Folder Include="Classes\Execution\Events" />
+    <Folder Include="Classes\Execution\Events\Execution Aborted" />
+    <Folder Include="Classes\Execution\Events\Execution Failed" />
+    <Folder Include="Classes\Execution\Execution" />
+    <Folder Include="Classes\Function Block Wrappers" />
+    <Folder Include="Classes\Function Block Wrappers\Classes" />
+    <Folder Include="Classes\Function Block Wrappers\Event Logging" />
+    <Folder Include="Classes\Licence Verifier" />
+    <Folder Include="Classes\Stream" />
+    <Folder Include="Functions" />
+    <Folder Include="GVLs" />
+    <Folder Include="Classes" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Event Framework\Event Base Class\IEvent.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Event Framework\Event Base Class\TEventBase.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Event Framework\Event Handler Base\IEventHandlerBase.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Event Framework\List Of Handlers\TListOfEventHandlers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Events\Execution Aborted\IEventHandler_OnExecutionAborted.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Events\Execution Aborted\TEvent_ExecutionAborted.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Events\Execution Failed\IEventHandler_OnExecutionFailed.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Events\Execution Failed\TEvent_ExecutionFailed.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Execution\IExecution.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Execution\TExecution.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Execution\Execution\TExecutionState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TCounter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TFallingEdge.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TOffTimer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TOnTimer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TPulseTimer.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TRisingEdge.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TValueMonitor.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TValueMonitorEx.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Event Logging\F_LogError.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Event Logging\F_LogMessage.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Event Logging\F_LogWarning.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Licence Verifier\TLicenceCheck.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Stream\IStreamReader.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Stream\IStreamWriter.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Stream\TStream.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\ExecutionEvents.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\Globals.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="Functions\F_Assert.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_ClearMem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_Equals.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_GetAdsPort.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_GetTaskTime.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_TypeClassToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_LogError" Id="{0f48e6fb-aae9-4fad-b0f5-92adcfec2fe3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_LogError  
+VAR_INPUT
+    Source  : T_MaxString;
+    Message : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ADSLOGSTR(
+        msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_ERROR OR ADSLOG_MSGTYPE_LOG,
+        msgFmtStr := F_FormatStringEx2('%s : %s',Source,Message),
+        strArg := '');
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IEvent" Id="{c9c895a7-0386-0f72-3866-3ffdb2641a11}">
+    <Declaration><![CDATA[INTERFACE IEvent 
+]]></Declaration>
+    <Method Name="AddEventHandler" Id="{4611bc71-6aea-0128-368b-af6cce41ade0}">
+      <Declaration><![CDATA[METHOD AddEventHandler : IEvent
+VAR_INPUT
+    Handler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Args" Id="{70bc1e42-679d-0d08-12e7-eac8c1b142b3}">
+      <Declaration><![CDATA[PROPERTY Args : IStreamWriter]]></Declaration>
+      <Get Name="Get" Id="{ea14adc6-1a43-0e27-3292-eeae39c37419}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="ClearEventHandlers" Id="{f5d40238-ad00-08f5-363e-e277dec73ddf}">
+      <Declaration><![CDATA[METHOD ClearEventHandlers : IEvent
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Raise" Id="{48329903-1907-0927-2ad8-9cc4d95ea43f}">
+      <Declaration><![CDATA[METHOD Raise
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

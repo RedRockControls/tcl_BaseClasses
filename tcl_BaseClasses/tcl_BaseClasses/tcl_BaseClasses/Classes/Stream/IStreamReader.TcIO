@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IStreamReader" Id="{4ce154d4-15b3-0d46-1c83-b5e5fa9c119b}">
+    <Declaration><![CDATA[INTERFACE IStreamReader
+]]></Declaration>
+    <Folder Name="Methods" Id="{b8877614-48d5-0eca-2865-22e970702037}" />
+    <Method Name="Read_BLOB" Id="{f8c9a894-7e28-4c4d-9d66-adf775a9e61a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BLOB
+VAR_INPUT
+    Value : ANY;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Read_BOOL" Id="{e1bdd036-7870-0f43-0e36-b5bb859b7000}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BOOL : BOOL;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_BYTE" Id="{3ccda0cd-8655-0f56-2bc9-c58e6daa3ce8}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BYTE : BYTE;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_DINT" Id="{48ce2b84-3168-03ca-12f0-71cd392d8654}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_DINT : DINT;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_INT" Id="{0148bb1b-7254-009d-3f2a-34f63964ce35}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_INT : INT;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_LINT" Id="{6c195aa8-b80e-02db-1b75-c81ae8eff187}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LINT : LINT;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_LREAL" Id="{759500c4-a674-0ff0-2e2d-d445694ce533}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LREAL : LREAL;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_PVOID" Id="{3ebc800b-5c5f-0c00-00d9-41734ef2561d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_PVOID : PVOID;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_REAL" Id="{76140bff-57d3-00c0-2b2c-0e5854607f62}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_REAL : REAL;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_STRING" Id="{b6f5d3cd-32d2-0aa1-36c6-26f76c20da1d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_STRING : STRING(255);
+]]></Declaration>
+    </Method>
+    <Method Name="Read_UDINT" Id="{bc95bb0c-f0ce-0a03-227c-c8ac3d307b3a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_UDINT : UDINT;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_UINT" Id="{cda1de9e-731f-09c7-37ed-3632355d115f}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_UINT : UINT;
+]]></Declaration>
+    </Method>
+    <Method Name="Read_ULINT" Id="{c0f7078d-b578-031e-227a-d5f3c9e4196b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_ULINT : ULINT;
+]]></Declaration>
+    </Method>
+    <Method Name="Seek" Id="{86b70d1c-7207-094c-05c9-c562e8f29569}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Seek: IStreamWriter
+VAR_INPUT
+    Position : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

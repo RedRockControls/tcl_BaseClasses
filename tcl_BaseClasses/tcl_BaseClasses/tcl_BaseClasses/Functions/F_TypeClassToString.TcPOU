@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_TypeClassToString" Id="{b1da1a9b-ab50-4761-8787-9f60f4acefd4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_TypeClassToString : STRING
+VAR_INPUT
+    TypeClass : __SYSTEM.TYPE_CLASS;
+END_VAR
+VAR
+    Result : STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE TypeClass OF
+    __SYSTEM.TYPE_CLASS.TYPE_BOOL          : Result := 'BOOL';
+    __SYSTEM.TYPE_CLASS.TYPE_BIT           : Result := 'BOOL';
+    __SYSTEM.TYPE_CLASS.TYPE_BYTE          : Result := 'BYTE';
+    __SYSTEM.TYPE_CLASS.TYPE_WORD          : Result := 'WORD';
+    __SYSTEM.TYPE_CLASS.TYPE_DWORD         : Result := 'DWORD';
+    __SYSTEM.TYPE_CLASS.TYPE_LWORD         : Result := 'DWORD';
+    __SYSTEM.TYPE_CLASS.TYPE_SINT          : Result := 'SINT';
+    __SYSTEM.TYPE_CLASS.TYPE_INT           : Result := 'INT';
+    __SYSTEM.TYPE_CLASS.TYPE_DINT          : Result := 'DINT';
+    __SYSTEM.TYPE_CLASS.TYPE_LINT          : Result := 'LINT';
+    __SYSTEM.TYPE_CLASS.TYPE_USINT         : Result := 'USINT';
+    __SYSTEM.TYPE_CLASS.TYPE_UINT          : Result := 'UINT';
+    __SYSTEM.TYPE_CLASS.TYPE_UDINT         : Result := 'UDINT';
+    __SYSTEM.TYPE_CLASS.TYPE_ULINT         : Result := 'ULINT';
+    __SYSTEM.TYPE_CLASS.TYPE_REAL          : Result := 'REAL';
+    __SYSTEM.TYPE_CLASS.TYPE_LREAL         : Result := 'LREAL';
+    __SYSTEM.TYPE_CLASS.TYPE_STRING        : Result := 'STRING';
+    __SYSTEM.TYPE_CLASS.TYPE_WSTRING       : Result := 'WSTRING';     
+    __SYSTEM.TYPE_CLASS.TYPE_TIME          : Result := 'TIME';        
+    __SYSTEM.TYPE_CLASS.TYPE_DATE          : Result := 'DATE';        
+    __SYSTEM.TYPE_CLASS.TYPE_DATEANDTIME   : Result := 'DATEANDTIME'; 
+    __SYSTEM.TYPE_CLASS.TYPE_TIMEOFDAY     : Result := 'TIMEOFDAY';   
+    __SYSTEM.TYPE_CLASS.TYPE_POINTER       : Result := 'POINTER';     
+    __SYSTEM.TYPE_CLASS.TYPE_REFERENCE     : Result := 'REFERENCE';   
+    __SYSTEM.TYPE_CLASS.TYPE_SUBRANGE      : Result := 'SUBRANGE';    
+    __SYSTEM.TYPE_CLASS.TYPE_ENUM          : Result := 'ENUM';        
+    __SYSTEM.TYPE_CLASS.TYPE_ARRAY         : Result := 'ARRAY';      
+    __SYSTEM.TYPE_CLASS.TYPE_PARAMS        : Result := 'PARAMS';      
+    __SYSTEM.TYPE_CLASS.TYPE_USERDEF       : Result := 'USERDEF';     
+    __SYSTEM.TYPE_CLASS.TYPE_NONE          : Result := 'NONE';        
+    __SYSTEM.TYPE_CLASS.TYPE_ANY           : Result := 'ANY';         
+    __SYSTEM.TYPE_CLASS.TYPE_ANYBIT        : Result := 'ANYBIT';      
+    __SYSTEM.TYPE_CLASS.TYPE_ANYDATE       : Result := 'ANYDATE';     
+    __SYSTEM.TYPE_CLASS.TYPE_ANYINT        : Result := 'ANYINT';      
+    __SYSTEM.TYPE_CLASS.TYPE_ANYNUM        : Result := 'ANYNUM';      
+    __SYSTEM.TYPE_CLASS.TYPE_ANYREAL       : Result := 'ANYREAL';     
+    __SYSTEM.TYPE_CLASS.TYPE_LAZY          : Result := 'LAZY';        
+    __SYSTEM.TYPE_CLASS.TYPE_BITCONST      : Result := 'BITCONST';    
+ELSE
+    Result := DWORD_TO_STRING(TypeClass);
+END_CASE
+
+F_TypeClassToString := Result;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

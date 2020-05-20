@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TEventBase" Id="{720ebf79-c150-0ee1-0a2c-8a2b014bb121}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'reflection'}
+FUNCTION_BLOCK ABSTRACT TEventBase IMPLEMENTS IEvent
+VAR
+    EventHandlers : TListOfEventHandlers(Capacity := 5);
+    
+    {attribute 'instance-path'} {attribute 'no_init'}
+    EventName : T_MaxString; // Automatically initialised with the full name of the instance   
+    
+    EventArgs : TStream(StreamLength := 8);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddEventHandler" Id="{fac94ceb-09e8-0c42-3422-f61b79869355}">
+      <Declaration><![CDATA[METHOD AddEventHandler : IEvent
+VAR_INPUT
+    Handler : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF IsHandlerSupported(Handler) THEN
+    EventHandlers.AddHandler(Handler);
+ELSE
+    F_LogError(
+        Source  := 'Event Handling',
+        Message := F_FormatStringEx1(
+                      Format := 'Error adding event handler to %s - handler not implemented',
+                      Arg1   := EventName));
+END_IF
+AddEventHandler := THIS^;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Args" Id="{a18ec44b-b2bb-0d6e-00e1-3cc9afdf8f65}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Args : IStreamWriter]]></Declaration>
+      <Get Name="Get" Id="{131c9f6c-d685-0dc6-0c2d-8edfc67e855a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Args := EventArgs;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="CallHandler" Id="{d21491e4-062a-0729-1d4a-7c6d64c8e4e5}">
+      <Declaration><![CDATA[METHOD ABSTRACT CallHandler
+VAR_INPUT
+    HandlerBase : IEventHandlerBase;
+    EventArgs : IStreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearEventHandlers" Id="{4cb8b6ff-767b-0ea6-0e34-89f3978cdefb}">
+      <Declaration><![CDATA[METHOD ClearEventHandlers : IEvent
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[EventHandlers.Clear();
+ClearEventHandlers := THIS^;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsHandlerSupported" Id="{539bb4e2-623c-0ec0-3e41-d67563c031d7}">
+      <Declaration><![CDATA[METHOD ABSTRACT IsHandlerSupported : BOOL
+VAR_INPUT
+    HandlerBase : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Raise" Id="{e0f1ad27-77a6-08d5-08c8-71ccdfdf6f90}">
+      <Declaration><![CDATA[METHOD Raise
+VAR
+    HandlerBase : IEventHandlerBase;
+    i : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF EventHandlers.Count > 0 THEN
+    FOR i := 0 TO EventHandlers.Count - 1 DO
+        HandlerBase := EventHandlers.GetHandler(i);
+        IF HandlerBase <> 0 THEN
+            EventArgs.Seek(0); // to ensure that each handler reads args from start of the stream
+            CallHandler(HandlerBase,EventArgs);
+        END_IF
+    END_FOR
+END_IF
+EventArgs.Clear(); // to leave event args empty for next time event is raised
+Globals.LicenceCheck();
+]]></ST>
+      </Implementation>
+    </Method>
+    <ObjectProperties>
+      <XmlArchive>
+        <Data>
+          <o xml:space="preserve" t="LicenseProperty">
+            <l2 n="Licenses" />
+          </o>
+        </Data>
+        <TypeList>
+          <Type n="LicenseProperty">{ec6b18ef-cd41-4646-b1b3-985c60f930b9}</Type>
+        </TypeList>
+      </XmlArchive>
+    </ObjectProperties>
+  </POU>
+</TcPlcObject>

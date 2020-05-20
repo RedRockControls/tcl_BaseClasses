@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_Equals" Id="{50cce4b2-d4d9-4bd2-8103-28d757eee48c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Equals : BOOL
+VAR_INPUT
+    In1 : LREAL;
+    In2 : LREAL;
+    Delta : LREAL;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_Equals := ABS(In1 - In2) < Delta;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

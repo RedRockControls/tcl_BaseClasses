@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="TCounter" Id="{9ae51f40-0403-4a86-af5a-dd20e2f13d36}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TCounter
+VAR
+    Count : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Dec" Id="{b171eb38-4d54-4cd6-ba87-90a20011def8}">
+      <Declaration><![CDATA[METHOD Dec : DINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Count := Count - 1;
+Dec := Count;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Inc" Id="{5991a3e3-6db5-42ff-a03f-727af1168b75}">
+      <Declaration><![CDATA[METHOD Inc : DINT
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Count := Count + 1;
+Inc := Count;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{cbcf06e0-d3ca-4315-8289-cb98c114d361}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Count := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Value" Id="{e951dec6-7422-4b6b-aa6c-19510cfee734}">
+      <Declaration><![CDATA[PROPERTY Value : DINT]]></Declaration>
+      <Get Name="Get" Id="{b2ac9b57-6bf7-42c8-a903-1b7f5f32981e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Value := Count;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{c1ab0f6c-d578-4e72-976a-de1aaf765510}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := Value;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ValueAsTArg" Id="{b4294afa-304a-49ee-9808-015ca4b4ff95}">
+      <Declaration><![CDATA[PROPERTY ValueAsTArg : T_Arg]]></Declaration>
+      <Get Name="Get" Id="{a9cee73b-b802-48ba-905a-a816c5c7cf4d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ValueAsTArg := F_DINT(Count);]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_Assert" Id="{c2a4a3b7-121d-0147-13ef-bd518c99fcd6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Assert : BOOL
+VAR_INPUT
+    Assertion : BOOL;
+    FailMessage : T_MaxString;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_Assert := Assertion;
+IF Assertion = FALSE THEN
+    ADSLOGSTR(
+        msgCtrlMask  := ADSLOG_MSGTYPE_ERROR OR ADSLOG_MSGTYPE_MSGBOX,
+        msgFmtStr    := FailMessage,
+        strArg       := '');
+END_IF
+        ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
