@@ -18,10 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.7.0</ProjectVersion>
+    <ProjectVersion>1.0.8.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>AddBlob, ReadBlob methods added to TStream
-F_TypeClassToString</Description>
+    <Description>Execution error string corrected</Description>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{b2d1a5b0-32d7-4314-b073-3ef844283ec3}</Id>
@@ -183,9 +182,6 @@ F_TypeClassToString</Description>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_GetTaskTime.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Functions\F_TypeClassToString.TcPOU">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -268,7 +268,7 @@ END_VAR
     _State   := TExecutionState.Ready;
     
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString2('Error %04x in %s',F_UDINT(_ErrorId),F_STRING(Name)));
+        _Event_OnError.Args.Add_STRING(F_FormatString2('Error 0x%0.4X in %s',F_UDINT(_ErrorId),F_STRING(Name)));
         _Event_OnError.Raise();
     END_IF
 END_IF
