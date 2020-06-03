@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <POU Name="F_UDINT_TO_DINT" Id="{385cda2d-2d58-4cf8-a0cc-93acc0027c7b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_UDINT_TO_DINT : DINT
+VAR_INPUT
+    value : UDINT;
+END_VAR
+VAR
+    inRangeValue : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF value.31 THEN // out of range
+    inRangeValue := 16#7FFF_FFFF; // ‭Max DINT = 2147483647‬
+ELSE
+    inRangeValue := value;
+END_IF
+F_UDINT_TO_DINT := UDINT_TO_DINT(inRangeValue);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
