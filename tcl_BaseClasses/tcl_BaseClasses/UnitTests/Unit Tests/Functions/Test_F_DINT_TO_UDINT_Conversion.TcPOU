@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_F_DINT_TO_UDINT_Conversion" Id="{d96d667f-776c-46a6-9222-9971c1431ec6}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_DINT_TO_UDINT_Conversion EXTENDS TUnitTestBase
+VAR
+    InputValue : DINT;
+    ConvertedValue : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[InputValue := -20; // wrong sign
+ConvertedValue := F_DINT_TO_UDINT(InputValue); // limit to zero
+
+Assertion.AssertEquals_UDINT(
+    Expected:= 0, 
+    Actual:= ConvertedValue, 
+    ObjectName:= TestName, 
+    VariableName:= 'ConvertedValue');
+    
+TestFinished();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

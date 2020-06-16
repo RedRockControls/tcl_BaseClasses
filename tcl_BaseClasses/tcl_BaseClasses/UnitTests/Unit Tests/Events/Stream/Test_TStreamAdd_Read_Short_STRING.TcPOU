@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TStreamAdd_Read_Short_STRING" Id="{6f75fe17-4fc7-493e-bc44-b51b80afde47}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_Short_STRING EXTENDS TUnitTestBase
+VAR
+    Stream : TStream(StreamLength := 2);
+    TestString : STRING(10) := '0123456789';
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+Stream.Init(2);
+
+Stream.Add_STRING(TestString);
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 11,
+    Actual := Stream.Position,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Position');
+    
+Stream.Add_DINT(12345678);
+
+Assertion.AssertEquals_UDINT(
+    Expected := 15,
+    Actual := Stream.Position,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Position');
+    
+Stream.Seek(0);
+
+Assertion.AssertEquals_STRING(
+    Expected := TestString,
+    Actual := Stream.Read_STRING(),
+    ObjectName := _TestName,
+    VariableName := 'Stream.Read_STRING()');
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 11,
+    Actual := Stream.Position,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Position');
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 12345678,
+    Actual := Stream.Read_UDINT(),
+    ObjectName := _TestName,
+    VariableName := 'Stream.Read_UDINT()');
+
+
+
+TestFinished();
+
+    ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="IUnsupportedEventHandler" Id="{90e32efe-e6ff-41bd-b867-cb8a8c693c47}">
+    <Declaration><![CDATA[INTERFACE IUnsupportedEventHandler EXTENDS IEventHandlerBase
+]]></Declaration>
+  </Itf>
+</TcPlcObject>

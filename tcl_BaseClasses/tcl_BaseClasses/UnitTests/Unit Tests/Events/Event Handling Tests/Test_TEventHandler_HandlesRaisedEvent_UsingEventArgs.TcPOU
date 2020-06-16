@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs" Id="{089c1e38-d2f9-403e-9c1d-10d637e1e2fe}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs EXTENDS TUnitTestbase
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    TestEvent : TTestEvent_UsesEventArgs;
+    TestEventHandler1 : TTestEventHandler_UsesEventArgs;
+    TestEventHandler2 : TTestEventHandler_UsesEventArgs;
+    TestEventHandler3 : TTestEventHandler_UsesEventArgs;
+    TestEventHandler4 : TTestEventHandler_UsesEventArgs;
+    TestEventHandler5 : TTestEventHandler_UsesEventArgs;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestEvent
+    .ClearEventHandlers()
+    .AddEventHandler(TestEventHandler1)
+    .AddEventHandler(TestEventHandler2)
+    .AddEventHandler(TestEventHandler3)
+    .AddEventHandler(TestEventHandler4)
+    .AddEventHandler(TestEventHandler5);
+    
+TestEvent.Args
+    .Add_UDINT(21)
+    .Add_LREAL(1.23)
+    .Add_STRING('OnePointTwoThree')
+    .Add_STRING('Big Long String')
+    .Add_BOOL(TRUE);    
+TestEvent.Raise();
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler1.EventWasRaised,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler1.EventWasRaised');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler2.EventWasRaised,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler2.EventWasRaised');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler3.EventWasRaised,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler3.EventWasRaised');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler4.EventWasRaised,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler4.EventWasRaised');
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler5.EventWasRaised,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler5.EventWasRaised');
+
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 21,
+    Actual   := TestEventHandler1.Arg1,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler1._EventData');
+    
+Assertion.AssertEquals_LREAL(
+    Expected := 1.23,
+    Actual   := TestEventHandler2.Arg2,
+    Delta    := 0.000001,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler2.Arg2');
+    
+Assertion.AssertEquals_STRING(
+    Expected := 'OnePointTwoThree',
+    Actual   := TestEventHandler3.Arg3,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler3.Arg3');
+    
+Assertion.AssertEquals_STRING(
+    Expected := 'Big Long String',
+    Actual   := TestEventHandler4.Arg4,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler4.Arg4');
+    
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := TestEventHandler5.Arg5,
+    ObjectName := _TestName,
+    VariableName  := 'TestEventHandler5.Arg5');
+    
+TestFinished();
+    ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

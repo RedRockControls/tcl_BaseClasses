@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TStreamAdd_Read_BLOB" Id="{b8d3275c-f8b2-44d9-aea0-ecd2c939ebf9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BLOB EXTENDS TUnitTestBase
+VAR
+    Stream : TStream(StreamLength := 2);
+    Now : TIMESTRUCT := (wDay := 23, wMonth := 12, wYear := 1945, wHour := 22, wMinute := 20, wSecond := 18);
+    NowFromStream : TIMESTRUCT;
+    
+    LREAL_Value : LREAL := 1.234;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+Stream.Init(2);
+
+Stream.Add_BLOB(Now);
+Stream.Add_LREAL(LREAL_Value);
+    
+Stream.Seek(0);
+
+Stream.Read_BLOB(NowFromStream);
+
+Assertion.AssertEquals_BLOB(
+    Expected := Now,
+    Actual := NowFromStream,
+    ObjectName := _TestName,
+    VariableName := 'NowFromStream');
+    
+Assertion.AssertEquals_LREAL(
+    Expected := 1.234,
+    Actual := Stream.Read_LREAL(),
+    Delta  := 0.000001,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Read_LREAL()');
+    
+    
+TestFinished();
+
+    ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

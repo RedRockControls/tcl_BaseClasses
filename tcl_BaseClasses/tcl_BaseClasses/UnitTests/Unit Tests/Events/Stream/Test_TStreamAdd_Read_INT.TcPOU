@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TStreamAdd_Read_INT" Id="{842c4272-76a6-421f-a7f8-caab1b2c00c4}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_INT EXTENDS TUnitTestBase
+VAR
+    Stream : TStream(StreamLength := 2);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+Stream.Init(2);
+
+Stream.Add_INT(1234);
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 2,
+    Actual := Stream.Position,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Position');
+    
+Stream.Seek(0);
+
+Assertion.AssertEquals_INT(
+    Expected := 1234,
+    Actual := Stream.Read_INT(),
+    ObjectName := _TestName,
+    VariableName := 'Stream.Read_INT()');
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 2,
+    Actual := Stream.Position,
+    ObjectName := _TestName,
+    VariableName := 'Stream.Position');
+    
+    
+TestFinished();
+
+    ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

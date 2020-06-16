@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+  <Itf Name="ITestEventHandler_UsesEventArgs" Id="{dc6397c7-f4e5-4f33-835a-bf5aa350e6b7}">
+    <Declaration><![CDATA[INTERFACE ITestEventHandler_UsesEventArgs EXTENDS IEventHandlerBase
+]]></Declaration>
+    <Method Name="OnThisEvent" Id="{eb402ea7-bd0c-4a40-b0b1-133ce76d3ba0}">
+      <Declaration><![CDATA[METHOD OnThisEvent
+VAR_INPUT
+    EventArgs : IStreamReader;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
