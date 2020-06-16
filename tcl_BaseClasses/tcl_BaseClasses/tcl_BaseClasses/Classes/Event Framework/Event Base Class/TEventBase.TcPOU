@@ -10,6 +10,8 @@ VAR
     EventName : T_MaxString; // Automatically initialised with the full name of the instance   
     
     EventArgs : TStream(StreamLength := 8);
+    
+    Message_EventHandlerNotImplemented : FB_TcMessage;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,11 +27,13 @@ END_VAR
         <ST><![CDATA[IF IsHandlerSupported(Handler) THEN
     EventHandlers.AddHandler(Handler);
 ELSE
-    F_LogError(
-        Source  := 'Event Handling',
-        Message := F_FormatStringEx1(
-                      Format := 'Error adding event handler to %s - handler not implemented',
-                      Arg1   := EventName));
+    IF Message_EventHandlerNotImplemented.nEventId = 0 THEN
+        Message_EventHandlerNotImplemented.CreateEx(
+            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.EventHandlerNotImplemented,
+            ipSourceInfo := 0);
+    END_IF
+    Message_EventHandlerNotImplemented.Send(0);
+
 END_IF
 AddEventHandler := THIS^;
 
@@ -95,7 +99,6 @@ END_VAR]]></Declaration>
     END_FOR
 END_IF
 EventArgs.Clear(); // to leave event args empty for next time event is raised
-Globals.LicenceCheck();
 ]]></ST>
       </Implementation>
     </Method>

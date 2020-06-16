@@ -10,7 +10,11 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[inRangeValue := MAX(0,value);
+      <ST><![CDATA[F_Assert(
+    Assertion := value >= 0,
+    FailMessage := 'Input arg of F_DINT_TO_UDINT was < 0 so value of 0 was returned');
+
+inRangeValue := MAX(0,value);
 F_DINT_TO_UDINT := DINT_TO_UDINT(inRangeValue);
 ]]></ST>
     </Implementation>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="TExecution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[(*
 :Class for handling communications between a client requesting a service 
@@ -22,6 +22,9 @@ VAR
     _Event_OnError : IEvent;
     _Event_OnAbort : IEvent;
     
+    Message_ExecutionError : FB_TcMessage;
+    Message_ExecutionAborted : FB_TcMessage;
+    Message_ExecutionNotReady : FB_TcMessage;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -193,8 +196,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Event_OnAbort := ExecutionEvents.Event_OnAbort;
-_Event_OnError := ExecutionEvents.Event_OnError;]]></ST>
+        <ST><![CDATA[_Event_OnAbort := GlobalEvents.Event_OnAbort;
+_Event_OnError := GlobalEvents.Event_OnError;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
@@ -221,13 +224,21 @@ END_VAR]]></Declaration>
     IF _Event_OnAbort <> 0 THEN
         _Event_OnAbort.Args.Add_STRING(F_FormatString1('Execution aborted in %s',F_STRING(Name)));
         _Event_OnAbort.Raise();
-    END_IF    
+    END_IF  
+
+    IF Message_ExecutionAborted.nEventId = 0 THEN
+        Message_ExecutionAborted.CreateEx(
+            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionAborted,
+            ipSourceInfo := 0);
+    END_IF
+    Message_ExecutionAborted.Send(0);
 END_IF
 
 IF _State = TExecutionState.Aborting THEN
     _Aborted := TRUE;
     _State := TExecutionState.Ready;
 END_IF
+
 ]]></ST>
       </Implementation>
     </Method>
@@ -271,6 +282,14 @@ END_VAR
         _Event_OnError.Args.Add_STRING(F_FormatString2('Error 0x%0.4X in %s',F_UDINT(_ErrorId),F_STRING(Name)));
         _Event_OnError.Raise();
     END_IF
+    
+    IF Message_ExecutionError.nEventId = 0 THEN
+        Message_ExecutionError.CreateEx(
+            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionError,
+            ipSourceInfo := 0);
+	END_IF
+    Message_ExecutionError.ipArguments.Clear().AddUDInt(_ErrorId);
+    Message_ExecutionError.Send(0);
 END_IF
 ]]></ST>
       </Implementation>
@@ -296,8 +315,16 @@ ELSE
                                         Arg1   := F_STRING(Name)));
         _Event_OnError.Raise();
     END_IF
+    
+    IF Message_ExecutionNotReady.nEventId = 0 THEN
+        Message_ExecutionNotReady.CreateEx(
+            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionNotReady,
+            ipSourceInfo := 0);
+    END_IF
+    Message_ExecutionNotReady.Send(0);
+    
 END_IF
-Globals.LicenceCheck();
+
 ]]></ST>
       </Implementation>
     </Method>
