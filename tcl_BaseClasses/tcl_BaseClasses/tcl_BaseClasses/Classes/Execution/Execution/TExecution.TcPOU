@@ -22,6 +22,8 @@ VAR
     _Event_OnError : IEvent;
     _Event_OnAbort : IEvent;
     
+    SourceInfo : FB_TcSourceInfo;
+    
     Message_ExecutionError : FB_TcMessage;
     Message_ExecutionAborted : FB_TcMessage;
     Message_ExecutionNotReady : FB_TcMessage;
@@ -37,10 +39,8 @@ END_VAR
 METHOD Abort 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State <> TExecutionState.Ready THEN
-    _State := TExecutionState.Aborting; 
-    // Aborting must be handled by parent class - cleanup and set Ready state
-END_IF
+        <ST><![CDATA[// Aborting must be handled by parent class - cleanup and set Ready state
+_State := TExecutionState.Aborting; 
 ]]></ST>
       </Implementation>
     </Method>
@@ -197,7 +197,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Event_OnAbort := GlobalEvents.Event_OnAbort;
-_Event_OnError := GlobalEvents.Event_OnError;]]></ST>
+_Event_OnError := GlobalEvents.Event_OnError;
+
+SourceInfo.sName := Name;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
