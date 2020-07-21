@@ -6,6 +6,8 @@ VAR
     // Functions...
     Test_F_DINT_TO_UDINT_Conversion : Test_F_DINT_TO_UDINT_Conversion;
     Test_F_UDINT_TO_DINT_Conversion : Test_F_UDINT_TO_DINT_Conversion;
+    Test_F_Equals                   : Test_F_Equals;
+    Test_F_NotEqual                 : Test_F_NotEqual;
     
     // TStream
     Test_TStream_Add_Read_BLOB          : Test_TStreamAdd_Read_BLOB;
