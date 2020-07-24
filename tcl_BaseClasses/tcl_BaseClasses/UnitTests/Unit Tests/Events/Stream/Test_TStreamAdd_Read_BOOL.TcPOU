@@ -15,7 +15,6 @@ Stream.Add_BOOL(TRUE);
 Assertion.AssertEquals_UDINT(
     Expected := 1,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Stream.Seek(0);
@@ -23,13 +22,11 @@ Stream.Seek(0);
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual := Stream.Read_BOOL(),
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_BOOL()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 1,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

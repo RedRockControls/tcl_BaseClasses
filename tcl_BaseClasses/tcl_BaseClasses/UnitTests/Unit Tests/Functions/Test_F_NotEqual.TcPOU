@@ -9,13 +9,11 @@ END_VAR
       <ST><![CDATA[Assertion.AssertEquals_BOOL(
     Expected:= TRUE, 
     Actual:= F_NotEqual(1.000_005,1.000_003,0.000_001), 
-    ObjectName:= TestName, 
     VariableName:= 'F_Equals');
     
 Assertion.AssertEquals_BOOL(
     Expected:= FALSE, 
     Actual:= F_NotEqual(1.000_005,1.000_004,0.000_002), 
-    ObjectName:= TestName, 
     VariableName:= 'F_Equals');
     
 TestFinished();]]></ST>

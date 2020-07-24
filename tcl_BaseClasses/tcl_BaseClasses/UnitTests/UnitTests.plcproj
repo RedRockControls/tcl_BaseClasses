@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tclBaseClasses_UnitTests</Title>
-    <ProjectVersion>1.0.0.0</ProjectVersion>
+    <ProjectVersion>1.0.1.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Tests tcl_BaseClases V1.0.10.0</Description>
+    <Description>Tests tcl_BaseClases V1.0.10.0
+Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -385,7 +386,7 @@
       <Resolution>tcl_BaseClasses, * (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_SimpleUnitTestLibrary">
-      <Resolution>tcl_SimpleUnitTestLibrary, * (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_SimpleUnitTestLibrary, 1.0.2.0 (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, * (Red Rock Controls Limited)</Resolution>

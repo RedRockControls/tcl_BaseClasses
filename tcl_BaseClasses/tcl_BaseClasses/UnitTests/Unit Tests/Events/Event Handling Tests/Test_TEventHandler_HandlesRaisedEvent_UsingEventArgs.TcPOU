@@ -35,63 +35,53 @@ TestEvent.Raise();
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler1.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler1.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler2.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler2.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler3.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler3.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler4.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler4.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler5.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler5.EventWasRaised');
 
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler1.Arg1,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler1._EventData');
     
 Assertion.AssertEquals_LREAL(
     Expected := 1.23,
     Actual   := TestEventHandler2.Arg2,
     Delta    := 0.000001,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler2.Arg2');
     
 Assertion.AssertEquals_STRING(
     Expected := 'OnePointTwoThree',
     Actual   := TestEventHandler3.Arg3,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler3.Arg3');
     
 Assertion.AssertEquals_STRING(
     Expected := 'Big Long String',
     Actual   := TestEventHandler4.Arg4,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler4.Arg4');
     
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler5.Arg5,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler5.Arg5');
     
 TestFinished();

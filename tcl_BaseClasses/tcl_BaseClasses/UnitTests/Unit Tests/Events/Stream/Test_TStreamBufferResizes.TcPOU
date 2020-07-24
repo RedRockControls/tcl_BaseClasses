@@ -18,13 +18,11 @@ Stream.Add_INT(1237);
 Assertion.AssertEquals_UDINT(
     Expected := 8,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Assertion.AssertEquals_UDINT(
     Expected := 8,
     Actual := Stream.StreamLength,
-    ObjectName := _TestName,
     VariableName := 'Stream.StreamLength');
     
 Stream.Seek(0);
@@ -32,13 +30,11 @@ Stream.Seek(0);
 Assertion.AssertEquals_INT(
     Expected := 1234,
     Actual := Stream.Read_INT(),
-    ObjectName := _TestName,
     VariableName := 'Stream.ReadInt()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 2,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

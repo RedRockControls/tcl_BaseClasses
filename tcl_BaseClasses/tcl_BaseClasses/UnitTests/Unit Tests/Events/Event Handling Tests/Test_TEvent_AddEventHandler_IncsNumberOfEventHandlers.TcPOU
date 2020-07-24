@@ -17,7 +17,6 @@ TestEvent
 Assertion.AssertEquals_UDINT(
     Expected := 1,
     Actual   := TestEvent.EventHandlers.Count,
-    ObjectName := _TestName,
     VariableName  := 'TestEvent.EventHandlers.Count');
     
 

@@ -28,7 +28,6 @@ Execution.Start(); // raises error event
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution_EventHandler.FailedEventRaised,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler.FailedEventRaised');
     
     

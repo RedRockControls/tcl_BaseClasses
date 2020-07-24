@@ -20,13 +20,11 @@ Execution.SetDone();
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution.Done,
-    ObjectName := _TestName,
     VariableName  := 'Execution.Done');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution.Ready,
-    ObjectName := _TestName,
     VariableName  := 'Execution.Ready');
 
 TestFinished();

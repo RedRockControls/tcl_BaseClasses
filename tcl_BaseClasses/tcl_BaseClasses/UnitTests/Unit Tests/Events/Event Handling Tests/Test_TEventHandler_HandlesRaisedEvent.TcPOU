@@ -30,62 +30,52 @@ TestEvent.Raise();
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler1.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler1.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler2.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler2.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler3.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler3.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler4.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler4.EventWasRaised');
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := TestEventHandler5.EventWasRaised,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler5.EventWasRaised');
 
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler1._EventData,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler1._EventData');
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler2._EventData,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler2._EventData');
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler3._EventData,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler3._EventData');
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler4._EventData,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler4._EventData');
     
 Assertion.AssertEquals_UDINT(
     Expected := 21,
     Actual   := TestEventHandler5._EventData,
-    ObjectName := _TestName,
     VariableName  := 'TestEventHandler5._EventData');
     
 TestFinished();

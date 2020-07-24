@@ -24,7 +24,6 @@ END_VAR
 Assertion.AssertEquals_UDINT(
     Expected := 6, // 
     Actual   := TestEvent.EventHandlers.Count,
-    ObjectName := _TestName,
     VariableName  := 'TestEvent.EventHandlers.Count');
 
 TestFinished();

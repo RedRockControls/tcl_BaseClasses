@@ -28,7 +28,6 @@ Execution.SetAborted(); // raises error event
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution_EventHandler.AbortedEventRaised,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler.AbortedEventRaised');
     
     

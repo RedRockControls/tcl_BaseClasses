@@ -15,7 +15,6 @@ Stream.Add_LREAL(1.234567891234);
 Assertion.AssertEquals_UDINT(
     Expected := 8,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Stream.Seek(0);
@@ -24,13 +23,11 @@ Assertion.AssertEquals_LREAL(
     Expected := 1.234567891234,
     Actual := Stream.Read_LREAL(),
     Delta  := 0.000000000001,
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_LREAL()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 8,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

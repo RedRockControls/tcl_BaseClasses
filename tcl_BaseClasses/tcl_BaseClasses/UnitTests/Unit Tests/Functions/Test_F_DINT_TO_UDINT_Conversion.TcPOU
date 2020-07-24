@@ -14,7 +14,6 @@ ConvertedValue := F_DINT_TO_UDINT(InputValue); // limit to zero
 Assertion.AssertEquals_UDINT(
     Expected:= 0, 
     Actual:= ConvertedValue, 
-    ObjectName:= TestName, 
     VariableName:= 'ConvertedValue');
     
 TestFinished();]]></ST>

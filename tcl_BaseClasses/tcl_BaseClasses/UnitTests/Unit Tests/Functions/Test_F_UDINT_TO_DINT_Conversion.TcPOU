@@ -14,7 +14,6 @@ ConvertedValue := F_UDINT_TO_DINT(InputValue); // limit to largest DINT
 Assertion.AssertEquals_DINT(
     Expected:= 2147483647, 
     Actual:= ConvertedValue, 
-    ObjectName:= TestName, 
     VariableName:= 'ConvertedValue');
     
 TestFinished();]]></ST>

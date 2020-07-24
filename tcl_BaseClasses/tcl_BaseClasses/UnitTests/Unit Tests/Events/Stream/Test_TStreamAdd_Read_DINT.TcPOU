@@ -15,7 +15,6 @@ Stream.Add_DINT(12345678);
 Assertion.AssertEquals_UDINT(
     Expected := 4,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Stream.Seek(0);
@@ -23,13 +22,11 @@ Stream.Seek(0);
 Assertion.AssertEquals_DINT(
     Expected := 12345678,
     Actual := Stream.Read_DINT(),
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_DINT()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 4,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

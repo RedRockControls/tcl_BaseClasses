@@ -16,7 +16,6 @@ Stream.Add_STRING(TestString);
 Assertion.AssertEquals_UDINT(
     Expected := 81,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Stream.Seek(0);
@@ -24,13 +23,11 @@ Stream.Seek(0);
 Assertion.AssertEquals_STRING(
     Expected := TestString,
     Actual := Stream.Read_STRING(),
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_STRING()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 81,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

@@ -18,7 +18,6 @@ Execution.Start();
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution.Starting,
-    ObjectName := _TestName,
     VariableName  := 'Execution.Starting');
 
 TestFinished();

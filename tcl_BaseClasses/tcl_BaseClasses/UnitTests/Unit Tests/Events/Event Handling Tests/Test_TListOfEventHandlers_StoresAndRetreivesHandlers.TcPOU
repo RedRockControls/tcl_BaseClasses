@@ -38,19 +38,16 @@ EventHandler3Interface := EventHandler3;
 Assertion.AssertEquals_INTERFACE(
     Expected := Element0,
     Actual   := EventHandler1Interface,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler1Interface');
     
 Assertion.AssertEquals_INTERFACE(
     Expected := Element1,
     Actual   := EventHandler2Interface,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler2Interface');
     
 Assertion.AssertEquals_INTERFACE(
     Expected := Element2,
     Actual   := EventHandler3Interface,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler3Interface');
     
 _TestFinished := TRUE;    

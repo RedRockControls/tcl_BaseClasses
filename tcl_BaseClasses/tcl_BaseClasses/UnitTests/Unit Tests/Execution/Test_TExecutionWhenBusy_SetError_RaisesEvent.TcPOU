@@ -28,19 +28,16 @@ Execution.SetError(ErrorId := 16#F234); // Sets Error
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution_EventHandler.FailedEventRaised,
-    ObjectName := _TestName,
     VariableName  := 'EventHandler.FailedEventRaised');
    
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
     Actual   := Execution.Error,
-    ObjectName := _TestName,
     VariableName  := 'Execution.Error');
     
 Assertion.AssertEquals_UDINT(
     Expected := 16#F234,
     Actual   := Execution.ErrorId,
-    ObjectName := _TestName,
     VariableName  := 'Execution.ErrorId');
     
     

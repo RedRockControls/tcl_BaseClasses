@@ -16,7 +16,6 @@ Stream.Add_PVOID(ADR(Bob));
 Assertion.AssertEquals_UDINT(
     Expected :=8,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
 Stream.Seek(0);
@@ -24,13 +23,11 @@ Stream.Seek(0);
 Assertion.AssertEquals_PVOID(
     Expected := ADR(Bob),
     Actual := Stream.Read_PVOID(),
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_PVOID()');
     
 Assertion.AssertEquals_UDINT(
     Expected := 8,
     Actual := Stream.Position,
-    ObjectName := _TestName,
     VariableName := 'Stream.Position');
     
     

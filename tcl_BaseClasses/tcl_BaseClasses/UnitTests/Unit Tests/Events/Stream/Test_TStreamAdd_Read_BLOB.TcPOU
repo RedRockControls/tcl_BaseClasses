@@ -24,14 +24,12 @@ Stream.Read_BLOB(NowFromStream);
 Assertion.AssertEquals_BLOB(
     Expected := Now,
     Actual := NowFromStream,
-    ObjectName := _TestName,
     VariableName := 'NowFromStream');
     
 Assertion.AssertEquals_LREAL(
     Expected := 1.234,
     Actual := Stream.Read_LREAL(),
     Delta  := 0.000001,
-    ObjectName := _TestName,
     VariableName := 'Stream.Read_LREAL()');
     
     
