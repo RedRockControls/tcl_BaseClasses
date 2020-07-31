@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_F_NotEqual" Id="{a84e0235-0146-4b50-8ea0-5f503ce969ae}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS TUnitTestBase
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Assertion.AssertEquals_BOOL(
+    Expected:= TRUE, 
+    Actual:= F_NotEqual(1.000_005,1.000_003,0.000_001), 
+    VariableName:= 'F_Equals');
+    
+Assertion.AssertEquals_BOOL(
+    Expected:= FALSE, 
+    Actual:= F_NotEqual(1.000_005,1.000_004,0.000_002), 
+    VariableName:= 'F_Equals');
+    
+TestFinished();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

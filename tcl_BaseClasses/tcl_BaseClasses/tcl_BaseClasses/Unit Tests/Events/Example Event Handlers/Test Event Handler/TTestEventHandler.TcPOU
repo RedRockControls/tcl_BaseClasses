@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="TTestEventHandler" Id="{d6d2fc32-762c-41a8-95d4-a28d4a87bcac}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TTestEventHandler IMPLEMENTS ITestEventHandler
+VAR
+    _EventWasRaised : BOOL;
+    _EventData : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="EventWasRaised" Id="{53b0c48d-56ec-4d00-a4b8-81f80a9d2bac}">
+      <Declaration><![CDATA[PROPERTY EventWasRaised : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1fe3e0fa-8dee-4a0c-969b-d371e197cc0f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EventWasRaised := _EventWasRaised;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="OnCustomEvent" Id="{982a11a9-f5f0-4911-b126-6808605ccf37}">
+      <Declaration><![CDATA[METHOD OnCustomEvent
+VAR_INPUT
+    EventArgs : IStreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_EventData := EventArgs.Read_UDINT();
+_EventWasRaised := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TExecutionWhenReady_Start_SelectsStarting" Id="{46b1d77a-f5b0-4500-a6b6-fd7c89ce3485}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS TUnitTestbase
+VAR
+    Execution : TExecution;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Setup...
+Execution.FB_init(
+    bInitRetains := FALSE,
+    bInCopyCode  := FALSE);
+
+// Test...
+Execution.Start();
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution.Starting,
+    VariableName  := 'Execution.Starting');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

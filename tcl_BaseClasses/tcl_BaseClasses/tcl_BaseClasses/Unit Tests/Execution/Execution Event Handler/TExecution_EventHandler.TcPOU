@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="TExecution_EventHandler" Id="{e14b758f-df33-4831-b9dc-b55c0ac984fb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TExecution_EventHandler // Event Handler used to check that TExecution raises events correctly
+IMPLEMENTS
+    IEventHandler_OnExecutionAborted,
+    IEventHandler_OnExecutionFailed
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    _AbortedEventRaised : BOOL;
+    _FailedEventRaised : BOOL;
+    _EventMessage : T_MaxString;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="AbortedEventRaised" Id="{c651dcf8-6850-4fa0-9ccf-55b67eafad36}">
+      <Declaration><![CDATA[PROPERTY AbortedEventRaised : BOOL]]></Declaration>
+      <Get Name="Get" Id="{44212a0a-5691-42e6-839b-e1f3cd3b3956}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AbortedEventRaised := _AbortedEventRaised;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{7570d8af-ea46-4774-80d3-b9908d5538e1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_AbortedEventRaised := AbortedEventRaised;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="FailedEventRaised" Id="{5b81f8f3-b37b-48d3-a4ed-ce197ad7f0ef}">
+      <Declaration><![CDATA[PROPERTY FailedEventRaised : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d15dcd64-8f3b-4a53-b96f-bec1a6fd28a8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[FailedEventRaised := _FailedEventRaised;
+]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{276d941b-8dc4-4c78-8fcc-05a1c85141f0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_FailedEventRaised := FailedEventRaised;
+]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="OnExecutionAborted" Id="{5d78c6cc-4576-4f1f-b330-1537c0bf131a}">
+      <Declaration><![CDATA[METHOD OnExecutionAborted
+VAR_INPUT
+	Message : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_AbortedEventRaised := TRUE;
+_EventMessage := Message;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnExecutionFailed" Id="{4fde306d-801b-4f11-a1c9-5aa789160994}">
+      <Declaration><![CDATA[METHOD OnExecutionFailed
+VAR_INPUT
+	Message : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_FailedEventRaised := TRUE;
+_EventMessage := Message;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

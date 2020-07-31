@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="PB_TestRunner" Id="{fcbfbb76-97bd-42a3-aa55-5d0eee0bed17}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PB_TestRunner
+VAR
+    Init : BOOL := TRUE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Init THEN
+    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.EventHandlerTests);
+    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.ExecutionTests);
+    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.FunctionTests);
+    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.StreamTests);
+    Init := FALSE;
+END_IF
+
+TestFramework.TestRunner(
+                    RunTestsSequentially := TRUE,
+                    ManualTestRunsOnly   := TRUE);
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
