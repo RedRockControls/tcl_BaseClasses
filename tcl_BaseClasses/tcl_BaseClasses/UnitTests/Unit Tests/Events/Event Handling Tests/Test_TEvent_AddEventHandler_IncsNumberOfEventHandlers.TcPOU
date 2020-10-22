@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers" Id="{c221cb2b-6e77-4473-8182-58ef5d2ef66d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers EXTENDS TUnitTestbase
+VAR
+    TestEvent : TTestEvent;
+    TestEventHandler : TTestEventHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+
+TestEvent
+    .ClearEventHandlers()
+    .AddEventHandler(TestEventHandler);
+    
+Assertion.AssertEquals_UDINT(
+    Expected := 1,
+    Actual   := TestEvent.EventHandlers.Count,
+    VariableName  := 'TestEvent.EventHandlers.Count');
+    
+
+TestFinished();
+    ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

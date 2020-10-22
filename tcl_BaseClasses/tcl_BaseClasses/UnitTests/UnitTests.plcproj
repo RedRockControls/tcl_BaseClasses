@@ -27,10 +27,140 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\UnitTests.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="PB_TestRunner.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEventHandler_HandlesRaisedEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_ChecksInterfaceSupported.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_ResizesListWhenListFull.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddHandlerAddsHandlerToEventHandlerList.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TListOfEventHandlers_StoresAndRetreivesHandlers.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args\ITestEventHandler_UsesEventArgs.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args\TTestEventHandler_UsesEventArgs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler\ITestEventHandler.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler\TTestEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler\IUnsupportedEventHandler.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler\TUnsupportedEventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event\TTestEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Example Event\TTestEvent_UsesEventArgs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BLOB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BOOL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BYTE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_LINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_PVOID.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_Short_STRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_STRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_T_MaxString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Events\Stream\Test_TStreamBufferResizes.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Execution Event Handler\TExecution_EventHandler.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenBusy_Abort_SelectsAborting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenBusy_SetAborted_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenBusy_SetDone_SetsDone.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenBusy_SetError_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenBusy_Start_RaisesEvent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecutionWhenReady_Start_SelectsStarting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Functions\Test_F_DINT_TO_UDINT_Conversion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Functions\Test_F_Equals.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Functions\Test_F_NotEqual.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Functions\Test_F_UDINT_TO_DINT_Conversion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
@@ -42,6 +172,19 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="GVLs" />
+    <Folder Include="Unit Tests" />
+    <Folder Include="Unit Tests\Events" />
+    <Folder Include="Unit Tests\Events\Event Handling Tests" />
+    <Folder Include="Unit Tests\Events\Example Event" />
+    <Folder Include="Unit Tests\Events\Example Event Handlers" />
+    <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler" />
+    <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args" />
+    <Folder Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler" />
+    <Folder Include="Unit Tests\Events\Stream" />
+    <Folder Include="Unit Tests\Execution" />
+    <Folder Include="Unit Tests\Execution\Execution Event Handler" />
+    <Folder Include="Unit Tests\Functions" />
     <Folder Include="VISUs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,10 +8,10 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF Init THEN
-    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.EventHandlerTests);
-    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.ExecutionTests);
-    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.FunctionTests);
-    TestFramework.TestRunner.AddTestSuite(tcl_BaseClasses.UnitTests.StreamTests);
+    TestFramework.TestRunner.AddTestSuite(UnitTests.EventHandlerTests);
+    TestFramework.TestRunner.AddTestSuite(UnitTests.ExecutionTests);
+    TestFramework.TestRunner.AddTestSuite(UnitTests.FunctionTests);
+    TestFramework.TestRunner.AddTestSuite(UnitTests.StreamTests);
     Init := FALSE;
 END_IF
 

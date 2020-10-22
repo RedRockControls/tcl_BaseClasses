@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="TTestEvent" Id="{71c3a7a7-a6cb-4c04-8081-db6bdc9f902a}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TTestEvent EXTENDS TEventBase 
+VAR
+    Handler : ITestEventHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CallHandler" Id="{cd89012e-08a5-4a72-84fb-010eeebb5ae8}">
+      <Declaration><![CDATA[METHOD PRIVATE CallHandler
+VAR_INPUT
+    HandlerBase : IEventHandlerBase;
+    EventArgs   : IStreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
+    Handler.OnCustomEvent(EventArgs);
+//ELSE
+//    tcl_BaseClasses.F_LogError('Event Handling',F_FormatStringEx1('Error raising %s - invalid handler',EventName));
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsHandlerSupported" Id="{32a98609-17c8-410a-8426-dbca206a6c1b}">
+      <Declaration><![CDATA[METHOD IsHandlerSupported : BOOL
+VAR_INPUT
+    HandlerBase : IEventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
+    IsHandlerSupported := TRUE;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

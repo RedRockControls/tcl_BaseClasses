@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="Test_TExecutionWhenBusy_Start_RaisesEvent" Id="{38035c65-05c6-433c-8350-74f344ce6864}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Start_RaisesEvent EXTENDS TUnitTestbase
+VAR
+    Execution : TExecution;
+    Execution_EventHandler : TExecution_EventHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Setup...
+Execution.FB_init(
+    bInitRetains := FALSE,
+    bInCopyCode  := FALSE);
+Execution_EventHandler.FB_init(
+    bInitRetains := FALSE,
+    bInCopyCode  := FALSE);
+
+// link handler to common execution events...
+GlobalEvents.Event_OnAbort.ClearEventHandlers().AddEventHandler(Execution_EventHandler);
+GlobalEvents.Event_OnError.ClearEventHandlers().AddEventHandler(Execution_EventHandler);
+
+// Test...
+Execution.Start(); // sets Starting
+
+Execution.Start(); // raises error event
+
+Assertion.AssertEquals_BOOL(
+    Expected := TRUE,
+    Actual   := Execution_EventHandler.FailedEventRaised,
+    VariableName  := 'EventHandler.FailedEventRaised');
+    
+    
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
