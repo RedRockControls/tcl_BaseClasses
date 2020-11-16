@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="F_Assert" Id="{c2a4a3b7-121d-0147-13ef-bd518c99fcd6}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_Assert : BOOL
 VAR_INPUT
@@ -14,19 +14,25 @@ END_VAR]]></Declaration>
       <ST><![CDATA[F_Assert := Assertion;
 IF Assertion = FALSE THEN
     // Send assertion message to Event Logger...
-    IF NOT AssertionMessage.EqualsToEventClass(TC_EVENTS.tcl_BaseClassEvents.AssertionFailed.uuidEventClass) THEN
-        AssertionSourceInfo.sName := 'F_Assert';
-        AssertionMessage.CreateEx(
-            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.AssertionFailed,
-            ipSourceInfo := AssertionSourceInfo);
-    END_IF
-    AssertionMessage.ipArguments.Clear().AddStringByValue(FailMessage);
-    AssertionMessage.Send(0);
+//    IF NOT AssertionMessage.EqualsToEventClass(TC_EVENTS.tcl_BaseClassEvents.AssertionFailed.uuidEventClass) THEN
+//        AssertionSourceInfo.sName := 'F_Assert';
+//        AssertionMessage.CreateEx(
+//            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.AssertionFailed,
+//            ipSourceInfo := AssertionSourceInfo);
+//    END_IF
+//    AssertionMessage.ipArguments.Clear().AddStringByValue(FailMessage);
+//    AssertionMessage.Send(0);
     
     GlobalEvents.Event_AssertionFailed.Args
         .Clear()
         .Add_STRING(FailMessage);
     GlobalEvents.Event_AssertionFailed.Raise(); // to allow the machine to abort on any assertion failure
+    
+    GlobalEvents.Notification_AssertionFailed.Args
+        .Clear()
+        .Add_STRING(FailMessage);
+    GlobalEvents.Notification_AssertionFailed.Raise(); // to allow the machine to abort on any assertion failure
+    
 END_IF
         ]]></ST>
     </Implementation>

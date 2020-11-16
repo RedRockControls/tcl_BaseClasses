@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="TEventBase" Id="{720ebf79-c150-0ee1-0a2c-8a2b014bb121}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
 FUNCTION_BLOCK ABSTRACT TEventBase IMPLEMENTS IEvent
@@ -26,13 +26,13 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF IsHandlerSupported(Handler) THEN
     EventHandlers.AddHandler(Handler);
-ELSE
-    IF Message_EventHandlerNotImplemented.nEventId = 0 THEN
-        Message_EventHandlerNotImplemented.CreateEx(
-            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.EventHandlerNotImplemented,
-            ipSourceInfo := 0);
-    END_IF
-    Message_EventHandlerNotImplemented.Send(0);
+//ELSE
+//    IF Message_EventHandlerNotImplemented.nEventId = 0 THEN
+//        Message_EventHandlerNotImplemented.CreateEx(
+//            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.EventHandlerNotImplemented,
+//            ipSourceInfo := 0);
+//    END_IF
+//    Message_EventHandlerNotImplemented.Send(0);
 
 END_IF
 AddEventHandler := THIS^;

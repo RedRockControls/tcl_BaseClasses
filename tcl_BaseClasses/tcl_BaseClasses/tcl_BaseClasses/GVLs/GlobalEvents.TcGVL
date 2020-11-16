@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <GVL Name="GlobalEvents" Id="{64546398-db5d-0d66-2782-a6500d59e54d}">
     <Declaration><![CDATA[(*
 Global event instances 
@@ -12,6 +12,11 @@ VAR_GLOBAL
     Event_OnError           : TEvent_ExecutionFailed;
     Event_OnAbort           : TEvent_ExecutionAborted;
     Event_AssertionFailed   : TEvent_AssertionFailed;
+    
+    Notification_ExecutionFailed  : T_Notification;
+    Notification_ExecutionAborted : T_Notification;
+    Notification_AssertionFailed  : T_Notification;
+    
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

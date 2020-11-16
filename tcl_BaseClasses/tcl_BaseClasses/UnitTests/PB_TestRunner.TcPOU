@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="PB_TestRunner" Id="{fcbfbb76-97bd-42a3-aa55-5d0eee0bed17}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PB_TestRunner
 VAR
@@ -12,6 +12,8 @@ END_VAR
     TestFramework.TestRunner.AddTestSuite(UnitTests.ExecutionTests);
     TestFramework.TestRunner.AddTestSuite(UnitTests.FunctionTests);
     TestFramework.TestRunner.AddTestSuite(UnitTests.StreamTests);
+    TestFramework.TestRunner.AddTestSuite(UnitTests.NotificationTests);
+    
     Init := FALSE;
 END_IF
 

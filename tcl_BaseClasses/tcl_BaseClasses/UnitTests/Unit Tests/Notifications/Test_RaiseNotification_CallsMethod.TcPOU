@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="Test_RaiseNotification_CallsMethod" Id="{cc5ef7a4-9804-419b-b45f-a2befe39c1e5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_RaiseNotification_CallsMethod EXTENDS tcl_SimpleUnitTestLibrary.TUnitTestBase
+VAR
+    Source  : T_ClassThatRaisesNotifications;
+    Handler : T_ClassThatHandlesNotifications;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Handler.FB_init(
+    bInitRetains := FALSE,  
+    bInCopyCode  := FALSE);
+
+Source.OnPressedNotification.ClearNotificationHandlers();
+Source.OnPressedNotification.AddNotificationHandler(Handler);
+
+Source.RaiseOnPbPressedNotification();
+
+Assertion.AssertEquals_UDINT(
+    Expected     := 1,
+    Actual       := Handler.NotificationCallCount,
+    VariableName := 'Dispatcher.NotificationCount');
+
+TestFinished();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

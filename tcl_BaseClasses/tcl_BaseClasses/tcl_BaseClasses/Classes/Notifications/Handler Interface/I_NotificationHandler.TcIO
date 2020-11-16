@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <Itf Name="I_NotificationHandler" Id="{132ee55d-2226-43c5-82b5-622b17ca944c}">
+    <Declaration><![CDATA[INTERFACE I_NotificationHandler EXTENDS __SYSTEM.IQueryInterface
+]]></Declaration>
+    <Method Name="OnNotificationReceived" Id="{600e8039-a73b-451c-9206-c0585bf94fa7}">
+      <Declaration><![CDATA[METHOD OnNotificationReceived
+VAR_INPUT
+    NotificationId   : UDINT;
+    NotificationName : T_MaxString;
+    Args             : IStreamReader;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

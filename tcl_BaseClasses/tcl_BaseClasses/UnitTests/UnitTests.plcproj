@@ -18,10 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tclBaseClasses_UnitTests</Title>
-    <ProjectVersion>1.0.1.0</ProjectVersion>
+    <ProjectVersion>1.0.2.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Tests tcl_BaseClases V1.0.10.0
-Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
+    <Description>Notification tests added</Description>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -163,6 +162,21 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
     <Compile Include="Unit Tests\Functions\Test_F_UDINT_TO_DINT_Conversion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Notifications\Fixtures\E_Test_NotificationId.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Notifications\Fixtures\T_ClassThatHandlesNotifications.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Notifications\Fixtures\T_ClassThatRaisesNotifications.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Notifications\Test_AddNotification_IncrementsCount.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Notifications\Test_RaiseNotification_CallsMethod.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
     </Compile>
@@ -185,6 +199,8 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
     <Folder Include="Unit Tests\Execution" />
     <Folder Include="Unit Tests\Execution\Execution Event Handler" />
     <Folder Include="Unit Tests\Functions" />
+    <Folder Include="Unit Tests\Notifications" />
+    <Folder Include="Unit Tests\Notifications\Fixtures" />
     <Folder Include="VISUs" />
   </ItemGroup>
   <ItemGroup>
@@ -404,6 +420,15 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
           <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>UnicodeStrings</v>
+            <v>False</v>
+          </d>
+        </o>
         <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
         <o>
           <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
@@ -499,15 +524,6 @@ Updated to use tcl_SimpleUnitTestLibrary V1.0.2.0</Description>
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
             <v>ReplaceConstants</v>
-            <v>False</v>
-          </d>
-        </o>
-        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
-        <o>
-          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
-            <v>UnicodeStrings</v>
             <v>False</v>
           </d>
         </o>
