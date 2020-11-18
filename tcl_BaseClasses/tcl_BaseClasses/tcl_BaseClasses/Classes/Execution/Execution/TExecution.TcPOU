@@ -205,6 +205,46 @@ _Event_OnError := GlobalEvents.Event_OnError;
 SourceInfo.sName := Name;]]></ST>
       </Implementation>
     </Method>
+    <Property Name="Notification_OnAbort" Id="{0d67ae06-841f-4128-bead-022f0ca9e3d9}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification]]></Declaration>
+      <Get Name="Get" Id="{03dd9ffc-038b-436c-8c4b-b9b9ae4aa681}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Notification_OnAbort := _Notification_OnAbort;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{2d2b3777-2c06-46db-b1c9-854dc3714dd4}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Notification_OnAbort := Notification_OnAbort;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Notification_OnError" Id="{38d0423b-9d60-41ef-adab-a0253263c4b6}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification]]></Declaration>
+      <Get Name="Get" Id="{7560c815-0306-43f8-ac55-87c1998d7e74}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Notification_OnError := _Notification_OnError;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{228f6cfe-d91d-4d86-8b07-6069ae0ee2a8}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Notification_OnError := Notification_OnError;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Ready : BOOL]]></Declaration>
       <Get Name="Get" Id="{07819190-be5b-06a7-0f77-77e004f7eaea}">
