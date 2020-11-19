@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <POU Name="TStream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TStream IMPLEMENTS IStreamWriter, IStreamReader
 VAR
@@ -10,6 +10,7 @@ VAR
     
     _StreamLength : UDINT := 4;
     _Position : UDINT;
+    _ByteCount : UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,9 +26,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _Position + SpaceRequired > _StreamLength THEN
-    _StreamLength := _Position + SpaceRequired;
-    Buffer.Resize(nSize := _StreamLength, bPreserve := TRUE, bReset := FALSE);
-    pBuffer := Buffer.pBuffer;
+    Resize(StreamLength := _Position + SpaceRequired);
 END_IF
 ]]></ST>
       </Implementation>
@@ -48,7 +47,8 @@ MEMCPY(
     srcAddr := Value.pValue, 
     n       := DINT_TO_UDINT(Value.diSize));
 
-_Position := _Position + SIZEOF(Value); 
+_Position  := _Position + DINT_TO_UDINT(Value.diSize); 
+_ByteCount := _ByteCount + DINT_TO_UDINT(Value.diSize); 
    
 Add_BLOB := THIS^;
 ]]></ST>
@@ -68,6 +68,7 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
    
 Add_BOOL := THIS^;
 ]]></ST>
@@ -87,7 +88,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
-   
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 Add_BYTE := THIS^;
 ]]></ST>
       </Implementation>
@@ -106,6 +108,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
    
 Add_DINT := THIS^;
 ]]></ST>
@@ -125,6 +129,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 
 Add_INT := THIS^;
 ]]></ST>
@@ -144,6 +150,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
    
 Add_LINT := THIS^;
 ]]></ST>
@@ -163,6 +171,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 
 Add_LREAL := THIS^;
 ]]></ST>
@@ -182,6 +192,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
    
 Add_PVOID := THIS^;
 ]]></ST>
@@ -201,6 +213,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 
 Add_REAL := THIS^;
 ]]></ST>
@@ -226,6 +240,8 @@ MEMCPY(
 
 
 _Position := _Position + StringSize;    
+_ByteCount := _ByteCount + StringSize; 
+
 
 Add_STRING := THIS^;
 ]]></ST>
@@ -245,6 +261,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 
 Add_UDINT := THIS^;
 ]]></ST>
@@ -264,6 +282,8 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
 
 Add_UINT := THIS^;
 ]]></ST>
@@ -283,17 +303,31 @@ END_VAR]]></Declaration>
 pValue := pBuffer + _Position;
 pValue^ := Value;
 _Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
    
 Add_ULINT := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="ByteCount" Id="{fb3f5637-624c-4b01-8112-1aed92fa8f09}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ByteCount : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3e164eef-b8d4-4044-aa5e-db5d0bc2955c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ByteCount := _ByteCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="Clear" Id="{aa527d30-0b4c-08d4-1da8-932172a4f081}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Clear : IStreamWriter
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[Buffer.Clear();
 _Position := 0;
+_ByteCount := 0;
 pBuffer := Buffer.pBuffer;
 Clear := THIS^;]]></ST>
       </Implementation>
@@ -339,6 +373,7 @@ END_IF
 _StreamLength := StreamLength;
 Buffer.CreateBuffer(nSize := _StreamLength, bReset := TRUE);
 _Position := 0;
+_ByteCount := 0;
 pBuffer := Buffer.pBuffer;]]></ST>
       </Implementation>
     </Method>
@@ -569,6 +604,19 @@ END_VAR]]></Declaration>
     _Position := _Position + SIZEOF(Result);   
     Read_ULINT := Result; 
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Resize" Id="{6eedcc64-a81c-456d-b6ba-eafb61d80242}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Resize
+VAR_INPUT
+    StreamLength : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Buffer.Resize(nSize := StreamLength, bPreserve := TRUE, bReset := FALSE);
+_StreamLength := StreamLength;
+pBuffer := Buffer.pBuffer;
 ]]></ST>
       </Implementation>
     </Method>

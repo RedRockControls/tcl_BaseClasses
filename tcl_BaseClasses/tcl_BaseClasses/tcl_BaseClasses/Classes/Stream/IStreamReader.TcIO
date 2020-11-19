@@ -1,9 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
   <Itf Name="IStreamReader" Id="{4ce154d4-15b3-0d46-1c83-b5e5fa9c119b}">
     <Declaration><![CDATA[INTERFACE IStreamReader
 ]]></Declaration>
     <Folder Name="Methods" Id="{b8877614-48d5-0eca-2865-22e970702037}" />
+    <Folder Name="Properties" Id="{18227f3f-6186-444d-b03a-411065a98a45}" />
+    <Property Name="ByteCount" Id="{d9f7b8d1-2d35-4a5d-bad3-6fe0c94cb205}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ByteCount : UDINT]]></Declaration>
+      <Get Name="Get" Id="{31446b88-9ca8-46f6-bfca-5e74ebdec389}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Position" Id="{a628a986-9d56-4183-be06-90d8d90312c1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Position : UDINT]]></Declaration>
+      <Get Name="Get" Id="{2ab8440f-153d-468d-a3b6-5ef4009c446d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="Read_BLOB" Id="{f8c9a894-7e28-4c4d-9d66-adf775a9e61a}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_BLOB
 VAR_INPUT
@@ -66,5 +79,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Property Name="StreamLength" Id="{9489897a-d8a6-4158-be9e-bb7ac19f91ce}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY StreamLength : UDINT]]></Declaration>
+      <Get Name="Get" Id="{384815eb-b3bc-4172-95da-68741813042e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
   </Itf>
 </TcPlcObject>

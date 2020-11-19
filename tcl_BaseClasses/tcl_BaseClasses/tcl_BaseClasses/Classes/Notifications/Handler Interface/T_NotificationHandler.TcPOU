@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
+VAR
+    _NotificationArgs : TStream(StreamLength := 4);
+    _Raised : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="IsRaised" Id="{2f654e7a-64b0-48a2-bfdf-080e6f307638}">
+      <Declaration><![CDATA[METHOD IsRaised : BOOL;
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsRaised := _Raised;
+_Raised := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NotificationArgs" Id="{91257052-647a-4693-b950-dbd5f4670b44}">
+      <Declaration><![CDATA[PROPERTY NotificationArgs : IStreamReader]]></Declaration>
+      <Get Name="Get" Id="{53b1bc30-dc6e-49ed-9d6e-3cc453a91aed}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationArgs := _NotificationArgs;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="OnNotificationReceived" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}">
+      <Declaration><![CDATA[METHOD OnNotificationReceived
+VAR_INPUT
+	NotificationId	  : UDINT;
+	NotificationName  : Tc2_System.T_MaxString;
+	Args	          : IStreamReader;
+END_VAR
+VAR
+    i : UDINT;
+    ByteToCopy : BYTE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Args.ByteCount > 0 THEN // has event arguments..
+    IF Args.StreamLength > _NotificationArgs.StreamLength THEN
+        _NotificationArgs.Resize(Args.StreamLength);
+    END_IF
+    _NotificationArgs.Clear();
+    FOR i := 1 TO Args.ByteCount DO
+        ByteToCopy := Args.Read_BYTE();
+        _NotificationArgs.Add_BYTE(ByteToCopy);
+    END_FOR
+END_IF
+_NotificationArgs.Seek(0);
+
+_Raised := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
