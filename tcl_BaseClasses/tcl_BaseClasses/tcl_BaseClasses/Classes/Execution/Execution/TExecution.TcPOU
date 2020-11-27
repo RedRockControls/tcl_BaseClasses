@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="TExecution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[(*
 :Class for handling communications between a client requesting a service 
@@ -201,6 +201,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_Event_OnAbort := GlobalEvents.Event_OnAbort;
 _Event_OnError := GlobalEvents.Event_OnError;
+_Notification_OnAbort := GlobalEvents.Notification_ExecutionAborted;
+_Notification_OnError := GlobalEvents.Notification_ExecutionFailed;
 
 SourceInfo.sName := Name;]]></ST>
       </Implementation>
