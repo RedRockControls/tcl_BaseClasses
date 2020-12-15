@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="TStructureCrcMonitor" Id="{4ff37301-51db-0d33-1801-69eaef5746f6}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
+FUNCTION_BLOCK TStructureCrcMonitor
+VAR
+    _Changed : BOOL;
+    Stored_CRC : WORD := 16#FFFF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Changed" Id="{b58d1fdb-bd27-0669-252f-03a922d82a2c}">
+      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1abfd3ce-79a9-0f67-2fbb-cb772335c15a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Changed := _Changed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{68db21ce-aedd-0b3b-35b4-c6242b4cf77c}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stored_CRC := 16#FFFF;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test" Id="{4f5aa998-1605-0b49-0b94-abed0a451d48}">
+      <Declaration><![CDATA[METHOD Test
+VAR_INPUT
+    Structure : ANY;
+END_VAR
+VAR
+    CRC : WORD;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CRC := F_DATA_TO_CRC16_CCITT(
+            pData  := Structure.pValue, 
+            cbData := DINT_TO_UDINT(Structure.diSize), 
+            crc    := 0);
+
+_Changed := (CRC <> Stored_CRC);
+    
+IF Changed THEN
+    Stored_CRC := CRC;
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

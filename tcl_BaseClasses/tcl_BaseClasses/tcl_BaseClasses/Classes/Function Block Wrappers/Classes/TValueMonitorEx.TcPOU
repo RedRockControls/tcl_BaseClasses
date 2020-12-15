@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="TValueMonitorEx" Id="{bacae591-70bd-03f3-1d52-321cbceb26da}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK TValueMonitorEx
@@ -38,7 +38,7 @@ END_VAR
     <Method Name="Test" Id="{24bc92f7-bd36-0ba0-0222-49588d079fd0}">
       <Declaration><![CDATA[METHOD Test : BOOL;
 VAR_INPUT
-    Value : ANY;
+    Value : ANY_NUM;
 END_VAR
 ]]></Declaration>
       <Implementation>

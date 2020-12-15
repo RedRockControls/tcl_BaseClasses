@@ -18,10 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.18.0</ProjectVersion>
+    <ProjectVersion>1.0.19.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>TExecution.NotificationOnError
-TExecution.NotificationOnAbort initialisation corrected</Description>
+    <Description>TStructureMonitor added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -129,6 +128,9 @@ TExecution.NotificationOnAbort initialisation corrected</Description>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Function Block Wrappers\Classes\TRisingEdge.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Function Block Wrappers\Classes\TStructureCrcMonitor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Function Block Wrappers\Classes\TValueMonitor.TcPOU">
