@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_ValueMonitorEx" Id="{bacae591-70bd-03f3-1d52-321cbceb26da}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
+FUNCTION_BLOCK T_ValueMonitorEx
+VAR
+    _Changed : BOOL;
+    StoredValue : ARRAY[0..7] OF BYTE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Changed" Id="{51edbcfe-dede-04c7-0459-a6015be2ca88}">
+      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{99977f8b-4a89-07a7-3d53-1ff3084f751a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Changed := _Changed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Reset" Id="{0b7c1ee6-a5c4-0d75-1e2b-580f2737e28e}">
+      <Declaration><![CDATA[METHOD Reset
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MEMSET(
+    destAddr := ADR(StoredValue),
+    fillByte  := 16#00,
+    n        := SIZEOF(StoredValue));
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Test" Id="{24bc92f7-bd36-0ba0-0222-49588d079fd0}">
+      <Declaration><![CDATA[METHOD Test : BOOL;
+VAR_INPUT
+    Value : ANY_NUM;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Changed := 0 <>  MEMCMP(
+                    pBuf1 := Value.pValue,
+                    pBuf2 := ADR(StoredValue),
+                    n     := DINT_TO_UDINT(Value.diSize));
+    
+IF _Changed THEN
+    MEMCPY(
+        destAddr := ADR(StoredValue),
+        srcAddr  := Value.pValue,
+        n        := DINT_TO_UDINT(Value.diSize));
+END_IF
+
+Test := _Changed;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

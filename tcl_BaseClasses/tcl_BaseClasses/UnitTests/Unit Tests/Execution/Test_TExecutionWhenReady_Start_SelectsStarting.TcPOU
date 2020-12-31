@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TExecutionWhenReady_Start_SelectsStarting" Id="{ef98dc1e-565d-4e35-b9f5-21bb06b550cf}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS T_UnitTestbase
 VAR
-    Execution : TExecution;
+    Execution : T_Execution;
 END_VAR
 ]]></Declaration>
     <Implementation>

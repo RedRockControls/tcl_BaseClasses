@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TExecutionWhenBusy_SetDone_SetsDone" Id="{93ebfca8-fad7-42c4-8d5e-930d5fd57175}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetDone_SetsDone EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetDone_SetsDone EXTENDS T_UnitTestbase
 VAR
-    Execution : TExecution;
+    Execution : T_Execution;
 END_VAR
 ]]></Declaration>
     <Implementation>

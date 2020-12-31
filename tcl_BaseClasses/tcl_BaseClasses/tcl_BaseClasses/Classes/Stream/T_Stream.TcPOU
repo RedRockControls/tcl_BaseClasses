@@ -1,0 +1,680 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_Stream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_StreamWriter, I_StreamReader
+VAR
+    
+    MemoryManager : FB_DynMem_Manager;
+    Buffer : FB_DynMem_Buffer(ipMemMan:= MemoryManager);
+    pBuffer : POINTER TO BYTE;
+    
+    _StreamLength : UDINT := 4;
+    _Position : UDINT;
+    _ByteCount : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{3607c258-fd4e-0eca-0c2c-f6847ad6a5df}" />
+    <Folder Name="Properties" Id="{8ce05d78-ee60-05e0-134e-bfd2d25fa91b}" />
+    <Method Name="_ResizeIfNecessary" Id="{4c85beec-fafd-0332-0264-65f3f9273dc7}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PRIVATE _ResizeIfNecessary
+VAR_INPUT
+    SpaceRequired : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SpaceRequired > _StreamLength THEN
+    Resize(StreamLength := _Position + SpaceRequired);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_BLOB" Id="{eb34da3f-d27f-4e89-869e-adb85eec5235}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_BLOB : I_StreamWriter
+VAR_INPUT
+    Value : ANY;
+END_VAR
+VAR
+    pValue : POINTER TO BYTE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(Value.diSize));
+
+MEMCPY(
+    destAddr:= pBuffer + _Position, 
+    srcAddr := Value.pValue, 
+    n       := DINT_TO_UDINT(Value.diSize));
+
+_Position  := _Position + DINT_TO_UDINT(Value.diSize); 
+_ByteCount := _ByteCount + DINT_TO_UDINT(Value.diSize); 
+   
+Add_BLOB := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_BOOL" Id="{7beb3c3e-8d84-0c46-1458-1b7b92b63e30}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_BOOL : I_StreamWriter
+VAR_INPUT
+    Value : BOOL;
+END_VAR
+VAR
+    pValue : POINTER TO BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+   
+Add_BOOL := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_BYTE" Id="{030e1fb0-78e9-06d1-01fb-084ed99a7c86}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_BYTE : I_StreamWriter
+VAR_INPUT
+    Value : BYTE;
+END_VAR
+VAR
+    pValue : POINTER TO BYTE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+Add_BYTE := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_DINT" Id="{31239b38-361b-0d3f-0af3-2f3ef2e9e59b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_DINT : I_StreamWriter
+VAR_INPUT
+    Value : DINT;
+END_VAR
+VAR
+    pValue : POINTER TO DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+   
+Add_DINT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_INT" Id="{f9865655-2cea-04b1-0a9e-c5b2fbf2b477}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_INT : I_StreamWriter
+VAR_INPUT
+    Value : INT;
+END_VAR
+VAR
+    pValue : POINTER TO INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_INT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_LINT" Id="{1820a32d-1cd7-0625-2cfd-f88d8a948838}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_LINT : I_StreamWriter
+VAR_INPUT
+    Value : LINT;
+END_VAR
+VAR
+    pValue : POINTER TO LINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+   
+Add_LINT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_LREAL" Id="{2d9ba739-a603-01e0-21a0-2f35e9c49f5a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_LREAL : I_StreamWriter
+VAR_INPUT
+    Value : LREAL;
+END_VAR
+VAR
+    pValue : POINTER TO LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_LREAL := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_PVOID" Id="{371876cd-4ebf-0d9d-1f20-40f781dfe335}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_PVOID : I_StreamWriter
+VAR_INPUT
+    Value : PVOID;
+END_VAR
+VAR
+    pValue : POINTER TO PVOID;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+   
+Add_PVOID := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_REAL" Id="{473baad3-6290-0f2e-0f58-01351f75f993}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_REAL : I_StreamWriter
+VAR_INPUT
+    Value : REAL;
+END_VAR
+VAR
+    pValue : POINTER TO REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_REAL := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_STRING" Id="{21b62581-7a37-0bd9-1176-a322997395f8}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_STRING : I_StreamWriter // adds any string length as we only store the chars + null byte
+VAR_INPUT
+    Value : STRING(255);
+END_VAR
+VAR
+    StringSize : UDINT; // number of characters plus the null termination byte
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[StringSize := INT_TO_UDINT(LEN(Value) + 1);
+
+_ResizeIfNecessary(SpaceRequired := StringSize);  // only storing the characters and the null termination byte
+
+MEMCPY(
+    destAddr := pBuffer + _Position,
+    srcAddr  := ADR(Value),
+    n        := StringSize);
+
+
+_Position := _Position + StringSize;    
+_ByteCount := _ByteCount + StringSize; 
+
+
+Add_STRING := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_UDINT" Id="{2f4586aa-cb30-039c-24e6-bbfc08c0c422}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_UDINT : I_StreamWriter
+VAR_INPUT
+    Value : UDINT;
+END_VAR
+VAR
+    pValue : POINTER TO UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_UDINT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_UINT" Id="{7b471ebb-85a2-0c54-0eda-e85c8d920fc4}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_UINT : I_StreamWriter
+VAR_INPUT
+    Value : UINT;
+END_VAR
+VAR
+    pValue : POINTER TO UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_UINT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Add_ULINT" Id="{3b924970-9e4f-0249-16d4-29cce8f96575}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_ULINT : I_StreamWriter
+VAR_INPUT
+    Value : ULINT;
+END_VAR
+VAR
+    pValue : POINTER TO ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value); 
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+   
+Add_ULINT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="BufferAddress" Id="{ee410d73-9c97-4f01-bed3-0fe8abd97c79}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY BufferAddress : PVOID]]></Declaration>
+      <Get Name="Get" Id="{9ea31405-817b-44a8-adb2-f00c71b20b37}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[BufferAddress := Buffer.pBuffer;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ByteCount" Id="{fb3f5637-624c-4b01-8112-1aed92fa8f09}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ByteCount : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3e164eef-b8d4-4044-aa5e-db5d0bc2955c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ByteCount := _ByteCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Clear" Id="{aa527d30-0b4c-08d4-1da8-932172a4f081}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Clear : I_StreamWriter
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Buffer.Clear();
+_Position := 0;
+_ByteCount := 0;
+pBuffer := Buffer.pBuffer;
+Clear := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CopyFromStreamReader" Id="{628a2f83-9063-4b54-963c-41529f121199}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD CopyFromStreamReader
+VAR_INPUT
+    StreamToCopyFrom : I_StreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF StreamToCopyFrom.StreamLength > THIS^.StreamLength THEN
+    Resize(StreamToCopyFrom.StreamLength);
+END_IF
+
+MEMCPY(
+    destAddr := Buffer.pBuffer,
+    srcAddr  := StreamToCopyFrom.BufferAddress,
+    n        := StreamToCopyFrom.StreamLength);
+    
+THIS^._ByteCount    := StreamToCopyFrom.ByteCount;
+THIS^._StreamLength := StreamToCopyFrom.StreamLength;
+THIS^._Position     := 0;    ]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_exit" Id="{6fe0ad89-3a2a-067e-3d39-721acf587bbb}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInCopyCode THEN
+    Buffer.DeleteBuffer();
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{64f819ea-8af0-05ad-3ef0-540d0e10a939}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    StreamLength : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInCopyCode THEN
+    Init(StreamLength);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Init" Id="{2b40521b-bf8d-0ff7-031c-928f3bdfedb6}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Init
+VAR_INPUT
+    StreamLength : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Buffer.bAvailable THEN
+    Buffer.DeleteBuffer();
+END_IF
+
+_StreamLength := StreamLength;
+Buffer.CreateBuffer(nSize := _StreamLength, bReset := TRUE);
+_Position := 0;
+_ByteCount := 0;
+pBuffer := Buffer.pBuffer;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Position" Id="{3a323232-1bab-0053-1f7f-ad6025f9100d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Position : UDINT]]></Declaration>
+      <Get Name="Get" Id="{f1d18bec-1413-0267-1657-d62931f6757b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Position := _Position;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Read_BLOB" Id="{6c7c1fdf-c083-4215-bc18-a8edadcb5fa1}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BLOB
+VAR_INPUT
+    Value : ANY;
+END_VAR
+
+VAR
+    pValue : POINTER TO BYTE;
+    Result : BYTE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
+    
+MEMCPY(
+    destAddr:= Value.pValue, 
+    srcAddr := pBuffer + _Position, 
+    n       := DINT_TO_UDINT(Value.diSize));
+
+    _Position := _Position + DINT_TO_UDINT(Value.diSize);   
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_BOOL" Id="{af54e0cd-16dd-0373-2061-97f060da1982}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BOOL : BOOL;
+VAR
+    pValue : POINTER TO BOOL;
+    Result : BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_BOOL := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_BYTE" Id="{2f79e8aa-a1ce-0388-3637-aca716c1825f}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_BYTE : BYTE;
+VAR
+    pValue : POINTER TO BYTE;
+    Result : BYTE;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_BYTE := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_DINT" Id="{52b2e8be-af73-0b66-3ede-3e6c6875df1d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_DINT : DINT;
+VAR
+    pValue : POINTER TO DINT;
+    Result : DINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_DINT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_INT" Id="{88f59eaf-d475-0936-0514-fd747bd37737}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_INT : INT;
+VAR
+    pValue : POINTER TO INT;
+    Result : INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_INT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_LINT" Id="{9b94dfea-162d-0221-05c6-083e6fc3a489}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LINT : LINT;
+VAR
+    pValue : POINTER TO LINT;
+    Result : LINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_LINT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_LREAL" Id="{8b3953c5-1588-0a54-23ab-12e037540a96}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LREAL : LREAL;
+VAR
+    pValue : POINTER TO LREAL;
+    Result : LREAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_LREAL := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_PVOID" Id="{cbb33155-c6b1-0f12-39f0-968b46d8481d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_PVOID : PVOID;
+VAR
+    pValue : POINTER TO PVOID;
+    Result : PVOID;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_PVOID := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_REAL" Id="{68d4b51d-5637-03b3-2b8a-130f04bf24e9}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_REAL : REAL;
+VAR
+    pValue : POINTER TO REAL;
+    Result : REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_REAL := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_STRING" Id="{4fbbee87-6322-0666-117c-f80beac8fb2a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_STRING : STRING(255);
+VAR
+    pValue : POINTER TO STRING(255);
+    StringSize : UDINT; // number of characters plus the null termination byte
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[pValue := pBuffer + _Position;
+
+StringSize := INT_TO_UDINT(LEN(pValue^) + 1);
+
+IF _Position + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
+    _Position := _Position + StringSize;   
+    Read_STRING := pValue^;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_UDINT" Id="{bc064b6d-c61a-0649-34a8-7347e22bc625}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_UDINT : UDINT;
+VAR
+    pValue : POINTER TO UDINT;
+    Result : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_UDINT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_UINT" Id="{307605e7-bec9-0e51-20c3-ea75a90ec7f4}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_UINT : UINT;
+VAR
+    pValue : POINTER TO UINT;
+    Result : UINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_UINT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_ULINT" Id="{cf5324b0-9555-098c-1d59-f105b6163144}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_ULINT : ULINT;
+VAR
+    pValue : POINTER TO ULINT;
+    Result : ULINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
+    pValue := pBuffer + _Position;
+    Result := pValue^;
+    _Position := _Position + SIZEOF(Result);   
+    Read_ULINT := Result; 
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Resize" Id="{6eedcc64-a81c-456d-b6ba-eafb61d80242}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Resize
+VAR_INPUT
+    StreamLength : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Buffer.Resize(nSize := StreamLength, bPreserve := TRUE, bReset := FALSE);
+_StreamLength := StreamLength;
+pBuffer := Buffer.pBuffer;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Seek" Id="{00a3579c-6e96-0aa2-0dc9-f99eba3a69fc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Seek : I_StreamWriter
+VAR_INPUT
+    Position : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Position <= _StreamLength THEN
+    THIS^._Position := Position;
+END_IF
+Seek := THIS^;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="StreamLength" Id="{36aa2ecb-3733-03f2-1d74-0a7499dcd311}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY StreamLength : UDINT]]></Declaration>
+      <Get Name="Get" Id="{ab88b6b6-7687-0b4f-06a7-9120995bda36}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StreamLength := _StreamLength;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

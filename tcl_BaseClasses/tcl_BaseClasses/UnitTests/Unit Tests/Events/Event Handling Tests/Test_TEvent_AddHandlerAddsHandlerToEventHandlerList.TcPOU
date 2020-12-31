@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TEvent_AddHandlerAddsHandlerToEventHandlerList" Id="{34eb3f10-a01f-435f-a6e6-cf7248099c8f}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddHandlerAddsHandlerToEventHandlerList EXTENDS TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddHandlerAddsHandlerToEventHandlerList EXTENDS T_UnitTestbase
 VAR
-    TestEvent : TTestEvent;
-    TestEventHandler : TTestEventHandler;
+    TestEvent : T_TestEvent;
+    TestEventHandler : T_TestEventHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>

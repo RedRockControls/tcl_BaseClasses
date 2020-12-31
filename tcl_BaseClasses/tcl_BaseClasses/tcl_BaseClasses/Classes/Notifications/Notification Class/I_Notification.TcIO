@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <Itf Name="I_Notification" Id="{7718dd74-9654-4af8-a63b-c5e9a3756592}">
     <Declaration><![CDATA[INTERFACE I_Notification 
 ]]></Declaration>
@@ -13,7 +13,7 @@ END_VAR
 ]]></Declaration>
     </Method>
     <Property Name="Args" Id="{404a8398-597e-4d06-b5b1-3cad519ea9d9}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Args : IStreamWriter]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Args : I_StreamWriter]]></Declaration>
       <Get Name="Get" Id="{191e915c-188e-4375-a4cb-7d82d278b82a}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>

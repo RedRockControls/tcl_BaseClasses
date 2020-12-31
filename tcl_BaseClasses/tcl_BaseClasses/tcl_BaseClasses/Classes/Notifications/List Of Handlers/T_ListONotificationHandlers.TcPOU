@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_ListONotificationHandlers" Id="{1fcff8f0-b8c4-4bed-b839-fdb26fdb9776}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK T_ListONotificationHandlers
+VAR
+    Buffer : FB_DynMem_Buffer(ipMemMan:= DynamicMemoryManager);
+    DynamicMemoryManager : FB_DynMem_Manager;
+
+    pHandler : POINTER TO I_NotificationHandler;
+    HandlerCount : UDINT;
+    Capacity : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="AddHandler" Id="{4faaef0c-95d4-47eb-bad8-5f502cf946ca}">
+      <Declaration><![CDATA[METHOD AddHandler
+VAR_INPUT
+    Handler : I_NotificationHandler;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Count = Capacity THEN
+    Capacity := Capacity * 2;
+    Buffer.Resize(
+        nSize     := Capacity * SIZEOF(PVOID),
+        bPreserve := TRUE,
+        bReset    := FALSE);
+    pHandler := Buffer.pBuffer;
+END_IF
+
+pHandler[HandlerCount] := Handler;
+HandlerCount := HandlerCount + 1;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{392cea44-d6e9-4110-b6d9-4fed5b76a2ec}">
+      <Declaration><![CDATA[METHOD Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Buffer.Clear();
+HandlerCount := 0;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{3952cc7c-1071-4603-8d76-4fe94cd90db2}">
+      <Declaration><![CDATA[PROPERTY Count : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{0e88bdd7-52c9-4eea-969d-92abc8c68f8b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := HandlerCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="FB_exit" Id="{b4bcf37e-def8-4b6e-bf9c-b2a96004e198}">
+      <Declaration><![CDATA[METHOD FB_exit : BOOL
+VAR_INPUT
+	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInCopyCode THEN
+    Buffer.DeleteBuffer();
+    pHandler := 0;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="FB_init" Id="{c7aec280-ba2a-4496-90e8-87d0d03568b6}">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    Capacity : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Buffer.CreateBuffer(
+    nSize := Capacity * SIZEOF(PVOID),
+    bReset := TRUE);
+    
+pHandler := Buffer.pBuffer;
+THIS^.Capacity := Capacity;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="GetHandler" Id="{da1f2a72-8905-472e-8ebd-a6a8733af20d}">
+      <Declaration><![CDATA[METHOD GetHandler : I_NotificationHandler
+VAR_INPUT
+    Index : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < HandlerCount AND Index >= 0 THEN 
+    GetHandler := pHandler[Index];
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

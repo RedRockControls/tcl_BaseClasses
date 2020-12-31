@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <Itf Name="I_Execution" Id="{2e2a9e90-2894-0caa-065e-86441183945f}">
+    <Declaration><![CDATA[INTERFACE I_Execution
+]]></Declaration>
+    <Folder Name="Methods" Id="{4df2c49f-ecc5-41ac-a5f7-eb029ec847e7}" />
+    <Folder Name="Properties" Id="{858ea4b7-fbd7-4d4c-a650-4ab711825959}" />
+    <Method Name="Abort" Id="{b913466c-26cf-0433-3b1e-51d91dedf168}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Abort 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Aborted" Id="{5347566a-e4a6-4028-bbdd-c7c385fe1cab}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Aborted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{68b612a5-196e-4381-a504-106ddf11c80e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Busy" Id="{6cebbaf7-86c1-4b42-b741-1563ee9a82a3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c2417d08-69f5-4b45-8674-471ac6e75ca8}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Clear" Id="{58de2a78-426c-4017-a46d-fddd798e420e}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Clear 
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Done" Id="{f19ffc53-eaf1-48be-aca7-f281232899dc}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Done : BOOL]]></Declaration>
+      <Get Name="Get" Id="{06415348-1825-402b-9b90-995ba15a6503}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{54cfaecc-395a-4685-8d6b-701b343961c9}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{cff8eb45-644a-457e-91bd-f88883679daa}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ErrorId" Id="{554c0d62-de61-4cee-b138-02830007f416}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorId : UDINT]]></Declaration>
+      <Get Name="Get" Id="{3988269b-c4af-4b43-b25b-132866f150af}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Event_OnAbort" Id="{aa6718e5-a154-4d63-b597-d56558a437a2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Event_OnAbort : I_Event]]></Declaration>
+      <Get Name="Get" Id="{9b4d3ced-e6a5-451e-a1ce-71ba48bbfe04}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{4588cfbb-42b1-4cab-b5f2-67f8502177ce}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Event_OnError" Id="{f7d42420-ef1e-476e-96d6-701a9a01a5ba}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Event_OnError : I_Event]]></Declaration>
+      <Get Name="Get" Id="{83bf764f-a383-412c-8d91-57d70eec55af}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{d2c49168-cc52-44a9-bce6-660c347d836d}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Notification_OnAbort" Id="{5bff5e48-e058-4bd5-b034-78e58ed48528}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification]]></Declaration>
+      <Get Name="Get" Id="{2d849f1f-c182-4380-910a-ae92c4aa8e38}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{f7c5526a-9c46-4575-b20a-013d7f3bf3a6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Notification_OnError" Id="{b1fef8e3-b1dc-4f81-ad00-3f9ccb825c81}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification]]></Declaration>
+      <Get Name="Get" Id="{e6794e2f-7391-458f-a3be-a68c40a6b2fb}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{8f58c853-4be2-45e4-a65e-1a6be90df3b5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+      </Set>
+    </Property>
+    <Property Name="Ready" Id="{b91ada47-a851-4255-ace3-07ff2a4d3deb}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Ready : BOOL]]></Declaration>
+      <Get Name="Get" Id="{bde8a44c-e6cd-483a-a94e-c0d4f73a98b1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="Start" Id="{28e25cff-ad88-0708-05e8-5a4e484e10dc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Start : BOOL // returns TRUE if start request accepted (i.e State was Ready)
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Starting" Id="{6b02f8f3-9828-4ea0-8253-65483424421e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Starting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d6faa71d-a2a3-4abf-8c36-46cccd4f90e4}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

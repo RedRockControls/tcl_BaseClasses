@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TExecutionWhenBusy_SetError_RaisesEvent" Id="{452ff667-acfb-46f7-b1ec-7243b874d0f2}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetError_RaisesEvent EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetError_RaisesEvent EXTENDS T_UnitTestbase
 VAR
-    Execution : TExecution;
-    Execution_EventHandler : TExecution_EventHandler;
+    Execution : T_Execution;
+    Execution_EventHandler : T_Execution_EventHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>

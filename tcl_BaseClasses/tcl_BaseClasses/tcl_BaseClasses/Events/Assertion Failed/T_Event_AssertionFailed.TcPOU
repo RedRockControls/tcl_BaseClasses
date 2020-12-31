@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_Event_AssertionFailed" Id="{c96590be-9346-4ddc-943b-792d0d6d2694}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_Event_AssertionFailed EXTENDS T_EventBase IMPLEMENTS I_Event
+VAR
+    Message : T_MaxString;
+    Handler : I_EventHandler_OnAssertionFailed;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CallHandler" Id="{a2f509c9-1ae1-4969-9c62-873357bc1858}">
+      <Declaration><![CDATA[METHOD  CallHandler
+VAR_INPUT
+    HandlerBase : I_EventHandlerBase;
+    EventArgs   : I_StreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
+    Message := EventArgs.Read_STRING();
+    Handler.OnAssertionFailed(EventArgs);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="IsHandlerSupported" Id="{626a8e4e-c8e5-43f4-8c6c-36eeb6e42fa0}">
+      <Declaration><![CDATA[METHOD  IsHandlerSupported : BOOL
+VAR_INPUT
+    HandlerBase : I_EventHandlerBase;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF __QUERYINTERFACE(HandlerBase,Handler) THEN
+    IsHandlerSupported := TRUE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

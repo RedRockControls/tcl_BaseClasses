@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="T_ClassThatHandlesNotifications" Id="{86eb1b79-63f5-4257-8b9b-6105f01b6690}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_ClassThatHandlesNotifications IMPLEMENTS I_NotificationHandler
 VAR_INPUT
@@ -30,7 +30,7 @@ END_VAR
 VAR_INPUT
     NotificationId   : UDINT;
     NotificationName : T_MaxString;
-    Args             : IStreamReader;
+    Args             : I_StreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>

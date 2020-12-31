@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.0.19.0</ProjectVersion>
+    <ProjectVersion>1.1.1.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>TStructureMonitor added</Description>
+    <Description>Warning issued if notification aleadt raised when raised</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -91,52 +91,52 @@
     <Folder Include="Classes" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Event Framework\Event Base Class\IEvent.TcIO">
+    <Compile Include="Classes\Event Framework\Event Base Class\I_Event.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Event Framework\Event Base Class\TEventBase.TcPOU">
+    <Compile Include="Classes\Event Framework\Event Base Class\T_EventBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Event Framework\Event Handler Base\IEventHandlerBase.TcIO">
+    <Compile Include="Classes\Event Framework\Event Handler Base\I_EventHandlerBase.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Event Framework\List Of Handlers\TListOfEventHandlers.TcPOU">
+    <Compile Include="Classes\Event Framework\List Of Handlers\T_ListOfEventHandlers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Execution\Execution\IExecution.TcIO">
+    <Compile Include="Classes\Execution\Execution\I_Execution.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Execution\Execution\TExecution.TcPOU">
+    <Compile Include="Classes\Execution\Execution\T_Execution.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Execution\Execution\TExecutionState.TcDUT">
+    <Compile Include="Classes\Execution\Execution\T_ExecutionState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TCounter.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_Counter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TFallingEdge.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_FallingEdge.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TOffTimer.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_OffTimer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TOnTimer.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_OnTimer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TPulseTimer.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_PulseTimer.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TRisingEdge.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_RisingEdge.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TStructureCrcMonitor.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_StructureCrcMonitor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TValueMonitor.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_ValueMonitor.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Function Block Wrappers\Classes\TValueMonitorEx.TcPOU">
+    <Compile Include="Classes\Function Block Wrappers\Classes\T_ValueMonitorEx.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Function Block Wrappers\Event Logging\F_LogError.TcPOU">
@@ -154,7 +154,7 @@
     <Compile Include="Classes\Notifications\Handler Interface\T_NotificationHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Notifications\List Of Handlers\TListONotificationHandlers.TcPOU">
+    <Compile Include="Classes\Notifications\List Of Handlers\T_ListONotificationHandlers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Notifications\Notification Class\I_Notification.TcIO">
@@ -163,31 +163,31 @@
     <Compile Include="Classes\Notifications\Notification Class\T_Notification.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Stream\IStreamReader.TcIO">
+    <Compile Include="Classes\Stream\I_StreamReader.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Stream\IStreamWriter.TcIO">
+    <Compile Include="Classes\Stream\I_StreamWriter.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Stream\TStream.TcPOU">
+    <Compile Include="Classes\Stream\T_Stream.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Assertion Failed\IEventHandler_OnAssertionFailed.TcIO">
+    <Compile Include="Events\Assertion Failed\I_EventHandler_OnAssertionFailed.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Assertion Failed\TEvent_AssertionFailed.TcPOU">
+    <Compile Include="Events\Assertion Failed\T_Event_AssertionFailed.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Execution Aborted\IEventHandler_OnExecutionAborted.TcIO">
+    <Compile Include="Events\Execution Aborted\I_EventHandler_OnExecutionAborted.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Execution Aborted\TEvent_ExecutionAborted.TcPOU">
+    <Compile Include="Events\Execution Aborted\T_Event_ExecutionAborted.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Execution Failed\IEventHandler_OnExecutionFailed.TcIO">
+    <Compile Include="Events\Execution Failed\I_EventHandler_OnExecutionFailed.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Events\Execution Failed\TEvent_ExecutionFailed.TcPOU">
+    <Compile Include="Events\Execution Failed\T_Event_ExecutionFailed.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_DINT_TO_UDINT.TcPOU">

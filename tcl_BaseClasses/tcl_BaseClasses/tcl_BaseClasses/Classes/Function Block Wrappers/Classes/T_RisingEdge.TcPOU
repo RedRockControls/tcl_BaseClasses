@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_RisingEdge" Id="{59aed088-2301-02c0-044b-6e8c897b9b7e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_RisingEdge
+VAR
+    R_TRIG1 : R_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="EdgeDetected" Id="{c670d64f-39a9-0e02-36d1-2a2447c5caea}">
+      <Declaration><![CDATA[PROPERTY EdgeDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{95fd47b6-9165-0ff6-2b79-9d0db693a8d1}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EdgeDetected := R_TRIG1.Q;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Test" Id="{842f4957-e5af-0186-0606-af3122602df9}">
+      <Declaration><![CDATA[METHOD Test : BOOL
+VAR_INPUT
+    Value : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[R_TRIG1(CLK := Value);
+Test := R_TRIG1.Q;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

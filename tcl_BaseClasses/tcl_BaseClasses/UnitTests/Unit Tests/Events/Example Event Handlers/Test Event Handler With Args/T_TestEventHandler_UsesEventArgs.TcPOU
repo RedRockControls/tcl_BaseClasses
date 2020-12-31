@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <POU Name="T_TestEventHandler_UsesEventArgs" Id="{87a28297-553f-4ed1-8c5d-366de471490c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_TestEventHandler_UsesEventArgs IMPLEMENTS I_TestEventHandler_UsesEventArgs
+VAR
+    _EventWasRaised : BOOL;
+    Arg1 : UDINT;
+    Arg2 : LREAL;
+    Arg3 : STRING;
+    Arg4 : T_MAxString;
+    Arg5 : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="EventWasRaised" Id="{aa467f9c-d09c-4800-a53a-09cdc5b8fd9d}">
+      <Declaration><![CDATA[PROPERTY EventWasRaised : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8b7248f5-5871-424e-9c8a-ee967cc3826e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[EventWasRaised := _EventWasRaised;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="OnThisEvent" Id="{7f79d98c-f159-43e7-b5ff-fd14bce07540}">
+      <Declaration><![CDATA[METHOD OnThisEvent
+VAR_INPUT
+    EventArgs : I_StreamReader;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Arg1 := EventArgs.Read_UDINT();
+Arg2 := EventArgs.Read_LREAL();
+Arg3 := EventArgs.Read_String();
+Arg4 := EventArgs.Read_STRING();
+Arg5 := EventArgs.Read_BOOL();
+
+_EventWasRaised := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

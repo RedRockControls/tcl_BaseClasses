@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="607f5e14-d01e-4493-979d-0fc6e8f214bb">T_NotificationHandler</Type>
+      <From>_Raised</From>
+      <To>_IsRaised</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="607f5e14-d01e-4493-979d-0fc6e8f214bb">T_NotificationHandler</Type>
+      <From>_NotificationArgs</From>
+      <To>_Args</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

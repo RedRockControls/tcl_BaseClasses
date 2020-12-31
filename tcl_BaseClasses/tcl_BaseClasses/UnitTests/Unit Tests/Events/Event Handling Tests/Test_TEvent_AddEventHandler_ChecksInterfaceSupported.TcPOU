@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TEvent_AddEventHandler_ChecksInterfaceSupported" Id="{c7fe5bbf-c1b7-4423-85a8-e42a5f13c291}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddEventHandler_ChecksInterfaceSupported EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddEventHandler_ChecksInterfaceSupported EXTENDS T_UnitTestbase
 VAR
-    TestEvent : TTestEvent;
-    TestEventHandler : TUnsupportedEventHandler;
+    TestEvent : T_TestEvent;
+    TestEventHandler : T_UnsupportedEventHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>

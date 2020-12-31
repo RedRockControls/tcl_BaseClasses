@@ -1,61 +1,80 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    _NotificationArgs : TStream(StreamLength := 4);
-    _Raised : BOOL;
+    _Args            : T_Stream(StreamLength := 4);
+    _IsRaised        : BOOL;
+    _InvocationCount : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="IsRaised" Id="{2f654e7a-64b0-48a2-bfdf-080e6f307638}">
-      <Declaration><![CDATA[METHOD IsRaised : BOOL;
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IsRaised := _Raised;
-_Raised := FALSE;]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="NotificationArgs" Id="{91257052-647a-4693-b950-dbd5f4670b44}">
-      <Declaration><![CDATA[PROPERTY NotificationArgs : IStreamReader]]></Declaration>
+    <Folder Name="Methods" Id="{50523a27-f4f0-421d-b359-9106ca91093f}" />
+    <Folder Name="Properties" Id="{fa028168-01fb-46c8-9542-d1715323a920}" />
+    <Property Name="Args" Id="{91257052-647a-4693-b950-dbd5f4670b44}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Args : I_StreamReader]]></Declaration>
       <Get Name="Get" Id="{53b1bc30-dc6e-49ed-9d6e-3cc453a91aed}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[NotificationArgs := _NotificationArgs;]]></ST>
+          <ST><![CDATA[Args := _Args;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="OnNotificationReceived" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}">
+    <Method Name="Handled" Id="{66e16aac-78b8-424e-a9ed-840351f5e3bd}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Handled
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_IsRaised := FALSE;
+_InvocationCount := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InvocationCount" Id="{5bd3cb2d-5961-41b2-9319-18b3e8af94e2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY InvocationCount : DINT]]></Declaration>
+      <Get Name="Get" Id="{fb9ecc7c-8d9e-4665-b605-3ba3bba5a0d2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InvocationCount := _InvocationCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="IsRaised" Id="{fae0f454-b76e-425b-b849-6b812d700aa5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD IsRaised : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IsRaised := _IsRaised;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnNotificationReceived" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD OnNotificationReceived
 VAR_INPUT
-	NotificationId	  : UDINT;
-	NotificationName  : Tc2_System.T_MaxString;
-	Args	          : IStreamReader;
+    NotificationId   : UDINT;
+    NotificationName : Tc2_System.T_MaxString;
+    Args             : I_StreamReader;
 END_VAR
 VAR
-    i : UDINT;
+    i          : UDINT;
     ByteToCopy : BYTE;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Args.ByteCount > 0 THEN // has event arguments..
-    IF Args.StreamLength > _NotificationArgs.StreamLength THEN
-        _NotificationArgs.Resize(Args.StreamLength);
-    END_IF
-    _NotificationArgs.Clear();
-    FOR i := 1 TO Args.ByteCount DO
-        ByteToCopy := Args.Read_BYTE();
-        _NotificationArgs.Add_BYTE(ByteToCopy);
-    END_FOR
+    _Args.CopyFromStreamReader(Args);
 END_IF
-_NotificationArgs.Seek(0);
 
-_Raised := TRUE;]]></ST>
+_Args.Seek(0);
+
+_IsRaised          := TRUE;
+// keep track of how many times it has been raised so we can count number of notifications between being handled
+_InvocationCount := _InvocationCount + 1;]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <GVL Name="UnitTests" Id="{b8360f1b-138e-4dff-86fd-d2ed97da65d9}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -7,14 +7,14 @@ VAR_GLOBAL
     
     
     // Functions...
-    FunctionTests : TTestSuite;
+    FunctionTests : T_TestSuite;
     Test_F_DINT_TO_UDINT_Conversion                         : Test_F_DINT_TO_UDINT_Conversion       (TestSuite := UnitTests.FunctionTests);
     Test_F_UDINT_TO_DINT_Conversion                         : Test_F_UDINT_TO_DINT_Conversion       (TestSuite := UnitTests.FunctionTests);
     Test_F_Equals                                           : Test_F_Equals                         (TestSuite := UnitTests.FunctionTests);
     Test_F_NotEqual                                         : Test_F_NotEqual                       (TestSuite := UnitTests.FunctionTests);
                                                                                                 
-    // TStream                                                                                  
-    StreamTests : TTestSuite;                               
+    // T_Stream                                                                                  
+    StreamTests : T_TestSuite;                               
     Test_TStream_Add_Read_BLOB                              : Test_TStreamAdd_Read_BLOB             (TestSuite := UnitTests.StreamTests);
     Test_TStream_Add_Read_BOOL                              : Test_TStreamAdd_Read_BOOL             (TestSuite := UnitTests.StreamTests);
     Test_TStream_Add_Read_BYTE                              : Test_TStreamAdd_Read_BYTE             (TestSuite := UnitTests.StreamTests);
@@ -33,7 +33,7 @@ VAR_GLOBAL
     Test_TStream_BufferResizes                              : Test_TStreamBufferResizes             (TestSuite := UnitTests.StreamTests);
 
     // TEventBase...
-    EventHandlerTests : TTestSuite;
+    EventHandlerTests : T_TestSuite;
     Test_TEvent_AddHandlerAddsHandlerToEventHandlerList     : Test_TEvent_AddHandlerAddsHandlerToEventHandlerList   (TestSuite := UnitTests.EventHandlerTests);
     Test_TListOfEventHandlers_StoresAndRetreivesHandlers    : Test_TListOfEventHandlers_StoresAndRetreivesHandlers  (TestSuite := UnitTests.EventHandlerTests);  
     Test_TEvent_AddEventHandler_ChecksInterfaceSupported    : Test_TEvent_AddEventHandler_ChecksInterfaceSupported  (TestSuite := UnitTests.EventHandlerTests); 
@@ -43,8 +43,8 @@ VAR_GLOBAL
     Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs    : Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs  (TestSuite := UnitTests.EventHandlerTests);
 
 
-    // TExecution
-    ExecutionTests : TTestSuite;
+    // T_Execution
+    ExecutionTests : T_TestSuite;
     Test_TExecution_WhenBusy_Abort_SelectsAborting     : Test_TExecutionWhenBusy_Abort_SelectsAborting  (TestSuite := UnitTests.ExecutionTests);
     Test_TExecution_WhenBusy_SetAborted_RaisesEvent    : Test_TExecutionWhenBusy_SetAborted_RaisesEvent (TestSuite := UnitTests.ExecutionTests);
     Test_TExecution_WhenBusy_SetDone_SetsDone          : Test_TExecutionWhenBusy_SetDone_SetsDone       (TestSuite := UnitTests.ExecutionTests);
@@ -53,9 +53,12 @@ VAR_GLOBAL
     Test_TExecution_WhenReady_Start_SelectsStarting    : Test_TExecutionWhenReady_Start_SelectsStarting (TestSuite := UnitTests.ExecutionTests);
     
     
-    NotificationTests : TTestSuite;                               
+    NotificationTests : T_TestSuite;                               
     Test_AddNotification_IncrementsCount                : Test_AddNotification_IncrementsCount(NotificationTests);
     Test_RaiseNotification_CallsMethod                  : Test_RaiseNotification_CallsMethod(NotificationTests);
+    Test_RaiseNotification_UpdatesNotificationHandler   : Test_RaiseNotification_UpdatesNotificationHandler(NotificationTests);
+    
+    
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

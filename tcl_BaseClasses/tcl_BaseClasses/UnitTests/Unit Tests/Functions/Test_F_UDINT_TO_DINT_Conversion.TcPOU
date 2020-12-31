@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_F_UDINT_TO_DINT_Conversion" Id="{0be687e4-1d46-4a72-b29b-722ea30dfa7f}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_UDINT_TO_DINT_Conversion EXTENDS TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_UDINT_TO_DINT_Conversion EXTENDS T_UnitTestBase
 VAR
     InputValue : UDINT;
     ConvertedValue : DINT;

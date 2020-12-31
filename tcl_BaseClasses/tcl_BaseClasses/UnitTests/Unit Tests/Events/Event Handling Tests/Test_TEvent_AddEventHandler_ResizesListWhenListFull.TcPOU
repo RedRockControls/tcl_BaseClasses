@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TEvent_AddEventHandler_ResizesListWhenListFull" Id="{5657610a-0d74-45fb-a4da-37042856c740}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddEventHandler_ResizesListWhenListFull EXTENDS TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEvent_AddEventHandler_ResizesListWhenListFull EXTENDS T_UnitTestbase
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-    TestEvent : TTestEvent;
-    TestEventHandler : TTestEventHandler;
+    TestEvent : T_TestEvent;
+    TestEventHandler : T_TestEventHandler;
 END_VAR
 ]]></Declaration>
     <Implementation>

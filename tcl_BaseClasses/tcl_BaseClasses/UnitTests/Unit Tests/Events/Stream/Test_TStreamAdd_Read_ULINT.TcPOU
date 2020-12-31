@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TStreamAdd_Read_ULINT" Id="{5e9ca6f8-35eb-48c2-9787-f5c46dfb8761}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT EXTENDS TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT EXTENDS T_UnitTestBase
 VAR
-    Stream : TStream(StreamLength := 2);
+    Stream : T_Stream(StreamLength := 2);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[

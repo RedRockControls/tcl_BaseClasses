@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_F_NotEqual" Id="{337098c0-e2a6-447b-8374-90d85af5785b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS T_UnitTestBase
 VAR
 END_VAR
 ]]></Declaration>

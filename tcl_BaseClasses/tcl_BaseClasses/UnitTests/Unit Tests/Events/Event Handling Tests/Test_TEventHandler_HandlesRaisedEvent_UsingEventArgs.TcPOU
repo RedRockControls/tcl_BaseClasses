@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs" Id="{a335b2da-9644-416e-b62b-207f8baf078a}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs EXTENDS T_UnitTestbase
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-    TestEvent : TTestEvent_UsesEventArgs;
-    TestEventHandler1 : TTestEventHandler_UsesEventArgs;
-    TestEventHandler2 : TTestEventHandler_UsesEventArgs;
-    TestEventHandler3 : TTestEventHandler_UsesEventArgs;
-    TestEventHandler4 : TTestEventHandler_UsesEventArgs;
-    TestEventHandler5 : TTestEventHandler_UsesEventArgs;
+    TestEvent : T_TestEvent_UsesEventArgs;
+    TestEventHandler1 : T_TestEventHandler_UsesEventArgs;
+    TestEventHandler2 : T_TestEventHandler_UsesEventArgs;
+    TestEventHandler3 : T_TestEventHandler_UsesEventArgs;
+    TestEventHandler4 : T_TestEventHandler_UsesEventArgs;
+    TestEventHandler5 : T_TestEventHandler_UsesEventArgs;
 END_VAR
 ]]></Declaration>
     <Implementation>

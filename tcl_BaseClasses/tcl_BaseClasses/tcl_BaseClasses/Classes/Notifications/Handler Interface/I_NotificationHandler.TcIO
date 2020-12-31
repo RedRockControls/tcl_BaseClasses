@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <Itf Name="I_NotificationHandler" Id="{132ee55d-2226-43c5-82b5-622b17ca944c}">
     <Declaration><![CDATA[INTERFACE I_NotificationHandler EXTENDS __SYSTEM.IQueryInterface
 ]]></Declaration>
@@ -8,7 +8,7 @@
 VAR_INPUT
     NotificationId   : UDINT;
     NotificationName : T_MaxString;
-    Args             : IStreamReader;
+    Args             : I_StreamReader;
 END_VAR
 ]]></Declaration>
     </Method>

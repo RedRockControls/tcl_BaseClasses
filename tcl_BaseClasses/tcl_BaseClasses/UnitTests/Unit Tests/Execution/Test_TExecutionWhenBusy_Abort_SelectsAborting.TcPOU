@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_TExecutionWhenBusy_Abort_SelectsAborting" Id="{62c983db-2c62-4a10-8a80-0b343b0f7d47}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Abort_SelectsAborting EXTENDS TUnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Abort_SelectsAborting EXTENDS T_UnitTestbase
 VAR
-    Execution : TExecution;
+    Execution : T_Execution;
 END_VAR
 ]]></Declaration>
     <Implementation>

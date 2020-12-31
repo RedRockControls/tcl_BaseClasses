@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
   <POU Name="Test_AddNotification_IncrementsCount" Id="{faf8d98c-bfc8-4c6d-b653-f2ca61eb30dd}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_AddNotification_IncrementsCount EXTENDS tcl_SimpleUnitTestLibrary.TUnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AddNotification_IncrementsCount EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
 VAR
     Source  : T_ClassThatRaisesNotifications;
     Handler : T_ClassThatHandlesNotifications;

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+  <Itf Name="I_TestEventHandler" Id="{5c9f4999-f01f-4959-839d-129089c37d61}">
+    <Declaration><![CDATA[INTERFACE I_TestEventHandler EXTENDS I_EventHandlerBase
+]]></Declaration>
+    <Method Name="OnCustomEvent" Id="{83d06d90-640d-490c-a78c-3e28192ff3d4}">
+      <Declaration><![CDATA[METHOD OnCustomEvent
+VAR_INPUT
+    EventArgs : I_StreamReader;
+END_VAR
+]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>
