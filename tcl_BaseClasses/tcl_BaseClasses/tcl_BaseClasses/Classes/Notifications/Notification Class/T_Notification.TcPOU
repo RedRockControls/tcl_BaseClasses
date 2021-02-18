@@ -1,17 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="T_Notification" Id="{34c3e11c-b24b-47fd-988a-f99b18a3f2ec}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
 FUNCTION_BLOCK T_Notification IMPLEMENTS I_Notification
 VAR
-    {attribute 'instance-path'} {attribute 'no_init'}
-    FullName : T_MaxString; // Automatically initialised with the full name of the instance   
-    
     EventHandlers : T_ListONotificationHandlers(Capacity := 5);
-    
-    _Name : T_MaxString; // stripped version
     _Args : T_Stream(StreamLength := 8);
-    _NotificationId : UDINT := 999999; // initialise with unlikely notification id to catch cases where it is not initialised by client code
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -53,50 +47,6 @@ ClearNotificationHandlers := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="FB_init" Id="{55e8da39-7c08-4ae7-9330-aaaffad30746}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD FB_init : BOOL
-VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
-END_VAR
-VAR
-    
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[THIS^._Name := stripName(FullName);
-]]></ST>
-      </Implementation>
-    </Method>
-    <Property Name="Name" Id="{27a7f7fd-434e-44a7-a257-8a5e63757ddb}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
-      <Get Name="Get" Id="{2250062e-718a-417d-ae7e-c7de3531fddb}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Name := _Name;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="NotificationId" Id="{f5eb17d4-f0fb-461e-9e8c-6b23479d198c}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY NotificationId : UDINT]]></Declaration>
-      <Get Name="Get" Id="{7bf505f5-71a4-4cb1-846e-61f59c84ca73}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[NotificationId := _NotificationId;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{179ca6ef-e429-497b-92fc-87fee1e765cd}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_NotificationId := NotificationId;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Method Name="Raise" Id="{96b98869-baef-4dec-8667-b534757ed3a1}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Raise
 VAR
@@ -109,49 +59,12 @@ END_VAR]]></Declaration>
         Handler := EventHandlers.GetHandler(i);
         IF Handler <> 0 THEN
             _Args.Seek(0); // to ensure that each handler reads args from start of the stream
-            Handler.OnNotificationReceived(
-                NotificationId   := _NotificationId,
-                NotificationName := _Name,
-                Args             := _Args);
+            Handler.OnNotificationReceived(Args := _Args);
         END_IF
     END_FOR
 END_IF
 _Args.Clear(); // to leave event args empty for next time event is raised
 ]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="SetNotificationId" Id="{d766547e-9576-4401-9528-294aa94bb483}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD SetNotificationId : I_Notification
-VAR_INPUT
-    NotificationId : UDINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_NotificationId   := NotificationId;
-SetNotificationId := THIS^;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="stripName" Id="{44142b3a-8330-47f9-8fd3-23d977d60ed1}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD PRIVATE stripName : T_MaxString
-VAR_INPUT
-    FullName : T_MaxString;
-END_VAR
-VAR
-    StringSplitter : T_StringSplitter;
-    Result : T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[StringSplitter.Init(
-    Str := FullName,
-    Delim1 := '.',
-    Delim2 := '');
-    
-WHILE StringSplitter.HasMore() DO
-    Result := StringSplitter.GetNext(); // to get last sub-section
-END_WHILE
-
-StripName := Result;]]></ST>
       </Implementation>
     </Method>
     <ObjectProperties>

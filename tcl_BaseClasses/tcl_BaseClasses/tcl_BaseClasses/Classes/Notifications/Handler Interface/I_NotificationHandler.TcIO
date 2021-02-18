@@ -6,8 +6,6 @@
     <Method Name="OnNotificationReceived" Id="{600e8039-a73b-451c-9206-c0585bf94fa7}">
       <Declaration><![CDATA[METHOD OnNotificationReceived
 VAR_INPUT
-    NotificationId   : UDINT;
-    NotificationName : T_MaxString;
     Args             : I_StreamReader;
 END_VAR
 ]]></Declaration>

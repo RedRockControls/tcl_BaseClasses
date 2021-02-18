@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <Itf Name="I_Notification" Id="{7718dd74-9654-4af8-a63b-c5e9a3756592}">
     <Declaration><![CDATA[INTERFACE I_Notification 
 ]]></Declaration>
@@ -24,30 +24,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Property Name="Name" Id="{2fa2a710-8025-4ce4-a983-77186bb6e228}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
-      <Get Name="Get" Id="{5189c9d6-d56f-4ada-bb2a-72477f17a756}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-    </Property>
-    <Property Name="NotificationId" Id="{29779dfb-6877-4d1f-bb2d-a7f6bfd25f11}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY NotificationId : UDINT]]></Declaration>
-      <Get Name="Get" Id="{74d1df68-69a1-4dd8-a730-ddaf04ecf243}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{2bce18ee-676f-4d7c-be97-f365f36697b5}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
-    </Property>
     <Method Name="Raise" Id="{39bb1e56-1c4d-4d8d-9ff2-78ad891a1fca}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Raise
-]]></Declaration>
-    </Method>
-    <Method Name="SetNotificationId" Id="{23227b9a-9a8d-4179-ba27-7590e0f97180}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD SetNotificationId : I_Notification
-VAR_INPUT
-    NotificationId : UDINT;
-END_VAR
 ]]></Declaration>
     </Method>
   </Itf>

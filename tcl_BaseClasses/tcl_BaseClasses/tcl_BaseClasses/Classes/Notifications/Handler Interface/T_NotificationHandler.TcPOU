@@ -5,7 +5,6 @@
 VAR
     _Args            : T_Stream(StreamLength := 4);
     _IsRaised        : BOOL;
-    _InvocationCount : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -31,20 +30,9 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_IsRaised := FALSE;
-_InvocationCount := 0;]]></ST>
+]]></ST>
       </Implementation>
     </Method>
-    <Property Name="InvocationCount" Id="{5bd3cb2d-5961-41b2-9319-18b3e8af94e2}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY InvocationCount : DINT]]></Declaration>
-      <Get Name="Get" Id="{fb9ecc7c-8d9e-4665-b605-3ba3bba5a0d2}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[InvocationCount := _InvocationCount;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Method Name="IsRaised" Id="{fae0f454-b76e-425b-b849-6b812d700aa5}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD IsRaised : BOOL
 VAR_INPUT
@@ -57,24 +45,16 @@ END_VAR
     <Method Name="OnNotificationReceived" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD OnNotificationReceived
 VAR_INPUT
-    NotificationId   : UDINT;
-    NotificationName : Tc2_System.T_MaxString;
     Args             : I_StreamReader;
 END_VAR
-VAR
-    i          : UDINT;
-    ByteToCopy : BYTE;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Args.ByteCount > 0 THEN // has event arguments..
     _Args.CopyFromStreamReader(Args);
 END_IF
-
 _Args.Seek(0);
-
 _IsRaised          := TRUE;
-// keep track of how many times it has been raised so we can count number of notifications between being handled
-_InvocationCount := _InvocationCount + 1;]]></ST>
+]]></ST>
       </Implementation>
     </Method>
   </POU>
