@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <Itf Name="I_Execution" Id="{2e2a9e90-2894-0caa-065e-86441183945f}">
     <Declaration><![CDATA[INTERFACE I_Execution
 ]]></Declaration>
@@ -44,6 +44,13 @@ END_VAR
     <Property Name="ErrorId" Id="{554c0d62-de61-4cee-b138-02830007f416}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY ErrorId : UDINT]]></Declaration>
       <Get Name="Get" Id="{3988269b-c4af-4b43-b25b-132866f150af}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ErrorMsg" Id="{c90cdebc-666a-4446-8f2f-449e92c2b95f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{9886fb2f-0980-4706-be06-51cbb5509136}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>

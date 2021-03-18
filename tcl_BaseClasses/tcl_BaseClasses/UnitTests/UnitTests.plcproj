@@ -407,7 +407,7 @@
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_BaseClasses">
-      <Resolution>tcl_BaseClasses, 1.1.2.0 (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_BaseClasses, 1.1.3.0 (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, * (Red Rock Controls Limited)</Resolution>

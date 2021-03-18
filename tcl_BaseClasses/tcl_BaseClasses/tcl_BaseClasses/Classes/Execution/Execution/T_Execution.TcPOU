@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[(*
 :Class for handling communications between a client requesting a service 
@@ -8,27 +8,28 @@
 {attribute 'reflection'}
 FUNCTION_BLOCK T_Execution IMPLEMENTS I_Execution
 VAR
-    _State      : T_ExecutionState;
-    _Done       : BOOL;
-    _Error      : BOOL;
-    _Aborted    : BOOL;
-    
+    _State   : T_ExecutionState;
+    _Done    : BOOL;
+    _Error   : BOOL;
+    _Aborted : BOOL;
+
     {attribute 'displaymode':='hex'}
-    _ErrorId    : UDINT;
-    
+    _ErrorId  : UDINT;
+    _ErrorMsg : T_MaxString;
+
     {attribute 'instance-path'} {attribute 'no_init'}
-    Name        : T_MaxString; // Automatically initialised with the full name of the instance
-    
+    Name : T_MaxString; // Automatically initialised with the full name of the instance
+
     _Event_OnError : I_Event;
     _Event_OnAbort : I_Event;
-    
+
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
-    
+
     SourceInfo : FB_TcSourceInfo;
-    
-    Message_ExecutionError : FB_TcMessage;
-    Message_ExecutionAborted : FB_TcMessage;
+
+    Message_ExecutionError    : FB_TcMessage;
+    Message_ExecutionAborted  : FB_TcMessage;
     Message_ExecutionNotReady : FB_TcMessage;
 END_VAR
 ]]></Declaration>
@@ -87,17 +88,17 @@ METHOD Clear
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Ready  THEN
-    _Done    := FALSE;
-    _Aborted := FALSE;
-    _Error   := FALSE;
-    _ErrorId := 0;
-    
+        <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
+    _Done     := FALSE;
+    _Aborted  := FALSE;
+    _Error    := FALSE;
+    _ErrorId  := 0;
+    _ErrorMsg := '';
 ELSE
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString1(
-                                        Format := 'Clear requested while not ready in %s',
-                                        Arg1   := F_STRING(Name)));
+        _Event_OnError.Args.Add_STRING(F_FormatString1(Format := 'Clear requested while not ready in %s',
+                                                       Arg1   := F_STRING(Name)));
+
         _Event_OnError.Raise();
     END_IF
 END_IF
@@ -144,6 +145,27 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[_ErrorId := ErrorId;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ErrorMsg" Id="{2f644fbe-67e8-4f66-8720-84b86fda8408}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{753ae725-82dc-4027-a2d8-a54c35bbf934}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorMsg := _ErrorMsg;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{288c86a0-3bb4-4c09-92ba-b6bc848ffdf0}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ErrorMsg := ErrorMsg;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -278,12 +300,6 @@ END_VAR]]></Declaration>
         _Notification_OnAbort.Raise();
     END_IF  
 
-//    IF Message_ExecutionAborted.nEventId = 0 THEN
-//        Message_ExecutionAborted.CreateEx(
-//            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionAborted,
-//            ipSourceInfo := 0);
-//    END_IF
-//    Message_ExecutionAborted.Send(0);
 END_IF
 
 IF _State = T_ExecutionState.Aborting THEN
@@ -321,32 +337,41 @@ END_IF
     <Method Name="SetError" Id="{6247352f-ee68-037a-2fe3-925d2cb9b25d}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorId : UDINT;
+    ErrorId  : UDINT := 0;
+    ErrorMsg : T_MaxString := '';
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Error   := TRUE;
-    _ErrorId := ErrorId;
-    _State   := T_ExecutionState.Ready;
-    
+    _Error    := TRUE;
+    _ErrorId  := ErrorId;
+    _ErrorMsg := ErrorMsg;
+    _State    := T_ExecutionState.Ready;
+
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString2('Error 0x%0.4X in %s',F_UDINT(_ErrorId),F_STRING(Name)));
+        _Event_OnError.Args
+            .Clear()
+            .Add_UDINT(ErrorId)
+            .Add_STRING(ErrorMsg)
+            .Add_STRING(Name);
+
         _Event_OnError.Raise();
     END_IF
-    
+
     IF _Notification_OnError <> 0 THEN
-        _Notification_OnError.Args.Add_STRING(F_FormatString2('Error 0x%0.4X in %s',F_UDINT(_ErrorId),F_STRING(Name)));
+        _Notification_OnError.Args
+            .Clear()
+            .Add_UDINT(ErrorId)
+            .Add_STRING(ErrorMsg)
+            .Add_STRING(Name);
+
+//Add_STRING(F_FormatString2('Error 0x%0.4X in %s',
+//                                                              F_UDINT(_ErrorId),
+//                                                              F_STRING(Name)));
+
         _Notification_OnError.Raise();
     END_IF
-    
-//    IF Message_ExecutionError.nEventId = 0 THEN
-//        Message_ExecutionError.CreateEx(
-//            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionError,
-//            ipSourceInfo := 0);
-//	END_IF
-//    Message_ExecutionError.ipArguments.Clear().AddUDInt(_ErrorId);
-//    Message_ExecutionError.Send(0);
+
 END_IF
 ]]></ST>
       </Implementation>
@@ -357,31 +382,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Ready  THEN
+        <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
     _Done    := FALSE;
     _Aborted := FALSE;
     _Error   := FALSE;
     _ErrorId := 0;
-    
-    _State   := T_ExecutionState.Starting;
-    Start    := TRUE; // Accepted
+
+    _State := T_ExecutionState.Starting;
+    Start  := TRUE; // Accepted
 ELSE
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString1(
-                                        Format := 'Start requested while not ready in %s',
-                                        Arg1   := F_STRING(Name)));
+        _Event_OnError.Args.Add_STRING(F_FormatString1(Format := 'Start requested while not ready in %s',
+                                                       Arg1   := F_STRING(Name)));
+
         _Event_OnError.Raise();
     END_IF
-    
-//    IF Message_ExecutionNotReady.nEventId = 0 THEN
-//        Message_ExecutionNotReady.CreateEx(
-//            stEventEntry := TC_EVENTS.tcl_BaseClassEvents.ExecutionNotReady,
-//            ipSourceInfo := 0);
-//    END_IF
-//    Message_ExecutionNotReady.Send(0);
-    
-END_IF
 
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
