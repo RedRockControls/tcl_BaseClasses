@@ -13,9 +13,7 @@ VAR
     _Error   : BOOL;
     _Aborted : BOOL;
 
-    {attribute 'displaymode':='hex'}
-    _ErrorId  : UDINT;
-    _ErrorMsg : T_MaxString;
+    _ErrorId  : T_MaxString;
 
     {attribute 'instance-path'} {attribute 'no_init'}
     Name : T_MaxString; // Automatically initialised with the full name of the instance
@@ -92,14 +90,23 @@ METHOD Clear
     _Done     := FALSE;
     _Aborted  := FALSE;
     _Error    := FALSE;
-    _ErrorId  := 0;
-    _ErrorMsg := '';
+    _ErrorId  := '';
 ELSE
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString1(Format := 'Clear requested while not ready in %s',
-                                                       Arg1   := F_STRING(Name)));
-
+        _Event_OnError.Args
+            .Clear()
+            .Add_STRING('Clear requested while not ready')
+            .Add_STRING(Name);
         _Event_OnError.Raise();
+    END_IF
+    
+    IF _Notification_OnError <> 0 THEN
+        _Notification_OnError.Args
+            .Clear()
+            .Add_STRING('Clear requested while not ready')
+            .Add_STRING(Name);
+
+        _Notification_OnError.Raise();
     END_IF
 END_IF
 ]]></ST>
@@ -128,7 +135,7 @@ END_VAR
       </Get>
     </Property>
     <Property Name="ErrorId" Id="{cb1568b5-b7b6-0bbf-203e-a9bc386ae389}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ErrorId : UDINT
+      <Declaration><![CDATA[PROPERTY ErrorId : T_MaxString
 ]]></Declaration>
       <Get Name="Get" Id="{fc1eb71c-2366-03df-0c2c-02cf05e67988}">
         <Declaration><![CDATA[VAR
@@ -145,27 +152,6 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[_ErrorId := ErrorId;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Property Name="ErrorMsg" Id="{2f644fbe-67e8-4f66-8720-84b86fda8408}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString
-]]></Declaration>
-      <Get Name="Get" Id="{753ae725-82dc-4027-a2d8-a54c35bbf934}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[ErrorMsg := _ErrorMsg;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{288c86a0-3bb4-4c09-92ba-b6bc848ffdf0}">
-        <Declaration><![CDATA[
-VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_ErrorMsg := ErrorMsg;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -337,22 +323,19 @@ END_IF
     <Method Name="SetError" Id="{6247352f-ee68-037a-2fe3-925d2cb9b25d}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorId  : UDINT := 0;
-    ErrorMsg : T_MaxString := '';
+    ErrorId  : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Error    := TRUE;
-    _ErrorId  := ErrorId;
-    _ErrorMsg := ErrorMsg;
-    _State    := T_ExecutionState.Ready;
+    _Error   := TRUE;
+    _ErrorId := ErrorId;
+    _State   := T_ExecutionState.Ready;
 
     IF _Event_OnError <> 0 THEN
         _Event_OnError.Args
             .Clear()
-            .Add_UDINT(ErrorId)
-            .Add_STRING(ErrorMsg)
+            .Add_STRING(ErrorId)
             .Add_STRING(Name);
 
         _Event_OnError.Raise();
@@ -361,13 +344,8 @@ END_VAR
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
-            .Add_UDINT(ErrorId)
-            .Add_STRING(ErrorMsg)
+            .Add_STRING(ErrorId)
             .Add_STRING(Name);
-
-//Add_STRING(F_FormatString2('Error 0x%0.4X in %s',
-//                                                              F_UDINT(_ErrorId),
-//                                                              F_STRING(Name)));
 
         _Notification_OnError.Raise();
     END_IF
@@ -386,18 +364,26 @@ END_VAR
     _Done    := FALSE;
     _Aborted := FALSE;
     _Error   := FALSE;
-    _ErrorId := 0;
+    _ErrorId := '';
 
     _State := T_ExecutionState.Starting;
     Start  := TRUE; // Accepted
 ELSE
     IF _Event_OnError <> 0 THEN
-        _Event_OnError.Args.Add_STRING(F_FormatString1(Format := 'Start requested while not ready in %s',
-                                                       Arg1   := F_STRING(Name)));
-
+        _Event_OnError.Args
+            .Clear()
+            .Add_STRING('Start requested while not ready')
+            .Add_STRING(Name);
         _Event_OnError.Raise();
     END_IF
-
+    
+    IF _Notification_OnError <> 0 THEN
+        _Notification_OnError.Args
+            .Clear()
+            .Add_STRING('Start requested while not ready')
+            .Add_STRING(Name);
+        _Notification_OnError.Raise();
+    END_IF
 END_IF
 ]]></ST>
       </Implementation>

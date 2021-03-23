@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="F_ErrorIdToString" Id="{24fd8532-6f1f-4178-8d49-9f27acdf8b72}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_ErrorIdToString : T_MaxString
+VAR_INPUT
+    ErrorId : UDINT;
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_ErrorIdToString := F_FormatString1(Format := 'Error 0x%0.4X', F_UDINT(ErrorId));     //DWORD_TO_HEXSTR(ErrorId,4,FALSE);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

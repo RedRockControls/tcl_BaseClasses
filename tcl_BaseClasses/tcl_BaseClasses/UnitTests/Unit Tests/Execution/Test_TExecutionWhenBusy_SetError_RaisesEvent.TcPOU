@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TExecutionWhenBusy_SetError_RaisesEvent" Id="{452ff667-acfb-46f7-b1ec-7243b874d0f2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetError_RaisesEvent EXTENDS T_UnitTestbase
 VAR
@@ -23,7 +23,7 @@ GlobalEvents.Event_OnError.ClearEventHandlers().AddEventHandler(Execution_EventH
 // Test...
 Execution.Start(); // sets Starting
 Execution.SetBusy(); // Sets Busy
-Execution.SetError(ErrorId := 16#F234); // Sets Error
+Execution.SetError(F_ErrorIdToString(ErrorId := 16#F234)); // Sets Error
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
@@ -35,8 +35,8 @@ Assertion.AssertEquals_BOOL(
     Actual   := Execution.Error,
     VariableName  := 'Execution.Error');
     
-Assertion.AssertEquals_UDINT(
-    Expected := 16#F234,
+Assertion.AssertEquals_STRING(
+    Expected := 'Error 0xF234',
     Actual   := Execution.ErrorId,
     VariableName  := 'Execution.ErrorId');
     
