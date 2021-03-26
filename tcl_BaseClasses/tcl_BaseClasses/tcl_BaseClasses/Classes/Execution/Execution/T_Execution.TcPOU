@@ -13,7 +13,8 @@ VAR
     _Error   : BOOL;
     _Aborted : BOOL;
 
-    _ErrorId  : T_MaxString;
+    _ErrorId  : UDINT;
+    _ErrorMsg : T_MaxString;
 
     {attribute 'instance-path'} {attribute 'no_init'}
     Name : T_MaxString; // Automatically initialised with the full name of the instance
@@ -90,16 +91,18 @@ METHOD Clear
     _Done     := FALSE;
     _Aborted  := FALSE;
     _Error    := FALSE;
-    _ErrorId  := '';
+    _ErrorId  := 0;
+    _ErrorMsg := '';
 ELSE
     IF _Event_OnError <> 0 THEN
         _Event_OnError.Args
             .Clear()
             .Add_STRING('Clear requested while not ready')
             .Add_STRING(Name);
+
         _Event_OnError.Raise();
     END_IF
-    
+
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
@@ -135,7 +138,7 @@ END_VAR
       </Get>
     </Property>
     <Property Name="ErrorId" Id="{cb1568b5-b7b6-0bbf-203e-a9bc386ae389}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ErrorId : T_MaxString
+      <Declaration><![CDATA[PROPERTY ErrorId : UDINT
 ]]></Declaration>
       <Get Name="Get" Id="{fc1eb71c-2366-03df-0c2c-02cf05e67988}">
         <Declaration><![CDATA[VAR
@@ -152,6 +155,25 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[_ErrorId := ErrorId;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="ErrorMsg" Id="{03b333cf-212f-4b26-bcfc-f54366a3390d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{87c8799e-98ff-4462-b8ed-e28804a16aed}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorMsg := _ErrorMsg;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{5bbe66d5-04d5-4c1e-9c3d-019fdef5ac20}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_ErrorMsg := ErrorMsg;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -320,22 +342,23 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="SetError" Id="{6247352f-ee68-037a-2fe3-925d2cb9b25d}" FolderPath="Methods\">
+    <Method Name="SetError" Id="{f1633771-a524-4ccc-be65-99229396429e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorId  : T_MaxString;
+    ErrorId  : UDINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
     _Error   := TRUE;
     _ErrorId := ErrorId;
+    _ErrorMsg := F_ErrorIdToString(ErrorId);
     _State   := T_ExecutionState.Ready;
 
     IF _Event_OnError <> 0 THEN
         _Event_OnError.Args
             .Clear()
-            .Add_STRING(ErrorId)
+            .Add_STRING(ErrorMsg)
             .Add_STRING(Name);
 
         _Event_OnError.Raise();
@@ -344,7 +367,41 @@ END_VAR
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
-            .Add_STRING(ErrorId)
+            .Add_STRING(ErrorMsg)
+            .Add_STRING(Name);
+
+        _Notification_OnError.Raise();
+    END_IF
+
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetErrorWithMessage" Id="{6247352f-ee68-037a-2fe3-925d2cb9b25d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetErrorWithMessage
+VAR_INPUT
+    ErrorMsg  : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
+    _Error   := TRUE;
+    _ErrorMsg := ErrorMsg;
+    _State   := T_ExecutionState.Ready;
+
+    IF _Event_OnError <> 0 THEN
+        _Event_OnError.Args
+            .Clear()
+            .Add_STRING(ErrorMsg)
+            .Add_STRING(Name);
+
+        _Event_OnError.Raise();
+    END_IF
+
+    IF _Notification_OnError <> 0 THEN
+        _Notification_OnError.Args
+            .Clear()
+            .Add_STRING(ErrorMsg)
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();
@@ -361,10 +418,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
-    _Done    := FALSE;
-    _Aborted := FALSE;
-    _Error   := FALSE;
-    _ErrorId := '';
+    _Done     := FALSE;
+    _Aborted  := FALSE;
+    _Error    := FALSE;
+    _ErrorId  := 0;
+    _ErrorMsg := '';
 
     _State := T_ExecutionState.Starting;
     Start  := TRUE; // Accepted
@@ -374,14 +432,16 @@ ELSE
             .Clear()
             .Add_STRING('Start requested while not ready')
             .Add_STRING(Name);
+
         _Event_OnError.Raise();
     END_IF
-    
+
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
             .Add_STRING('Start requested while not ready')
             .Add_STRING(Name);
+
         _Notification_OnError.Raise();
     END_IF
 END_IF

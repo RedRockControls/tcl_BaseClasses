@@ -23,7 +23,7 @@ GlobalEvents.Event_OnError.ClearEventHandlers().AddEventHandler(Execution_EventH
 // Test...
 Execution.Start(); // sets Starting
 Execution.SetBusy(); // Sets Busy
-Execution.SetError(F_ErrorIdToString(ErrorId := 16#F234)); // Sets Error
+Execution.SetError(ErrorId := 16#F234); // Sets Error
 
 Assertion.AssertEquals_BOOL(
     Expected := TRUE,
@@ -37,8 +37,8 @@ Assertion.AssertEquals_BOOL(
     
 Assertion.AssertEquals_STRING(
     Expected := 'Error 0xF234',
-    Actual   := Execution.ErrorId,
-    VariableName  := 'Execution.ErrorId');
+    Actual   := Execution.ErrorMsg,
+    VariableName  := 'Execution.ErrorMsg');
     
     
 TestFinished();

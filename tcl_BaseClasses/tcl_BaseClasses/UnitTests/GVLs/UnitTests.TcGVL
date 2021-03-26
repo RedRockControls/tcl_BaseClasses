@@ -11,7 +11,7 @@ VAR_GLOBAL
     Test_F_Equals                   : Test_F_Equals(TestSuite := UnitTests.FunctionTests);
     Test_F_NotEqual                 : Test_F_NotEqual(TestSuite := UnitTests.FunctionTests);
     Test_ErrorIdToString            : Test_ErrorIdToString(TestSuite := UnitTests.FunctionTests);
-    
+
     // T_Stream                                                                                  
     StreamTests                        : T_TestSuite;
     Test_TStream_Add_Read_BLOB         : Test_TStreamAdd_Read_BLOB(TestSuite := UnitTests.StreamTests);
@@ -55,6 +55,8 @@ VAR_GLOBAL
     Test_TExecution_WhenBusy_SetError_RaisesEvent   : Test_TExecutionWhenBusy_SetError_RaisesEvent(TestSuite := UnitTests.ExecutionTests);
     Test_TExecution_WhenBusy_Start_RaisesEvent      : Test_TExecutionWhenBusy_Start_RaisesEvent(TestSuite := UnitTests.ExecutionTests);
     Test_TExecution_WhenReady_Start_SelectsStarting : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesUDINTParameter   : Test_TExecution_SetErrorHandlesUDINTParameter(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesMessageParameter : Test_TExecution_SetErrorHandlesMessageParameter(TestSuite := UnitTests.ExecutionTests);
 
     NotificationTests                                 : T_TestSuite;
     Test_AddNotification_IncrementsCount              : Test_AddNotification_IncrementsCount(NotificationTests);

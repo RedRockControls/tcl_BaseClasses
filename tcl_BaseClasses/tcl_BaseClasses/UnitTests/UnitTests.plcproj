@@ -21,6 +21,7 @@
     <ProjectVersion>1.0.2.0</ProjectVersion>
     <Author>Roger Christopher</Author>
     <Description>Notification tests added</Description>
+    <CompilerDefines>VISU_USEPROPERTYINFO</CompilerDefines>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -148,6 +149,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Execution\Test_TExecutionWhenReady_Start_SelectsStarting.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecution_SetErrorHandlesUDINTParameter.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Execution\Test_TExecution_SetErrorHandlesMessageParameter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Functions\Test_ErrorIdToString.TcPOU">
@@ -410,7 +417,7 @@
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_BaseClasses">
-      <Resolution>tcl_BaseClasses, 1.1.4.0 (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_BaseClasses, * (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, * (Red Rock Controls Limited)</Resolution>
@@ -422,19 +429,10 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
-        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
-        <o>
-          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
-            <v>UnicodeStrings</v>
-            <v>False</v>
-          </d>
-        </o>
         <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
         <o>
           <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
@@ -533,17 +531,34 @@
             <v>False</v>
           </d>
         </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String">
+            <v>UnicodeStrings</v>
+            <v>false</v>
+            <v>GlobalTextListFilePath</v>
+            <v>""</v>
+            <v>ExtendedSettings</v>
+            <v>true</v>
+            <v>GlobalVisuImageFilePath</v>
+            <v>"%APPLICATIONPATH%\"</v>
+            <v>GeneralPropertySupport</v>
+            <v>true</v>
+          </d>
+        </o>
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>

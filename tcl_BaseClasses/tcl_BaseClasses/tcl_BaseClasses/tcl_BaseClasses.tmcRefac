@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="6247352f-ee68-037a-2fe3-925d2cb9b25d">SETERRORMSG</Type>
+      <From>SetErrorMsg</From>
+      <To>SetErrorWithMessage</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

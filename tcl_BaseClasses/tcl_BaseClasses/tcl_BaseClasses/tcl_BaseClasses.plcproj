@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.4.0</ProjectVersion>
+    <ProjectVersion>1.1.5.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>ErrorId changed to String in T_Execution</Description>
+    <Description>ErrorId reverted to UDINT, SetErrorMsg() added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -31,6 +31,7 @@
     <SelectedLibraryCategories>
       <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
     </SelectedLibraryCategories>
+    <CompilerDefines>VISU_USEPROPERTYINFO</CompilerDefines>
   </PropertyGroup>
   <ItemGroup>
     <PlaceholderReference Include="Tc2_Standard">
@@ -233,6 +234,23 @@
           <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String">
+            <v>UnicodeStrings</v>
+            <v>false</v>
+            <v>GlobalTextListFilePath</v>
+            <v>""</v>
+            <v>ExtendedSettings</v>
+            <v>true</v>
+            <v>GlobalVisuImageFilePath</v>
+            <v>"%APPLICATIONPATH%\"</v>
+            <v>GeneralPropertySupport</v>
+            <v>true</v>
+          </d>
+        </o>
         <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
         <o>
           <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
@@ -328,15 +346,6 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
             <v>ReplaceConstants</v>
-            <v>False</v>
-          </d>
-        </o>
-        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
-        <o>
-          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
-          <d n="SubKeys" t="Hashtable" />
-          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
-            <v>UnicodeStrings</v>
             <v>False</v>
           </d>
         </o>

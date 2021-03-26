@@ -42,10 +42,19 @@ END_VAR
       </Get>
     </Property>
     <Property Name="ErrorId" Id="{554c0d62-de61-4cee-b138-02830007f416}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ErrorId : T_MaxString]]></Declaration>
+      <Declaration><![CDATA[PROPERTY ErrorId : UDINT]]></Declaration>
       <Get Name="Get" Id="{3988269b-c4af-4b43-b25b-132866f150af}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
+    </Property>
+    <Property Name="ErrorMsg" Id="{1d2434d1-a947-47bc-b679-2969b90c75f0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{fc1803ed-3692-454e-89f2-239f5db0e4f9}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+      <Set Name="Set" Id="{0f8e317d-22aa-45ae-9919-ecca1a28a96e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Set>
     </Property>
     <Property Name="Event_OnAbort" Id="{aa6718e5-a154-4d63-b597-d56558a437a2}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Event_OnAbort : I_Event]]></Declaration>

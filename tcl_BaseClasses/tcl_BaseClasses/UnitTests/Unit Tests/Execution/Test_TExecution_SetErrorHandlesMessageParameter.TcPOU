@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="Test_TExecution_SetErrorHandlesMessageParameter" Id="{e15ec5d3-1a52-42d2-bd4d-032905fbc3e1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecution_SetErrorHandlesMessageParameter EXTENDS T_UnitTestBase
+VAR
+    Execution : T_Execution;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Execution.Start();
+Execution.SetBusy();
+Execution.ErrorId := 16#1024;
+Execution.SetErrorWithMessage('Custom error message');
+
+Assertion.AssertEquals_UDINT(
+    expected := 16#1024,
+    Actual := Execution.ErrorId,
+    VariableName := 'Execution.ErrorId');   
+
+Assertion.AssertEquals_STRING(
+    expected := 'Custom error message',
+    Actual := Execution.ErrorMsg,
+    VariableName := 'Execution.ErrorMsg');   
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
