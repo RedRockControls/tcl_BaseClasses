@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="T_Counter" Id="{9ae51f40-0403-4a86-af5a-dd20e2f13d36}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Counter
 VAR
@@ -29,6 +29,16 @@ END_VAR
 Inc := Count;]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Init" Id="{871de783-64f5-4f07-ae83-1cbba81f7a2b}">
+      <Declaration><![CDATA[METHOD Init
+VAR_INPUT
+	Value : DINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Count := Value;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Reset" Id="{cbcf06e0-d3ca-4315-8289-cb98c114d361}">
       <Declaration><![CDATA[METHOD Reset
 VAR_INPUT
@@ -48,14 +58,6 @@ END_VAR
           <ST><![CDATA[Value := Count;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{c1ab0f6c-d578-4e72-976a-de1aaf765510}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Count := Value;]]></ST>
-        </Implementation>
-      </Set>
     </Property>
     <Property Name="ValueAsTArg" Id="{b4294afa-304a-49ee-9808-015ca4b4ff95}">
       <Declaration><![CDATA[PROPERTY ValueAsTArg : T_Arg]]></Declaration>
