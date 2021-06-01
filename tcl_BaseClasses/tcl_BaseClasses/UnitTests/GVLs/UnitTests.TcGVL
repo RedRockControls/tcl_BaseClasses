@@ -13,23 +13,24 @@ VAR_GLOBAL
     Test_ErrorIdToString            : Test_ErrorIdToString(TestSuite := UnitTests.FunctionTests);
 
     // T_Stream                                                                                  
-    StreamTests                        : T_TestSuite;
-    Test_TStream_Add_Read_BLOB         : Test_TStreamAdd_Read_BLOB(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_BOOL         : Test_TStreamAdd_Read_BOOL(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_BYTE         : Test_TStreamAdd_Read_BYTE(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_INT          : Test_TStreamAdd_Read_INT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_UINT         : Test_TStreamAdd_Read_UINT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_DINT         : Test_TStreamAdd_Read_DINT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_UDINT        : Test_TStreamAdd_Read_UDINT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_REAL         : Test_TStreamAdd_Read_REAL(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_LREAL        : Test_TStreamAdd_Read_LREAL(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_STRING       : Test_TStreamAdd_Read_STRING(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_Short_STRING : Test_TStreamAdd_Read_Short_STRING(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_T_MaxString  : Test_TStreamAdd_Read_T_MaxString(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_LINT         : Test_TStreamAdd_Read_LINT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_ULINT        : Test_TStreamAdd_Read_ULINT(TestSuite := UnitTests.StreamTests);
-    Test_TStream_Add_Read_PVOID        : Test_TStreamAdd_Read_PVOID(TestSuite := UnitTests.StreamTests);
-    Test_TStream_BufferResizes         : Test_TStreamBufferResizes(TestSuite := UnitTests.StreamTests);
+    StreamTests                           : T_TestSuite;
+    Test_TStream_Add_Read_BLOB            : Test_TStreamAdd_Read_BLOB(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_BOOL            : Test_TStreamAdd_Read_BOOL(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_BYTE            : Test_TStreamAdd_Read_BYTE(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_INT             : Test_TStreamAdd_Read_INT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_UINT            : Test_TStreamAdd_Read_UINT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_DINT            : Test_TStreamAdd_Read_DINT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_UDINT           : Test_TStreamAdd_Read_UDINT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_REAL            : Test_TStreamAdd_Read_REAL(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_LREAL           : Test_TStreamAdd_Read_LREAL(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_STRING          : Test_TStreamAdd_Read_STRING(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_Short_STRING    : Test_TStreamAdd_Read_Short_STRING(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_T_MaxString     : Test_TStreamAdd_Read_T_MaxString(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_LINT            : Test_TStreamAdd_Read_LINT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_ULINT           : Test_TStreamAdd_Read_ULINT(TestSuite := UnitTests.StreamTests);
+    Test_TStream_Add_Read_PVOID           : Test_TStreamAdd_Read_PVOID(TestSuite := UnitTests.StreamTests);
+    Test_TStream_BufferResizes            : Test_TStreamBufferResizes(TestSuite := UnitTests.StreamTests);
+    Test_TStreamAdd_DetectsUnexpectedType : Test_TStreamAdd_DetectsUnexpectedType(TestSuite := UnitTests.StreamTests);
 
     // TEventBase...
     EventHandlerTests                                   : T_TestSuite;
@@ -48,15 +49,14 @@ VAR_GLOBAL
         Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs(TestSuite := UnitTests.EventHandlerTests);
 
     // T_Execution
-    ExecutionTests                                  : T_TestSuite;
-    Test_TExecution_WhenBusy_Abort_SelectsAborting  : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenBusy_SetAborted_RaisesEvent : Test_TExecutionWhenBusy_SetAborted_RaisesEvent(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenBusy_SetDone_SetsDone       : Test_TExecutionWhenBusy_SetDone_SetsDone(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenBusy_SetError_RaisesEvent   : Test_TExecutionWhenBusy_SetError_RaisesEvent(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenBusy_Start_RaisesEvent      : Test_TExecutionWhenBusy_Start_RaisesEvent(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenReady_Start_SelectsStarting : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesUDINTParameter   : Test_TExecution_SetErrorHandlesUDINTParameter(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesMessageParameter : Test_TExecution_SetErrorHandlesMessageParameter(TestSuite := UnitTests.ExecutionTests);
+    ExecutionTests                                        : T_TestSuite;
+    Test_TExecution_WhenBusy_Abort_SelectsAborting        : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_SetAborted_RaisesNotification : Test_TExecutionWhenBusy_SetAborted_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_WhenBusy_SetDone_SetsDone             : Test_TExecutionWhenBusy_SetDone_SetsDone(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_SetError_RaisesNotification   : Test_TExecutionWhenBusy_SetError_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_Start_RaisesNotification      : Test_TExecutionWhenBusy_Start_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_WhenReady_Start_SelectsStarting       : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesMessageParameter       : Test_TExecution_SetErrorHandlesMessageParameter(TestSuite := UnitTests.ExecutionTests);
 
     NotificationTests                                 : T_TestSuite;
     Test_AddNotification_IncrementsCount              : Test_AddNotification_IncrementsCount(NotificationTests);

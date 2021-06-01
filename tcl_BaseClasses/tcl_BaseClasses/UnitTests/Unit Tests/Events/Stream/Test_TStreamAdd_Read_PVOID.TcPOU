@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamAdd_Read_PVOID" Id="{84951354-6441-44c9-b63c-255267689420}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_PVOID EXTENDS T_UnitTestBase
 VAR
@@ -14,7 +14,7 @@ Stream.Init(2);
 Stream.Add_PVOID(ADR(Bob));
     
 Assertion.AssertEquals_UDINT(
-    Expected :=8,
+    Expected :=10,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
@@ -26,7 +26,7 @@ Assertion.AssertEquals_PVOID(
     VariableName := 'Stream.Read_PVOID()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 8,
+    Expected := 10,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     

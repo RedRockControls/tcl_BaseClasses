@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamAdd_Read_DINT" Id="{41b01fdf-2f91-4c50-838b-71907799f62d}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_DINT EXTENDS T_UnitTestBase
 VAR
@@ -13,7 +13,7 @@ Stream.Init(2);
 Stream.Add_DINT(12345678);
     
 Assertion.AssertEquals_UDINT(
-    Expected := 4,
+    Expected := 6,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
@@ -25,7 +25,7 @@ Assertion.AssertEquals_DINT(
     VariableName := 'Stream.Read_DINT()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 4,
+    Expected := 6,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     

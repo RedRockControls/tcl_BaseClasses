@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamAdd_Read_STRING" Id="{20d1e6b8-abd9-46fd-acad-7e26cdca2141}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_STRING EXTENDS T_UnitTestBase
 VAR
@@ -14,7 +14,7 @@ Stream.Init(2);
 Stream.Add_STRING(TestString);
     
 Assertion.AssertEquals_UDINT(
-    Expected := 81,
+    Expected := 83,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
@@ -26,7 +26,7 @@ Assertion.AssertEquals_STRING(
     VariableName := 'Stream.Read_STRING()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 81,
+    Expected := 83,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     

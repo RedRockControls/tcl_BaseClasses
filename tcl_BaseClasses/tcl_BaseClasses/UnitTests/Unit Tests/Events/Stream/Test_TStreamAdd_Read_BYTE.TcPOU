@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamAdd_Read_BYTE" Id="{e2f83219-ac36-4c11-a18b-54f10c7081f6}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BYTE EXTENDS T_UnitTestBase
 VAR
@@ -13,7 +13,7 @@ Stream.Init(2);
 Stream.Add_BYTE(123);
     
 Assertion.AssertEquals_UDINT(
-    Expected := 1,
+    Expected := 3,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
@@ -25,7 +25,7 @@ Assertion.AssertEquals_BYTE(
     VariableName := 'Stream.Read_BYTE()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 1,
+    Expected := 3,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     

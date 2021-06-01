@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="Test_TExecutionWhenBusy_Start_RaisesNotification" Id="{38035c65-05c6-433c-8350-74f344ce6864}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Start_RaisesNotification EXTENDS T_UnitTestbase
+VAR
+    Execution                            : T_Execution;
+    ExecutionFailed_NotificationHandler  : T_NotificationHandler;
+    ExecutionAborted_NotificationHandler : T_NotificationHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Setup...
+Execution.FB_init(bInitRetains := FALSE,
+                  bInCopyCode  := FALSE);
+
+ExecutionFailed_NotificationHandler.FB_init(bInitRetains := FALSE,
+                                            bInCopyCode  := FALSE);
+
+ExecutionAborted_NotificationHandler.FB_init(bInitRetains := FALSE,
+                                             bInCopyCode  := FALSE);
+
+// link handler to common execution events...
+GlobalEvents.Notification_ExecutionFailed
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(ExecutionFailed_NotificationHandler);
+
+GlobalEvents.Notification_ExecutionAborted
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(ExecutionAborted_NotificationHandler);
+
+// Test...
+Execution.Start(); // sets Starting
+
+Execution.Start(); // raises error event
+
+Assertion.AssertEquals_BOOL(Expected     := TRUE,
+                            Actual       := ExecutionFailed_NotificationHandler.IsRaised(),
+                            VariableName := 'ExecutionFailed_NotificationHandler.IsRaised()');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

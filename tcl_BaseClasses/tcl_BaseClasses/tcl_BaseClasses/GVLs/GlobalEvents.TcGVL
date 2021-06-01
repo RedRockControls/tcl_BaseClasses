@@ -1,18 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <GVL Name="GlobalEvents" Id="{64546398-db5d-0d66-2782-a6500d59e54d}">
     <Declaration><![CDATA[(*
 Global event instances 
-These events are raised by all instances of T_Execution by default when an error occurs
-This behaviour can be overidden by setting the Event_OnError or Event_OnAbort properties
+These notifications are raised by all instances of T_Execution by default when an error occurs
+This behaviour can be overidden by setting the Notification_ExecutionFailed, Notification_ExecutionAborted or Notification_AssertionFailed properties
 of the instance of T_Execution to 0
 *)
 {attribute 'qualified_only'}
 VAR_GLOBAL
-    Event_OnError           : T_Event_ExecutionFailed;
-    Event_OnAbort           : T_Event_ExecutionAborted;
-    Event_AssertionFailed   : T_Event_AssertionFailed;
-    
     Notification_ExecutionFailed  : T_Notification;
     Notification_ExecutionAborted : T_Notification;
     Notification_AssertionFailed  : T_Notification;

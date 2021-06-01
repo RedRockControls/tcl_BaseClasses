@@ -9,18 +9,11 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Execution.Start();
 Execution.SetBusy();
-Execution.ErrorId := 16#1024;
-Execution.SetErrorWithMessage('Custom error message');
+Execution.SetError('Custom error message');
 
-Assertion.AssertEquals_UDINT(
-    expected := 16#1024,
-    Actual := Execution.ErrorId,
-    VariableName := 'Execution.ErrorId');   
-
-Assertion.AssertEquals_STRING(
-    expected := 'Custom error message',
-    Actual := Execution.ErrorMsg,
-    VariableName := 'Execution.ErrorMsg');   
+Assertion.AssertEquals_STRING(expected     := 'Custom error message',
+                              Actual       := Execution.ErrorMsg,
+                              VariableName := 'Execution.ErrorMsg');
 
 TestFinished();
 ]]></ST>

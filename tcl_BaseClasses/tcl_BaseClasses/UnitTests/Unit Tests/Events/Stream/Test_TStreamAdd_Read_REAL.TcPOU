@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamAdd_Read_REAL" Id="{f6f24f4f-449f-4d4b-9188-09f3d21a95c8}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_REAL EXTENDS T_UnitTestBase
 VAR
@@ -13,7 +13,7 @@ Stream.Init(2);
 Stream.Add_REAL(1.234567);
     
 Assertion.AssertEquals_UDINT(
-    Expected := 4,
+    Expected := 6,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
@@ -26,7 +26,7 @@ Assertion.AssertEquals_REAL(
     VariableName := 'Stream.Read_REAL()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 4,
+    Expected := 6,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     

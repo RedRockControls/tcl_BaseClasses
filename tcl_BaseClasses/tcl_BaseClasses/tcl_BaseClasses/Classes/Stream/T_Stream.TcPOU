@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="T_Stream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_StreamWriter, I_StreamReader
 VAR
-    
+
     MemoryManager : FB_DynMem_Manager;
-    Buffer : FB_DynMem_Buffer(ipMemMan:= MemoryManager);
-    pBuffer : POINTER TO BYTE;
-    
+    Buffer        : FB_DynMem_Buffer(ipMemMan := MemoryManager);
+    pBuffer       : POINTER TO BYTE;
+
     _StreamLength : UDINT := 4;
-    _Position : UDINT;
-    _ByteCount : UDINT;
+    _Position     : UDINT;
+    _ByteCount    : UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -40,7 +40,9 @@ VAR
     pValue : POINTER TO BYTE;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(Value.diSize));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_Blob);
+
+_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(Value.diSize));
 
 MEMCPY(
     destAddr:= pBuffer + _Position, 
@@ -63,7 +65,9 @@ VAR
     pValue : POINTER TO BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_BOOL);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -83,7 +87,9 @@ VAR
     pValue : POINTER TO BYTE;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_BYTE);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -103,7 +109,9 @@ VAR
     pValue : POINTER TO DINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_DINT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -124,7 +132,9 @@ VAR
     pValue : POINTER TO INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_INT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -145,7 +155,9 @@ VAR
     pValue : POINTER TO LINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_LINT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -166,7 +178,9 @@ VAR
     pValue : POINTER TO LREAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_LREAL);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -187,7 +201,9 @@ VAR
     pValue : POINTER TO PVOID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_PVOID);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -208,7 +224,9 @@ VAR
     pValue : POINTER TO REAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_REAL);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -229,7 +247,9 @@ VAR
     StringSize : UDINT; // number of characters plus the null termination byte
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[StringSize := INT_TO_UDINT(LEN(Value) + 1);
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_STRING);
+
+StringSize := INT_TO_UDINT(LEN(Value) + 1);
 
 _ResizeIfNecessary(SpaceRequired := StringSize);  // only storing the characters and the null termination byte
 
@@ -247,6 +267,27 @@ Add_STRING := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Add_TypeId" Id="{79a85dde-c616-420f-8dca-96cad7e7b06f}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PRIVATE Add_TypeId : I_StreamWriter
+VAR_INPUT
+    Value : INT;
+END_VAR
+VAR
+    pValue : POINTER TO INT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+
+pValue := pBuffer + _Position;
+pValue^ := Value;
+_Position := _Position + SIZEOF(Value);    
+_ByteCount := _ByteCount + SIZEOF(Value); 
+
+
+Add_TypeId := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Add_UDINT" Id="{2f4586aa-cb30-039c-24e6-bbfc08c0c422}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_UDINT : I_StreamWriter
 VAR_INPUT
@@ -256,7 +297,9 @@ VAR
     pValue : POINTER TO UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_UDINT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -277,7 +320,9 @@ VAR
     pValue : POINTER TO UINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_UINT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -298,7 +343,9 @@ VAR
     pValue : POINTER TO ULINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[Add_TypeId(Value := E_SupportedTypes.Type_ULINT);
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue := pBuffer + _Position;
 pValue^ := Value;
@@ -429,16 +476,21 @@ END_VAR
 VAR
     pValue : POINTER TO BYTE;
     Result : BYTE;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
-    
-MEMCPY(
-    destAddr:= Value.pValue, 
-    srcAddr := pBuffer + _Position, 
-    n       := DINT_TO_UDINT(Value.diSize));
-
-    _Position := _Position + DINT_TO_UDINT(Value.diSize);   
+        <ST><![CDATA[TypeId := THIS^.Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_Blob THEN
+	IF _Position + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
+		MEMCPY(
+			destAddr:= Value.pValue, 
+			srcAddr := pBuffer + _Position, 
+			n       := DINT_TO_UDINT(Value.diSize));
+		_Position := _Position + DINT_TO_UDINT(Value.diSize);   
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
 END_IF
 ]]></ST>
       </Implementation>
@@ -448,13 +500,20 @@ END_IF
 VAR
     pValue : POINTER TO BOOL;
     Result : BOOL;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_BOOL := Result; 
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_BOOL THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_BOOL := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
 END_IF
 ]]></ST>
       </Implementation>
@@ -464,15 +523,21 @@ END_IF
 VAR
     pValue : POINTER TO BYTE;
     Result : BYTE;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_BYTE := Result; 
-END_IF
-]]></ST>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_BYTE THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_BYTE := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Read_DINT" Id="{52b2e8be-af73-0b66-3ede-3e6c6875df1d}" FolderPath="Methods\">
@@ -480,19 +545,159 @@ END_IF
 VAR
     pValue : POINTER TO DINT;
     Result : DINT;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_DINT := Result; 
-END_IF
-]]></ST>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_DINT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_DINT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Read_INT" Id="{88f59eaf-d475-0936-0514-fd747bd37737}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_INT : INT;
+VAR
+    pValue : POINTER TO INT;
+    Result : INT;
+	TypeId : E_SupportedTypes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_INT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_INT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_LINT" Id="{9b94dfea-162d-0221-05c6-083e6fc3a489}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LINT : LINT;
+VAR
+    pValue : POINTER TO LINT;
+    Result : LINT;
+	TypeId : E_SupportedTypes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_LINT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_LINT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_LREAL" Id="{8b3953c5-1588-0a54-23ab-12e037540a96}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_LREAL : LREAL;
+VAR
+    pValue : POINTER TO LREAL;
+    Result : LREAL;
+	TypeId : E_SupportedTypes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_LREAL THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_LREAL := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_PVOID" Id="{cbb33155-c6b1-0f12-39f0-968b46d8481d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_PVOID : PVOID;
+VAR
+    pValue : POINTER TO PVOID;
+    Result : PVOID;
+	TypeId : E_SupportedTypes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_PVOID THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_PVOID := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_REAL" Id="{68d4b51d-5637-03b3-2b8a-130f04bf24e9}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_REAL : REAL;
+VAR
+    pValue : POINTER TO REAL;
+    Result : REAL;
+	TypeId : E_SupportedTypes;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_REAL THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_REAL := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_STRING" Id="{4fbbee87-6322-0666-117c-f80beac8fb2a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_STRING : STRING(255);
+VAR
+    pValue : POINTER TO STRING(255);
+    StringSize : UDINT; // number of characters plus the null termination byte
+	TypeId : E_SupportedTypes;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_STRING THEN
+	pValue := pBuffer + _Position;
+	StringSize := INT_TO_UDINT(LEN(pValue^) + 1);
+	IF _Position + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
+		_Position := _Position + StringSize;   
+		Read_STRING := pValue^;
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_TypeId" Id="{37e01e90-358e-43fb-9f34-5890d2d4cee9}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD PRIVATE Read_TypeId : E_SupportedTypes;
 VAR
     pValue : POINTER TO INT;
     Result : INT;
@@ -502,91 +707,7 @@ END_VAR]]></Declaration>
     pValue := pBuffer + _Position;
     Result := pValue^;
     _Position := _Position + SIZEOF(Result);   
-    Read_INT := Result; 
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Read_LINT" Id="{9b94dfea-162d-0221-05c6-083e6fc3a489}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Read_LINT : LINT;
-VAR
-    pValue : POINTER TO LINT;
-    Result : LINT;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_LINT := Result; 
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Read_LREAL" Id="{8b3953c5-1588-0a54-23ab-12e037540a96}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Read_LREAL : LREAL;
-VAR
-    pValue : POINTER TO LREAL;
-    Result : LREAL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_LREAL := Result; 
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Read_PVOID" Id="{cbb33155-c6b1-0f12-39f0-968b46d8481d}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Read_PVOID : PVOID;
-VAR
-    pValue : POINTER TO PVOID;
-    Result : PVOID;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_PVOID := Result; 
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Read_REAL" Id="{68d4b51d-5637-03b3-2b8a-130f04bf24e9}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Read_REAL : REAL;
-VAR
-    pValue : POINTER TO REAL;
-    Result : REAL;
-END_VAR]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_REAL := Result; 
-END_IF
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="Read_STRING" Id="{4fbbee87-6322-0666-117c-f80beac8fb2a}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Read_STRING : STRING(255);
-VAR
-    pValue : POINTER TO STRING(255);
-    StringSize : UDINT; // number of characters plus the null termination byte
-END_VAR
-
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[pValue := pBuffer + _Position;
-
-StringSize := INT_TO_UDINT(LEN(pValue^) + 1);
-
-IF _Position + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
-    _Position := _Position + StringSize;   
-    Read_STRING := pValue^;
+    Read_TypeId := Result; 
 END_IF
 ]]></ST>
       </Implementation>
@@ -596,15 +717,21 @@ END_IF
 VAR
     pValue : POINTER TO UDINT;
     Result : UDINT;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_UDINT := Result; 
-END_IF
-]]></ST>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_UDINT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_UDINT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Read_UINT" Id="{307605e7-bec9-0e51-20c3-ea75a90ec7f4}" FolderPath="Methods\">
@@ -612,15 +739,21 @@ END_IF
 VAR
     pValue : POINTER TO UINT;
     Result : UINT;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_UINT := Result; 
-END_IF
-]]></ST>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_UINT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_UINT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Read_ULINT" Id="{cf5324b0-9555-098c-1d59-f105b6163144}" FolderPath="Methods\">
@@ -628,15 +761,21 @@ END_IF
 VAR
     pValue : POINTER TO ULINT;
     Result : ULINT;
+	TypeId : E_SupportedTypes;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue := pBuffer + _Position;
-    Result := pValue^;
-    _Position := _Position + SIZEOF(Result);   
-    Read_ULINT := Result; 
-END_IF
-]]></ST>
+        <ST><![CDATA[TypeId := Read_TypeId();
+IF TypeId = E_SupportedTypes.Type_ULINT THEN
+	IF _Position + SIZEOF(Result) <= _StreamLength THEN
+		pValue := pBuffer + _Position;
+		Result := pValue^;
+		_Position := _Position + SIZEOF(Result);   
+		Read_ULINT := Result; 
+	END_IF
+ELSE
+	F_LogError(Source := 'T_Stream',
+				Message := 'Unexpected type found when reading from stream'); // bit basic - todo: improve!
+END_IF]]></ST>
       </Implementation>
     </Method>
     <Method Name="Resize" Id="{6eedcc64-a81c-456d-b6ba-eafb61d80242}" FolderPath="Methods\">

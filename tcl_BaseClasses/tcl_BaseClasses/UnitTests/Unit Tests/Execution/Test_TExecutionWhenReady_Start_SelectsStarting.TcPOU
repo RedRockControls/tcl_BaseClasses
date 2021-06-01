@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TExecutionWhenReady_Start_SelectsStarting" Id="{ef98dc1e-565d-4e35-b9f5-21bb06b550cf}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS T_UnitTestbase
 VAR
@@ -8,17 +8,15 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Setup...
-Execution.FB_init(
-    bInitRetains := FALSE,
-    bInCopyCode  := FALSE);
+Execution.FB_init(bInitRetains := FALSE,
+                  bInCopyCode  := FALSE);
 
 // Test...
 Execution.Start();
 
-Assertion.AssertEquals_BOOL(
-    Expected := TRUE,
-    Actual   := Execution.Starting,
-    VariableName  := 'Execution.Starting');
+Assertion.AssertEquals_BOOL(Expected     := TRUE,
+                            Actual       := Execution.Starting,
+                            VariableName := 'Execution.Starting');
 
 TestFinished();
 ]]></ST>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <POU Name="Test_TStreamBufferResizes" Id="{c192b989-d352-4cfc-9e66-f8073ecd67eb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamBufferResizes EXTENDS T_UnitTestBase
 VAR
@@ -16,12 +16,12 @@ Stream.Add_INT(1236);
 Stream.Add_INT(1237);
     
 Assertion.AssertEquals_UDINT(
-    Expected := 8,
+    Expected := 16,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 8,
+    Expected := 16,
     Actual := Stream.StreamLength,
     VariableName := 'Stream.StreamLength');
     
@@ -33,7 +33,7 @@ Assertion.AssertEquals_INT(
     VariableName := 'Stream.ReadInt()');
     
 Assertion.AssertEquals_UDINT(
-    Expected := 2,
+    Expected := 4,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
