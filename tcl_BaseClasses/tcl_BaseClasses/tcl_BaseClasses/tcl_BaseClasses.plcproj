@@ -79,9 +79,9 @@
     <Folder Include="Classes\Function Block Wrappers\Classes" />
     <Folder Include="Classes\Function Block Wrappers\Event Logging" />
     <Folder Include="Classes\Notifications" />
-    <Folder Include="Classes\Notifications\Handler Interface" />
+    <Folder Include="Classes\Notifications\Notification Handler" />
     <Folder Include="Classes\Notifications\List Of Handlers" />
-    <Folder Include="Classes\Notifications\Notification Class" />
+    <Folder Include="Classes\Notifications\Notification" />
     <Folder Include="Classes\Stream" />
     <Folder Include="Events" />
     <Folder Include="Events\Execution Aborted" />
@@ -152,19 +152,19 @@
     <Compile Include="Classes\Function Block Wrappers\Event Logging\F_LogWarning.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Notifications\Handler Interface\I_NotificationHandler.TcIO">
+    <Compile Include="Classes\Notifications\Notification Handler\I_NotificationHandler.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Notifications\Handler Interface\T_NotificationHandler.TcPOU">
+    <Compile Include="Classes\Notifications\Notification Handler\T_NotificationHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Notifications\List Of Handlers\T_ListONotificationHandlers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Notifications\Notification Class\I_Notification.TcIO">
+    <Compile Include="Classes\Notifications\Notification\I_Notification.TcIO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Notifications\Notification Class\T_Notification.TcPOU">
+    <Compile Include="Classes\Notifications\Notification\T_Notification.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Stream\E_SupportedTypes.TcDUT">
