@@ -3,8 +3,10 @@
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    _Args            : T_Stream(StreamLength := 4);
-    _IsRaised        : BOOL;
+    NotificationHandlerArgs : T_Stream(StreamLength := 4); // Local copy of notification arguments
+    Raised                  : BOOL; // protected by critical section - do not access directly
+    CriticalSection         : FB_IecCriticalSection;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -19,42 +21,43 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Args := _Args;]]></ST>
+          <ST><![CDATA[Args := NotificationHandlerArgs;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Handled" Id="{66e16aac-78b8-424e-a9ed-840351f5e3bd}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Handled
+    <Method Name="HandleNotification" Id="{e8102458-838e-441a-8b86-1d3da0b59390}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD HandleNotification : BOOL
 VAR_INPUT
+	Args : I_Stream;
 END_VAR
-]]></Declaration>
+VAR_OUTPUT
+	IsRaised : BOOL;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_IsRaised := FALSE;
-]]></ST>
+        <ST><![CDATA[IF CriticalSection.Enter() THEN // will block while receiving a notification
+	IF Raised THEN
+		IsRaised := TRUE;
+		Args.CopyFrom(NotificationHandlerArgs);
+		Raised := FALSE;
+	END_IF
+	CriticalSection.Leave();
+END_IF]]></ST>
       </Implementation>
     </Method>
-    <Method Name="IsRaised" Id="{fae0f454-b76e-425b-b849-6b812d700aa5}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD IsRaised : BOOL
+    <Method Name="RaiseNotification" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RaiseNotification
 VAR_INPUT
+    Args : I_Stream;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IsRaised := _IsRaised;]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="OnNotificationReceived" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD OnNotificationReceived
-VAR_INPUT
-    Args             : I_StreamReader;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF Args.ByteCount > 0 THEN // has event arguments..
-    _Args.CopyFromStreamReader(Args);
-END_IF
-_Args.Seek(0);
-_IsRaised          := TRUE;
-]]></ST>
+        <ST><![CDATA[IF CriticalSection.Enter() THEN
+	IF Args.Position > 0 THEN // has event arguments..
+		NotificationHandlerArgs.CopyFrom(Args);
+	END_IF
+	Raised := TRUE;
+	CriticalSection.Leave();
+END_IF]]></ST>
       </Implementation>
     </Method>
   </POU>

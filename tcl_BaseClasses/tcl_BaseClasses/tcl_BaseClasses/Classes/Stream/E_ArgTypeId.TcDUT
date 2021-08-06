@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
-  <DUT Name="E_SupportedTypes" Id="{b21b8a13-70d1-45e2-bb6d-21eecf042151}">
+  <DUT Name="E_ArgTypeId" Id="{b21b8a13-70d1-45e2-bb6d-21eecf042151}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
-TYPE E_SupportedTypes :
+TYPE E_ArgTypeId :
 (
 	Unknown := 0,
 	Type_Blob,

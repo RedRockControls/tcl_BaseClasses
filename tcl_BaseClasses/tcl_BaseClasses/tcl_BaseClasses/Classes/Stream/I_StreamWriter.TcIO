@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
   <Itf Name="I_StreamWriter" Id="{ade11aac-fe77-01bf-2404-d979d6533839}">
     <Declaration><![CDATA[INTERFACE I_StreamWriter
 ]]></Declaration>
@@ -103,6 +103,13 @@ END_VAR
       <Declaration><![CDATA[METHOD Seek: I_StreamWriter
 VAR_INPUT
     Position : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="SetNextArgTypeId" Id="{02a5322d-0101-4e1a-962e-ff0cf9820f93}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetNextArgTypeId : I_StreamWriter
+VAR_INPUT
+    Value : E_ArgTypeId;
 END_VAR
 ]]></Declaration>
     </Method>

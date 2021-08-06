@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <Itf Name="I_Stream" Id="{f5154ddf-16f1-46e9-9223-71c85876fd34}">
+    <Declaration><![CDATA[INTERFACE I_Stream
+]]></Declaration>
+    <Folder Name="Methods" Id="{5e748b2a-503c-43c5-8466-946d6b686f6f}" />
+    <Folder Name="Properties" Id="{a36458f3-f05b-4da1-98a6-60e505567138}" />
+    <Property Name="BufferAddress" Id="{305120d3-aced-4f8d-b245-d0d9f71e5a5e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY BufferAddress : PVOID]]></Declaration>
+      <Get Name="Get" Id="{bfc5cf02-d2db-410e-9a30-4abf19e496a6}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="CopyFrom" Id="{cf766107-6e36-4c04-9456-ce8be70f3bf8}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD CopyFrom
+VAR_INPUT
+    StreamToCopyFrom : I_Stream;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Position" Id="{20a7b0bd-a579-450b-9ea7-45ec252eff71}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Position : UDINT]]></Declaration>
+      <Get Name="Get" Id="{21d920d7-5c38-4421-a1b6-0c0ab4bf84af}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="StreamLength" Id="{2b1b0362-2dde-45e1-95a0-27ab99280fb2}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY StreamLength : UDINT]]></Declaration>
+      <Get Name="Get" Id="{94735575-0a78-4e63-9ad8-8154130a2de2}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

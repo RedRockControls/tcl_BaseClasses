@@ -3,10 +3,10 @@
   <Itf Name="I_NotificationHandler" Id="{132ee55d-2226-43c5-82b5-622b17ca944c}">
     <Declaration><![CDATA[INTERFACE I_NotificationHandler EXTENDS __SYSTEM.IQueryInterface
 ]]></Declaration>
-    <Method Name="OnNotificationReceived" Id="{600e8039-a73b-451c-9206-c0585bf94fa7}">
-      <Declaration><![CDATA[METHOD OnNotificationReceived
+    <Method Name="RaiseNotification" Id="{600e8039-a73b-451c-9206-c0585bf94fa7}">
+      <Declaration><![CDATA[METHOD RaiseNotification
 VAR_INPUT
-    Args             : I_StreamReader;
+    Args : I_Stream;
 END_VAR
 ]]></Declaration>
     </Method>

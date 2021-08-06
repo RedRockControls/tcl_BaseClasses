@@ -14,13 +14,15 @@ Stream.Add_INT(1234);
     
 Stream.Seek(0);
 
+// check that reading the wrong type returns zero
 Assertion.AssertEquals_UINT(
     Expected := 0,
     Actual := Stream.Read_UINT(),
     VariableName := 'Stream.Read_UINT()');
     
+// check the read pointer is restored...
 Assertion.AssertEquals_UDINT(
-    Expected := 4,
+    Expected := 0,
     Actual := Stream.Position,
     VariableName := 'Stream.Position');
     
