@@ -21,12 +21,13 @@ END_VAR
       <Declaration><![CDATA[METHOD PRIVATE _Resize
 VAR_INPUT
     StreamLength : UDINT;
+    Preserve     : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[Buffer.Resize(nSize     := StreamLength,
-              bPreserve := TRUE,
-              bReset    := FALSE);
+              bPreserve := Preserve,
+              bReset    := TRUE);
 
 _StreamLength := StreamLength;
 pBuffer       := Buffer.pBuffer;
@@ -38,10 +39,13 @@ pBuffer       := Buffer.pBuffer;
 VAR_INPUT
     SpaceRequired : UDINT;
 END_VAR
-]]></Declaration>
+VAR
+	NewSize : UDINT;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _Position + SpaceRequired > _StreamLength THEN
-    _Resize(StreamLength := _StreamLength * 2);
+    _Resize(StreamLength := _Position + SpaceRequired,
+           Preserve     := TRUE);
 END_IF
 ]]></ST>
       </Implementation>
@@ -331,7 +335,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF StreamToCopyFrom <> 0 THEN
     IF StreamToCopyFrom.StreamLength > THIS^.StreamLength THEN
-        _Resize(StreamToCopyFrom.StreamLength);
+        _Resize(StreamLength := StreamToCopyFrom.StreamLength,
+               Preserve     := FALSE);
     END_IF
 
     MEMCPY(destAddr := Buffer.pBuffer,

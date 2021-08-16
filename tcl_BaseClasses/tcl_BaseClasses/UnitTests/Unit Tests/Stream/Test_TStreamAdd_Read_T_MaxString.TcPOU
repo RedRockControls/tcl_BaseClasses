@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+  <POU Name="Test_TStreamAdd_Read_T_MaxString" Id="{bbab0e0d-b28a-4d3d-a0a6-96ec30bda530}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_T_MaxString EXTENDS T_UnitTestBase
+VAR
+    Stream     : T_Stream(StreamLength := 2);
+    ArgType    : E_ArgTypeId := E_ArgTypeId.Type_STRING;
+    TestString : T_MaxString := '111111111 222222222 333333333 444444444 555555555 666666666 777777777 888888888 999999999 ';
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Stream.Init(2);
+
+// add a STRING...
+Stream.SetNextArgTypeId(ArgType);
+Stream.Add_String(TestString);
+
+Stream.Seek(0);
+
+// check next arg type is correct...
+Assertion.AssertEquals_INT(Expected     := ArgType,
+                           Actual       := Stream.GetNextArgTypeId(),
+                           VariableName := 'Stream.GetNextArgTypeId()');
+
+// check next value...	
+Assertion.AssertEquals_STRING(Expected     := TestString,
+                              Actual       := Stream.Read_String(),
+                              VariableName := 'Stream.Read_String()');
+
+// check we are at the end of the stream..							
+Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+                             Actual       := Stream.Position,
+                             VariableName := 'Stream.Position');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -99,6 +99,13 @@ END_VAR
       <Declaration><![CDATA[METHOD Clear : I_StreamWriter
 ]]></Declaration>
     </Method>
+    <Method Name="Init" Id="{21f6d700-a942-4069-b090-b8315d873be7}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Init
+VAR_INPUT
+    StreamLength : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Seek" Id="{022de36b-fa7f-0b7c-1d93-83e7909f8ed3}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Seek: I_StreamWriter
 VAR_INPUT

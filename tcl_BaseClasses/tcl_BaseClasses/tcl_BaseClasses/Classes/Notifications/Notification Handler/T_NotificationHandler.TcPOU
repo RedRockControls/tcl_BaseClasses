@@ -3,9 +3,10 @@
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    NotificationHandlerArgs : T_Stream(StreamLength := 4); // Local copy of notification arguments
-    Raised                  : BOOL; // protected by critical section - do not access directly
-    CriticalSection         : FB_IecCriticalSection;
+    Args_LocalCopy  : T_Stream(StreamLength := 4); // Local copy of notification arguments
+    Args_PublicCopy : T_Stream(StreamLength := 4); // Public copy of notification arguments
+    Raised          : BOOL;                        // protected by critical section - do not access directly
+    CriticalSection : FB_IecCriticalSection;
 
 END_VAR
 ]]></Declaration>
@@ -13,32 +14,27 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{50523a27-f4f0-421d-b359-9106ca91093f}" />
-    <Folder Name="Properties" Id="{fa028168-01fb-46c8-9542-d1715323a920}" />
-    <Property Name="Args" Id="{91257052-647a-4693-b950-dbd5f4670b44}" FolderPath="Properties\">
+    <Folder Name="Properties" Id="{bcb797de-c3f3-40e6-aa20-89bbc5f8f950}" />
+    <Property Name="Args" Id="{677afeaa-0697-40f0-93b0-2ba305384c9c}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Args : I_StreamReader]]></Declaration>
-      <Get Name="Get" Id="{53b1bc30-dc6e-49ed-9d6e-3cc453a91aed}">
+      <Get Name="Get" Id="{3597fd34-9332-43bd-a3f4-c1cacf585b03}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Args := NotificationHandlerArgs;]]></ST>
+          <ST><![CDATA[Args := Args_PublicCopy;]]></ST>
         </Implementation>
       </Get>
     </Property>
-    <Method Name="HandleNotification" Id="{e8102458-838e-441a-8b86-1d3da0b59390}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD HandleNotification : BOOL
-VAR_INPUT
-	Args : I_Stream;
-END_VAR
-VAR_OUTPUT
-	IsRaised : BOOL;
-END_VAR]]></Declaration>
+    <Method Name="IsRaised" Id="{e8102458-838e-441a-8b86-1d3da0b59390}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD IsRaised : BOOL
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF CriticalSection.Enter() THEN // will block while receiving a notification
 	IF Raised THEN
 		IsRaised := TRUE;
-		Args.CopyFrom(NotificationHandlerArgs);
 		Raised := FALSE;
+		Args_PublicCopy.CopyFrom(Args_LocalCopy);
 	END_IF
 	CriticalSection.Leave();
 END_IF]]></ST>
@@ -53,7 +49,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF CriticalSection.Enter() THEN
 	IF Args.Position > 0 THEN // has event arguments..
-		NotificationHandlerArgs.CopyFrom(Args);
+		Args_LocalCopy.CopyFrom(Args);
 	END_IF
 	Raised := TRUE;
 	CriticalSection.Leave();

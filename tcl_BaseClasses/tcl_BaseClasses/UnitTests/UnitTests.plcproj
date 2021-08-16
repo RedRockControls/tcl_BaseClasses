@@ -82,57 +82,6 @@
     <Compile Include="Unit Tests\Events\Example Event\T_TestEvent_UsesEventArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BLOB.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BOOL.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_BYTE.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_DINT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_INT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_DetectsUnexpectedType.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_LINT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_LREAL.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_PVOID.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_REAL.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_Short_STRING.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_STRING.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_T_MaxString.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_UDINT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_UINT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamAdd_Read_ULINT.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Stream\Test_TStreamBufferResizes.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Unit Tests\Execution\Execution Event Handler\T_Execution_EventHandler.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -172,22 +121,61 @@
     <Compile Include="Unit Tests\Functions\Test_F_UDINT_TO_DINT_Conversion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Fixtures\E_Test_NotificationId.TcDUT">
+    <Compile Include="Unit Tests\Notifications\Test_NotificationNoArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Fixtures\T_ClassThatHandlesNotifications.TcPOU">
+    <Compile Include="Unit Tests\Notifications\Test_NotificationWithStringArg.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Fixtures\T_ClassThatRaisesNotifications.TcPOU">
+    <Compile Include="Unit Tests\Stream\Test_TStreamAddReadArgType.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Test_AddNotification_IncrementsCount.TcPOU">
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_BLOB.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Test_RaiseNotification_CallsMethod.TcPOU">
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_BOOL.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Notifications\Test_RaiseNotification_UpdatesNotificationHandler.TcPOU">
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_BYTE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_DINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_INT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_LINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_LREAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_PVOID.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_REAL.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_Short_STRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_STRING.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_T_MaxString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_UINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamAdd_Read_ULINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Stream\Test_TStreamBufferResizes.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
@@ -208,12 +196,11 @@
     <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler" />
     <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args" />
     <Folder Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler" />
-    <Folder Include="Unit Tests\Events\Stream" />
     <Folder Include="Unit Tests\Execution" />
     <Folder Include="Unit Tests\Execution\Execution Event Handler" />
     <Folder Include="Unit Tests\Functions" />
     <Folder Include="Unit Tests\Notifications" />
-    <Folder Include="Unit Tests\Notifications\Fixtures" />
+    <Folder Include="Unit Tests\Stream" />
     <Folder Include="VISUs" />
   </ItemGroup>
   <ItemGroup>
@@ -417,7 +404,7 @@
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_BaseClasses">
-      <Resolution>tcl_BaseClasses, * (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_BaseClasses, 1.1.11.0 (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, * (Red Rock Controls Limited)</Resolution>
