@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[(*
 :Class for handling communications between a client requesting a service 
@@ -255,19 +255,39 @@ END_IF
     <Method Name="SetError" Id="{f1633771-a524-4ccc-be65-99229396429e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorMsg  : T_MaxString;
+    ErrorMsg  : ANY;
 END_VAR
-]]></Declaration>
+VAR
+	pSTRING : POINTER TO STRING;
+	arg : T_Arg;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
     _Error   := TRUE;
-    _ErrorMsg := ErrorMsg;
+	CASE ErrorMsg.TypeClass OF
+    	__SYSTEM.TYPE_CLASS.TYPE_UDINT          : 
+			arg.cbLen := DINT_TO_UDINT(ErrorMsg.diSize);
+			arg.pData := ErrorMsg.pValue;
+			arg.eType := E_ArgType.ARGTYPE_UDINT;
+			_ErrorMsg := F_FormatString1(Format := 'Error 0x%0.8X',arg1 := arg);
+			
+    	__SYSTEM.TYPE_CLASS.TYPE_UINT          : 
+			arg.cbLen := DINT_TO_UDINT(ErrorMsg.diSize);
+			arg.pData := ErrorMsg.pValue;
+			arg.eType := E_ArgType.ARGTYPE_UINT;
+			_ErrorMsg := F_FormatString1(Format := 'Error 0x%0.4X',arg1 := arg);
+
+    	__SYSTEM.TYPE_CLASS.TYPE_STRING          : 
+			_ErrorMsg := PSTRING_TO_STRING(ErrorMsg.pValue);
+		ELSE
+			_ErrorMsg := 'Unsupported Error Id Type';
+	END_CASE
     _State   := T_ExecutionState.Ready;
 
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
-            .Add_STRING(ErrorMsg)
+            .Add_STRING(_ErrorMsg)
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();

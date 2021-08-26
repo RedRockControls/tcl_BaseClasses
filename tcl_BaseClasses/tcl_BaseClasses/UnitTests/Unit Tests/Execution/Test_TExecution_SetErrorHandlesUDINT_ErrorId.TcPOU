@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Test_TExecution_SetErrorHandlesUDINT_ErrorId" Id="{7e672836-ceee-4da1-aad5-3df148ba2487}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecution_SetErrorHandlesUDINT_ErrorId EXTENDS T_UnitTestBase
+VAR
+    Execution : T_Execution;
+END_VAR
+VAR
+	ErrorId : UDINT := 16#12345678;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Execution.Start();
+Execution.SetBusy();
+Execution.SetError(ErrorId);
+
+Assertion.AssertEquals_STRING(expected     := 'Error 0x12345678',
+                              Actual       := Execution.ErrorMsg,
+                              VariableName := 'Execution.ErrorMsg');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

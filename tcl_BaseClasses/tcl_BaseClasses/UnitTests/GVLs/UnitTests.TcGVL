@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <GVL Name="UnitTests" Id="{b8360f1b-138e-4dff-86fd-d2ed97da65d9}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -55,12 +55,15 @@ VAR_GLOBAL
     Test_TExecutionWhenBusy_SetError_RaisesNotification   : Test_TExecutionWhenBusy_SetError_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
     Test_TExecutionWhenBusy_Start_RaisesNotification      : Test_TExecutionWhenBusy_Start_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
     Test_TExecution_WhenReady_Start_SelectsStarting       : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesMessageParameter       : Test_TExecution_SetErrorHandlesMessageParameter(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesString_ErrorId         : Test_TExecution_SetErrorHandlesString_ErrorId(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesUDINT_ErrorId          : Test_TExecution_SetErrorHandlesUDINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesUINT_ErrorId           : Test_TExecution_SetErrorHandlesUINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
 
     NotificationTests              : T_TestSuite;
     Test_NotificationNoArgs        : Test_NotificationNoArgs(NotificationTests);
     Test_NotificationWithStringArg : Test_NotificationWithStringArg(NotificationTests);
 
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
   </GVL>
 </TcPlcObject>
