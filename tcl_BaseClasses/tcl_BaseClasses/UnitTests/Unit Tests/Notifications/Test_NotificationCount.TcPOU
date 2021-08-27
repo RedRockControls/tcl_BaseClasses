@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Test_NotificationCount" Id="{5a998e2d-812e-4528-950c-0f147306f34d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationCount EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
+VAR
+    Source   : T_Notification;
+    Handler  : T_NotificationHandler;
+    IsRaised : BOOL;
+	Count : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Handler.FB_init(
+    bInitRetains := FALSE,  
+    bInCopyCode  := FALSE);
+
+Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
+
+Source.Raise();
+Source.Raise();
+Source.Raise();
+IsRaised := Handler.IsRaised(UnhandledNotificationsCount => Count);
+
+Assertion.AssertEquals_BOOL(
+    Expected     := TRUE,
+    Actual       := IsRaised,
+    VariableName := 'IsRaised');
+
+Assertion.AssertEquals_DINT(
+    Expected     := 3,
+    Actual       := Count,
+    VariableName := 'Count');
+
+IsRaised := Handler.IsRaised(UnhandledNotificationsCount => Count);
+
+Assertion.AssertEquals_BOOL(
+    Expected     := FALSE,
+    Actual       := IsRaised,
+    VariableName := 'IsRaised');
+
+Assertion.AssertEquals_DINT(
+    Expected     := 0,
+    Actual       := Count,
+    VariableName := 'Count');
+
+
+TestFinished();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

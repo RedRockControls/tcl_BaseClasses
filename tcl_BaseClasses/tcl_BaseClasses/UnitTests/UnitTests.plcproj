@@ -130,6 +130,9 @@
     <Compile Include="Unit Tests\Notifications\Test_NotificationNoArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Notifications\Test_NotificationCount.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Unit Tests\Notifications\Test_NotificationWithStringArg.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -410,7 +413,7 @@
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_BaseClasses">
-      <Resolution>tcl_BaseClasses, 1.1.12.0 (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_BaseClasses, * (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, * (Red Rock Controls Limited)</Resolution>

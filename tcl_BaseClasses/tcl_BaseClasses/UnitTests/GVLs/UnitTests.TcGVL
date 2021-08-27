@@ -62,6 +62,7 @@ VAR_GLOBAL
     NotificationTests              : T_TestSuite;
     Test_NotificationNoArgs        : Test_NotificationNoArgs(NotificationTests);
     Test_NotificationWithStringArg : Test_NotificationWithStringArg(NotificationTests);
+    Test_NotificationCount         : Test_NotificationCount(NotificationTests);
 
 END_VAR
 ]]></Declaration>

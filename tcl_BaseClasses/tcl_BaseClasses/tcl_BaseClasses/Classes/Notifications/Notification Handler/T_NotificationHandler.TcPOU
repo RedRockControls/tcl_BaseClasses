@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    Args_LocalCopy  : T_Stream(StreamLength := 4); // Local copy of notification arguments
-    Args_PublicCopy : T_Stream(StreamLength := 4); // Public copy of notification arguments
-    Raised          : BOOL;                        // protected by critical section - do not access directly
-    CriticalSection : FB_IecCriticalSection;
-
+    Args_LocalCopy     : T_Stream(StreamLength := 4); // Local copy of notification arguments
+    Args_PublicCopy    : T_Stream(StreamLength := 4); // Public copy of notification arguments
+    Raised             : BOOL;                        // protected by critical section - do not access directly
+    CriticalSection    : FB_IecCriticalSection;
+    Notifications      : T_Counter; 
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -28,16 +28,24 @@ END_VAR
     </Property>
     <Method Name="IsRaised" Id="{e8102458-838e-441a-8b86-1d3da0b59390}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD IsRaised : BOOL
-]]></Declaration>
+VAR_OUTPUT
+	UnhandledNotificationsCount : DINT; // Number of times notification has been raised since last handled
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF CriticalSection.Enter() THEN // will block while receiving a notification
-	IF Raised THEN
-		IsRaised := TRUE;
-		Raised := FALSE;
-		Args_PublicCopy.CopyFrom(Args_LocalCopy);
-	END_IF
-	CriticalSection.Leave();
-END_IF]]></ST>
+    IF Raised THEN
+        IsRaised := TRUE;
+        Raised   := FALSE;
+
+        UnhandledNotificationsCount  := Notifications.Value;
+        Notifications.Reset();
+
+        Args_PublicCopy.CopyFrom(Args_LocalCopy);
+    END_IF
+
+    CriticalSection.Leave();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="RaiseNotification" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
@@ -52,6 +60,7 @@ END_VAR
 		Args_LocalCopy.CopyFrom(Args);
 	END_IF
 	Raised := TRUE;
+	Notifications.Inc();
 	CriticalSection.Leave();
 END_IF]]></ST>
       </Implementation>
