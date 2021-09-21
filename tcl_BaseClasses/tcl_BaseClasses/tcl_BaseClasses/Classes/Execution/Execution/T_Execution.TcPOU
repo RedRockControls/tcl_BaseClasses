@@ -26,13 +26,16 @@ END_VAR
     </Implementation>
     <Folder Name="Methods" Id="{e45bf685-06c9-4e29-a8a9-cbf0453f59ad}" />
     <Folder Name="Properties" Id="{a48b7191-6aa5-4ac4-bdc5-b99d3da36639}" />
-    <Method Name="Abort" Id="{b3fb44cc-0bf3-039d-3269-899cc8ea6ebc}" FolderPath="Methods\">
-      <Declaration><![CDATA[// Requests that the current operation be aborted - set the State to Aborting
-METHOD Abort 
+    <Method Name="Abort" Id="{f3b9b616-ecb6-448b-9a68-cf8864d1ed1d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Abort
+VAR_INPUT
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// Aborting must be handled by parent class - cleanup and set Ready state
-_State := T_ExecutionState.Aborting; 
+        <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
+IF NOT _Aborted THEN // avoid going back into borting if execution has already been aborted
+    _State := T_ExecutionState.Aborting; 
+END_IF
 ]]></ST>
       </Implementation>
     </Method>
@@ -221,7 +224,11 @@ END_VAR]]></Declaration>
 END_IF
 
 IF _State = T_ExecutionState.Aborting THEN
-    _Aborted := TRUE;
+    _Done     := FALSE;
+    _Aborted  := TRUE;
+    _Error    := FALSE;
+    _ErrorMsg := 'Aborted';
+
     _State := T_ExecutionState.Ready;
 END_IF
 
@@ -246,8 +253,11 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Done := TRUE;
-    _State := T_ExecutionState.Ready;
+    _Error    := FALSE;
+    _ErrorMsg := '';
+    _Aborted  := FALSE;
+    _Done     := TRUE;
+    _State    := T_ExecutionState.Ready;
 END_IF
 ]]></ST>
       </Implementation>
@@ -263,7 +273,10 @@ VAR
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Error   := TRUE;
+    _Error    := TRUE;
+    _Aborted  := FALSE;
+    _Done     := FALSE;
+
 	CASE ErrorMsg.TypeClass OF
     	__SYSTEM.TYPE_CLASS.TYPE_UDINT          : 
 			arg.cbLen := DINT_TO_UDINT(ErrorMsg.diSize);

@@ -48,16 +48,16 @@ VAR_GLOBAL
         Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs(TestSuite := UnitTests.EventHandlerTests);
 
     // T_Execution
-    ExecutionTests                                        : T_TestSuite;
-    Test_TExecution_WhenBusy_Abort_SelectsAborting        : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecutionWhenBusy_SetAborted_RaisesNotification : Test_TExecutionWhenBusy_SetAborted_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenBusy_SetDone_SetsDone             : Test_TExecutionWhenBusy_SetDone_SetsDone(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecutionWhenBusy_SetError_RaisesNotification   : Test_TExecutionWhenBusy_SetError_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecutionWhenBusy_Start_RaisesNotification      : Test_TExecutionWhenBusy_Start_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_WhenReady_Start_SelectsStarting       : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesString_ErrorId         : Test_TExecution_SetErrorHandlesString_ErrorId(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesUDINT_ErrorId          : Test_TExecution_SetErrorHandlesUDINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
-    Test_TExecution_SetErrorHandlesUINT_ErrorId           : Test_TExecution_SetErrorHandlesUINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
+    ExecutionTests                                             : T_TestSuite;
+    Test_TExecution_WhenBusy_Abort_SelectsAborting             : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_SetAborted_RaisesNotification      : Test_TExecutionWhenBusy_SetAborted_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_WhenBusy_SetDone_SetsDone                  : Test_TExecutionWhenBusy_SetDone_SetsDone(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_SetError_RaisesNotification        : Test_TExecutionWhenBusy_SetError_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecutionWhenBusy_Start_RaisesNotification           : Test_TExecutionWhenBusy_Start_RaisesNotification(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_WhenReady_Start_SelectsStarting            : Test_TExecutionWhenReady_Start_SelectsStarting(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesString_ErrorId              : Test_TExecution_SetErrorHandlesString_ErrorId(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesUDINT_ErrorId               : Test_TExecution_SetErrorHandlesUDINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
+    Test_TExecution_SetErrorHandlesUINT_ErrorId                : Test_TExecution_SetErrorHandlesUINT_ErrorId(TestSuite := UnitTests.ExecutionTests);
 
     NotificationTests              : T_TestSuite;
     Test_NotificationNoArgs        : Test_NotificationNoArgs(NotificationTests);
