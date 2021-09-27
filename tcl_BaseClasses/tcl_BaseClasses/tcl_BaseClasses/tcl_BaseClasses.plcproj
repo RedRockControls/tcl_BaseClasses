@@ -104,6 +104,9 @@
     <Compile Include="Classes\Event Framework\List Of Handlers\T_ListOfEventHandlers.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Execution\Execution\I_Execution Class Diagram.TcCD">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\Execution\Execution\I_Execution.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -212,7 +215,7 @@
     <Compile Include="Functions\F_UDINT_TO_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\GlobalEvents.TcGVL">
+    <Compile Include="GVLs\GlobalNotifications.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>
@@ -230,10 +233,6 @@
     </Compile>
     <Compile Include="Functions\F_GetTaskTime.TcPOU">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GVLs\GlobalVariables.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
     </Compile>
   </ItemGroup>
   <ProjectExtensions>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="TSafety" Id="{3be05aa6-53e2-4f3c-b338-62a74c5ac2aa}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TSafety
+VAR_INPUT
+    EStopHealthy : BOOL;
+END_VAR
+VAR
+    RisingEdge_EStopHealthy : T_RisingEdge;
+    FallingEdge_EStopHealthy    : T_FallingEdge;
+
+    // Local notification objects...
+    EStopTripped : T_Notification;
+    EStopReset   : T_Notification;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF RisingEdge_EStopHealthy.Test(EStopHealthy) THEN
+    EStopReset.Raise();
+END_IF
+
+IF FallingEdge_EStopHealthy.Test(EStopHealthy) THEN
+    EStopTripped.Raise();
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

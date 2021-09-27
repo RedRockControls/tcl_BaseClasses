@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="PB_ObjectExecution" Id="{3d703912-f3fe-4b39-a127-21dab8e6f7dd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PB_ObjectExecution
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Objects.Machine(StartPb      := DigitalInputs.StartPumpPb,
+                RunPumpMotor := Objects.HydraulicPumpMotor.RunMotor);
+
+Objects.HydraulicPumpMotor(Running      => DigitalOutputs.HydraulicPumpRunningLamp);
+
+Objects.Safety(EStopHealthy := DigitalInputs.EStopHealthy);
+
+Objects.HmiInterface();
+
+Objects.Logging();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="DigitalInputs" Id="{9fc7106d-644d-4886-b58f-91ac8c049ab5}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+    EStopHealthy AT %I* : BOOL;
+    StartPumpPb  AT %I* : BOOL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

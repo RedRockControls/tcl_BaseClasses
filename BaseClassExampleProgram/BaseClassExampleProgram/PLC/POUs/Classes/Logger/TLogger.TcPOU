@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="TLogger" Id="{18855b4a-0d21-014f-200b-af720e6ffead}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TLogger
+VAR
+    _NotificationHandler_OnUserLoggedIn     : T_NotificationHandler;
+    _NotificationHandler_OnUserLoggedOut    : T_NotificationHandler;
+    _NotificationHandler_OnExecutionAborted : T_NotificationHandler;
+    _NotificationHandler_OnExecutionFailed  : T_NotificationHandler;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[HandleNotifications();]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{85584710-5d9d-0496-0e65-a237d345901b}" />
+    <Folder Name="Properties" Id="{529555e7-bbbc-0c64-3d94-26931251ecc7}" />
+    <Method Name="HandleNotifications" Id="{123a03f7-919d-0bc1-3b3f-cd2606fef815}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD HandleNotifications
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _NotificationHandler_OnExecutionFailed.IsRaised() THEN
+    F_LogError(Source  := 'T_Execution',
+               Message := _NotificationHandler_OnExecutionFailed.Args.Read_STRING());
+END_IF
+
+IF _NotificationHandler_OnExecutionAborted.IsRaised() THEN
+    F_LogError(Source  := 'T_Execution',
+               Message := _NotificationHandler_OnExecutionAborted.Args.Read_STRING());
+END_IF
+
+IF _NotificationHandler_OnUserLoggedIn.IsRaised() THEN
+    IF NOT Globals.CurrentUserLoggedIn THEN
+        Globals.CurrentUserLoggedIn := TRUE;
+
+        Globals.CurrentUserName   := _NotificationHandler_OnUserLoggedIn.Args.Read_STRING();
+        Globals.CurrentUserAge    := _NotificationHandler_OnUserLoggedIn.Args.Read_INT();
+        Globals.CurrentUserLevel  := _NotificationHandler_OnUserLoggedIn.Args.Read_UDINT();
+        Globals.CurrentUserHeight := _NotificationHandler_OnUserLoggedIn.Args.Read_LREAL();
+
+        F_LogError(Source  := 'Logging',
+                   Message := 'User logged in');
+    END_IF
+END_IF
+
+IF _NotificationHandler_OnUserLoggedOut.IsRaised() THEN
+    IF Globals.CurrentUserLoggedIn THEN
+        Globals.CurrentUserLoggedIn := FALSE;
+
+        Globals.CurrentUserName   := '';
+        Globals.CurrentUserAge    := 0;
+        Globals.CurrentUserLevel  := 999;
+        Globals.CurrentUserHeight := 0.0;
+
+        F_LogError(Source  := 'Logging',
+                   Message := 'User logged out');
+    END_IF
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="NotificationHandler_OnExecutionAborted" Id="{9840fa57-c147-02db-305b-67291d45d531}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationHandler_OnExecutionAborted : I_NotificationHandler
+]]></Declaration>
+      <Get Name="Get" Id="{e631142e-e846-06ad-0b9f-059ec2922bd2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationHandler_OnExecutionAborted := _NotificationHandler_OnExecutionAborted;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="NotificationHandler_OnExecutionFailed" Id="{6f059771-b8f3-00a2-1dc3-b12b4642e6a9}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationHandler_OnExecutionFailed : I_NotificationHandler
+]]></Declaration>
+      <Get Name="Get" Id="{e3f3b732-80e0-0d91-08ae-a210ff0da41c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationHandler_OnExecutionFailed := _NotificationHandler_OnExecutionFailed;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="NotificationHandler_OnUserLoggedIn" Id="{2fb05ff1-c3d3-0334-2559-367dd01e45ef}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationHandler_OnUserLoggedIn : I_NotificationHandler
+]]></Declaration>
+      <Get Name="Get" Id="{d03e7b8c-84c1-0949-2abd-db0a48141ef5}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationHandler_OnUserLoggedIn := _NotificationHandler_OnUserLoggedIn;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="NotificationHandler_OnUserLoggedOut" Id="{4c27322e-2e01-0423-17c8-d99aa92c773d}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationHandler_OnUserLoggedOut : I_NotificationHandler
+]]></Declaration>
+      <Get Name="Get" Id="{c1e01517-1435-0a0b-3de0-d7680de9252a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationHandler_OnUserLoggedOut := _NotificationHandler_OnUserLoggedOut;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

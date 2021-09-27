@@ -150,8 +150,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Notification_OnAbort := GlobalEvents.Notification_ExecutionAborted;
-_Notification_OnError := GlobalEvents.Notification_ExecutionFailed;
+        <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
+_Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
 ]]></ST>
       </Implementation>
     </Method>

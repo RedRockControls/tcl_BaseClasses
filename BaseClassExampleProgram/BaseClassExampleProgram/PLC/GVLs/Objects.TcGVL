@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="Objects" Id="{7240b198-f5fe-07bb-04a2-7752144c7e95}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+    Machine            : TMachine;
+    Safety             : TSafety;
+    HmiInterface       : THmiInterface;
+    Logging            : TLogger;
+    HydraulicPumpMotor : TMotorStarter;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

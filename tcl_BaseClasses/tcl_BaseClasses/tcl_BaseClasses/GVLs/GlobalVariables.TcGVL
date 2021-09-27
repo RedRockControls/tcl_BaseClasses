@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
-  <GVL Name="GlobalVariables" Id="{286734ed-0e51-4e1c-a2a6-a40cdf8eaf62}">
-    <Declaration><![CDATA[{attribute 'qualified_only'}
-VAR_GLOBAL
-    //Message : FB_TcMessage;
-END_VAR]]></Declaration>
-  </GVL>
-</TcPlcObject>

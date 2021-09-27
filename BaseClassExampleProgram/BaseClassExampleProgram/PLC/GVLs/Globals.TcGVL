@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="Globals" Id="{9c782a48-48b0-0286-0376-f03d938434b9}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+    CurrentUserLoggedIn : BOOL;
+    CurrentUserName     : STRING;
+    CurrentUserAge      : INT;
+    CurrentUserLevel    : UDINT;
+    CurrentUserHeight   : LREAL;
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

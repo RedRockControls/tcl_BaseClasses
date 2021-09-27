@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="PB_Initialisation" Id="{fb4d6021-4d29-42c6-9db1-7c12735a2aa1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PB_Initialisation
+VAR
+    Initialised : BOOL;
+    OnlineChangeCount : UDINT := 999;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT Initialised OR _AppInfo.OnlineChangeCnt <> OnlineChangeCount THEN
+    // Re-link notification handlers...
+    LinkNotificationHandlers();
+    Initialised := TRUE;
+    OnlineChangeCount := _AppInfo.OnlineChangeCnt;
+END_IF
+]]></ST>
+    </Implementation>
+    <Method Name="LinkNotificationHandlers" Id="{fe8ec0cd-8985-0afe-11e4-c25169e5a51e}">
+      <Declaration><![CDATA[METHOD LinkNotificationHandlers
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Objects.Safety.EStopTripped
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Machine.NotificationHandler_OnEstopTripped)
+    .AddNotificationHandler(Objects.HydraulicPumpMotor.NotificationHandler_OnEstopTripped);
+
+Objects.Safety.EStopReset
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Machine.NotificationHandler_OnEstopReset)
+    .AddNotificationHandler(Objects.HydraulicPumpMotor.NotificationHandler_OnEstopReset);
+
+// Notifications declared in the base class library, raised by all instances of T_Execution  
+tcl_BaseClasses.GlobalEvents.Notification_ExecutionAborted
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Logging.NotificationHandler_OnExecutionAborted);
+
+tcl_BaseClasses.GlobalEvents.Notification_ExecutionFailed
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Logging.NotificationHandler_OnExecutionFailed);
+
+// Notification handlers accessed via properties...    
+Notifications.Notification_OnUserLoggedIn
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Logging.NotificationHandler_OnUserLoggedIn);
+
+Notifications.Notification_OnUserLoggedOut
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(Objects.Logging.NotificationHandler_OnUserLoggedOut);
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
