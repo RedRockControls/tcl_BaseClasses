@@ -3,3 +3,5 @@
 **/system
 **/www.tcunit.org
 **/_Libraries
+*.tszip
+*.zip
