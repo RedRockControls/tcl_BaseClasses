@@ -18,10 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>BaseClassExampleProgram</Title>
-    <ProjectVersion>1.1.14.0</ProjectVersion>
+    <ProjectVersion>1.1.15.0</ProjectVersion>
     <Author>Roger Christopher</Author>
     <CombineIds>true</CombineIds>
-    <Description>Updated to use tcl_BaseClasses V1.1.14.0</Description>
+    <Description>Updated to use tcl_BaseClasses V1.1.15.0</Description>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -191,7 +191,7 @@
       <Resolution>Tc3_Module, 3.3.21.0 (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_BaseClasses">
-      <Resolution>tcl_BaseClasses, 1.1.14.0 (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_BaseClasses, 1.1.15.0 (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="tcl_StringUtils">
       <Resolution>tcl_StringUtils, 1.1.2.0 (Red Rock Controls Limited)</Resolution>

@@ -31,11 +31,11 @@ Objects.Safety.EStopReset
     .AddNotificationHandler(Objects.HydraulicPumpMotor.NotificationHandler_OnEstopReset);
 
 // Notifications declared in the base class library, raised by all instances of T_Execution  
-tcl_BaseClasses.GlobalEvents.Notification_ExecutionAborted
+tcl_BaseClasses.GlobalNotifications.Notification_ExecutionAborted
     .ClearNotificationHandlers()
     .AddNotificationHandler(Objects.Logging.NotificationHandler_OnExecutionAborted);
 
-tcl_BaseClasses.GlobalEvents.Notification_ExecutionFailed
+tcl_BaseClasses.GlobalNotifications.Notification_ExecutionFailed
     .ClearNotificationHandlers()
     .AddNotificationHandler(Objects.Logging.NotificationHandler_OnExecutionFailed);
 
