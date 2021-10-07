@@ -22,11 +22,11 @@ ExecutionAborted_NotificationHandler.FB_init(bInitRetains := FALSE,
                                              bInCopyCode  := FALSE);
 
 // link handler to common execution events...
-GlobalEvents.Notification_ExecutionFailed
+GlobalNotifications.Notification_ExecutionFailed
     .ClearNotificationHandlers()
     .AddNotificationHandler(ExecutionFailed_NotificationHandler);
 
-GlobalEvents.Notification_ExecutionAborted
+GlobalNotifications.Notification_ExecutionAborted
     .ClearNotificationHandlers()
     .AddNotificationHandler(ExecutionAborted_NotificationHandler);
 

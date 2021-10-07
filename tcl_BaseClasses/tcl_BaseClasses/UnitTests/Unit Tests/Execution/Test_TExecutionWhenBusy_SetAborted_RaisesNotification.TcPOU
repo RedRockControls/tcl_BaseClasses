@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Test_TExecutionWhenBusy_SetAborted_RaisesNotification" Id="{e6104e49-f5bd-4b36-9911-7488f9f89c3f}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetAborted_RaisesNotification EXTENDS T_UnitTestbase
 VAR
@@ -20,11 +20,11 @@ ExecutionAborted_NotificationHandler.FB_init(bInitRetains := FALSE,
                                              bInCopyCode  := FALSE);
 
 // link handler to common execution events...
-GlobalEvents.Notification_ExecutionFailed
+GlobalNotifications.Notification_ExecutionFailed
     .ClearNotificationHandlers()
     .AddNotificationHandler(ExecutionFailed_NotificationHandler);
 
-GlobalEvents.Notification_ExecutionAborted
+GlobalNotifications.Notification_ExecutionAborted
     .ClearNotificationHandlers()
     .AddNotificationHandler(ExecutionAborted_NotificationHandler);
 

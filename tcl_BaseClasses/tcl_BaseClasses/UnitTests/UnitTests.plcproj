@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tclBaseClasses_UnitTests</Title>
-    <ProjectVersion>1.0.2.0</ProjectVersion>
+    <ProjectVersion>1.0.3.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Notification tests added</Description>
+    <Description>Event Handler tests removed</Description>
     <CompilerDefines>VISU_USEPROPERTYINFO</CompilerDefines>
   </PropertyGroup>
   <ItemGroup>
@@ -35,51 +35,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEventHandler_HandlesRaisedEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_ChecksInterfaceSupported.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddEventHandler_ResizesListWhenListFull.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TEvent_AddHandlerAddsHandlerToEventHandlerList.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Event Handling Tests\Test_TListOfEventHandlers_StoresAndRetreivesHandlers.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args\I_TestEventHandler_UsesEventArgs.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args\T_TestEventHandler_UsesEventArgs.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler\I_TestEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Test Event Handler\T_TestEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler\I_UnsupportedEventHandler.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler\T_UnsupportedEventHandler.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event\T_TestEvent.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Events\Example Event\T_TestEvent_UsesEventArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Unit Tests\Execution\Execution Event Handler\T_Execution_EventHandler.TcPOU">
@@ -198,13 +153,6 @@
   <ItemGroup>
     <Folder Include="GVLs" />
     <Folder Include="Unit Tests" />
-    <Folder Include="Unit Tests\Events" />
-    <Folder Include="Unit Tests\Events\Event Handling Tests" />
-    <Folder Include="Unit Tests\Events\Example Event" />
-    <Folder Include="Unit Tests\Events\Example Event Handlers" />
-    <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler" />
-    <Folder Include="Unit Tests\Events\Example Event Handlers\Test Event Handler With Args" />
-    <Folder Include="Unit Tests\Events\Example Event Handlers\Unsupported Event Handler" />
     <Folder Include="Unit Tests\Execution" />
     <Folder Include="Unit Tests\Execution\Execution Event Handler" />
     <Folder Include="Unit Tests\Functions" />

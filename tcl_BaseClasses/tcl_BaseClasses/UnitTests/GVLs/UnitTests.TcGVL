@@ -31,22 +31,6 @@ VAR_GLOBAL
     Test_TStream_BufferResizes            : Test_TStreamBufferResizes(StreamTests);
     Test_TStreamAdd_DetectsUnexpectedType : Test_TStreamAddReadArgType(StreamTests);
 
-    // TEventBase...
-    EventHandlerTests                                   : T_TestSuite;
-    Test_TEvent_AddHandlerAddsHandlerToEventHandlerList :
-        Test_TEvent_AddHandlerAddsHandlerToEventHandlerList(TestSuite := UnitTests.EventHandlerTests);
-    Test_TListOfEventHandlers_StoresAndRetreivesHandlers :
-        Test_TListOfEventHandlers_StoresAndRetreivesHandlers(TestSuite := UnitTests.EventHandlerTests);
-    Test_TEvent_AddEventHandler_ChecksInterfaceSupported :
-        Test_TEvent_AddEventHandler_ChecksInterfaceSupported(TestSuite := UnitTests.EventHandlerTests);
-    Test_TEvent_AddEventHandler_ResizesListWhenListFull :
-        Test_TEvent_AddEventHandler_ResizesListWhenListFull(TestSuite := UnitTests.EventHandlerTests);
-    Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers :
-        Test_TEvent_AddEventHandler_IncsNumberOfEventHandlers(TestSuite := UnitTests.EventHandlerTests);
-    Test_TEventHandler_HandlesRaisedEvent                : Test_TEventHandler_HandlesRaisedEvent(TestSuite := UnitTests.EventHandlerTests);
-    Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs :
-        Test_TEventHandler_HandlesRaisedEvent_UsingEventArgs(TestSuite := UnitTests.EventHandlerTests);
-
     // T_Execution
     ExecutionTests                                             : T_TestSuite;
     Test_TExecution_WhenBusy_Abort_SelectsAborting             : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestSuite := UnitTests.ExecutionTests);
