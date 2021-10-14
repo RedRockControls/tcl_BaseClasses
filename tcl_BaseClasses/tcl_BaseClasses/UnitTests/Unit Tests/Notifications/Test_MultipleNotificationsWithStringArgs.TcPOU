@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Test_MultipleNotificationsWithStringArgs" Id="{c9560d69-1135-4a26-abe9-5853244ec34a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'hide'}
+FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
+VAR
+    Source  : T_Notification;
+    Handler : T_NotificationHandler;
+
+    IsRaised          : BOOL;
+    NotificationCount : DINT;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
+                bInCopyCode  := FALSE);
+
+IsRaised          := FALSE;
+NotificationCount := 0;
+
+Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
+Source.Args.Init(8);
+
+Source.Args.Clear()
+    .Add_INT(1234).Add_STRING('String1');
+
+Source.Raise();
+
+Source.Args.Clear()
+    .Add_INT(5678).Add_STRING('String2');
+
+Source.Raise();
+
+Assertion.AssertEquals_DINT(Expected     := 2,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+Assertion.AssertEquals_BOOL(Expected     := TRUE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'Handler.IsRaised()');
+
+Assertion.AssertEquals_DINT(Expected     := 1,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+Assertion.AssertEquals_DINT(Expected     := 1234,
+                            Actual       := Handler.Args.Read_INT(),
+                            VariableName := 'Handler.Args.Read_INT()');
+
+Assertion.AssertEquals_STRING(Expected     := 'String1',
+                              Actual       := Handler.Args.Read_STRING(),
+                              VariableName := 'Handler.Args.Read_STRING()');
+
+Assertion.AssertEquals_BOOL(Expected     := TRUE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'Handler.IsRaised()');
+
+Assertion.AssertEquals_DINT(Expected     := 0,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+Assertion.AssertEquals_DINT(Expected     := 5678,
+                            Actual       := Handler.Args.Read_INT(),
+                            VariableName := 'Handler.Args.Read_INT()');
+
+Assertion.AssertEquals_STRING(Expected     := 'String2',
+                              Actual       := Handler.Args.Read_STRING(),
+                              VariableName := 'Handler.Args.Read_STRING()');
+
+Assertion.AssertEquals_BOOL(Expected     := FALSE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'Handler.IsRaised()');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -6,8 +6,9 @@ VAR
     Execution : T_Execution;
 END_VAR
 VAR
-	ErrorId : STRING := 'Custom error message';
-END_VAR]]></Declaration>
+    ErrorId : STRING := 'Custom error message';
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[Execution.Start();
 Execution.SetBusy();

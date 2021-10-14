@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <Itf Name="I_StreamWriter" Id="{ade11aac-fe77-01bf-2404-d979d6533839}">
     <Declaration><![CDATA[INTERFACE I_StreamWriter
 ]]></Declaration>
     <Folder Name="Methods" Id="{a77095f2-d0ea-0978-3d8c-52df480fa7c6}" />
+    <Folder Name="Properties" Id="{bda3f685-2098-487c-8431-2b9eef1e7a95}" />
     <Method Name="Add_BLOB" Id="{b462fbbf-cc66-4f5b-9718-73f4255ea87b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_BLOB : I_StreamWriter
 VAR_INPUT
@@ -95,6 +96,25 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="AppendBytesFromStream" Id="{c441bda3-3b8a-4ed2-85ce-5e97568ff214}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD AppendBytesFromStream
+VAR_INPUT
+    StreamToAppend        : I_StreamReader;
+    NumberOfBytesToAppend : UDINT;
+END_VAR
+VAR
+
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="BufferAddress" Id="{9bd5f99e-16ca-44bd-9ebe-71163e0cc2dc}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY BufferAddress : PVOID
+]]></Declaration>
+      <Get Name="Get" Id="{38131e47-c458-48a0-b054-a51e7eacf53e}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="Clear" Id="{dd7f97e5-7e5a-00e5-30c5-73909163ad6b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Clear : I_StreamWriter
 ]]></Declaration>
@@ -106,13 +126,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="Seek" Id="{022de36b-fa7f-0b7c-1d93-83e7909f8ed3}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Seek: I_StreamWriter
-VAR_INPUT
-    Position : UDINT;
-END_VAR
+    <Property Name="ReadPosition" Id="{000f0bc4-feb1-401f-8035-7c2f2ca24206}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY ReadPosition : UDINT
 ]]></Declaration>
-    </Method>
+      <Get Name="Get" Id="{d90d4428-5495-4944-9bc4-d8654bdf7ca1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
     <Method Name="SetNextArgTypeId" Id="{02a5322d-0101-4e1a-962e-ff0cf9820f93}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetNextArgTypeId : I_StreamWriter
 VAR_INPUT
@@ -120,5 +141,28 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="SetReadPosition" Id="{022de36b-fa7f-0b7c-1d93-83e7909f8ed3}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetReadPosition : I_StreamWriter
+VAR_INPUT
+    Position : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="StreamLength" Id="{6dabb679-2ab6-4b83-89c1-6506b39d8105}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY StreamLength : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{ab50f728-0695-4ef2-8da7-1b25a7eed320}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="WritePosition" Id="{8fd7c385-4e58-41ca-a924-76cab0827a45}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY WritePosition : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{001af59a-54e7-4229-aab2-3b48f26e187f}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
   </Itf>
 </TcPlcObject>

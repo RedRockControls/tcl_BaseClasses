@@ -3,11 +3,10 @@
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    Args_LocalCopy     : T_Stream(StreamLength := 4); // Local copy of notification arguments
-    Args_PublicCopy    : T_Stream(StreamLength := 4); // Public copy of notification arguments
-    Raised             : BOOL;                        // protected by critical section - do not access directly
-    CriticalSection    : FB_IecCriticalSection;
-    Notifications      : T_Counter; 
+    Args_LocalCopy      : T_Stream(StreamLength := 4); // Local copy of notification arguments
+    Args_PublicCopy     : T_Stream(StreamLength := 4); // Public copy of notification arguments
+    CriticalSection     : FB_IecCriticalSection;
+    NotificationCounter : T_Counter;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -16,31 +15,41 @@ END_VAR
     <Folder Name="Methods" Id="{50523a27-f4f0-421d-b359-9106ca91093f}" />
     <Folder Name="Properties" Id="{bcb797de-c3f3-40e6-aa20-89bbc5f8f950}" />
     <Property Name="Args" Id="{677afeaa-0697-40f0-93b0-2ba305384c9c}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Args : I_StreamReader]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Args : I_StreamReader
+]]></Declaration>
       <Get Name="Get" Id="{3597fd34-9332-43bd-a3f4-c1cacf585b03}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Args := Args_PublicCopy;]]></ST>
+          <ST><![CDATA[Args := Args_PublicCopy;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Method Name="IsRaised" Id="{e8102458-838e-441a-8b86-1d3da0b59390}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD IsRaised : BOOL
-VAR_OUTPUT
-	UnhandledNotificationsCount : DINT; // Number of times notification has been raised since last handled
-END_VAR]]></Declaration>
+VAR
+    ByteCount : UDINT;
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF CriticalSection.Enter() THEN // will block while receiving a notification
-    IF Raised THEN
+        <ST><![CDATA[IF CriticalSection.Enter() THEN           // will block while receiving a notification
+    IF NotificationCounter.Value > 0 THEN // unhandled notifications remain...
         IsRaised := TRUE;
-        Raised   := FALSE;
 
-        UnhandledNotificationsCount  := Notifications.Value;
-        Notifications.Reset();
+        // get the length of the notification args (this is stored before the args themselves)
+        ByteCount := Args_LocalCopy.Read_UDINT();
 
-        Args_PublicCopy.CopyFrom(Args_LocalCopy);
+        // Copy the args for this notification to the public copy of the args, which can be accessed externally...
+        Args_PublicCopy.Clear();
+        Args_PublicCopy.AppendBytesFromStream(Args_LocalCopy,
+                                              ByteCount);
+
+        // advance the read pointer to the args belonging to the next notification (if any)                                      
+        Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
+
+        NotificationCounter.Dec(); // to keep track of how many notifications remain to be handled
     END_IF
 
     CriticalSection.Leave();
@@ -48,21 +57,43 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="NotificationCount" Id="{75289af6-a460-4022-ac06-0483ce39413a}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationCount : DINT
+]]></Declaration>
+      <Get Name="Get" Id="{80a90d77-9dc4-4e7c-a8ec-f0f39e5d20cc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationCount := NotificationCounter.Value;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="RaiseNotification" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD RaiseNotification
 VAR_INPUT
-    Args : I_Stream;
+    NotificationArgs : I_StreamReader;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF CriticalSection.Enter() THEN
-	IF Args.Position > 0 THEN // has event arguments..
-		Args_LocalCopy.CopyFrom(Args);
-	END_IF
-	Raised := TRUE;
-	Notifications.Inc();
-	CriticalSection.Leave();
-END_IF]]></ST>
+    IF NotificationArgs.WritePosition > 0 THEN // has event arguments..
+
+        // Notification args are stored in a local copy using a stream
+        // If the notification is raised again before being handled, the newer notification args are jusr added to the stream
+        // The sixe of the args is stored in the stream before the args themselves so they
+        // can be retrieved seperately when the notifications are handled    
+
+        Args_LocalCopy.Add_UDINT(NotificationArgs.WritePosition); // length of args is stored first
+        Args_LocalCopy.AppendBytesFromStream(StreamToAppend        := NotificationArgs,
+                                             NumberOfBytesToAppend := NotificationArgs.WritePosition); // followed by args themselves
+    END_IF
+
+    NotificationCounter.Inc(); // keep track of how many times the notification ahs been raised, so we can handle each notification seperately
+    CriticalSection.Leave();
+END_IF
+]]></ST>
       </Implementation>
     </Method>
   </POU>

@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Test_TStreamAdd_Read_BLOB" Id="{c3912488-96c9-4cb9-bb2e-8d80ca1f3426}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BLOB EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);
     Now    : TIMESTRUCT := (wDay := 23,
-            wMonth := 12,
-            wYear := 1945,
-            wHour := 22,
-            wMinute := 20,
-            wSecond := 18);
+        wMonth := 12,
+        wYear := 1945,
+        wHour := 22,
+        wMinute := 20,
+        wSecond := 18);
     NowFromStream : TIMESTRUCT;
 
     LREAL_Value : LREAL := 1.234;
@@ -27,7 +27,7 @@ NowFromStream.wSecond := 0;
 Stream.SetNextArgTypeId(E_ArgTypeId.Type_Blob);
 Stream.Add_BLOB(Now);
 
-Stream.Seek(0);
+Stream.SetReadPosition(0);
 
 IF Stream.GetNextArgTypeId() = E_ArgTypeId.Type_Blob THEN
     Stream.Read_BLOB(NowFromStream);
@@ -40,8 +40,8 @@ Assertion.AssertEquals_BLOB(Expected     := Now,
 
 // check we are at the end of the stream..							
 Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
-                             Actual       := Stream.Position,
-                             VariableName := 'Stream.Position');
+                             Actual       := Stream.ReadPosition,
+                             VariableName := 'Stream.ReadPosition');
 
 TestFinished();
 ]]></ST>

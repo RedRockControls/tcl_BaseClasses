@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Test_NotificationWithStringArg" Id="{4e551fab-9c56-45bf-b8fd-d0a5797af32e}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK Test_NotificationWithStringArg EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
@@ -8,14 +8,13 @@ VAR
     Handler : T_NotificationHandler;
 
     ResultString : T_MaxString;
-    Args         : T_Stream(4);
+    Args         : I_StreamReader;
     IsRaised     : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Handler.FB_init(
-    bInitRetains := FALSE,  
-    bInCopyCode  := FALSE);
+      <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
+                bInCopyCode  := FALSE);
 
 Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
 Source.Args.Init(81);
@@ -24,15 +23,16 @@ Source.Args.Clear().Add_STRING('Big long string passed to the notification handl
 Source.Raise();
 
 IF Handler.IsRaised() THEN
-	ResultString := Handler.Args.Read_STRING();
+    Args         := Handler.Args;
+    ResultString := Args.Read_STRING();
 END_IF
 
-Assertion.AssertEquals_STRING(
-    Expected     := 'Big long string passed to the notification handler for later use',
-    Actual       := ResultString,
-    VariableName := 'ResultString');
+Assertion.AssertEquals_STRING(Expected     := 'Big long string passed to the notification handler for later use',
+                              Actual       := ResultString,
+                              VariableName := 'ResultString');
 
-TestFinished();]]></ST>
+TestFinished();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

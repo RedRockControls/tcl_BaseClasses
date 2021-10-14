@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_Stream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_Stream, I_StreamWriter, I_StreamReader
+    <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_StreamWriter, I_StreamReader
 VAR
 
     MemoryManager : FB_DynMem_Manager;
     Buffer        : FB_DynMem_Buffer(ipMemMan := MemoryManager);
     pBuffer       : POINTER TO BYTE;
 
-    _StreamLength : UDINT := 4;
-    _Position     : UDINT;
+    _StreamLength  : UDINT := 4;
+    _ReadPosition  : UDINT;
+    _WritePosition : UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -20,16 +21,16 @@ END_VAR
     <Method Name="_Resize" Id="{6eedcc64-a81c-456d-b6ba-eafb61d80242}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD PRIVATE _Resize
 VAR_INPUT
-    StreamLength : UDINT;
-    Preserve     : BOOL;
+    NewStreamLength : UDINT;
+    Preserve        : BOOL;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Buffer.Resize(nSize     := StreamLength,
+        <ST><![CDATA[Buffer.Resize(nSize     := NewStreamLength,
               bPreserve := Preserve,
               bReset    := TRUE);
 
-_StreamLength := StreamLength;
+_StreamLength := NewStreamLength;
 pBuffer       := Buffer.pBuffer;
 ]]></ST>
       </Implementation>
@@ -40,12 +41,13 @@ VAR_INPUT
     SpaceRequired : UDINT;
 END_VAR
 VAR
-	NewSize : UDINT;
-END_VAR]]></Declaration>
+    NewSize : UDINT;
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SpaceRequired > _StreamLength THEN
-    _Resize(StreamLength := _Position + SpaceRequired,
-           Preserve     := TRUE);
+        <ST><![CDATA[IF _WritePosition + SpaceRequired > _StreamLength THEN
+    _Resize(NewStreamLength := _WritePosition + SpaceRequired,
+            Preserve        := TRUE);
 END_IF
 ]]></ST>
       </Implementation>
@@ -57,15 +59,16 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO BYTE;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(Value.diSize));
 
-MEMCPY(destAddr := pBuffer + _Position,
+MEMCPY(destAddr := pBuffer + _WritePosition,
        srcAddr  := Value.pValue,
        n        := DINT_TO_UDINT(Value.diSize));
 
-_Position := _Position + DINT_TO_UDINT(Value.diSize);
+_WritePosition := _WritePosition + DINT_TO_UDINT(Value.diSize);
 
 Add_BLOB := THIS^;
 ]]></ST>
@@ -78,13 +81,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO BOOL;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_BOOL := THIS^;
 ]]></ST>
@@ -97,13 +101,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO BYTE;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_BYTE := THIS^;
 ]]></ST>
@@ -116,13 +121,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO DINT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_DINT := THIS^;
 ]]></ST>
@@ -135,13 +141,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO INT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_INT := THIS^;
 ]]></ST>
@@ -154,13 +161,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO LINT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_LINT := THIS^;
 ]]></ST>
@@ -173,13 +181,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO LREAL;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_LREAL := THIS^;
 ]]></ST>
@@ -192,13 +201,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO PVOID;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_PVOID := THIS^;
 ]]></ST>
@@ -211,13 +221,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO REAL;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_REAL := THIS^;
 ]]></ST>
@@ -230,17 +241,18 @@ VAR_INPUT
 END_VAR
 VAR
     StringSize : UDINT; // number of characters plus the null termination byte
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[StringSize := INT_TO_UDINT(LEN(Value) + 1);
 
 _ResizeIfNecessary(SpaceRequired := StringSize); // only storing the characters and the null termination byte
 
-MEMCPY(destAddr := pBuffer + _Position,
+MEMCPY(destAddr := pBuffer + _WritePosition,
        srcAddr  := ADR(Value),
        n        := StringSize);
 
-_Position := _Position + StringSize;
+_WritePosition := _WritePosition + StringSize;
 
 Add_STRING := THIS^;
 ]]></ST>
@@ -253,13 +265,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO UDINT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_UDINT := THIS^;
 ]]></ST>
@@ -272,13 +285,14 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO UINT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_UINT := THIS^;
 ]]></ST>
@@ -291,27 +305,54 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO ULINT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _WritePosition;
+pValue^        := Value;
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 Add_ULINT := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="AppendBytesFromStream" Id="{56d9eba6-7a69-45cf-a50c-50618a329dcf}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD AppendBytesFromStream
+VAR_INPUT
+    StreamToAppend        : I_StreamReader;
+    NumberOfBytesToAppend : UDINT;
+END_VAR
+VAR
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF StreamToAppend <> 0 THEN
+
+    _ResizeIfNecessary(NumberOfBytesToAppend);
+
+    MEMCPY(destAddr := Buffer.pBuffer + _WritePosition,
+           srcAddr  := StreamToAppend.BufferAddress + StreamToAppend.ReadPosition,
+           n        := NumberOfBytesToAppend);
+
+    THIS^._WritePosition := THIS^._WritePosition + NumberOfBytesToAppend;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="BufferAddress" Id="{5f457907-a510-4dbe-8c24-29101ff67677}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY BufferAddress : PVOID
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY BufferAddress : PVOID
 ]]></Declaration>
       <Get Name="Get" Id="{1d8dfcf7-ea78-4390-8987-d61b96c8ce39}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[BufferAddress := pBuffer;]]></ST>
+          <ST><![CDATA[BufferAddress := pBuffer;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -320,39 +361,17 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[Buffer.Clear();
-_Position := 0;
-pBuffer   := Buffer.pBuffer;
-Clear     := THIS^;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="CopyFrom" Id="{628a2f83-9063-4b54-963c-41529f121199}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD CopyFrom
-VAR_INPUT
-    StreamToCopyFrom : I_Stream;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF StreamToCopyFrom <> 0 THEN
-    IF StreamToCopyFrom.StreamLength > THIS^.StreamLength THEN
-        _Resize(StreamLength := StreamToCopyFrom.StreamLength,
-               Preserve     := FALSE);
-    END_IF
-
-    MEMCPY(destAddr := Buffer.pBuffer,
-           srcAddr  := StreamToCopyFrom.BufferAddress,
-           n        := StreamToCopyFrom.StreamLength);
-
-    THIS^._StreamLength := StreamToCopyFrom.StreamLength;
-    THIS^._Position     := 0;
-END_IF
+_ReadPosition  := 0;
+_WritePosition := 0;
+pBuffer        := Buffer.pBuffer;
+Clear          := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
     <Method Name="FB_exit" Id="{6fe0ad89-3a2a-067e-3d39-721acf587bbb}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD FB_exit : BOOL
 VAR_INPUT
-	bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
+    bInCopyCode : BOOL; // if TRUE, the exit method is called for exiting an instance that is copied afterwards (online change).
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -384,10 +403,10 @@ VAR
     Result : INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-    pValue           := pBuffer + _Position;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue           := pBuffer + _ReadPosition;
     Result           := pValue^;
-    _Position        := _Position + SIZEOF(Result);
+    _ReadPosition    := _ReadPosition + SIZEOF(Result);
     GetNextArgTypeId := Result;
 END_IF
 ]]></ST>
@@ -408,23 +427,12 @@ _StreamLength := StreamLength;
 Buffer.CreateBuffer(nSize  := _StreamLength,
                     bReset := TRUE);
 
-_Position := 0;
-pBuffer   := Buffer.pBuffer;
+_ReadPosition  := 0;
+_WritePosition := 0;
+pBuffer        := Buffer.pBuffer;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Position" Id="{66f9b2cc-0047-4e43-b894-a659d2355adb}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Position : UDINT
-]]></Declaration>
-      <Get Name="Get" Id="{e1f72485-462d-4053-a202-09eef1285a86}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Position := _Position;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Method Name="Read_BLOB" Id="{6c7c1fdf-c083-4215-bc18-a8edadcb5fa1}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_BLOB
 VAR_INPUT
@@ -435,12 +443,12 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
+        <ST><![CDATA[IF _ReadPosition + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
     MEMCPY(destAddr := Value.pValue,
-           srcAddr  := pBuffer + _Position,
+           srcAddr  := pBuffer + _ReadPosition,
            n        := DINT_TO_UDINT(Value.diSize));
 
-    _Position := _Position + DINT_TO_UDINT(Value.diSize);
+    _ReadPosition := _ReadPosition + DINT_TO_UDINT(Value.diSize);
 END_IF
 ]]></ST>
       </Implementation>
@@ -452,11 +460,11 @@ VAR
     Result : BOOL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_BOOL := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_BOOL     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -468,11 +476,11 @@ VAR
     Result : BYTE;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_BYTE := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_BYTE     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -484,11 +492,11 @@ VAR
     Result : DINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_DINT := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_DINT     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -500,11 +508,11 @@ VAR
     Result : INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_INT  := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_INT      := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -516,11 +524,11 @@ VAR
     Result : LINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_LINT := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_LINT     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -532,11 +540,11 @@ VAR
     Result : LREAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue     := pBuffer + _Position;
-	Result     := pValue^;
-	_Position  := _Position + SIZEOF(Result);
-	Read_LREAL := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_LREAL    := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -548,11 +556,11 @@ VAR
     Result : PVOID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue     := pBuffer + _Position;
-	Result     := pValue^;
-	_Position  := _Position + SIZEOF(Result);
-	Read_PVOID := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_PVOID    := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -564,11 +572,11 @@ VAR
     Result : REAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_REAL := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_REAL     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -582,11 +590,11 @@ END_VAR
 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[pValue     := pBuffer + _Position;
+        <ST><![CDATA[pValue     := pBuffer + _ReadPosition;
 StringSize := INT_TO_UDINT(LEN(pValue^) + 1);
-IF _Position + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
-	_Position   := _Position + StringSize;
-	Read_STRING := pValue^;
+IF _ReadPosition + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
+    _ReadPosition := _ReadPosition + StringSize;
+    Read_STRING   := pValue^;
 END_IF
 ]]></ST>
       </Implementation>
@@ -598,11 +606,11 @@ VAR
     Result : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue     := pBuffer + _Position;
-	Result     := pValue^;
-	_Position  := _Position + SIZEOF(Result);
-	Read_UDINT := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_UDINT    := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -614,11 +622,11 @@ VAR
     Result : UINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue    := pBuffer + _Position;
-	Result    := pValue^;
-	_Position := _Position + SIZEOF(Result);
-	Read_UINT := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_UINT     := Result;
 END_IF
 ]]></ST>
       </Implementation>
@@ -630,28 +638,29 @@ VAR
     Result : ULINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Position + SIZEOF(Result) <= _StreamLength THEN
-	pValue     := pBuffer + _Position;
-	Result     := pValue^;
-	_Position  := _Position + SIZEOF(Result);
-	Read_ULINT := Result;
+        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+    pValue        := pBuffer + _ReadPosition;
+    Result        := pValue^;
+    _ReadPosition := _ReadPosition + SIZEOF(Result);
+    Read_ULINT    := Result;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Seek" Id="{00a3579c-6e96-0aa2-0dc9-f99eba3a69fc}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Seek : I_StreamWriter
-VAR_INPUT
-    Position : UDINT;
+    <Property Name="ReadPosition" Id="{66f9b2cc-0047-4e43-b894-a659d2355adb}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY ReadPosition : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{e1f72485-462d-4053-a202-09eef1285a86}">
+        <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[IF Position <= _StreamLength THEN
-    THIS^._Position := Position;
-END_IF
-Seek := THIS^;]]></ST>
-      </Implementation>
-    </Method>
+        <Implementation>
+          <ST><![CDATA[ReadPosition := _ReadPosition;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="SetNextArgTypeId" Id="{79a85dde-c616-420f-8dca-96cad7e7b06f}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetNextArgTypeId : I_StreamWriter
 VAR_INPUT
@@ -659,27 +668,60 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO INT;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue    := pBuffer + _Position;
-pValue^   := Value;
-_Position := _Position + SIZEOF(Value);
+pValue         := pBuffer + _ReadPosition;
+pValue^        := Value;
+_ReadPosition  := _ReadPosition + SIZEOF(Value);
+_WritePosition := _WritePosition + SIZEOF(Value);
 
 SetNextArgTypeId := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetReadPosition" Id="{00a3579c-6e96-0aa2-0dc9-f99eba3a69fc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetReadPosition : I_StreamWriter
+VAR_INPUT
+    Position : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Position <= _StreamLength THEN
+    THIS^._ReadPosition := Position;
+END_IF
+
+SetReadPosition := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="StreamLength" Id="{392a552a-86e8-4535-bed7-6e59ef8ae550}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY StreamLength : UDINT
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY StreamLength : UDINT
 ]]></Declaration>
       <Get Name="Get" Id="{831bcec9-b5f7-4dcc-ad53-7002fdda3d3a}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[StreamLength := _StreamLength;]]></ST>
+          <ST><![CDATA[StreamLength := _StreamLength;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="WritePosition" Id="{602908b0-1dc4-4dce-8ad3-8f99f15b1154}" FolderPath="Properties\">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY WritePosition : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{7e377772-2945-48ab-bce6-2e7404b00a38}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[WritePosition := _WritePosition;
+]]></ST>
         </Implementation>
       </Get>
     </Property>

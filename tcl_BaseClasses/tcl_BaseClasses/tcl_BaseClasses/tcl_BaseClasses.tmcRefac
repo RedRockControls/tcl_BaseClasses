@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="6eedcc64-a81c-456d-b6ba-eafb61d80242">_Resize</Type>
+      <From>StreamLength</From>
+      <To>NewStreamLength</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="56d9eba6-7a69-45cf-a50c-50618a329dcf">AppendBytesFromStream</Type>
+      <From>BytesToAppend</From>
+      <To>NumberOfBytesToAppend</To>
+    </RenamedSymbol>
+    <RenamedType>
+      <Type guid="00a3579c-6e96-0aa2-0dc9-f99eba3a69fc">SEEK</Type>
+      <From>Seek</From>
+      <To>SetReadPosition</To>
+    </RenamedType>
+    <RenamedType>
+      <Type guid="022de36b-fa7f-0b7c-1d93-83e7909f8ed3">SEEK</Type>
+      <From>Seek</From>
+      <To>SetReadPosition</To>
+    </RenamedType>
+    <RenamedType>
+      <Type guid="86b70d1c-7207-094c-05c9-c562e8f29569">SEEK</Type>
+      <From>Seek</From>
+      <To>SetReadPosition</To>
+    </RenamedType>
+    <RenamedSymbol>
+      <Type guid="8767452b-6194-4156-b4a1-080cf2d33e36">RaiseNotification</Type>
+      <From>Args</From>
+      <To>NotificationArgs</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

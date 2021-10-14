@@ -6,8 +6,9 @@ VAR
     Execution : T_Execution;
 END_VAR
 VAR
-	ErrorId : UDINT := 16#12345678;
-END_VAR]]></Declaration>
+    ErrorId : UDINT := 16#12345678;
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[Execution.Start();
 Execution.SetBusy();

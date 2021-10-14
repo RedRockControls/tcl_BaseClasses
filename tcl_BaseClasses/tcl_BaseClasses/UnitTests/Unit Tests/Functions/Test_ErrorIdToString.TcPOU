@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="Test_ErrorIdToString" Id="{ae965cb6-9e2e-468f-834f-a33cad0a304a}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ErrorIdToString EXTENDS T_UnitTestBase
 VAR_INPUT
@@ -10,22 +10,20 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Assertion.AssertEquals_STRING(
-    Expected:= 'Error 0x12BD', 
-    Actual:= F_ErrorIdToString(16#12BD), 
-    VariableName:= 'F_ErrorIdToString(16#12BD)');
-    
-Assertion.AssertEquals_STRING(
-    Expected:= 'Error 0x00FF', 
-    Actual:= F_ErrorIdToString(16#FF), 
-    VariableName:= 'F_ErrorIdToString(16#FF)');
-    
-Assertion.AssertEquals_STRING(
-    Expected:= 'Error 0x0011', 
-    Actual:= F_ErrorIdToString(16#11), 
-    VariableName:= 'F_ErrorIdToString(16#11)');
-    
-TestFinished();]]></ST>
+      <ST><![CDATA[Assertion.AssertEquals_STRING(Expected     := 'Error 0x12BD',
+                              Actual       := F_ErrorIdToString(16#12BD),
+                              VariableName := 'F_ErrorIdToString(16#12BD)');
+
+Assertion.AssertEquals_STRING(Expected     := 'Error 0x00FF',
+                              Actual       := F_ErrorIdToString(16#FF),
+                              VariableName := 'F_ErrorIdToString(16#FF)');
+
+Assertion.AssertEquals_STRING(Expected     := 'Error 0x0011',
+                              Actual       := F_ErrorIdToString(16#11),
+                              VariableName := 'F_ErrorIdToString(16#11)');
+
+TestFinished();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

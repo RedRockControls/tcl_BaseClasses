@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_Notification" Id="{34c3e11c-b24b-47fd-988a-f99b18a3f2ec}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
 FUNCTION_BLOCK T_Notification IMPLEMENTS I_Notification
 VAR
-    EventHandlers : T_ListONotificationHandlers(Capacity := 5);
+    EventHandlers    : T_ListONotificationHandlers(Capacity := 5);
     NotificationArgs : T_Stream(StreamLength := 8);
 END_VAR
 ]]></Declaration>
@@ -22,18 +22,19 @@ END_VAR
       <Implementation>
         <ST><![CDATA[EventHandlers.AddHandler(Handler);
 AddNotificationHandler := THIS^;
-
 ]]></ST>
       </Implementation>
     </Method>
     <Property Name="Args" Id="{81d2c015-f4cb-4582-8ade-a9757b20d5f0}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY PUBLIC Args : I_StreamWriter]]></Declaration>
+      <Declaration><![CDATA[PROPERTY PUBLIC Args : I_StreamWriter
+]]></Declaration>
       <Get Name="Get" Id="{74639c3f-ebbc-4092-a1f0-5bf037d256a8}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Args := NotificationArgs;]]></ST>
+          <ST><![CDATA[Args := NotificationArgs;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -43,7 +44,6 @@ END_VAR
       <Implementation>
         <ST><![CDATA[EventHandlers.Clear();
 ClearNotificationHandlers := THIS^;
-
 ]]></ST>
       </Implementation>
     </Method>
@@ -51,17 +51,19 @@ ClearNotificationHandlers := THIS^;
       <Declaration><![CDATA[METHOD Raise
 VAR
     Handler : I_NotificationHandler;
-    i : UDINT;
-END_VAR]]></Declaration>
+    i       : UDINT;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF EventHandlers.Count > 0 THEN
     FOR i := 0 TO EventHandlers.Count - 1 DO
         Handler := EventHandlers.GetHandler(i);
         IF Handler <> 0 THEN
-            Handler.RaiseNotification(Args := NotificationArgs);
+            Handler.RaiseNotification(NotificationArgs := NotificationArgs);
         END_IF
     END_FOR
 END_IF
+
 NotificationArgs.Clear(); // to leave event args empty for next time event is raised
 ]]></ST>
       </Implementation>

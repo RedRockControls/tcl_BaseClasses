@@ -3,8 +3,8 @@
   <POU Name="Test_TExecutionWhenBusy_SetAborted_RaisesNotification" Id="{e6104e49-f5bd-4b36-9911-7488f9f89c3f}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_SetAborted_RaisesNotification EXTENDS T_UnitTestbase
 VAR
-    Execution : T_Execution;
-    ExecutionFailed_NotificationHandler : T_NotificationHandler;
+    Execution                            : T_Execution;
+    ExecutionFailed_NotificationHandler  : T_NotificationHandler;
     ExecutionAborted_NotificationHandler : T_NotificationHandler;
 END_VAR
 ]]></Declaration>

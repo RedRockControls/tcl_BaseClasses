@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <DUT Name="E_ArgTypeId" Id="{b21b8a13-70d1-45e2-bb6d-21eecf042151}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
-TYPE E_ArgTypeId :
-(
-	Unknown := 0,
-	Type_Blob,
-	Type_BOOL,
-	Type_BYTE,
-	Type_DINT,
-	Type_INT,
-	Type_LINT,
-	Type_LREAL,
-	Type_PVOID,
-	Type_REAL,
-	Type_STRING,
-	Type_UDINT,
-	Type_UINT,
-	Type_ULINT,
-	MaxSupportType
-);
+TYPE
+    E_ArgTypeId :
+    (
+        Unknown := 0,
+        Type_Blob,
+        Type_BOOL,
+        Type_BYTE,
+        Type_DINT,
+        Type_INT,
+        Type_LINT,
+        Type_LREAL,
+        Type_PVOID,
+        Type_REAL,
+        Type_STRING,
+        Type_UDINT,
+        Type_UINT,
+        Type_ULINT,
+        MaxSupportType
+    );
 END_TYPE
 ]]></Declaration>
   </DUT>
