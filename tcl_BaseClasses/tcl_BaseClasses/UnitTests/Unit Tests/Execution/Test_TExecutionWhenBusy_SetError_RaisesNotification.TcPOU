@@ -44,7 +44,7 @@ Assertion.AssertEquals_BOOL(Expected     := TRUE,
                             Actual       := Execution.Error,
                             VariableName := 'Execution.Error');
 
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x0000F234',
+Assertion.AssertEquals_STRING(Expected     := 'Error 0xF234',
                               Actual       := Execution.ErrorMsg,
                               VariableName := 'Execution.ErrorMsg');
 

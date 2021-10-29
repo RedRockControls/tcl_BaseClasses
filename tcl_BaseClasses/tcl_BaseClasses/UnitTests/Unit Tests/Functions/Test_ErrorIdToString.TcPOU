@@ -10,15 +10,19 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Assertion.AssertEquals_STRING(Expected     := 'Error 0x000012BD',
+      <ST><![CDATA[Assertion.AssertEquals_STRING(Expected     := 'Error 0x12BD',
                               Actual       := F_ErrorIdToString(16#12BD),
                               VariableName := 'F_ErrorIdToString(16#12BD)');
 
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x000000FF',
+Assertion.AssertEquals_STRING(Expected     := 'Error 0x12345678',
+                              Actual       := F_ErrorIdToString(16#12345678),
+                              VariableName := 'F_ErrorIdToString(16#12345678)');
+
+Assertion.AssertEquals_STRING(Expected     := 'Error 0x00FF',
                               Actual       := F_ErrorIdToString(16#FF),
                               VariableName := 'F_ErrorIdToString(16#FF)');
 
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x00000011',
+Assertion.AssertEquals_STRING(Expected     := 'Error 0x0011 - No debugging available',
                               Actual       := F_ErrorIdToString(16#11),
                               VariableName := 'F_ErrorIdToString(16#11)');
 
