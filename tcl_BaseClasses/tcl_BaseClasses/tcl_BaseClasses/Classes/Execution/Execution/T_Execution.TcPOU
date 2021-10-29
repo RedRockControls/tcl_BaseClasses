@@ -208,9 +208,7 @@ END_VAR
     </Property>
     <Method Name="SetAborted" Id="{3457d55d-8917-427f-b4b1-3d8dae8fe5f2}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetAborted // used when implementing class signals Aborted
-VAR
-    EventData : T_MaxString;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
     _Aborted := TRUE;
@@ -265,7 +263,7 @@ END_IF
     <Method Name="SetError" Id="{f1633771-a524-4ccc-be65-99229396429e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorMsg  : ANY;
+    ErrorMsg  : T_MaxString;
 END_VAR
 VAR
 	pSTRING : POINTER TO STRING;
@@ -276,26 +274,8 @@ END_VAR]]></Declaration>
     _Error    := TRUE;
     _Aborted  := FALSE;
     _Done     := FALSE;
-
-	CASE ErrorMsg.TypeClass OF
-    	__SYSTEM.TYPE_CLASS.TYPE_UDINT          : 
-			arg.cbLen := DINT_TO_UDINT(ErrorMsg.diSize);
-			arg.pData := ErrorMsg.pValue;
-			arg.eType := E_ArgType.ARGTYPE_UDINT;
-			_ErrorMsg := F_FormatString1(Format := 'Error 0x%0.8X',arg1 := arg);
-			
-    	__SYSTEM.TYPE_CLASS.TYPE_UINT          : 
-			arg.cbLen := DINT_TO_UDINT(ErrorMsg.diSize);
-			arg.pData := ErrorMsg.pValue;
-			arg.eType := E_ArgType.ARGTYPE_UINT;
-			_ErrorMsg := F_FormatString1(Format := 'Error 0x%0.4X',arg1 := arg);
-
-    	__SYSTEM.TYPE_CLASS.TYPE_STRING          : 
-			_ErrorMsg := PSTRING_TO_STRING(ErrorMsg.pValue);
-		ELSE
-			_ErrorMsg := 'Unsupported Error Id Type';
-	END_CASE
-    _State   := T_ExecutionState.Ready;
+    _ErrorMsg := ErrorMsg;
+    _State    := T_ExecutionState.Ready;
 
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args

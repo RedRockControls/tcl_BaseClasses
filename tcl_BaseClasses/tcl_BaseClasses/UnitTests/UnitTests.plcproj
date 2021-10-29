@@ -61,12 +61,6 @@
     <Compile Include="Unit Tests\Execution\Test_TExecution_SetErrorHandlesString_ErrorId.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Unit Tests\Execution\Test_TExecution_SetErrorHandlesUDINT_ErrorId.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Unit Tests\Execution\Test_TExecution_SetErrorHandlesUINT_ErrorId.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Unit Tests\Functions\Test_ErrorIdToString.TcPOU">
       <SubType>Code</SubType>
     </Compile>

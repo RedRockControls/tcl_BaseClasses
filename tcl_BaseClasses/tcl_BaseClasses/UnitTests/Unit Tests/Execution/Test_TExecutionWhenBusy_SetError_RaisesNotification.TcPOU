@@ -34,7 +34,7 @@ GlobalNotifications.Notification_ExecutionAborted
 // Test...
 Execution.Start();                       // sets Starting
 Execution.SetBusy();                     // Sets Busy
-Execution.SetError(ErrorMsg := ErrorId); // Sets Error
+Execution.SetError(ErrorMsg := F_ErrorIdToString(ErrorId)); // Sets Error
 
 Assertion.AssertEquals_BOOL(Expected     := TRUE,
                             Actual       := ExecutionFailed_NotificationHandler.IsRaised(),
