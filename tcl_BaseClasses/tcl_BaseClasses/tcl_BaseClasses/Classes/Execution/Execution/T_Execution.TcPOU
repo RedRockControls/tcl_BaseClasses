@@ -129,14 +129,6 @@ END_VAR
           <ST><![CDATA[ErrorMsg := _ErrorMsg;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{5bbe66d5-04d5-4c1e-9c3d-019fdef5ac20}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_ErrorMsg := ErrorMsg;]]></ST>
-        </Implementation>
-      </Set>
     </Property>
     <Method Name="FB_init" Id="{cb8c0a25-6839-0ca3-105e-335fcd806bf2}" FolderPath="Methods\">
       <Declaration><![CDATA[// Individual T_Execution events are assigned here to the global events 

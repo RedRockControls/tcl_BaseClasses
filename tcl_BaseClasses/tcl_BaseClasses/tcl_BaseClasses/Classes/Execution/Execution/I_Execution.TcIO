@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.6">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <Itf Name="I_Execution" Id="{2e2a9e90-2894-0caa-065e-86441183945f}">
     <Declaration><![CDATA[INTERFACE I_Execution
 ]]></Declaration>
@@ -46,9 +46,6 @@ END_VAR
       <Get Name="Get" Id="{fc1803ed-3692-454e-89f2-239f5db0e4f9}">
         <Declaration><![CDATA[]]></Declaration>
       </Get>
-      <Set Name="Set" Id="{0f8e317d-22aa-45ae-9919-ecca1a28a96e}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Set>
     </Property>
     <Property Name="Notification_OnAbort" Id="{5bff5e48-e058-4bd5-b034-78e58ed48528}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification]]></Declaration>
