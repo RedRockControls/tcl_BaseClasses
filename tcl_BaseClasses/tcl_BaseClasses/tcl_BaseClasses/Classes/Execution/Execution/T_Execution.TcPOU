@@ -8,14 +8,17 @@
 {attribute 'reflection'}
 FUNCTION_BLOCK T_Execution IMPLEMENTS I_Execution
 VAR
-    _State   : T_ExecutionState;
-    _Done    : BOOL;
-    _Error   : BOOL;
-    _Aborted : BOOL;
+    _State    : T_ExecutionState;
+    _Done     : BOOL;
+    _Error    : BOOL;
+    _Aborted  : BOOL;
     _ErrorMsg : T_MaxString;
 
-    {attribute 'instance-path'} {attribute 'no_init'}
-    Name : T_MaxString; // Automatically initialised with the full name of the instance
+    {attribute 'instance-path'}
+    {attribute 'no_init'}
+    Name     : T_MaxString; // Automatically initialised with the full name of the instance
+    Project  : T_MaxString;
+    Solution : T_MaxString;
 
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
@@ -140,10 +143,20 @@ VAR_INPUT
 	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
 	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
 END_VAR
-]]></Declaration>
+VAR
+	StringSplitter : T_StringSplitter;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
 _Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
+
+StringSplitter.Init(Str    := Name,
+                    Delim1 := '.',
+                    Delim2 := '');
+
+Solution := StringSplitter.GetNext();
+Project  := StringSplitter.GetNext();
+Name     := StringSplitter.GetRemainder();
 ]]></ST>
       </Implementation>
     </Method>
