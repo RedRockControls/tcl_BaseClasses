@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.19.0</ProjectVersion>
+    <ProjectVersion>1.1.20.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Name split into Project,Task and Name in T_Execution</Description>
+    <Description>F_GetTasktime rename to F_TaskTime to avoid conflict with function in tc2_Utilities lib</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -163,6 +163,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_ErrorIdToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_TaskTime.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_NotEqual.TcPOU">
