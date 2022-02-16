@@ -85,6 +85,9 @@
     <Compile Include="Unit Tests\Notifications\Test_NotificationCount.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Notifications\Test_NotificationHandlerOnlyAddedOnce.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Unit Tests\Notifications\Test_NotificationWithStringArg.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -20,7 +20,7 @@ PROPERTY BufferAddress : PVOID
     <Method Name="Read_BLOB" Id="{f8c9a894-7e28-4c4d-9d66-adf775a9e61a}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_BLOB
 VAR_INPUT
-    Value : ANY;
+    BlobToCopyTo : ANY;
 END_VAR
 ]]></Declaration>
     </Method>

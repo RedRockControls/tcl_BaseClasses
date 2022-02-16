@@ -8,7 +8,7 @@
     <Method Name="Add_BLOB" Id="{b462fbbf-cc66-4f5b-9718-73f4255ea87b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_BLOB : I_StreamWriter
 VAR_INPUT
-    Value : ANY;
+    BlobToCopyFrom : ANY;
 END_VAR
 ]]></Declaration>
     </Method>

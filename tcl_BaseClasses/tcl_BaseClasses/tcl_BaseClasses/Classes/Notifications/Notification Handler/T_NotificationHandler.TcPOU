@@ -46,10 +46,15 @@ END_VAR
         Args_PublicCopy.AppendBytesFromStream(Args_LocalCopy,
                                               ByteCount);
 
-        // advance the read pointer to the args belonging to the next notification (if any)                                      
-        Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
 
         NotificationCounter.Dec(); // to keep track of how many notifications remain to be handled
+		
+		IF NotificationCounter.Value > 0 THEN // more args expected
+			// advance the read pointer to the args belonging to the next notification (if any)                                      
+			Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
+		ELSE
+			Args_LocalCopy.Clear();
+		END_IF
     END_IF
 
     CriticalSection.Leave();
@@ -81,8 +86,8 @@ END_VAR
     IF NotificationArgs.WritePosition > 0 THEN // has event arguments..
 
         // Notification args are stored in a local copy using a stream
-        // If the notification is raised again before being handled, the newer notification args are jusr added to the stream
-        // The sixe of the args is stored in the stream before the args themselves so they
+        // If the notification is raised again before being handled, the newer notification args are just added to the stream
+        // The size of the args is stored in the stream before the args themselves so they
         // can be retrieved seperately when the notifications are handled    
 
         Args_LocalCopy.Add_UDINT(NotificationArgs.WritePosition); // length of args is stored first

@@ -55,20 +55,20 @@ END_IF
     <Method Name="Add_BLOB" Id="{eb34da3f-d27f-4e89-869e-adb85eec5235}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_BLOB : I_StreamWriter
 VAR_INPUT
-    Value : ANY;
+    BlobToCopyFrom : ANY;
 END_VAR
 VAR
     pValue : POINTER TO BYTE;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(Value.diSize));
+        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(BlobToCopyFrom.diSize));
 
 MEMCPY(destAddr := pBuffer + _WritePosition,
-       srcAddr  := Value.pValue,
-       n        := DINT_TO_UDINT(Value.diSize));
+       srcAddr  := BlobToCopyFrom.pValue,
+       n        := DINT_TO_UDINT(BlobToCopyFrom.diSize));
 
-_WritePosition := _WritePosition + DINT_TO_UDINT(Value.diSize);
+_WritePosition := _WritePosition + DINT_TO_UDINT(BlobToCopyFrom.diSize);
 
 Add_BLOB := THIS^;
 ]]></ST>
@@ -436,19 +436,19 @@ pBuffer        := Buffer.pBuffer;
     <Method Name="Read_BLOB" Id="{6c7c1fdf-c083-4215-bc18-a8edadcb5fa1}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_BLOB
 VAR_INPUT
-    Value : ANY;
+    BlobToCopyTo : ANY;
 END_VAR
 VAR
     pValue : POINTER TO BYTE;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + DINT_TO_UDINT(Value.diSize) <= _StreamLength THEN
-    MEMCPY(destAddr := Value.pValue,
+        <ST><![CDATA[IF _ReadPosition + DINT_TO_UDINT(BlobToCopyTo.diSize) <= _StreamLength THEN
+    MEMCPY(destAddr := BlobToCopyTo.pValue,
            srcAddr  := pBuffer + _ReadPosition,
-           n        := DINT_TO_UDINT(Value.diSize));
+           n        := DINT_TO_UDINT(BlobToCopyTo.diSize));
 
-    _ReadPosition := _ReadPosition + DINT_TO_UDINT(Value.diSize);
+    _ReadPosition := _ReadPosition + DINT_TO_UDINT(BlobToCopyTo.diSize);
 END_IF
 ]]></ST>
       </Implementation>
