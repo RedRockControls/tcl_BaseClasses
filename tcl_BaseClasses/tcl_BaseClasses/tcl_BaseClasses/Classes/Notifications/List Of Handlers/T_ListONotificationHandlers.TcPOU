@@ -22,7 +22,11 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Count = Capacity THEN
+        <ST><![CDATA[IF HandlerInList(Handler) THEN
+	RETURN;
+END_IF
+
+IF Count = Capacity THEN
     Capacity := Capacity * 2;
     Buffer.Resize(nSize     := Capacity * SIZEOF(PVOID),
                   bPreserve := TRUE,
@@ -101,6 +105,31 @@ END_VAR
         <ST><![CDATA[IF Index < HandlerCount AND Index >= 0 THEN
     GetHandler := pHandler[Index];
 END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HandlerInList" Id="{4adf2b62-7078-4ae1-bd8d-b1df5b87e22c}">
+      <Declaration><![CDATA[METHOD HandlerInList : BOOL
+VAR_INPUT
+    HandlerToFind : I_NotificationHandler;
+END_VAR
+VAR
+	NextHandler : I_NotificationHandler;
+	i : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF HandlerCount < 1 THEN
+	RETURN;
+END_IF
+
+
+FOR i := 0 TO HandlerCount - 1 DO
+	NextHandler := GetHandler(i);
+	IF NextHandler = HandlerToFind THEN
+		HandlerInList := TRUE;
+	END_IF
+END_FOR
+	
 ]]></ST>
       </Implementation>
     </Method>
