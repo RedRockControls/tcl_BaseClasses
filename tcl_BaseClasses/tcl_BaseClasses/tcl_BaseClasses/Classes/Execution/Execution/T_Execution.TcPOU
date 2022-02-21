@@ -217,12 +217,16 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
     _Aborted := TRUE;
-    _State := T_ExecutionState.Ready;
-    
+    _State   := T_ExecutionState.Ready;
+
     IF _Notification_OnAbort <> 0 THEN
-        _Notification_OnAbort.Args.Add_STRING(F_FormatString1('Execution aborted in %s',F_STRING(Name)));
+        _Notification_OnAbort.Args
+            .Clear()
+            .Add_STRING('Execution aborted')
+            .Add_STRING(Name);
+
         _Notification_OnAbort.Raise();
-    END_IF  
+    END_IF
 
 END_IF
 
@@ -234,7 +238,6 @@ IF _State = T_ExecutionState.Aborting THEN
 
     _State := T_ExecutionState.Ready;
 END_IF
-
 ]]></ST>
       </Implementation>
     </Method>
