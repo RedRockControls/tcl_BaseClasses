@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_OnTimer" Id="{124c9a8e-014d-0bbe-2276-3abf7760eeb2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_OnTimer
 VAR
@@ -9,6 +9,18 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Clock" Id="{46635ffb-5cbe-4dc8-b7e9-53166acde37b}">
+      <Declaration><![CDATA[METHOD Clock : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TON1(IN := TRUE);
+Clock := TON1.Q;
+IF Clock THEN
+    TON1(IN := FALSE);
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Delay" Id="{78a602f0-5cc4-0d95-13a2-8f01cd3d694c}">
       <Declaration><![CDATA[METHOD Delay : BOOL
 VAR_INPUT
