@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
   <POU Name="T_StructureCrcMonitor" Id="{4ff37301-51db-0d33-1801-69eaef5746f6}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK T_StructureCrcMonitor
@@ -33,7 +33,7 @@ END_VAR
       </Implementation>
     </Method>
     <Method Name="Test" Id="{4f5aa998-1605-0b49-0b94-abed0a451d48}">
-      <Declaration><![CDATA[METHOD Test
+      <Declaration><![CDATA[METHOD Test : BOOL
 VAR_INPUT
     Structure : ANY;
 END_VAR
@@ -51,6 +51,8 @@ _Changed := (CRC <> Stored_CRC);
 IF Changed THEN
     Stored_CRC := CRC;
 END_IF
+
+Test := _Changed;
 
 ]]></ST>
       </Implementation>
