@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="T_Stream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_StreamWriter, I_StreamReader
 VAR
@@ -62,7 +62,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(BlobToCopyFrom.diSize));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := 8);
+
+_ResizeIfNecessary(SpaceRequired := DINT_TO_UDINT(BlobToCopyFrom.diSize));
 
 MEMCPY(destAddr := pBuffer + _WritePosition,
        srcAddr  := BlobToCopyFrom.pValue,
@@ -121,10 +124,15 @@ VAR_INPUT
 END_VAR
 VAR
     pValue : POINTER TO DINT;
+	
+	AddressOffset : PVOID;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -144,7 +152,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -164,7 +175,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -184,7 +198,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -204,7 +221,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -224,7 +244,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -268,7 +291,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -288,7 +314,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -308,7 +337,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _WritePosition;
 pValue^        := Value;
@@ -403,7 +435,10 @@ VAR
     Result : INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue           := pBuffer + _ReadPosition;
     Result           := pValue^;
     _ReadPosition    := _ReadPosition + SIZEOF(Result);
@@ -443,7 +478,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + DINT_TO_UDINT(BlobToCopyTo.diSize) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := 8);
+
+IF _ReadPosition + DINT_TO_UDINT(BlobToCopyTo.diSize) <= _StreamLength THEN
     MEMCPY(destAddr := BlobToCopyTo.pValue,
            srcAddr  := pBuffer + _ReadPosition,
            n        := DINT_TO_UDINT(BlobToCopyTo.diSize));
@@ -492,7 +530,10 @@ VAR
     Result : DINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -508,7 +549,10 @@ VAR
     Result : INT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -524,7 +568,10 @@ VAR
     Result : LINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -540,7 +587,10 @@ VAR
     Result : LREAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -556,7 +606,10 @@ VAR
     Result : PVOID;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -572,7 +625,10 @@ VAR
     Result : REAL;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -606,7 +662,10 @@ VAR
     Result : UDINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -622,7 +681,10 @@ VAR
     Result : UINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -638,7 +700,10 @@ VAR
     Result : ULINT;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Result));
+
+IF _ReadPosition + SIZEOF(Result) <= _StreamLength THEN
     pValue        := pBuffer + _ReadPosition;
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
@@ -671,14 +736,37 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := SIZEOF(Value));
+
+_ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
 pValue         := pBuffer + _ReadPosition;
 pValue^        := Value;
-_ReadPosition  := _ReadPosition + SIZEOF(Value);
+//_ReadPosition  := _ReadPosition + SIZEOF(Value);
 _WritePosition := _WritePosition + SIZEOF(Value);
 
 SetNextArgTypeId := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetPointerToAlignmentBoundary" Id="{627da3e2-b971-4ac7-9381-00b138e938b1}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetPointerToAlignmentBoundary
+VAR_IN_OUT
+    Address : UDINT;
+END_VAR
+VAR_INPUT
+    Alignment : UDINT;
+END_VAR
+VAR
+    AddressOffset : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddressOffset := Address MOD Alignment;
+IF AddressOffset > 0 THEN // Write pointer is not at the correct alignment boundary for the tyoe to be added
+	Address := Address + (Alignment - AddressOffset);
+END_IF
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_REAL" Id="{f6f24f4f-449f-4d4b-9188-09f3d21a95c8}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_REAL EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_REAL_CheckAlignment" Id="{f6f24f4f-449f-4d4b-9188-09f3d21a95c8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_REAL_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
     ArgType : E_ArgTypeId := E_ArgTypeId.Type_REAL;
@@ -10,16 +10,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Stream.Init(2);
 
-// add a REAL...
-Stream.SetNextArgTypeId(ArgType);
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_REAL(1.234567);
 
 Stream.SetReadPosition(0);
 
-// check next arg type is correct...
-Assertion.AssertEquals_INT(Expected     := ArgType,
-                           Actual       := Stream.GetNextArgTypeId(),
-                           VariableName := 'Stream.GetNextArgTypeId()');
+Stream.Read_BYTE();
 
 // check next value...	
 Assertion.AssertEquals_REAL(Expected     := 1.234567,

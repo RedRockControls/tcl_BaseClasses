@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAddReadArgType" Id="{1360d495-e9de-41ec-9150-13951a2d63ad}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAddReadArgType EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAddReadArgType_CheckAlignment" Id="{1360d495-e9de-41ec-9150-13951a2d63ad}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAddReadArgType_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);
 END_VAR
@@ -9,19 +9,22 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Stream.Init(2);
 
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.SetNextArgTypeId(E_ArgTypeId.Type_LINT);
 
-Assertion.AssertEquals_UDINT(Expected     := 2,
+Assertion.AssertEquals_UDINT(Expected     := 4,
                              Actual       := Stream.WritePosition,
                              VariableName := 'Stream.WritePosition');
 
 Stream.SetReadPosition(0);
 
+Stream.Read_BYTE();
+
 Assertion.AssertEquals_INT(Expected     := E_ArgTypeId.Type_LINT,
                            Actual       := Stream.GetNextArgTypeId(),
                            VariableName := 'Stream.GetNextArgTypeId()');
 
-Assertion.AssertEquals_UDINT(Expected     := 2,
+Assertion.AssertEquals_UDINT(Expected     := 4,
                              Actual       := Stream.ReadPosition,
                              VariableName := 'Stream.ReadPosition');
 

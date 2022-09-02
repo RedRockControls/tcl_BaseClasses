@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GVL Name="UnitTests" Id="{b8360f1b-138e-4dff-86fd-d2ed97da65d9}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
@@ -12,7 +12,9 @@ VAR_GLOBAL
     Test_F_NotEqual                 : Test_F_NotEqual(TestSuite := UnitTests.FunctionTests);
     Test_ErrorIdToString            : Test_ErrorIdToString(TestSuite := UnitTests.FunctionTests);
 
-    StreamTests                           : T_TestSuite;
+    StreamTests                : T_TestSuite;
+    Test_TStream_BufferResizes : Test_TStreamBufferResizes(StreamTests);
+
     Test_TStream_Add_Read_BLOB            : Test_TStreamAdd_Read_BLOB(StreamTests);
     Test_TStream_Add_Read_BOOL            : Test_TStreamAdd_Read_BOOL(StreamTests);
     Test_TStream_Add_Read_BYTE            : Test_TStreamAdd_Read_BYTE(StreamTests);
@@ -28,8 +30,18 @@ VAR_GLOBAL
     Test_TStream_Add_Read_LINT            : Test_TStreamAdd_Read_LINT(StreamTests);
     Test_TStream_Add_Read_ULINT           : Test_TStreamAdd_Read_ULINT(StreamTests);
     Test_TStream_Add_Read_PVOID           : Test_TStreamAdd_Read_PVOID(StreamTests);
-    Test_TStream_BufferResizes            : Test_TStreamBufferResizes(StreamTests);
     Test_TStreamAdd_DetectsUnexpectedType : Test_TStreamAddReadArgType(StreamTests);
+
+    Test_TStreamAdd_Read_BLOB_CheckAlignment  : Test_TStreamAdd_Read_BLOB_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_INT_CheckAlignment   : Test_TStreamAdd_Read_INT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_UINT_CheckAlignment  : Test_TStreamAdd_Read_UINT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_DINT_CheckAlignment  : Test_TStreamAdd_Read_DINT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_UDINT_CheckAlignment : Test_TStreamAdd_Read_UDINT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_REAL_CheckAlignment  : Test_TStreamAdd_Read_REAL_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_LREAL_CheckAlignment : Test_TStreamAdd_Read_LREAL_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_LINT_CheckAlignment  : Test_TStreamAdd_Read_LINT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_ULINT_CheckAlignment : Test_TStreamAdd_Read_ULINT_CheckAlignment(StreamTests);
+    Test_TStreamAdd_Read_PVOID_CheckAlignment : Test_TStreamAdd_Read_PVOID_CheckAlignment(StreamTests);
 
     // T_Execution
     ExecutionTests                                 : T_TestSuite;

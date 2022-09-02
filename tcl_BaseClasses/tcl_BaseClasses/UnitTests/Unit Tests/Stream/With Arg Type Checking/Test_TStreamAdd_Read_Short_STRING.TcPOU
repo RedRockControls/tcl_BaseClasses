@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_BOOL" Id="{59f7eb3e-5126-4343-b43d-83136faeeb3b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BOOL EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_Short_STRING" Id="{2ddeeea9-3deb-48ae-9d56-45dcfb2817f0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_Short_STRING EXTENDS T_UnitTestBase
 VAR
-    Stream  : T_Stream(StreamLength := 2);
-    ArgType : E_ArgTypeId := E_ArgTypeId.Type_BOOL;
+    Stream     : T_Stream(StreamLength := 2);
+    ArgType    : E_ArgTypeId := E_ArgTypeId.Type_STRING;
+    TestString : STRING(10)  := '0123456789';
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[
+Stream.Init(2);
 
-// add a bool...
+// add a STRING...
 Stream.SetNextArgTypeId(ArgType);
-Stream.Add_BOOL(TRUE);
+Stream.Add_STRING(TestString);
 
 Stream.SetReadPosition(0);
 
@@ -22,9 +24,9 @@ Assertion.AssertEquals_INT(Expected     := ArgType,
                            VariableName := 'Stream.GetNextArgTypeId()');
 
 // check next value...	
-Assertion.AssertEquals_BOOL(Expected     := TRUE,
-                            Actual       := Stream.Read_BOOL(),
-                            VariableName := 'Stream.Read_BOOL()');
+Assertion.AssertEquals_STRING(Expected     := TestString,
+                              Actual       := Stream.Read_STRING(),
+                              VariableName := 'Stream.Read_STRING()');
 
 // check we are at the end of the stream..							
 Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,

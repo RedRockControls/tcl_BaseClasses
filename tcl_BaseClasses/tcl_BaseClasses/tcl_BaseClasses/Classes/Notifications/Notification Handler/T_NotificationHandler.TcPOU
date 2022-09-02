@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
@@ -34,30 +34,34 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF CriticalSection.Enter() THEN           // will block while receiving a notification
-    IF NotificationCounter.Value > 0 THEN // unhandled notifications remain...
-        IsRaised := TRUE;
-
-        // get the length of the notification args (this is stored before the args themselves)
-        ByteCount := Args_LocalCopy.Read_UDINT();
-
-        // Copy the args for this notification to the public copy of the args, which can be accessed externally...
-        Args_PublicCopy.Clear();
-        Args_PublicCopy.AppendBytesFromStream(Args_LocalCopy,
-                                              ByteCount);
-
-
-        NotificationCounter.Dec(); // to keep track of how many notifications remain to be handled
-		
-		IF NotificationCounter.Value > 0 THEN // more args expected
-			// advance the read pointer to the args belonging to the next notification (if any)                                      
-			Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
-		ELSE
-			Args_LocalCopy.Clear();
+        <ST><![CDATA[IF CriticalSection.hrInit = S_OK THEN
+	IF CriticalSection.Enter() THEN           // will block while receiving a notification
+		IF NotificationCounter.Value > 0 THEN // unhandled notifications remain...
+			IsRaised := TRUE;
+	
+			// get the length of the notification args (this is stored before the args themselves)
+			ByteCount := Args_LocalCopy.Read_UDINT();
+	
+			// Copy the args for this notification to the public copy of the args, which can be accessed externally...
+			Args_PublicCopy.Clear();
+			Args_PublicCopy.AppendBytesFromStream(Args_LocalCopy,
+												  ByteCount);
+	
+	
+			NotificationCounter.Dec(); // to keep track of how many notifications remain to be handled
+			
+			IF NotificationCounter.Value > 0 THEN // more args expected
+				// advance the read pointer to the args belonging to the next notification (if any)                                      
+				Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
+			ELSE
+				Args_LocalCopy.Clear();
+			END_IF
 		END_IF
-    END_IF
-
-    CriticalSection.Leave();
+	
+		CriticalSection.Leave();
+	END_IF
+ELSE
+	F_LogError(Source := 'T_NotificationHandler',Message := 'FB_IEC_CriticalSection not initialised!');
 END_IF
 ]]></ST>
       </Implementation>

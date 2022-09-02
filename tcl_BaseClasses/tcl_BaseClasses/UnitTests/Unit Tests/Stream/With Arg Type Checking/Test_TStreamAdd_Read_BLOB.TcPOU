@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_BLOB" Id="{c3912488-96c9-4cb9-bb2e-8d80ca1f3426}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_BLOB" Id="{b43a968d-646d-494e-a9b6-e0cb28030d7b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BLOB EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);

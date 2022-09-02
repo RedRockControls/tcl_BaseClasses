@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_PVOID" Id="{84951354-6441-44c9-b63c-255267689420}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_PVOID EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_PVOID_CheckAlignment" Id="{84951354-6441-44c9-b63c-255267689420}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_PVOID_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
     ArgType : E_ArgTypeId := E_ArgTypeId.Type_PVOID;
@@ -11,16 +11,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Stream.Init(2);
 
-// add a pointer...
-Stream.SetNextArgTypeId(ArgType);
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_PVOID(ADR(Bob));
 
 Stream.SetReadPosition(0);
 
-// check next arg type is correct...
-Assertion.AssertEquals_INT(Expected     := ArgType,
-                           Actual       := Stream.GetNextArgTypeId(),
-                           VariableName := 'Stream.GetNextArgTypeId()');
+Stream.Read_BYTE();
 
 // check next value...	
 Assertion.AssertEquals_PVOID(Expected     := ADR(Bob),

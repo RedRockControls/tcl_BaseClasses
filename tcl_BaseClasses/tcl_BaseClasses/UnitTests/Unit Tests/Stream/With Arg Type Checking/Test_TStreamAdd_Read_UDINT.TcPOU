@@ -1,19 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_ULINT" Id="{5e9ca6f8-35eb-48c2-9787-f5c46dfb8761}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_UDINT" Id="{58b8ca86-d861-4c07-87a5-68bf8e3bc292}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_UDINT EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
-    ArgType : E_ArgTypeId := E_ArgTypeId.Type_ULINT;
+    ArgType : E_ArgTypeId := E_ArgTypeId.Type_UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-Stream.Init(2);
+      <ST><![CDATA[Stream.Init(2);
 
-// add a ULINT...
+// add a UDINT...
 Stream.SetNextArgTypeId(ArgType);
-Stream.Add_ULINT(123456789);
+Stream.Add_UDINT(12345678);
 
 Stream.SetReadPosition(0);
 
@@ -23,9 +22,9 @@ Assertion.AssertEquals_INT(Expected     := ArgType,
                            VariableName := 'Stream.GetNextArgTypeId()');
 
 // check next value...	
-Assertion.AssertEquals_ULINT(Expected     := 123456789,
-                             Actual       := Stream.Read_ULINT(),
-                             VariableName := 'Stream.Read_ULINT()');
+Assertion.AssertEquals_UDINT(Expected     := 12345678,
+                             Actual       := Stream.Read_UDINT(),
+                             VariableName := 'Stream.Read_UDINT()');
 
 // check we are at the end of the stream..							
 Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,

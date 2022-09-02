@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_TStreamAdd_Read_DINT" Id="{41b01fdf-2f91-4c50-838b-71907799f62d}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_DINT EXTENDS T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_DINT_CheckAlignment" Id="{41b01fdf-2f91-4c50-838b-71907799f62d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_DINT_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
     ArgType : E_ArgTypeId := E_ArgTypeId.Type_DINT;
@@ -10,16 +10,12 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Stream.Init(2);
 
-// add a DINT...
-Stream.SetNextArgTypeId(ArgType);
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_DINT(12345678);
 
 Stream.SetReadPosition(0);
 
-// check next arg type is correct...
-Assertion.AssertEquals_INT(Expected     := ArgType,
-                           Actual       := Stream.GetNextArgTypeId(),
-                           VariableName := 'Stream.GetNextArgTypeId()');
+Stream.Read_BYTE();
 
 // check next value...	
 Assertion.AssertEquals_DINT(Expected     := 12345678,

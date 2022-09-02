@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_ULINT_CheckAlignment" Id="{5e9ca6f8-35eb-48c2-9787-f5c46dfb8761}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT_CheckAlignment EXTENDS T_UnitTestBase
+VAR
+    Stream  : T_Stream(StreamLength := 2);
+    ArgType : E_ArgTypeId := E_ArgTypeId.Type_ULINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+Stream.Init(2);
+
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
+Stream.Add_ULINT(123456789);
+
+Stream.SetReadPosition(0);
+
+Stream.Read_BYTE();
+
+// check next value...	
+Assertion.AssertEquals_ULINT(Expected     := 123456789,
+                             Actual       := Stream.Read_ULINT(),
+                             VariableName := 'Stream.Read_ULINT()');
+
+// check we are at the end of the stream..							
+Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+                             Actual       := Stream.ReadPosition,
+                             VariableName := 'Stream.ReadPosition');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

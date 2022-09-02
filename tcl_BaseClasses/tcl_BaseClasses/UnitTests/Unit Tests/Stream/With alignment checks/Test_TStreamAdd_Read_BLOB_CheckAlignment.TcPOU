@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Test_TStreamAdd_Read_BLOB_CheckAlignment" Id="{c3912488-96c9-4cb9-bb2e-8d80ca1f3426}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BLOB_CheckAlignment EXTENDS T_UnitTestBase
+VAR
+    Stream : T_Stream(StreamLength := 2);
+    Now    : TIMESTRUCT := (wDay := 23,
+        wMonth := 12,
+        wYear := 1945,
+        wHour := 22,
+        wMinute := 20,
+        wSecond := 18);
+    NowFromStream : TIMESTRUCT;
+
+    LREAL_Value : LREAL := 1.234;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Stream.Init(2);
+NowFromStream.wDay    := 0;
+NowFromStream.wMonth  := 0;
+NowFromStream.wYear   := 0;
+NowFromStream.wHour   := 0;
+NowFromStream.wMinute := 0;
+NowFromStream.wSecond := 0;
+
+Stream.Add_BYTE(123);// add a byte to test alignment checks...
+Stream.Add_BLOB(Now);
+
+Stream.SetReadPosition(0);
+Stream.Read_BYTE();
+Stream.Read_BLOB(NowFromStream);
+
+// check the value...
+Assertion.AssertEquals_BLOB(Expected     := Now,
+                            Actual       := NowFromStream,
+                            VariableName := 'NowFromStream');
+
+// check we are at the end of the stream..							
+Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+                             Actual       := Stream.ReadPosition,
+                             VariableName := 'Stream.ReadPosition');
+
+TestFinished();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
