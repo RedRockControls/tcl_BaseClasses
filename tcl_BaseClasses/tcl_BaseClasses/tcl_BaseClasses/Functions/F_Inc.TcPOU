@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_Inc" Id="{4439e9c9-0e51-40cb-8b1b-78607b8cb559}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Inc : BOOL
+VAR_INPUT
+    in : ANY_INT;
+END_VAR
+VAR
+    pSINT  : POINTER TO SINT;
+    pINT   : POINTER TO INT;
+    pDINT  : POINTER TO DINT;
+    pLINT  : POINTER TO LINT;
+    pUSINT : POINTER TO USINT;
+    pUINT  : POINTER TO UINT;
+    pUDINT : POINTER TO UDINT;
+    pULINT : POINTER TO ULINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE in.TypeClass OF
+    __SYSTEM.TYPE_CLASS.TYPE_SINT:
+        pSINT  := in.pValue;
+        pSint^ := pSint^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_INT:
+        pINT  := in.pValue;
+        pINT^ := pINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_DINT:
+        pDINT  := in.pValue;
+        pDINT^ := pDINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_LINT:
+        pLINT  := in.pValue;
+        pLINT^ := pLINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_USINT:
+        pUSINT  := in.pValue;
+        pUSINT^ := pUSINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_UINT:
+        pUINT  := in.pValue;
+        pUINT^ := pUINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_UDINT:
+        pUDINT  := in.pValue;
+        pUDINT^ := pUDINT^ + 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_ULINT:
+        pULINT  := in.pValue;
+        pULINT^ := pULINT^ + 1;
+END_CASE
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

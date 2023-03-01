@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.26.0</ProjectVersion>
+    <ProjectVersion>1.1.27.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Read/Write pointers adjusted to correct alignment boundaries when adding/reading values for compatability with ARM compiler requirements</Description>
+    <Description>F_CopyMem added
+F_Inc() added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -160,10 +161,16 @@
     <Compile Include="Classes\Stream\T_Stream.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\F_CopyMem.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\F_DINT_TO_UDINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_ErrorIdToString.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_Inc.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_TaskTime.TcPOU">
