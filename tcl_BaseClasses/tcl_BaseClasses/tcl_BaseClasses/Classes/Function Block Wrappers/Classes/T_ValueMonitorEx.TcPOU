@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_ValueMonitorEx" Id="{bacae591-70bd-03f3-1d52-321cbceb26da}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK T_ValueMonitorEx
 VAR
-    _Changed : BOOL;
+    _Changed    : BOOL;
     StoredValue : ARRAY[0..7] OF BYTE;
 END_VAR
 ]]></Declaration>
@@ -12,13 +12,15 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Property Name="Changed" Id="{51edbcfe-dede-04c7-0459-a6015be2ca88}">
-      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Changed : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{99977f8b-4a89-07a7-3d53-1ff3084f751a}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Changed := _Changed;]]></ST>
+          <ST><![CDATA[Changed := _Changed;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -28,10 +30,9 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[MEMSET(
-    destAddr := ADR(StoredValue),
-    fillByte  := 16#00,
-    n        := SIZEOF(StoredValue));
+        <ST><![CDATA[MEMSET(destAddr := ADR(StoredValue),
+       fillByte := 16#00,
+       n        := SIZEOF(StoredValue));
 ]]></ST>
       </Implementation>
     </Method>
@@ -42,19 +43,19 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Changed := 0 <>  MEMCMP(
-                    pBuf1 := Value.pValue,
-                    pBuf2 := ADR(StoredValue),
-                    n     := DINT_TO_UDINT(Value.diSize));
-    
+        <ST><![CDATA[_Changed := 0 <>
+            MEMCMP(pBuf1 := Value.pValue,
+                   pBuf2 := ADR(StoredValue),
+                   n     := DINT_TO_UDINT(Value.diSize));
+
 IF _Changed THEN
-    MEMCPY(
-        destAddr := ADR(StoredValue),
-        srcAddr  := Value.pValue,
-        n        := DINT_TO_UDINT(Value.diSize));
+    MEMCPY(destAddr := ADR(StoredValue),
+           srcAddr  := Value.pValue,
+           n        := DINT_TO_UDINT(Value.diSize));
 END_IF
 
-Test := _Changed;]]></ST>
+Test := _Changed;
+]]></ST>
       </Implementation>
     </Method>
   </POU>

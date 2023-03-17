@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="F_GetAdsPort" Id="{a059fd71-612b-08fd-32c9-6351c977dbb7}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_GetAdsPort : UINT
 VAR
@@ -10,7 +10,8 @@ END_VAR
       <ST><![CDATA[TaskIndex := GETCURTASKINDEXEX();
 IF TaskIndex > 0 THEN
     F_GetAdsPort := TwinCAT_SystemInfoVarList._AppInfo.AdsPort;
-END_IF]]></ST>
+END_IF
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

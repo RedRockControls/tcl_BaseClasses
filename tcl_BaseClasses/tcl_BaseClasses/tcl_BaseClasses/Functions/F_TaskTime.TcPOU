@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="F_TaskTime" Id="{834bffb3-5daf-44ca-aaaf-12e71bd9f640}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_TaskTime : LREAL
 VAR
-	TaskIndex: DINT;
+    TaskIndex : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>

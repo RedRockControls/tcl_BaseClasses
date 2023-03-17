@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.4">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="F_NotEqual" Id="{6570352b-b3aa-47b3-b487-1de3203ea68e}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_NotEqual : BOOL
 VAR_INPUT
-    In1 : LREAL;
-    In2 : LREAL;
+    In1   : LREAL;
+    In2   : LREAL;
     Delta : LREAL;
 END_VAR
 VAR
@@ -13,7 +13,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Difference := ABS(In1 - In2);
-F_NotEqual := Difference > Delta;]]></ST>
+F_NotEqual := Difference > Delta;
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

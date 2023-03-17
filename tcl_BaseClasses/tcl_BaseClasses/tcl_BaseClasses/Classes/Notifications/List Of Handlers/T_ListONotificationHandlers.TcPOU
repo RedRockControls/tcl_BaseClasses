@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_ListONotificationHandlers" Id="{1fcff8f0-b8c4-4bed-b839-fdb26fdb9776}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK T_ListONotificationHandlers
@@ -23,7 +23,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF HandlerInList(Handler) THEN
-	RETURN;
+    RETURN;
 END_IF
 
 IF Count = Capacity THEN
@@ -114,22 +114,21 @@ VAR_INPUT
     HandlerToFind : I_NotificationHandler;
 END_VAR
 VAR
-	NextHandler : I_NotificationHandler;
-	i : UDINT;
-END_VAR]]></Declaration>
+    NextHandler : I_NotificationHandler;
+    i           : UDINT;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF HandlerCount < 1 THEN
-	RETURN;
+    RETURN;
 END_IF
 
-
 FOR i := 0 TO HandlerCount - 1 DO
-	NextHandler := GetHandler(i);
-	IF NextHandler = HandlerToFind THEN
-		HandlerInList := TRUE;
-	END_IF
+    NextHandler := GetHandler(i);
+    IF NextHandler = HandlerToFind THEN
+        HandlerInList := TRUE;
+    END_IF
 END_FOR
-	
 ]]></ST>
       </Implementation>
     </Method>

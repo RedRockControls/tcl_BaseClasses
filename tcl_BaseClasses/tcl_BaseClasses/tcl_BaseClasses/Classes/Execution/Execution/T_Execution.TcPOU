@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[(*
 :Class for handling communications between a client requesting a service 
 :and a server providing the service
 *)
 {attribute 'reflection'}
-FUNCTION_BLOCK T_Execution IMPLEMENTS I_Execution
+FUNCTION_BLOCK T_Execution IMPLEMENTS I_Execution, I_ExecutionResult
 VAR
     _State    : T_ExecutionState;
     _Done     : BOOL;
@@ -22,6 +22,8 @@ VAR
 
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
+
+    ExecutionInError : T_ExecutionInError;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -37,30 +39,34 @@ END_VAR
       <Implementation>
         <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
 IF NOT _Aborted THEN // avoid going back into borting if execution has already been aborted
-    _State := T_ExecutionState.Aborting; 
+    _State := T_ExecutionState.Aborting;
 END_IF
 ]]></ST>
       </Implementation>
     </Method>
     <Property Name="Aborted" Id="{47f18dce-47db-4b5b-a019-8668343f98f9}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Aborted : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Aborted : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{f0f7563d-0a03-015d-3c7f-c1748808105b}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Aborted := _Aborted;]]></ST>
+          <ST><![CDATA[Aborted := _Aborted;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Property Name="Aborting" Id="{f8431846-1954-03c8-30df-5a7e741c3ebe}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Aborting : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Aborting : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{eb3b9983-c850-041a-1155-83f5216a49d2}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Aborting := _State = T_ExecutionState.Aborting;]]></ST>
+          <ST><![CDATA[Aborting := _State = T_ExecutionState.Aborting;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -72,14 +78,14 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Busy := _State = T_ExecutionState.Busy;]]></ST>
+          <ST><![CDATA[Busy := _State = T_ExecutionState.Busy;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Method Name="Clear" Id="{e820ac7a-e3e5-421e-9394-79fc023e1ef0}" FolderPath="Methods\">
       <Declaration><![CDATA[// Clears the results flags provided State = Ready
-METHOD Clear 
-
+METHOD Clear
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
@@ -101,35 +107,41 @@ END_IF
       </Implementation>
     </Method>
     <Property Name="Done" Id="{b9177cfb-6140-0c22-2370-60610db97e0d}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Done : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Done : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{bc67d8cf-9e35-059a-2bc9-46701e812750}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Done := _Done;]]></ST>
+          <ST><![CDATA[Done := _Done;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Property Name="Error" Id="{4a58af1f-20ba-01b9-3bbb-3123d27f16d2}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Error : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{1bbb2e91-5896-0439-3898-15f12447c831}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Error := _Error;]]></ST>
+          <ST><![CDATA[Error := _Error;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Property Name="ErrorMsg" Id="{03b333cf-212f-4b26-bcfc-f54366a3390d}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString]]></Declaration>
+      <Declaration><![CDATA[PROPERTY ErrorMsg : T_MaxString
+]]></Declaration>
       <Get Name="Get" Id="{87c8799e-98ff-4462-b8ed-e28804a16aed}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[ErrorMsg := _ErrorMsg;]]></ST>
+          <ST><![CDATA[ErrorMsg := _ErrorMsg;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -140,12 +152,13 @@ END_VAR
 // by setting the Event properties to zero (or another event)
 METHOD FB_init : BOOL
 VAR_INPUT
-	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode  : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
 END_VAR
 VAR
-	StringSplitter : T_StringSplitter;
-END_VAR]]></Declaration>
+    StringSplitter : T_StringSplitter;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
 _Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
@@ -161,13 +174,15 @@ Name     := StringSplitter.GetRemainder();
       </Implementation>
     </Method>
     <Property Name="Notification_OnAbort" Id="{0d67ae06-841f-4128-bead-022f0ca9e3d9}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification
+]]></Declaration>
       <Get Name="Get" Id="{03dd9ffc-038b-436c-8c4b-b9b9ae4aa681}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Notification_OnAbort := _Notification_OnAbort;]]></ST>
+          <ST><![CDATA[Notification_OnAbort := _Notification_OnAbort;
+]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{2d2b3777-2c06-46db-b1c9-854dc3714dd4}">
@@ -176,18 +191,21 @@ VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_Notification_OnAbort := Notification_OnAbort;]]></ST>
+          <ST><![CDATA[_Notification_OnAbort := Notification_OnAbort;
+]]></ST>
         </Implementation>
       </Set>
     </Property>
     <Property Name="Notification_OnError" Id="{38d0423b-9d60-41ef-adab-a0253263c4b6}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification
+]]></Declaration>
       <Get Name="Get" Id="{7560c815-0306-43f8-ac55-87c1998d7e74}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Notification_OnError := _Notification_OnError;]]></ST>
+          <ST><![CDATA[Notification_OnError := _Notification_OnError;
+]]></ST>
         </Implementation>
       </Get>
       <Set Name="Set" Id="{228f6cfe-d91d-4d86-8b07-6069ae0ee2a8}">
@@ -196,18 +214,21 @@ VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[_Notification_OnError := Notification_OnError;]]></ST>
+          <ST><![CDATA[_Notification_OnError := Notification_OnError;
+]]></ST>
         </Implementation>
       </Set>
     </Property>
     <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Ready : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Ready : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{07819190-be5b-06a7-0f77-77e004f7eaea}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Ready := _State = T_ExecutionState.Ready;]]></ST>
+          <ST><![CDATA[Ready := _State = T_ExecutionState.Ready;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -249,7 +270,8 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting THEN
     _State := T_ExecutionState.Busy;
-END_IF]]></ST>
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="SetDone" Id="{7437ab2d-de97-0db9-2d0a-b86eae15da44}" FolderPath="Methods\">
@@ -271,14 +293,15 @@ END_IF
     <Method Name="SetError" Id="{f1633771-a524-4ccc-be65-99229396429e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD SetError
 VAR_INPUT
-    ErrorMsg  : T_MaxString;
+    ErrorMsg : T_MaxString;
 END_VAR
 VAR
-	pSTRING : POINTER TO STRING;
-	arg : T_Arg;
-END_VAR]]></Declaration>
+    pSTRING : POINTER TO STRING;
+    arg     : T_Arg;
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
+        <ST><![CDATA[IF NOT _Error THEN // ignore subsequent errors in an execution sequence
     _Error    := TRUE;
     _Aborted  := FALSE;
     _Done     := FALSE;
@@ -299,7 +322,7 @@ END_IF
       </Implementation>
     </Method>
     <Method Name="Start" Id="{def3bafe-9648-0b74-364e-7150751f5a3a}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Start : BOOL
+      <Declaration><![CDATA[METHOD Start : I_ExecutionResult
 VAR_INPUT
 END_VAR
 ]]></Declaration>
@@ -311,12 +334,15 @@ END_VAR
     _ErrorMsg := '';
 
     _State := T_ExecutionState.Starting;
-    Start  := TRUE; // Accepted
+    Start  := THIS^;
 ELSE
+    ExecutionInError.SetError('Start requested while not ready');
+    Start := ExecutionInError;
+
     IF _Notification_OnError <> 0 THEN
         _Notification_OnError.Args
             .Clear()
-            .Add_STRING('Start requested while not ready')
+            .Add_STRING(ExecutionInError.ErrorMsg)
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();
@@ -326,24 +352,28 @@ END_IF
       </Implementation>
     </Method>
     <Property Name="Starting" Id="{74926035-220d-03e3-3b86-d5067a70c227}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Starting : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Starting : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{b249388e-1ee2-027a-08c8-85eee11e571e}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Starting := _State = T_ExecutionState.Starting;]]></ST>
+          <ST><![CDATA[Starting := _State = T_ExecutionState.Starting;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
     <Property Name="State" Id="{34686f20-e5ce-076a-20fe-0604181ce5eb}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY State : T_ExecutionState]]></Declaration>
+      <Declaration><![CDATA[PROPERTY State : T_ExecutionState
+]]></Declaration>
       <Get Name="Get" Id="{643951a8-dea2-0da6-338f-29e7e986b3be}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[State := _State;]]></ST>
+          <ST><![CDATA[State := _State;
+]]></ST>
         </Implementation>
       </Get>
     </Property>

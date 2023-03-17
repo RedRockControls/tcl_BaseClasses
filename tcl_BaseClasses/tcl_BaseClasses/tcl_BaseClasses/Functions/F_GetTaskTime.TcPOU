@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="F_GetTaskTime" Id="{3952241e-3b2b-43a8-982f-df54c9a9a7c8}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'obsolete' := 'Use F_TaskTime - F_GetTaskTime conflicts with Tc2_System.F_GetTaskTime'}
 FUNCTION F_GetTaskTime : LREAL
 VAR
-	TaskIndex: DINT;
+    TaskIndex : DINT;
 END_VAR
 ]]></Declaration>
     <Implementation>

@@ -11,9 +11,9 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF Destination.diSize = Source.diSize THEN
-	memcpy(destAddr := Destination.pValue,
-		   srcAddr  := Source.pValue,
-		   n        := F_DINT_TO_UDINT(Source.diSize));
+    memcpy(destAddr := Destination.pValue,
+           srcAddr  := Source.pValue,
+           n        := F_DINT_TO_UDINT(Source.diSize));
 END_IF
 ]]></ST>
     </Implementation>

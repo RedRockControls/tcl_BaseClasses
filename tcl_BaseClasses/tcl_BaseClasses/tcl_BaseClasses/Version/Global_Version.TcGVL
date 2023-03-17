@@ -6,8 +6,13 @@
 {attribute 'linkalways'}
 // This function has been automatically generated from the project information.
 VAR_GLOBAL CONSTANT
-	{attribute 'const_non_replaced'}
-	stLibVersion_tcl_BaseClasses : ST_LibVersion := (iMajor := 1, iMinor := 1, iBuild := 27, iRevision := 0, nFlags := 0, sVersion := '1.1.27.0');
+    {attribute 'const_non_replaced'}
+    stLibVersion_tcl_BaseClasses : ST_LibVersion := (iMajor    := 1,
+                                                     iMinor    := 1,
+                                                     iBuild    := 28,
+                                                     iRevision := 0,
+                                                     nFlags    := 0,
+                                                     sVersion  := '1.1.28.0');
 END_VAR
 ]]></Declaration>
   </GVL>

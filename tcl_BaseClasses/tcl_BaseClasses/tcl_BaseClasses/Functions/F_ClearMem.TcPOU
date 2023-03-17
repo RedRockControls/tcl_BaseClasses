@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.3">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="F_ClearMem" Id="{f1b635ea-836d-479e-935f-ca02c0e4e0dd}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_ClearMem : BOOL
 VAR_INPUT
@@ -9,12 +9,10 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[MEMSET(
-    destAddr := Data.pValue,
-    fillByte := 0,
-    n        := DINT_TO_UDINT(Data.diSize));
-    
-    ]]></ST>
+      <ST><![CDATA[MEMSET(destAddr := Data.pValue,
+       fillByte := 0,
+       n        := DINT_TO_UDINT(Data.diSize));
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_StructureCrcMonitor" Id="{4ff37301-51db-0d33-1801-69eaef5746f6}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK T_StructureCrcMonitor
 VAR
-    _Changed : BOOL;
+    _Changed   : BOOL;
     Stored_CRC : WORD := 16#FFFF;
 END_VAR
 ]]></Declaration>
@@ -12,13 +12,15 @@ END_VAR
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Property Name="Changed" Id="{b58d1fdb-bd27-0669-252f-03a922d82a2c}">
-      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY Changed : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{1abfd3ce-79a9-0f67-2fbb-cb772335c15a}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Changed := _Changed;]]></ST>
+          <ST><![CDATA[Changed := _Changed;
+]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -39,21 +41,20 @@ VAR_INPUT
 END_VAR
 VAR
     CRC : WORD;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
-        <ST><![CDATA[CRC := F_DATA_TO_CRC16_CCITT(
-            pData  := Structure.pValue, 
-            cbData := DINT_TO_UDINT(Structure.diSize), 
-            crc    := 0);
+        <ST><![CDATA[CRC := F_DATA_TO_CRC16_CCITT(pData  := Structure.pValue,
+                             cbData := DINT_TO_UDINT(Structure.diSize),
+                             crc    := 0);
 
 _Changed := (CRC <> Stored_CRC);
-    
+
 IF Changed THEN
     Stored_CRC := CRC;
 END_IF
 
 Test := _Changed;
-
 ]]></ST>
       </Implementation>
     </Method>
