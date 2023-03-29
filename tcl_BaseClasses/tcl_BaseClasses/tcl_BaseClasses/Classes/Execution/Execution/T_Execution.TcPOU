@@ -22,6 +22,7 @@ VAR
 
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
+    _Logger               : I_Logger;
 
     ExecutionInError : T_ExecutionInError;
 END_VAR
@@ -162,6 +163,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
 _Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
+_Logger               := GlobalNotifications.Logger;
 
 StringSplitter.Init(Str    := Name,
                     Delim1 := '.',
@@ -315,6 +317,10 @@ END_VAR
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();
+    END_IF
+
+    IF _Logger <> 0 THEN
+        _Logger.LogError(Source := Name, Message := _ErrorMsg);
     END_IF
 
 END_IF

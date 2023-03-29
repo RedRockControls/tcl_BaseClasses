@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_CompareMem" Id="{19911ef6-ff93-4ad5-9f7f-7d2bd59a1316}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_CompareMem : BOOL // TRUE if blocks match
+VAR_INPUT
+    Source      : ANY;
+    Destination : ANY;
+END_VAR
+VAR
+    Result : DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Result := MEMCMP(pBuf1 := Source.pValue,
+                 pBuf2 := Destination.pValue,
+                 n     := F_DINT_TO_UDINT(Source.diSize));
+
+F_CompareMem := (Result = 0);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

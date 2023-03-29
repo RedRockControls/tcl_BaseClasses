@@ -21,6 +21,7 @@ VAR
 
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
+    _Logger               : I_Logger;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -115,6 +116,35 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="FB_init" Id="{ef66a107-056e-4ecb-8b6e-7ea45b73f6f7}" FolderPath="Methods\">
+      <Declaration><![CDATA[// Individual T_Execution events are assigned here to the global events 
+// so by default, all errors/aborts raise these global events
+// This can be overidden for individual instances or T_Execution 
+// by setting the Event properties to zero (or another event)
+METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode  : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+VAR
+    StringSplitter : T_StringSplitter;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
+_Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
+_Logger               := GlobalNotifications.Logger;
+
+StringSplitter.Init(Str    := Name,
+                    Delim1 := '.',
+                    Delim2 := '');
+
+Solution := StringSplitter.GetNext();
+Project  := StringSplitter.GetNext();
+Name     := StringSplitter.GetRemainder();
+]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Ready" Id="{37328bdd-550f-4c87-8fd6-17d906073889}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Ready : BOOL
 ]]></Declaration>
@@ -153,6 +183,10 @@ END_VAR
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();
+    END_IF
+
+    IF _Logger <> 0 THEN
+        _Logger.LogError(Source := Name, Message := _ErrorMsg);
     END_IF
 
 END_IF

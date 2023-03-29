@@ -14,6 +14,7 @@ VAR_GLOBAL
     Notification_ExecutionAborted : T_Notification;
     Notification_AssertionFailed  : T_Notification;
 
+	Logger : I_Logger;
 END_VAR
 ]]></Declaration>
   </GVL>
