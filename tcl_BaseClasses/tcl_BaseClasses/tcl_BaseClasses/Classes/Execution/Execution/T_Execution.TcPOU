@@ -24,7 +24,7 @@ VAR
     _Notification_OnAbort : I_Notification;
     _Logger               : I_Logger;
 
-    ExecutionInError : T_ExecutionInError;
+    ExecutionInError : T_ExecutionResult; // used where we want to return an I_ExecutionResult that is not dependant on this T_Execution
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -342,17 +342,10 @@ END_VAR
     _State := T_ExecutionState.Starting;
     Start  := THIS^;
 ELSE
+	// Use internal T_ExecutionResult to indicate an error so we can return an I_ExecutionResult 
+	// without disturbing the T_Execution we were trying to start.
     ExecutionInError.SetError('Start requested while not ready');
     Start := ExecutionInError;
-
-    IF _Notification_OnError <> 0 THEN
-        _Notification_OnError.Args
-            .Clear()
-            .Add_STRING(ExecutionInError.ErrorMsg)
-            .Add_STRING(Name);
-
-        _Notification_OnError.Raise();
-    END_IF
 END_IF
 ]]></ST>
       </Implementation>
