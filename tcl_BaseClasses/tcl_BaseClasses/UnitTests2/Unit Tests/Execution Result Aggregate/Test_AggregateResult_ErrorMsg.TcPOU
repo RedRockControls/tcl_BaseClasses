@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_AggregateResult_ErrorMsg" Id="{d530d38e-298d-4b11-aec7-52b51919ea3d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_ErrorMsg EXTENDS T_UnitTestBase
+VAR
+	ResultAggregate : T_ResultAggregate;
+	Execution1 : T_Execution;
+	Execution2 : T_Execution;
+	Execution3 : T_Execution;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Init" Id="{6f22833b-f2ac-453d-b43d-0b3edd03c8e7}">
+      <Declaration><![CDATA[METHOD Init
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
+Execution2.FB_init(FALSE,FALSE);
+Execution3.FB_init(FALSE,FALSE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTest" Id="{2220bc6c-d318-41e4-8ea4-16c66d67b531}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResultAggregate.ClearResults();
+
+ResultAggregate.AddResult(Execution1);
+ResultAggregate.AddResult(Execution2);
+ResultAggregate.AddResult(Execution3);
+
+Execution1.Start();
+Execution1.SetBusy();
+Execution1.SetDone();
+
+Execution2.Start();
+Execution2.SetBusy();
+Execution2.SetDone();
+
+TestFailed S= NOT AssertTrue(Source    := TestName,
+                              Condition := ResultAggregate.ErrorMsg = '',
+                              Message   := 'ResultAggregate.ErrorMsg is not blank',
+                              Failed    =>);
+
+Execution3.Start();
+Execution3.SetBusy();
+Execution3.SetError('Error Message');
+
+TestFailed S= NOT AssertTrue(Source    := TestName,
+                             Condition := ResultAggregate.ErrorMsg = 'Error Message',
+                             Message   := 'ResultAggregate.ErrorMsg is incorrect',
+                             Failed    =>);
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

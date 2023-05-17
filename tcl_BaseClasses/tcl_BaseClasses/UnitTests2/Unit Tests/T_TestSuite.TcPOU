@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_TestSuite" Id="{70a6f186-bf9f-446b-b8ad-6a94cd0284ed}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_TestSuite
+VAR
+    TestRunner : T_TestRunner(TestSuiteName    := 'T_ResultAggregate Tests',
+                              Verbose          := TRUE,
+                              StopOnFailedTest := TRUE,
+                              RunOnDownload    := TRUE);
+
+    Test_AggregateResult_Ready    : Test_AggregateResult_Ready(TestRunner);
+    Test_AggregateResult_Starting : Test_AggregateResult_Starting(TestRunner);
+    Test_AggregateResult_Busy     : Test_AggregateResult_Busy(TestRunner);
+    Test_AggregateResult_Done     : Test_AggregateResult_Done(TestRunner);
+    Test_AggregateResult_Error    : Test_AggregateResult_Error(TestRunner);
+    Test_AggregateResult_ErrorMsg : Test_AggregateResult_ErrorMsg(TestRunner);
+    Test_AggregateResult_Aborting : Test_AggregateResult_Aborting(TestRunner);
+    Test_AggregateResult_Aborted  : Test_AggregateResult_Aborted(TestRunner);
+
+    Test_TExecution_WhenBusy_Abort_SelectsAborting        : Test_TExecutionWhenBusy_Abort_SelectsAborting(TestRunner);
+    Test_TExecutionWhenBusy_SetAborted_RaisesNotification : Test_TExecutionWhenBusy_SetAborted_RaisesNotification(TestRunner);
+    Test_TExecution_WhenBusy_SetDone_SetsDone             : Test_TExecutionWhenBusy_SetDone_SetsDone(TestRunner);
+    Test_TExecutionWhenBusy_SetError_RaisesNotification   : Test_TExecutionWhenBusy_SetError_RaisesNotification(TestRunner);
+    Test_TExecutionWhenBusy_Start_RaisesNotification      : Test_TExecutionWhenBusy_Start_RaisesNotification(TestRunner);
+    Test_TExecution_WhenReady_Start_SelectsStarting       : Test_TExecutionWhenReady_Start_SelectsStarting(TestRunner);
+    Test_TExecution_SetErrorHandlesString_ErrorId         : Test_TExecution_SetErrorHandlesString_ErrorId(TestRunner);
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestRunner.CyclicUpdate();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

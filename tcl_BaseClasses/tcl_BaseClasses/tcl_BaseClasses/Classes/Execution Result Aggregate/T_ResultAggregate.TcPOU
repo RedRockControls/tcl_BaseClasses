@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_ResultAggregate" Id="{454a147b-6226-4993-b56f-2debc6963635}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_ResultAggregate IMPLEMENTS I_ExecutionResult
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	Results : T_ListOfInterfaces(Capacity := 10);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{ec17c288-e510-45f8-8e37-6eb5b0058143}" />
+    <Folder Name="Properties" Id="{3d11f372-37c5-41b3-b352-a6a22277cfa1}" />
+    <Method Name="Abort" Id="{823e1046-db4f-4d09-9568-14fdd383baa5}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Abort
+VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Results.Count > 0 THEN
+    FOR i := 0 TO Results.Count - 1 DO
+        IP := Results.GetInterface(i);
+        IF __QUERYINTERFACE(IP, Result) THEN
+            Result.Abort(); 
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Aborted" Id="{acfc3263-0e48-4821-b470-e632d3592f91}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Aborted : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{089695a4-b523-4d4a-936a-6af96a3618ab}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborted := TRUE;
+IF Results.Count > 0 THEN
+	FOR i := 0 TO Results.Count - 1 DO
+		IP := Results.GetInterface(i);
+		IF __QUERYINTERFACE(IP, Result) THEN
+			Aborted := Aborted AND Result.Aborted; // Done if all result.aborted
+		END_IF
+	END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Aborting" Id="{b62f2531-8180-4543-81d3-0b22b084b2f8}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Aborting : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{2f0cce7d-e42e-4e78-ab16-881c7500c8f4}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Aborting := FALSE;
+IF Results.Count > 0 THEN
+    FOR i := 0 TO Results.Count - 1 DO
+        IP := Results.GetInterface(i);
+        IF __QUERYINTERFACE(IP, Result) THEN
+            Aborting := Aborting OR Result.Aborting; // Busy if any result.aborting
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="AddResult" Id="{a037aca6-2d76-47bb-ae65-f28ebca434dc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD AddResult : BOOL
+VAR_INPUT
+	Result : I_ExecutionResult;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Results.AddInterface(Result);]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Busy" Id="{4816830d-f3b9-42d1-8bce-e46a4f1ac9f0}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Busy : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{bd41bfee-b27b-4e3a-ab02-258529323929}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Busy := FALSE;
+IF Results.Count > 0 THEN
+    FOR i := 0 TO Results.Count - 1 DO
+        IP := Results.GetInterface(i);
+        IF __QUERYINTERFACE(IP, Result) THEN
+            Busy := Busy OR Result.Busy; // Busy if any result.busy
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ClearResults" Id="{df7f106c-b618-4f10-b8d6-6d0167d310bd}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD ClearResults
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Results.Clear();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Done" Id="{ac71d1f6-e94b-4b82-9737-80ef387eff14}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Done : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{c4bb208c-06a6-4f15-bd7e-21167842ac8a}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Done := TRUE;
+IF Results.Count > 0 THEN
+	FOR i := 0 TO Results.Count - 1 DO
+		IP := Results.GetInterface(i);
+		IF __QUERYINTERFACE(IP, Result) THEN
+			Done := Done AND Result.Done; // Done if all result.done
+		END_IF
+	END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{4a084801-f1c2-4c69-a853-580e431dd29c}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Error : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{91812656-fd9e-4b5c-81cd-f800b7ec4a61}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Error := FALSE;
+IF Results.Count > 0 THEN
+	FOR i := 0 TO Results.Count - 1 DO
+		IP := Results.GetInterface(i);
+		IF __QUERYINTERFACE(IP, Result) THEN
+			Error := Error OR Result.Error; // Error if any result.error
+		END_IF
+	END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ErrorMsg" Id="{27d8b087-df7b-4d80-9e54-086ef75e4c2e}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ErrorMsg : Tc2_System.T_MaxString
+]]></Declaration>
+      <Get Name="Get" Id="{3467fcda-438a-4236-b19a-6581ebd53bc0}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorMsg := '';
+IF Results.Count > 0 THEN
+	FOR i := 0 TO Results.Count - 1 DO
+		IP := Results.GetInterface(i);
+		IF __QUERYINTERFACE(IP, Result) THEN
+			IF Result.Error THEN
+				ErrorMsg := Result.ErrorMsg;
+				RETURN;
+			END_IF
+		END_IF
+	END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Ready" Id="{89a59524-360d-454d-95b9-1b5bfee550b1}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Ready : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{cf43df40-3abf-4398-8c34-7437cb83dd24}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Ready := TRUE;
+IF Results.Count > 0 THEN
+    FOR i := 0 TO Results.Count - 1 DO
+        IP := Results.GetInterface(i);
+        IF __QUERYINTERFACE(IP, Result) THEN
+            Ready := Ready AND Result.Ready; // Ready if all result.ready
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Starting" Id="{a9227d0a-cd83-4746-8b89-c559fb812990}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Starting : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{2e0abc97-0bc7-417d-82b2-f39447040b3d}">
+        <Declaration><![CDATA[VAR
+    i      : DINT;
+    Result : I_ExecutionResult;
+    IP     : I_ListItem;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Starting := FALSE;
+IF Results.Count > 0 THEN
+    FOR i := 0 TO Results.Count - 1 DO
+        IP := Results.GetInterface(i);
+        IF __QUERYINTERFACE(IP, Result) THEN
+            Starting := Starting OR Result.Starting; // Starting if any result.starting
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

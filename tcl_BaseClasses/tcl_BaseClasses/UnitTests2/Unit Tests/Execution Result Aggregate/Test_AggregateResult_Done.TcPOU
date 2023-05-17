@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_AggregateResult_Done" Id="{55975ca6-4481-48b4-8255-0b6967b90067}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Done EXTENDS T_UnitTestBase
+VAR
+	ResultAggregate : T_ResultAggregate;
+	Execution1 : T_Execution;
+	Execution2 : T_Execution;
+	Execution3 : T_Execution;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Init" Id="{38312fcb-b1ff-43ae-8c23-54cd51277d8e}">
+      <Declaration><![CDATA[METHOD Init
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
+Execution2.FB_init(FALSE,FALSE);
+Execution3.FB_init(FALSE,FALSE);
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTest" Id="{b5e3708b-91a4-43fc-8105-4b37f28f3384}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResultAggregate.ClearResults();
+
+ResultAggregate.AddResult(Execution1);
+ResultAggregate.AddResult(Execution2);
+ResultAggregate.AddResult(Execution3);
+
+Execution1.Start();
+Execution1.SetBusy();
+Execution1.SetDone();
+
+Execution2.Start();
+Execution2.SetBusy();
+Execution2.SetDone();
+
+TestFailed S= NOT AssertFalse(Source    := TestName,
+                              Condition := ResultAggregate.Done,
+                              Message   := 'ResultAggregate.Done is not false',
+                              Failed    =>);
+
+Execution3.Start();
+Execution3.SetBusy();
+Execution3.SetDone();
+
+TestFailed S= NOT AssertTrue(Source    := TestName,
+                             Condition := ResultAggregate.Done,
+                             Message   := 'ResultAggregate.Done is false',
+                             Failed    =>);
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

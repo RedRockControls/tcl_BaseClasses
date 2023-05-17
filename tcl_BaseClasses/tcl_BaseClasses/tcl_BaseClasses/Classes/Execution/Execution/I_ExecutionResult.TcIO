@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <Itf Name="I_ExecutionResult" Id="{7cb626a8-6c74-46b1-83b3-a65a904d339c}">
-    <Declaration><![CDATA[INTERFACE I_ExecutionResult // Just exposes the state of the execution object. Usage is "Result := Execution.Start()" so Result can be monitored
+    <Declaration><![CDATA[INTERFACE I_ExecutionResult EXTENDS I_ListItem // Just exposes the state of the execution object. Usage is "Result := Execution.Start()" so Result can be monitored
 ]]></Declaration>
     <Folder Name="Methods" Id="{ac50ff26-441a-4623-b28f-4b7e4c8ece8a}" />
     <Folder Name="Properties" Id="{eee4092f-30a0-4afa-be70-cb5b54c72bfa}" />

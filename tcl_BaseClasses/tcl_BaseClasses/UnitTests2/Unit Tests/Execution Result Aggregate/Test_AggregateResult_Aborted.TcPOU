@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_AggregateResult_Aborted" Id="{4a1005d9-5a4e-41b6-b8ab-e43407083448}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Aborted EXTENDS T_UnitTestBase
+VAR
+    ResultAggregate : T_ResultAggregate;
+    Execution1      : T_Execution;
+    Execution2      : T_Execution;
+    Execution3      : T_Execution;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Init" Id="{6355ff28-0796-4ec0-82f3-a0c98f2e7966}">
+      <Declaration><![CDATA[METHOD Init
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
+Execution2.FB_init(FALSE,FALSE);
+Execution3.FB_init(FALSE,FALSE);
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTest" Id="{2d34d322-da1b-484f-817c-82e5d6e016a3}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ResultAggregate.ClearResults();
+
+ResultAggregate.AddResult(Execution1);
+ResultAggregate.AddResult(Execution2);
+ResultAggregate.AddResult(Execution3);
+
+TestFailed S= NOT AssertFalse(Source    := TestName,
+                              Condition := ResultAggregate.Aborted,
+                              Message   := 'ResultAggregate.Aborted is not false',
+                              Failed    =>);
+
+Execution1.Start();
+Execution1.SetBusy();
+Execution1.Abort();
+Execution1.SetAborted();
+
+Execution2.Start();
+Execution2.SetBusy();
+Execution2.Abort();
+Execution2.SetAborted();
+
+Execution3.Start();
+Execution3.SetBusy();
+Execution3.Abort();
+Execution3.SetAborted();
+
+TestFailed S= NOT AssertTrue(Source    := TestName,
+                             Condition := ResultAggregate.Aborted,
+                             Message   := 'ResultAggregate.Aborting is false',
+                             Failed    =>);
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

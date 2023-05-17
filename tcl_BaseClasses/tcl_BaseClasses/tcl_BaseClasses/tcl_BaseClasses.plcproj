@@ -18,10 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.31.0</ProjectVersion>
+    <ProjectVersion>1.1.32.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_ExecutionInError renamed
-T_Execution.Start() updated</Description>
+    <Description>T_ResultAggregate added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -74,7 +73,9 @@ T_Execution.Start() updated</Description>
     <Folder Include="Classes\Execution\Execution" />
     <Folder Include="Classes\Function Block Wrappers" />
     <Folder Include="Classes\Function Block Wrappers\Classes" />
+    <Folder Include="Classes\List Of Interfaces" />
     <Folder Include="Classes\Logger" />
+    <Folder Include="Classes\Execution Result Aggregate" />
     <Folder Include="Classes\Notifications" />
     <Folder Include="Classes\Notifications\Notification Handler" />
     <Folder Include="Classes\Notifications\List Of Handlers" />
@@ -86,6 +87,9 @@ T_Execution.Start() updated</Description>
     <Folder Include="Version" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Execution Result Aggregate\T_ResultAggregate.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Classes\Execution\Execution\I_Execution.TcIO">
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +133,15 @@ T_Execution.Start() updated</Description>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Function Block Wrappers\Classes\T_ValueMonitorEx.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\List Of Interfaces\I_ListItem.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\List Of Interfaces\I_ListOfInterfaces.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\List Of Interfaces\T_ListOfInterfaces.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Logger\I_Logger.TcIO">

@@ -775,7 +775,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[AddressOffset := Address MOD Alignment;
-IF AddressOffset > 0 THEN // Write pointer is not at the correct alignment boundary for the tyoe to be added
+IF AddressOffset > 0 THEN // Write pointer is not at the correct alignment boundary for the type to be added
     Address := Address + (Alignment - AddressOffset);
 END_IF
 ]]></ST>

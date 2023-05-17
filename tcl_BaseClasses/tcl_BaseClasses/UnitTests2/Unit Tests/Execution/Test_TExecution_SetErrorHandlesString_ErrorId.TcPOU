@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TExecution_SetErrorHandlesString_ErrorId" Id="{16f08f29-068e-4798-90d6-e31f6569f288}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecution_SetErrorHandlesString_ErrorId EXTENDS T_UnitTestBase
+VAR
+    Execution : T_Execution;
+END_VAR
+VAR
+    ErrorId : STRING := 'Custom error message';
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Init" Id="{420fa8d6-e46b-4798-b8a6-aca480db40a7}">
+      <Declaration><![CDATA[METHOD Init
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RunTest" Id="{c802fc6f-c2eb-473d-9d52-1f1564e9b40b}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+VAR
+    ErrorMsg : STRING := 'Custom error message';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Execution.Start();
+Execution.SetBusy();
+Execution.SetError(ErrorMsg);
+
+TestFailed S= NOT AssertTrue(Source    := TestName,
+                             Condition := Execution.ErrorMsg = 'Custom error message',
+                             Message   := 'Execution.ErrorMsg not correct');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

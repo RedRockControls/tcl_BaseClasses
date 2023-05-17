@@ -39,7 +39,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
-IF NOT _Aborted THEN // avoid going back into borting if execution has already been aborted
+IF NOT _Aborted THEN // avoid going back into aborting if execution has already been aborted
     _State := T_ExecutionState.Aborting;
 END_IF
 ]]></ST>
@@ -102,6 +102,10 @@ ELSE
             .Add_STRING(Name);
 
         _Notification_OnError.Raise();
+    END_IF
+	
+    IF _Logger <> 0 THEN
+        _Logger.LogError(Source := Name, Message := 'Clear requested while not ready');
     END_IF
 END_IF
 ]]></ST>
@@ -251,6 +255,9 @@ END_VAR
         _Notification_OnAbort.Raise();
     END_IF
 
+    IF _Logger <> 0 THEN
+        _Logger.LogError(Source := Name, Message := 'Execution aborted');
+    END_IF
 END_IF
 
 IF _State = T_ExecutionState.Aborting THEN
