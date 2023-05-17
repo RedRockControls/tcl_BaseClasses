@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.32.0</ProjectVersion>
+    <ProjectVersion>1.1.33.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_ResultAggregate added</Description>
+    <Description>F_CopyMem:
+Limit the number of bytes to copy to match destination size if less than the source size</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>

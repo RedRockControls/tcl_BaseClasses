@@ -7,13 +7,17 @@ VAR_INPUT
     Destination : ANY;
 END_VAR
 VAR
+	ByteCount : UDINT;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF Destination.diSize = Source.diSize THEN
+      <ST><![CDATA[// Limit the number of bytes to copy to match destination size if less than the source size
+ByteCount := F_DINT_TO_UDINT(MIN(Source.diSize, Destination.diSize));
+
+IF ByteCount > 0 THEN
     memcpy(destAddr := Destination.pValue,
            srcAddr  := Source.pValue,
-           n        := F_DINT_TO_UDINT(Source.diSize));
+           n        := ByteCount);
 END_IF
 ]]></ST>
     </Implementation>
