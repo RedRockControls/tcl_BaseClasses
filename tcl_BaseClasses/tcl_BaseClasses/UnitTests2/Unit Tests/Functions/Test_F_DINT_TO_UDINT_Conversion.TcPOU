@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_F_DINT_TO_UDINT_Conversion" Id="{7618d050-2f09-4dc1-a5bb-d62f65f5c08f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_DINT_TO_UDINT_Conversion EXTENDS T_UnitTestBase
+VAR
+    InputValue     : DINT;
+    ConvertedValue : UDINT;
+	Assertion : T_Assertion;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{6ed875d1-3fde-410a-857e-06de330f684a}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InputValue     := 2147483648;                  // too big
+ConvertedValue := F_UDINT_TO_DINT(InputValue); // limit to largest DINT
+
+TestFailed S= NOT Assertion.AssertEquals_DINT(Source    := TestName,
+                             Expected     := 2147483647,
+                            Actual       := ConvertedValue,
+                            VariableName := 'ConvertedValue');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

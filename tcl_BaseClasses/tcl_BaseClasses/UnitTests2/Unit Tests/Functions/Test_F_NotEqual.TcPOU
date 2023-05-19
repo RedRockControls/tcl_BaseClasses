@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_F_NotEqual" Id="{46cb45ee-c3e1-4c93-8936-b9ccbc45cb74}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS T_UnitTestBase
+VAR
+	Assertion : T_Assertion;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{7c7d6744-2aba-48ba-a649-66e5e276e7d6}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected := TRUE,
+                            Actual   := F_NotEqual(1.000_005,
+                                                   1.000_003,
+                                                   0.000_001),
+                            VariableName := 'F_Equals');
+
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected := FALSE,
+                            Actual   := F_NotEqual(1.000_005,
+                                                   1.000_004,
+                                                   0.000_002),
+                            VariableName := 'F_Equals');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

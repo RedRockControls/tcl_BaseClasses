@@ -15,7 +15,7 @@
 			<Project File="tcl_BaseClasses.xti"/>
 			<Project File="UnitTests.xti"/>
 			<Project GUID="{31D0F34C-8773-453B-AC18-0F307892175A}" Name="UnitTests2" PrjFilePath="UnitTests2\UnitTests2.plcproj" TmcFilePath="UnitTests2\UnitTests2.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{D5682283-1F3B-4619-6119-653F09972B8E}">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="UnitTests2\UnitTests2.tmc" TmcHash="{04581C0A-909C-A805-C2FA-81EE38E318B5}">
 					<Name>UnitTests2 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

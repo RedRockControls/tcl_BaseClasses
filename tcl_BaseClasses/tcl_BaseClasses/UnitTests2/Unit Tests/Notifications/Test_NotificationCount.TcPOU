@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_NotificationCount" Id="{cc4afe9e-8e15-4d59-a92f-3d05885e6e5b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationCount EXTENDS T_UnitTestBase
+VAR
+    Source   : T_Notification;
+    Handler  : T_NotificationHandler;
+    IsRaised : BOOL;
+	Assertion : T_Assertion;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{b79fb909-26ec-4e45-bdd8-8d8681676f8c}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR_OUTPUT
+    TestCompleted : BOOL;
+    TestFailed    : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
+                bInCopyCode  := FALSE);
+
+Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
+
+Source.Raise();
+Source.Raise();
+Source.Raise();
+
+TestFailed S= NOT Assertion.AssertEquals_DINT(Source    := TestName,
+                             Expected     := 3,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected     := TRUE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'IsRaised');
+
+TestFailed S= NOT Assertion.AssertEquals_DINT(Source    := TestName,
+                             Expected     := 2,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected     := TRUE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'IsRaised');
+
+TestFailed S= NOT Assertion.AssertEquals_DINT(Source    := TestName,
+                             Expected     := 1,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+IsRaised := Handler.IsRaised();
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected     := TRUE,
+                            Actual       := IsRaised,
+                            VariableName := 'IsRaised');
+
+TestFailed S= NOT Assertion.AssertEquals_DINT(Source    := TestName,
+                             Expected     := 0,
+                            Actual       := Handler.NotificationCount,
+                            VariableName := 'Handler.NotificationCount');
+
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
+                             Expected     := FALSE,
+                            Actual       := Handler.IsRaised(),
+                            VariableName := 'Handler.IsRaised()');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
