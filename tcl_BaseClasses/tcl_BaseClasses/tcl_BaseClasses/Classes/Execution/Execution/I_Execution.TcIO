@@ -52,30 +52,6 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
-    <Property Name="Notification_OnAbort" Id="{5bff5e48-e058-4bd5-b034-78e58ed48528}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification
-]]></Declaration>
-      <Get Name="Get" Id="{2d849f1f-c182-4380-910a-ae92c4aa8e38}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{f7c5526a-9c46-4575-b20a-013d7f3bf3a6}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-      </Set>
-    </Property>
-    <Property Name="Notification_OnError" Id="{b1fef8e3-b1dc-4f81-ad00-3f9ccb825c81}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification
-]]></Declaration>
-      <Get Name="Get" Id="{e6794e2f-7391-458f-a3be-a68c40a6b2fb}">
-        <Declaration><![CDATA[]]></Declaration>
-      </Get>
-      <Set Name="Set" Id="{8f58c853-4be2-45e4-a65e-1a6be90df3b5}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-      </Set>
-    </Property>
     <Property Name="Ready" Id="{b91ada47-a851-4255-ace3-07ff2a4d3deb}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Ready : BOOL
 ]]></Declaration>

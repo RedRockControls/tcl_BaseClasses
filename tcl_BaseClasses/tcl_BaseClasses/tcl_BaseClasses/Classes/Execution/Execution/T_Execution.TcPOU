@@ -23,8 +23,6 @@ VAR
     _Notification_OnError : I_Notification;
     _Notification_OnAbort : I_Notification;
     _Logger               : I_Logger;
-
-    ExecutionInError : T_ExecutionResult; // used where we want to return an I_ExecutionResult that is not dependant on this T_Execution
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -165,9 +163,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Notification_OnAbort := GlobalNotifications.Notification_ExecutionAborted;
-_Notification_OnError := GlobalNotifications.Notification_ExecutionFailed;
-_Logger               := GlobalNotifications.Logger;
+        <ST><![CDATA[_Logger := Globals.Logger;
 
 StringSplitter.Init(Str    := Name,
                     Delim1 := '.',
@@ -179,49 +175,22 @@ Name     := StringSplitter.GetRemainder();
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Notification_OnAbort" Id="{0d67ae06-841f-4128-bead-022f0ca9e3d9}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnAbort : I_Notification
-]]></Declaration>
-      <Get Name="Get" Id="{03dd9ffc-038b-436c-8c4b-b9b9ae4aa681}">
+    <Property Name="Logger" Id="{aa3a07cc-d6f4-4f98-8b7b-3359c2af12a3}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Logger : I_Logger]]></Declaration>
+      <Get Name="Get" Id="{c3c457a0-461c-49bf-ac68-8e6be3bd6e90}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Notification_OnAbort := _Notification_OnAbort;
-]]></ST>
+          <ST><![CDATA[Logger := _Logger;]]></ST>
         </Implementation>
       </Get>
-      <Set Name="Set" Id="{2d2b3777-2c06-46db-b1c9-854dc3714dd4}">
-        <Declaration><![CDATA[
-VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_Notification_OnAbort := Notification_OnAbort;
-]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
-    <Property Name="Notification_OnError" Id="{38d0423b-9d60-41ef-adab-a0253263c4b6}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Notification_OnError : I_Notification
-]]></Declaration>
-      <Get Name="Get" Id="{7560c815-0306-43f8-ac55-87c1998d7e74}">
+      <Set Name="Set" Id="{04d4611b-bd6f-40b2-afe9-0de5449d6d5f}">
         <Declaration><![CDATA[VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Notification_OnError := _Notification_OnError;
-]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{228f6cfe-d91d-4d86-8b07-6069ae0ee2a8}">
-        <Declaration><![CDATA[
-VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_Notification_OnError := Notification_OnError;
-]]></ST>
+          <ST><![CDATA[_Logger := Logger;]]></ST>
         </Implementation>
       </Set>
     </Property>
@@ -245,15 +214,6 @@ END_VAR
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
     _Aborted := TRUE;
     _State   := T_ExecutionState.Ready;
-
-    IF _Notification_OnAbort <> 0 THEN
-        _Notification_OnAbort.Args
-            .Clear()
-            .Add_STRING('Execution aborted')
-            .Add_STRING(Name);
-
-        _Notification_OnAbort.Raise();
-    END_IF
 
     IF _Logger <> 0 THEN
         _Logger.LogError(Source := Name, Message := 'Execution aborted');
@@ -317,15 +277,6 @@ END_VAR
     _ErrorMsg := ErrorMsg;
     _State    := T_ExecutionState.Ready;
 
-    IF _Notification_OnError <> 0 THEN
-        _Notification_OnError.Args
-            .Clear()
-            .Add_STRING(_ErrorMsg)
-            .Add_STRING(Name);
-
-        _Notification_OnError.Raise();
-    END_IF
-
     IF _Logger <> 0 THEN
         _Logger.LogError(Source := Name, Message := _ErrorMsg);
     END_IF
@@ -347,13 +298,17 @@ END_VAR
     _ErrorMsg := '';
 
     _State := T_ExecutionState.Starting;
-    Start  := THIS^;
+ELSIF _State = T_ExecutionState.Busy THEN
+    SetError('Start requested while already busy');
+ELSIF _State = T_ExecutionState.Starting THEN
+    SetError('Start requested while already starting');
+ELSIF _State = T_ExecutionState.Aborting THEN
+    SetError('Start requested while aborting');
 ELSE
-	// Use internal T_ExecutionResult to indicate an error so we can return an I_ExecutionResult 
-	// without disturbing the T_Execution we were trying to start.
-    ExecutionInError.SetError('Start requested while not ready');
-    Start := ExecutionInError;
+    SetError('Start requested while not ready');
 END_IF
+
+Start := THIS^;
 ]]></ST>
       </Implementation>
     </Method>

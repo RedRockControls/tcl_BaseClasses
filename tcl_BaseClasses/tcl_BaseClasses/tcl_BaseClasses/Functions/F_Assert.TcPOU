@@ -14,11 +14,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[F_Assert := Assertion;
 IF Assertion = FALSE THEN
-    GlobalNotifications.Notification_AssertionFailed.Args
-        .Clear()
-        .Add_STRING(FailMessage);
-    GlobalNotifications.Notification_AssertionFailed.Raise(); // to allow the machine to abort on any assertion failure
-
+	Globals.Logger.LogError('F_Assert failed:', FailMessage);
 END_IF
 ]]></ST>
     </Implementation>

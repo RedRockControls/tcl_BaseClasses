@@ -3,6 +3,14 @@
   <Itf Name="I_Logger" Id="{d6915353-f7c0-4c6f-b0da-5364769d4b0d}">
     <Declaration><![CDATA[INTERFACE I_Logger
 ]]></Declaration>
+    <Method Name="LogDebug" Id="{0903a0cb-a44d-4638-86d5-a89b41aec2cb}">
+      <Declaration><![CDATA[METHOD LogDebug
+VAR_INPUT
+    Source  : T_MaxString;
+    Message : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LogError" Id="{a1807b73-2133-4309-aa8e-36f133cadc56}">
       <Declaration><![CDATA[METHOD LogError
 VAR_INPUT
@@ -11,8 +19,8 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
-    <Method Name="LogMessage" Id="{488d2f10-6234-4a74-9ecc-a8b29153f3c1}">
-      <Declaration><![CDATA[METHOD LogMessage
+    <Method Name="LogInfo" Id="{488d2f10-6234-4a74-9ecc-a8b29153f3c1}">
+      <Declaration><![CDATA[METHOD LogInfo
 VAR_INPUT
     Source  : T_MaxString;
     Message : T_MaxString;
