@@ -17,3 +17,6 @@ T_Notification - [OOP in TwinCAT3 – Asynchronous Notifications](https://www.re
 Also, but depreciated - use Notifications:
 T_EventBase - [OOP in TwinCAT3 – Events Framework](https://www.redrockcontrols.co.uk/?p=374) 
 
+Code automatically formatted using
+
+![StweepLogo](https://github.com/RedRockControls/tcl_TwinCAT_UnitTestLibrary/assets/32986382/2181db31-3c1e-449d-b568-c7b0ed50b36d)
