@@ -22,7 +22,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF HandlerInList(Handler) THEN
+        <ST><![CDATA[IF pHandler = 0 THEN // Need  to initialise list of handlers - after online change?
+    FB_Init(bInitRetains := FALSE,
+            bInCopyCode  := FALSE,
+            Capacity     := THIS^.Capacity);
+
+END_IF
+
+IF HandlerInList(Handler) THEN
     RETURN;
 END_IF
 
