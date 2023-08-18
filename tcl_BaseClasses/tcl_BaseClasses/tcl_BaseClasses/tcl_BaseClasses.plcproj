@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.36.0</ProjectVersion>
+    <ProjectVersion>1.1.37.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_Execution.SetAborted raises Warning, not Error</Description>
+    <Description>T_Object added - implements Assert method.
+T_Execution extends T_Object</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -76,6 +77,7 @@
     <Folder Include="Classes\List Of Interfaces" />
     <Folder Include="Classes\Logger" />
     <Folder Include="Classes\Execution Result Aggregate" />
+    <Folder Include="Classes\Object base class" />
     <Folder Include="Classes\Notifications" />
     <Folder Include="Classes\Notifications\Notification Handler" />
     <Folder Include="Classes\Notifications\List Of Handlers" />
@@ -157,6 +159,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Notifications\Notification\T_Notification.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Object base class\T_Object.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Stream\E_ArgTypeId.TcDUT">

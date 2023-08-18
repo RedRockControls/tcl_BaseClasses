@@ -5,8 +5,8 @@
 :Class for handling communications between a client requesting a service 
 :and a server providing the service
 *)
-{attribute 'reflection'}
-FUNCTION_BLOCK T_Execution IMPLEMENTS I_Execution, I_ExecutionResult
+//{attribute 'reflection'}
+FUNCTION_BLOCK T_Execution EXTENDS T_Object IMPLEMENTS I_Execution, I_ExecutionResult
 VAR
     _State    : T_ExecutionState;
     _Done     : BOOL;
@@ -14,15 +14,13 @@ VAR
     _Aborted  : BOOL;
     _ErrorMsg : T_MaxString;
 
-    {attribute 'instance-path'}
-    {attribute 'no_init'}
-    Name     : T_MaxString; // Automatically initialised with the full name of the instance
-    Project  : T_MaxString;
-    Solution : T_MaxString;
+//    {attribute 'instance-path'}
+//    {attribute 'no_init'}
+//    Name     : T_MaxString; // Automatically initialised with the full name of the instance
+//    Project  : T_MaxString;
+//    Solution : T_MaxString;
 
-    _Notification_OnError : I_Notification;
-    _Notification_OnAbort : I_Notification;
-    _Logger               : I_Logger;
+//    _Logger : I_Logger;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -93,15 +91,6 @@ METHOD Clear
     _Error    := FALSE;
     _ErrorMsg := '';
 ELSE
-    IF _Notification_OnError <> 0 THEN
-        _Notification_OnError.Args
-            .Clear()
-            .Add_STRING('Clear requested while not ready')
-            .Add_STRING(Name);
-
-        _Notification_OnError.Raise();
-    END_IF
-	
     IF _Logger <> 0 THEN
         _Logger.LogError(Source := Name, Message := 'Clear requested while not ready');
     END_IF
