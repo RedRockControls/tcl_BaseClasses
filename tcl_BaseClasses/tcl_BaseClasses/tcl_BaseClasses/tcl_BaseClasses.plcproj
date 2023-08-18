@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.35.0</ProjectVersion>
+    <ProjectVersion>1.1.36.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_ListOfHandlers re-initialised if pHandler is null on adding a notification handler</Description>
+    <Description>T_Execution.SetAborted raises Warning, not Error</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
