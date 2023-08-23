@@ -18,10 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.37.0</ProjectVersion>
+    <ProjectVersion>1.1.38.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_Object added - implements Assert method.
-T_Execution extends T_Object</Description>
+    <Description>F_InLimits added
+F_LinearInterpolation added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -185,10 +185,16 @@ T_Execution extends T_Object</Description>
     <Compile Include="Functions\F_DINT_TO_UDINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\F_InLimits.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\F_ErrorIdToString.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_Inc.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_LinearInterpolation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_LogError.TcPOU">

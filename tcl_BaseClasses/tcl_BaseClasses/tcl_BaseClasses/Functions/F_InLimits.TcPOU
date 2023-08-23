@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_InLimits" Id="{684d8a3f-78fd-42cb-9554-da2ecd9c9247}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_InLimits : BOOL
+VAR_INPUT
+    In        : LREAL;
+    LowLimit  : LREAL;
+    HighLimit : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_InLimits := (In >= LowLimit) AND (In <= HighLimit);]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

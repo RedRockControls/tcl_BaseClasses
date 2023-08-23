@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_LinearInterpolation" Id="{1eeec38b-a22e-4177-95eb-4effb085f554}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_LinearInterpolation : LREAL
+VAR_INPUT
+    LowerBound : LREAL;
+    UpperBound : LREAL;
+    Interval   : LREAL; // Proportion between bounds (0.0 to 1.0)
+END_VAR
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF F_InLimits(Interval, 0.0, 1.0) THEN
+    F_LinearInterpolation := LowerBound + Interval * (UpperBound - LowerBound);
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
