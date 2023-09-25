@@ -3,10 +3,10 @@
   <POU Name="Test_NotificationNoArgs" Id="{b0e0872e-d94f-4d7d-8638-6a5be13a36bd}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationNoArgs EXTENDS T_UnitTestBase
 VAR
-    Source   : T_Notification;
-    Handler  : T_NotificationHandler;
-    IsRaised : BOOL;
-	Assertion : T_Assertion;
+    Notification        : T_Notification;
+    NotificationHandler : T_NotificationHandler;
+    IsRaised            : BOOL;
+    Assertion           : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -21,18 +21,18 @@ VAR_OUTPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
-                bInCopyCode  := FALSE);
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains    := FALSE,
+                            bInCopyCode     := FALSE);
 
-Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
+Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
 
-Source.Raise();
-IsRaised := Handler.IsRaised();
+Notification.Raise();
+IsRaised := NotificationHandler.IsRaised();
 
-TestFailed S= NOT Assertion.AssertEquals_BOOL(Source    := TestName,
-                             Expected     := TRUE,
-                            Actual       := IsRaised,
-                            VariableName := 'IsRaised');
+TestFailed S= NOT Assertion.AssertEquals_BOOL(Source       := TestName,
+                                              Expected     := TRUE,
+                                              Actual       := IsRaised,
+                                              VariableName := 'IsRaised');
 
 TestCompleted := TRUE;
 ]]></ST>

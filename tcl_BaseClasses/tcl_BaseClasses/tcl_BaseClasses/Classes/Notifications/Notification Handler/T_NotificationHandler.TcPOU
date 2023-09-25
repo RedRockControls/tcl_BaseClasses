@@ -7,6 +7,10 @@ VAR
     Args_PublicCopy     : T_Stream(StreamLength := 4); // Public copy of notification arguments
     CriticalSection     : FB_IecCriticalSection;
     NotificationCounter : T_Counter;
+    QueueingEnabled     : BOOL; // if required, set via variable initialisation in instance declaration
+END_VAR
+VAR CONSTANT
+    MAX_UNHANDLED_NOTIFICATIONS : DINT := 1000;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -36,7 +40,7 @@ END_VAR
       <Implementation>
         <ST><![CDATA[IF CriticalSection.hrInit = S_OK THEN
     IF CriticalSection.Enter() THEN           // will block while receiving a notification
-        IF NotificationCounter.Value > 0 THEN // unhandled notifications remain...
+        IF NotificationCounter.Value > 0 THEN // at least one unhandled notification to be handled...
             IsRaised := TRUE;
 
             // get the length of the notification args (this is stored before the args themselves)
@@ -49,10 +53,11 @@ END_VAR
 
             NotificationCounter.Dec(); // to keep track of how many notifications remain to be handled
 
-            IF NotificationCounter.Value > 0 THEN // more args expected
+            IF NotificationQueueingEnabled AND NotificationCounter.Value > 0 THEN // more args to be handled (notification raised multiple times since last handled)...
                 // advance the read pointer to the args belonging to the next notification (if any)                                      
                 Args_LocalCopy.SetReadPosition(Args_LocalCopy.ReadPosition + ByteCount);
-            ELSE
+            ELSE // clear any unhandled notifications that remain..
+				NotificationCounter.Reset();
                 Args_LocalCopy.Clear();
             END_IF
         END_IF
@@ -78,6 +83,25 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Property Name="NotificationQueueingEnabled" Id="{a5314985-f357-4fe9-a599-bc37bf9428ff}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY NotificationQueueingEnabled : BOOL// Allows notifications to be raised multiple times before being handled sequentially. Make sure all notifications are handled!]]></Declaration>
+      <Get Name="Get" Id="{1b6498ce-791f-4589-943b-9a1edc56d6b6}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[NotificationQueueingEnabled := QueueingEnabled;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{3bfda8f6-68ff-4cb0-9193-8ace86f621f9}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[QueueingEnabled := NotificationQueueingEnabled;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
     <Method Name="RaiseNotification" Id="{8767452b-6194-4156-b4a1-080cf2d33e36}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD RaiseNotification
 VAR_INPUT
@@ -85,7 +109,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF CriticalSection.Enter() THEN
+        <ST><![CDATA[IF NotificationCounter.Value > MAX_UNHANDLED_NOTIFICATIONS THEN
+    // Not much point raising another if they are not being handled...
+    RETURN;
+END_IF
+
+IF CriticalSection.Enter() THEN
     IF NotificationArgs.WritePosition > 0 THEN // has event arguments..
 
         // Notification args are stored in a local copy using a stream
@@ -98,7 +127,7 @@ END_VAR
                                              NumberOfBytesToAppend := NotificationArgs.WritePosition); // followed by args themselves
     END_IF
 
-    NotificationCounter.Inc(); // keep track of how many times the notification ahs been raised, so we can handle each notification seperately
+    NotificationCounter.Inc(); // keep track of how many times the notification has been raised, so we can handle each notification seperately
     CriticalSection.Leave();
 END_IF
 ]]></ST>

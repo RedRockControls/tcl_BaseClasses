@@ -4,13 +4,13 @@
     <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK Test_NotificationWithStringArg EXTENDS T_UnitTestBase
 VAR
-    Source  : T_Notification;
-    Handler : T_NotificationHandler;
+    Notification        : T_Notification;
+    NotificationHandler : T_NotificationHandler;
 
     ResultString : T_MaxString;
     Args         : I_StreamReader;
     IsRaised     : BOOL;
-	Assertion : T_Assertion;
+    Assertion    : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -25,24 +25,24 @@ VAR_OUTPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
-                bInCopyCode  := FALSE);
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains    := FALSE,
+                            bInCopyCode     := FALSE);
 
-Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
-Source.Args.Init(81);
+Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+Notification.Args.Init(81);
 
-Source.Args.Clear().Add_STRING('Big long string passed to the notification handler for later use');
-Source.Raise();
+Notification.Args.Clear().Add_STRING('Big long string passed to the notification handler for later use');
+Notification.Raise();
 
-IF Handler.IsRaised() THEN
-    Args         := Handler.Args;
+IF NotificationHandler.IsRaised() THEN
+    Args         := NotificationHandler.Args;
     ResultString := Args.Read_STRING();
 END_IF
 
-TestFailed S= NOT Assertion.AssertEquals_STRING(Source    := TestName,
-                             Expected     := 'Big long string passed to the notification handler for later use',
-                              Actual       := ResultString,
-                              VariableName := 'ResultString');
+TestFailed S= NOT Assertion.AssertEquals_STRING(Source       := TestName,
+                                                Expected     := 'Big long string passed to the notification handler for later use',
+                                                Actual       := ResultString,
+                                                VariableName := 'ResultString');
 
 TestCompleted := TRUE;
 ]]></ST>

@@ -14,7 +14,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[F_Assert := Assertion;
 IF Assertion = FALSE THEN
-	Globals.Logger.LogError('F_Assert failed:', FailMessage);
+    IF Globals.Logger <> 0 THEN
+        Globals.Logger.LogError('F_Assert failed:', FailMessage);
+    END_IF
 END_IF
 ]]></ST>
     </Implementation>
