@@ -6,10 +6,10 @@ FUNCTION_BLOCK T_Object
 VAR
     {attribute 'instance-path'}
     {attribute 'no_init'}
-    Name     : T_MaxString; // Automatically initialised with the full name of the instance
-    Project  : T_MaxString;
-    Solution : T_MaxString;
-    _Logger  : I_Logger;
+    _Name     : T_MaxString; // Automatically initialised with the full name of the instance
+    _Project  : T_MaxString;
+    _Solution : T_MaxString;
+    _Logger   : I_Logger;
 
     LastAssertionFailMessage : T_MaxString;
 
@@ -29,7 +29,7 @@ END_VAR
         <ST><![CDATA[Assert := Assertion;
 IF Assertion = FALSE THEN
     IF _Logger <> 0 AND (FailMessage <> LastAssertionFailMessage) THEN
-        _Logger.LogError(Source := Name, Message := FailMessage);
+        _Logger.LogError(Source := _Name, Message := FailMessage);
     END_IF
 	LastAssertionFailMessage := FailMessage;
 END_IF
@@ -57,13 +57,13 @@ END_VAR
       <Implementation>
         <ST><![CDATA[_Logger := Globals.Logger;
 
-StringSplitter.Init(Str    := Name,
+StringSplitter.Init(Str    := _Name,
                     Delim1 := '.',
                     Delim2 := '');
 
-Solution := StringSplitter.GetNext();
-Project  := StringSplitter.GetNext();
-Name     := StringSplitter.GetRemainder();
+_Solution := StringSplitter.GetNext();
+_Project  := StringSplitter.GetNext();
+_Name     := StringSplitter.GetRemainder();
 ]]></ST>
       </Implementation>
     </Method>

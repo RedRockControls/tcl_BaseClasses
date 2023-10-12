@@ -30,12 +30,10 @@ END_VAR
     <Folder Name="Properties" Id="{a48b7191-6aa5-4ac4-bdc5-b99d3da36639}" />
     <Method Name="Abort" Id="{f3b9b616-ecb6-448b-9a68-cf8864d1ed1d}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Abort
-VAR_INPUT
-END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
-IF NOT _Aborted THEN // avoid going back into aborting if execution has already been aborted
+IF Starting OR Busy THEN // avoid going back into aborting if execution has already been aborted
     _State := T_ExecutionState.Aborting;
 END_IF
 ]]></ST>
@@ -137,33 +135,6 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{cb8c0a25-6839-0ca3-105e-335fcd806bf2}" FolderPath="Methods\">
-      <Declaration><![CDATA[// Individual T_Execution events are assigned here to the global events 
-// so by default, all errors/aborts raise these global events
-// This can be overidden for individual instances or T_Execution 
-// by setting the Event properties to zero (or another event)
-METHOD FB_init : BOOL
-VAR_INPUT
-    bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
-    bInCopyCode  : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
-END_VAR
-VAR
-    StringSplitter : T_StringSplitter;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[_Logger := Globals.Logger;
-
-StringSplitter.Init(Str    := Name,
-                    Delim1 := '.',
-                    Delim2 := '');
-
-Solution := StringSplitter.GetNext();
-Project  := StringSplitter.GetNext();
-Name     := StringSplitter.GetRemainder();
-]]></ST>
-      </Implementation>
-    </Method>
     <Property Name="Logger" Id="{aa3a07cc-d6f4-4f98-8b7b-3359c2af12a3}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Logger : I_Logger]]></Declaration>
       <Get Name="Get" Id="{c3c457a0-461c-49bf-ac68-8e6be3bd6e90}">
@@ -183,6 +154,17 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
+    <Property Name="Name" Id="{4a0e8d76-e64a-42c8-826b-cacfd21b0049}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{8e7f88bf-3e72-4dae-8eed-46c3c9025668}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Name := SUPER^._Name;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Ready" Id="{2af7d30b-7188-0edf-32b7-9305dcd7f6c3}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Ready : BOOL
 ]]></Declaration>
@@ -197,25 +179,19 @@ END_VAR
       </Get>
     </Property>
     <Method Name="SetAborted" Id="{3457d55d-8917-427f-b4b1-3d8dae8fe5f2}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD SetAborted // used when implementing class signals Aborted
+      <Declaration><![CDATA[METHOD SetAborted 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Aborted := TRUE;
-    _State   := T_ExecutionState.Ready;
-
-    IF _Logger <> 0 THEN
-        _Logger.LogWarning(Source := Name, Message := 'Execution aborted');
-    END_IF
-END_IF
-
-IF _State = T_ExecutionState.Aborting THEN
+        <ST><![CDATA[IF _State <> T_ExecutionState.Ready THEN
     _Done     := FALSE;
     _Aborted  := TRUE;
     _Error    := FALSE;
-    _ErrorMsg := 'Aborted';
-
+    _ErrorMsg := 'Execution aborted';
     _State := T_ExecutionState.Ready;
+	
+    IF _Logger <> 0 THEN
+        _Logger.LogWarning(Source := Name, Message := _ErrorMsg);
+    END_IF
 END_IF
 ]]></ST>
       </Implementation>
@@ -253,14 +229,10 @@ END_IF
 VAR_INPUT
     ErrorMsg : T_MaxString;
 END_VAR
-VAR
-    pSTRING : POINTER TO STRING;
-    arg     : T_Arg;
-END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT _Error THEN // ignore subsequent errors in an execution sequence
-    _Error    := TRUE;
+        <ST><![CDATA[IF NOT _Error THEN
+    _Error    := TRUE; // to ignore subsequent errors in an execution sequence
     _Aborted  := FALSE;
     _Done     := FALSE;
     _ErrorMsg := ErrorMsg;
@@ -285,14 +257,17 @@ END_VAR
     _Aborted  := FALSE;
     _Error    := FALSE;
     _ErrorMsg := '';
-
     _State := T_ExecutionState.Starting;
+	
 ELSIF _State = T_ExecutionState.Busy THEN
     SetError('Start requested while already busy');
+	
 ELSIF _State = T_ExecutionState.Starting THEN
     SetError('Start requested while already starting');
+	
 ELSIF _State = T_ExecutionState.Aborting THEN
     SetError('Start requested while aborting');
+	
 ELSE
     SetError('Start requested while not ready');
 END_IF

@@ -18,10 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.39.0</ProjectVersion>
+    <ProjectVersion>1.1.40.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>MAX_UNHANDLED_NOTIFICATIONS added to T_NotificationHandler
-NotificationQueuingEnabled property added to T_NotificationHandler - must be enabled explicitly as it requires careful use</Description>
+    <Description>F_ReadAndClear added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -204,6 +203,9 @@ NotificationQueuingEnabled property added to T_NotificationHandler - must be ena
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_LogWarning.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_ReadAndClear.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_TaskTime.TcPOU">
