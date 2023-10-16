@@ -33,7 +33,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
-IF Starting OR Busy THEN // avoid going back into aborting if execution has already been aborted
+IF NOT Aborting AND NOT Aborted THEN // avoid going back into aborting if execution has already been aborted
     _State := T_ExecutionState.Aborting;
 END_IF
 ]]></ST>
