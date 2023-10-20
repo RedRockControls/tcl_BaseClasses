@@ -14,6 +14,9 @@ VAR
     pUINT  : POINTER TO UINT;
     pUDINT : POINTER TO UDINT;
     pULINT : POINTER TO ULINT;
+    pBYTE  : POINTER TO BYTE;
+    pWORD  : POINTER TO WORD;
+    pDWORD : POINTER TO DWORD;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -49,6 +52,20 @@ END_VAR
     __SYSTEM.TYPE_CLASS.TYPE_ULINT:
         pULINT  := in.pValue;
         pULINT^ := pULINT^ + 1;
+		
+    __SYSTEM.TYPE_CLASS.TYPE_BYTE:
+        pBYTE  := in.pValue;
+        pBYTE^ := pBYTE^ + 1;
+		
+    __SYSTEM.TYPE_CLASS.TYPE_WORD:
+        pWORD  := in.pValue;
+        pWORD^ := pWORD^ + 1;
+		
+    __SYSTEM.TYPE_CLASS.TYPE_DWORD:
+        pDWORD  := in.pValue;
+        pDWORD^ := pDWORD^ + 1;
+		
+		
 END_CASE
 ]]></ST>
     </Implementation>
