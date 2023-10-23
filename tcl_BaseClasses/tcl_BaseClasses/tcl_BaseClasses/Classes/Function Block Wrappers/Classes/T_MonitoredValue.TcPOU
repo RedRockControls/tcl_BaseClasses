@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_MonitoredValue" Id="{176a7684-e463-449f-a645-00e1adf47c17}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_MonitoredValue
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+    _Value   : LREAL;
+    _Changed : BOOL;
+	_ChangeThreshold : LREAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{9d7daf15-32d3-484d-aa50-46e7e98e537b}" />
+    <Folder Name="Properties" Id="{46405c05-c04c-40a5-b4f3-e616aa977296}" />
+    <Property Name="Changed" Id="{bccaf053-3640-497b-9968-4d59c32e1fac}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Changed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fb7f9c56-1c7d-4b95-9fd3-fac752216ac8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Changed := _Changed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Read" Id="{2fa24f69-75b6-4b6d-b9ee-b5b8f70b1cdf}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read : LREAL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Read     := _Value;
+_Changed := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Update" Id="{45360995-2377-48bf-8b8b-f29587acf793}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Update
+VAR_INPUT
+	Value : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF ABS(Value - _Value) > _ChangeThreshold THEN
+	_Value := Value;
+	_Changed := TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
