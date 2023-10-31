@@ -32,6 +32,14 @@ END_VAR
       <Declaration><![CDATA[METHOD Read_BYTE : BYTE
 ]]></Declaration>
     </Method>
+    <Method Name="Read_DATA" Id="{5700a353-f13b-4fdd-b815-4fd238999da2}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_DATA
+VAR_INPUT
+    DataAddress : PVOID;
+    DataLength  : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Read_DINT" Id="{48ce2b84-3168-03ca-12f0-71cd392d8654}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_DINT : DINT
 ]]></Declaration>

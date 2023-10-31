@@ -117,6 +117,29 @@ Add_BYTE := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Add_DATA" Id="{6824a155-ff5e-4701-aaad-bd72296ecb82}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_DATA : I_StreamWriter
+VAR_INPUT
+    DataAddress : PVOID;
+    DataLength  : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := 8);
+
+_ResizeIfNecessary(SpaceRequired := DataLength);
+
+MEMCPY(destAddr := pBuffer + _WritePosition,
+       srcAddr  := DataAddress,
+       n        := DataLength);
+
+_WritePosition := _WritePosition + DataLength;
+
+Add_DATA := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Add_DINT" Id="{31239b38-361b-0d3f-0af3-2f3ef2e9e59b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_DINT : I_StreamWriter
 VAR_INPUT
@@ -522,6 +545,27 @@ END_VAR
     Result        := pValue^;
     _ReadPosition := _ReadPosition + SIZEOF(Result);
     Read_BYTE     := Result;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_DATA" Id="{16f36d87-0039-4bc0-a50d-9040db210207}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_DATA
+VAR_INPUT
+    DataAddress : PVOID;
+    DataLength  : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := 8);
+
+IF _ReadPosition + DataLength <= _StreamLength THEN
+    MEMCPY(destAddr := DataAddress,
+           srcAddr  := pBuffer + _ReadPosition,
+           n        := DataLength);
+
+    _ReadPosition := _ReadPosition + DataLength;
 END_IF
 ]]></ST>
       </Implementation>

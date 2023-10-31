@@ -26,6 +26,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="Add_DATA" Id="{ced28bfd-b4ea-4fc9-b813-fcf658919735}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_DATA : I_StreamWriter
+VAR_INPUT
+    DataAddress : PVOID;
+    DataLength  : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Add_DINT" Id="{0a63b2b6-3995-06e0-1f6f-61ea68a48505}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_DINT : I_StreamWriter
 VAR_INPUT
