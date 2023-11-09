@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamAdd_Read_UINT_CheckAlignment" Id="{cf52f145-6b1a-4b9e-abe8-f77e6c666d2c}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamAdd_Read_UINT_CheckAlignment" Id="{c53a8237-c16e-4f40-9e6e-9a604c43a485}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_UINT_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
@@ -8,7 +8,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{7da4d78f-676e-469b-a5a0-e995500b44e3}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stream.Init(2);
 
 Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_UINT(4567);
@@ -18,17 +25,18 @@ Stream.SetReadPosition(0);
 Stream.Read_BYTE();
 
 // check next value...	
-Assertion.AssertEquals_UINT(Expected     := 4567,
+AssertEquals_UINT(Expected     := 4567,
                             Actual       := Stream.Read_UINT(),
-                            VariableName := 'Stream.Read_UINT()');
+                            Message := 'Stream.Read_UINT()');
 
 // check we are at the end of the stream..							
-Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+                             Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

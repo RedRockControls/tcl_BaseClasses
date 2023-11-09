@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_NotificationCountWithQueueingEnabled" Id="{cc4afe9e-8e15-4d59-a92f-3d05885e6e5b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationCountWithQueueingEnabled EXTENDS T_UnitTestBase
+VAR
+    Notification   : T_Notification;
+    NotificationHandler : T_NotificationHandler;
+    IsRaised : BOOL;
+	Assertion : T_Assertion;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{b79fb909-26ec-4e45-bdd8-8d8681676f8c}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
+                            bInCopyCode  := FALSE);
+
+NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
+
+Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+
+Notification.Raise();
+Notification.Raise();
+Notification.Raise();
+
+AssertEquals_DINT(Expected := 3,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 3');
+
+AssertIsTrue(Condition := NotificationHandler.IsRaised(),
+             Message   := 'IsRaised() does not return true');
+
+AssertEquals_DINT(Expected := 2,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 2');
+
+AssertIsTrue(Condition := NotificationHandler.IsRaised(),
+             Message   := 'IsRaised() does not return true');
+
+AssertEquals_DINT(Expected := 1,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 1');
+
+IsRaised := NotificationHandler.IsRaised();
+
+AssertIsTrue(Condition := IsRaised,
+             Message   := 'IsRaised is false');
+
+AssertEquals_DINT(Expected     := 0,
+                  Actual       := NotificationHandler.NotificationCount,
+                  Message := 'Handler.NotificationCount is not 0');
+
+AssertIsTrue(Condition    := NotificationHandler.IsRaised() = FALSE,
+             Message := 'Handler.IsRaised() is not false');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

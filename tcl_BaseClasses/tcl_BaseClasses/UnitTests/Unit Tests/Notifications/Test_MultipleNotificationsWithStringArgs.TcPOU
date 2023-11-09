@@ -1,79 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_MultipleNotificationsWithStringArgs" Id="{c9560d69-1135-4a26-abe9-5853244ec34a}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_MultipleNotificationsWithStringArgs" Id="{498ab529-1915-457a-a89d-d6efea9df911}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
-FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
+FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS T_UnitTestBase
 VAR
-    Source  : T_Notification;
-    Handler : T_NotificationHandler;
+    Notification        : T_Notification;
+    NotificationHandler : T_NotificationHandler;
 
     IsRaised          : BOOL;
     NotificationCount : DINT;
-
+    Assertion         : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
-                bInCopyCode  := FALSE);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{31f34b70-06bc-4dfb-bb6b-2d182b20f751}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
+                            bInCopyCode  := FALSE);
+
+NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
 
 IsRaised          := FALSE;
 NotificationCount := 0;
 
-Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
-Source.Args.Init(8);
+Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+Notification.Args.Init(8);
 
-Source.Args.Clear()
+Notification.Args.Clear()
     .Add_INT(1234).Add_STRING('String1');
 
-Source.Raise();
+Notification.Raise();
 
-Source.Args.Clear()
+Notification.Args.Clear()
     .Add_INT(5678).Add_STRING('String2');
 
-Source.Raise();
+Notification.Raise();
 
-Assertion.AssertEquals_DINT(Expected     := 2,
-                            Actual       := Handler.NotificationCount,
-                            VariableName := 'Handler.NotificationCount');
+AssertEquals_DINT(Expected := 2,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 2');
 
-Assertion.AssertEquals_BOOL(Expected     := TRUE,
-                            Actual       := Handler.IsRaised(),
-                            VariableName := 'Handler.IsRaised()');
+AssertIsTrue(Condition := NotificationHandler.IsRaised(),
+             Message   := 'NotificationHandler.IsRaised() returns false');
 
-Assertion.AssertEquals_DINT(Expected     := 1,
-                            Actual       := Handler.NotificationCount,
-                            VariableName := 'Handler.NotificationCount');
+AssertEquals_DINT(Expected := 1,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 1');
 
-Assertion.AssertEquals_DINT(Expected     := 1234,
-                            Actual       := Handler.Args.Read_INT(),
-                            VariableName := 'Handler.Args.Read_INT()');
+AssertEquals_DINT(Expected := 1234,
+                  Actual   := NotificationHandler.Args.Read_INT(),
+                  Message  := 'Handler.Args.Read_INT() is not 1234');
 
-Assertion.AssertEquals_STRING(Expected     := 'String1',
-                              Actual       := Handler.Args.Read_STRING(),
-                              VariableName := 'Handler.Args.Read_STRING()');
+AssertEquals_STRING(Expected := 'String1',
+                      Actual   := NotificationHandler.Args.Read_STRING(),
+                      Message  := 'Handler.Args.Read_STRING() returns incorrect value');
 
-Assertion.AssertEquals_BOOL(Expected     := TRUE,
-                            Actual       := Handler.IsRaised(),
-                            VariableName := 'Handler.IsRaised()');
+AssertIsTrue(Condition := NotificationHandler.IsRaised(),
+             Message   := 'Handler.IsRaised() returns false');
 
-Assertion.AssertEquals_DINT(Expected     := 0,
-                            Actual       := Handler.NotificationCount,
-                            VariableName := 'Handler.NotificationCount');
+AssertEquals_DINT(Expected := 0,
+                  Actual   := NotificationHandler.NotificationCount,
+                  Message  := 'Handler.NotificationCount is not 0');
 
-Assertion.AssertEquals_DINT(Expected     := 5678,
-                            Actual       := Handler.Args.Read_INT(),
-                            VariableName := 'Handler.Args.Read_INT()');
+AssertEquals_DINT(Expected := 5678,
+                  Actual   := NotificationHandler.Args.Read_INT(),
+                  Message  := 'Handler.Args.Read_INT() does not return 5678');
 
-Assertion.AssertEquals_STRING(Expected     := 'String2',
-                              Actual       := Handler.Args.Read_STRING(),
-                              VariableName := 'Handler.Args.Read_STRING()');
+AssertEquals_STRING(Expected := 'String2',
+                      Actual   := NotificationHandler.Args.Read_STRING(),
+                      Message  := 'Handler.Args.Read_STRING() does not return String2');
 
-Assertion.AssertEquals_BOOL(Expected     := FALSE,
-                            Actual       := Handler.IsRaised(),
-                            VariableName := 'Handler.IsRaised()');
+AssertIsTrue(Condition := NotificationHandler.IsRaised() = FALSE,
+             Message   := 'Handler.IsRaised() return true');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

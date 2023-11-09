@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="Test_AggregateResult_Busy" Id="{5ee0aa7d-00d6-433e-bb66-fb3816002789}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Busy EXTENDS T_UnitTestBase
+  <POU Name="Test_AggregateResult_Error" Id="{2cc1540d-06bd-4742-a6db-1ca1c7513675}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Error EXTENDS T_UnitTestBase
 VAR
 	ResultAggregate : T_ResultAggregate;
 	Execution1 : T_Execution;
@@ -12,23 +12,21 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{10d5e106-bf7a-4578-ba85-5cbfd17c8f16}">
+    <Method Name="Init" Id="{2ebfb763-8f5f-4d4a-b7e6-afe836ec19bc}">
       <Declaration><![CDATA[METHOD Init
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
+        <ST><![CDATA[SUPER^.Init();
+
+Execution1.FB_init(FALSE,FALSE);
 Execution2.FB_init(FALSE,FALSE);
 Execution3.FB_init(FALSE,FALSE);
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="RunTest" Id="{d2211e7e-8e5d-47ef-9b39-832160780443}">
+    <Method Name="RunTest" Id="{8df4aa35-d688-4c72-8ddd-5f355b6b1baa}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
-VAR_OUTPUT
-    TestCompleted : BOOL;
-    TestFailed    : BOOL;
-END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[ResultAggregate.ClearResults();
@@ -37,18 +35,18 @@ ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);
 ResultAggregate.AddResult(Execution3);
 
-TestFailed S= NOT AssertFalse(Source    := TestName,
-                              Condition := ResultAggregate.Busy,
-                              Message   := 'ResultAggregate.Busy is not false',
-                              Failed    =>);
-
 Execution1.Start();
 Execution1.SetBusy();
 
-TestFailed S= NOT AssertTrue(Source    := TestName,
-                             Condition := ResultAggregate.Busy,
-                             Message   := 'ResultAggregate.Busy is false',
-                             Failed    =>);
+AssertIsTrue(Condition := ResultAggregate.Error = FALSE,
+             Message   := 'ResultAggregate.Error is not false');
+
+Execution3.Start();
+Execution3.SetBusy();
+Execution3.SetError('Error Message');
+
+AssertIsTrue(Condition := ResultAggregate.Error = TRUE,
+             Message   := 'ResultAggregate.Error is false');
 
 TestCompleted := TRUE;
 ]]></ST>

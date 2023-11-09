@@ -1,28 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_NotificationNoArgs" Id="{cc5ef7a4-9804-419b-b45f-a2befe39c1e5}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationNoArgs EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_NotificationNoArgs" Id="{b0e0872e-d94f-4d7d-8638-6a5be13a36bd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationNoArgs EXTENDS T_UnitTestBase
 VAR
-    Source   : T_Notification;
-    Handler  : T_NotificationHandler;
-    IsRaised : BOOL;
+    Notification        : T_Notification;
+    NotificationHandler : T_NotificationHandler;
+    IsRaised            : BOOL;
+    Assertion           : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
-                bInCopyCode  := FALSE);
-
-Source.ClearNotificationHandlers().AddNotificationHandler(Handler);
-
-Source.Raise();
-IsRaised := Handler.IsRaised();
-
-Assertion.AssertEquals_BOOL(Expected     := TRUE,
-                            Actual       := IsRaised,
-                            VariableName := 'IsRaised');
-
-TestFinished();
-]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="RunTest" Id="{05a006be-4cb6-4ddd-80b2-0abb8e5d388d}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
+                            bInCopyCode  := FALSE);
+
+Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+
+Notification.Raise();
+IsRaised := NotificationHandler.IsRaised();
+
+AssertIsTrue(Condition := IsRaised,
+             Message   := 'IsRaised is not true');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

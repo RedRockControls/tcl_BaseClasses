@@ -791,14 +791,13 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
                               Alignment := SIZEOF(Value));
 
 _ResizeIfNecessary(SpaceRequired := SIZEOF(Value));
 
-pValue  := pBuffer + _ReadPosition;
+pValue  := pBuffer + _WritePosition;
 pValue^ := Value;
-//_ReadPosition  := _ReadPosition + SIZEOF(Value);
 _WritePosition := _WritePosition + SIZEOF(Value);
 
 SetNextArgTypeId := THIS^;

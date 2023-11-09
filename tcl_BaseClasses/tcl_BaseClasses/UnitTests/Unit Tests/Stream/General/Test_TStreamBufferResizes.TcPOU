@@ -1,39 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamBufferResizes" Id="{c192b989-d352-4cfc-9e66-f8073ecd67eb}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamBufferResizes" Id="{1a895df7-9bb9-473c-8f5b-b5602d113553}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamBufferResizes EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{5b3bad08-85d4-4d68-892f-45ee54a63213}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stream.Init(2);
 
 Stream.Add_INT(1234);
 Stream.Add_INT(1235);
 Stream.Add_INT(1236);
 Stream.Add_INT(1237);
 
-Assertion.AssertEquals_UDINT(Expected     := 8,
-                             Actual       := Stream.WritePosition,
-                             VariableName := 'Stream.WritePosition');
+AssertEquals_UDINT(Expected     := 8,
+                   Actual       := Stream.WritePosition,
+                   Message := 'Stream.WritePosition');
 
-Assertion.AssertEquals_UDINT(Expected     := 8,
-                             Actual       := Stream.StreamLength,
-                             VariableName := 'Stream.StreamLength');
+AssertEquals_UDINT(Expected     := 8,
+                   Actual       := Stream.StreamLength,
+                   Message := 'Stream.StreamLength');
 
 Stream.SetReadPosition(0);
 
-Assertion.AssertEquals_INT(Expected     := 1234,
-                           Actual       := Stream.Read_INT(),
-                           VariableName := 'Stream.ReadInt()');
+AssertEquals_INT(Expected     := 1234,
+                 Actual       := Stream.Read_INT(),
+                 Message := 'Stream.ReadInt()');
 
-Assertion.AssertEquals_UDINT(Expected     := 2,
-                             Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+AssertEquals_UDINT(Expected     := 2,
+                   Actual       := Stream.ReadPosition,
+                   Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

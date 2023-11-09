@@ -1,25 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_F_Equals" Id="{ab27a3dd-a752-4008-8f33-bf694b1759b9}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_F_Equals" Id="{d450eb35-6669-43c3-b7d1-9542fcdbe9ff}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_F_Equals EXTENDS T_UnitTestBase
 VAR
+	Assertion : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Assertion.AssertEquals_BOOL(Expected := TRUE,
-                            Actual   := F_Equals(1.000_005,
-                                                 1.000_004,
-                                                 0.000_002),
-                            VariableName := 'F_Equals');
-
-Assertion.AssertEquals_BOOL(Expected := FALSE,
-                            Actual   := F_Equals(1.000_005,
-                                                 1.000_003,
-                                                 0.000_001),
-                            VariableName := 'F_Equals');
-
-TestFinished();
-]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="RunTest" Id="{d92ffd0c-5320-4118-9797-c20d6d917275}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AssertIsTrue(Condition := F_Equals(1.000_005,
+                                   1.000_004,
+                                   0.000_002),
+             Message := 'F_Equals does not return TRUE');
+
+AssertIsTrue(Condition := NOT F_Equals(1.000_005,
+                                   1.000_003,
+                                   0.000_001),
+             Message := 'F_Equals does not return FALSE');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

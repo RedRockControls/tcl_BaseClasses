@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamAdd_Read_ULINT" Id="{c8842ed2-1c21-4adb-8fdc-5f581e6cdb99}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamAdd_Read_ULINT" Id="{d00d46f5-ceb2-47dd-889b-b54c309f515b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
@@ -8,7 +8,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{5934fd4f-6c47-4b25-987c-efe3ec001fc4}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
 Stream.Init(2);
 
 // add a ULINT...
@@ -18,22 +25,23 @@ Stream.Add_ULINT(123456789);
 Stream.SetReadPosition(0);
 
 // check next arg type is correct...
-Assertion.AssertEquals_INT(Expected     := ArgType,
+AssertEquals_INT(Expected     := ArgType,
                            Actual       := Stream.GetNextArgTypeId(),
-                           VariableName := 'Stream.GetNextArgTypeId()');
+                           Message := 'Stream.GetNextArgTypeId()');
 
 // check next value...	
-Assertion.AssertEquals_ULINT(Expected     := 123456789,
+AssertEquals_ULINT(Expected     := 123456789,
                              Actual       := Stream.Read_ULINT(),
-                             VariableName := 'Stream.Read_ULINT()');
+                             Message := 'Stream.Read_ULINT()');
 
 // check we are at the end of the stream..							
-Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+                             Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

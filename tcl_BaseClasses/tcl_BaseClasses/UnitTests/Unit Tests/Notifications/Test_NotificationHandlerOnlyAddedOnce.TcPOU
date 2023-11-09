@@ -1,37 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_NotificationHandlerOnlyAddedOnce" Id="{4f1c5c67-2cb0-4b9e-86a4-e78eb0d50474}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationHandlerOnlyAddedOnce EXTENDS tcl_SimpleUnitTestLibrary.T_UnitTestBase
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_NotificationHandlerOnlyAddedOnce" Id="{d822493b-b417-457e-b68d-ce48b3adc9d5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationHandlerOnlyAddedOnce EXTENDS T_UnitTestBase
 VAR
-    Source   : T_Notification;
-    Handler  : T_NotificationHandler;
-    IsRaised : BOOL;
+    Notification        : T_Notification;
+    NotificationHandler : T_NotificationHandler;
+    IsRaised            : BOOL;
+    Assertion           : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Handler.FB_init(bInitRetains := FALSE,
-                bInCopyCode  := FALSE);
-
-Source
-	.ClearNotificationHandlers()
-	.AddNotificationHandler(Handler)
-	.AddNotificationHandler(Handler);
-
-Source.Raise();
-IsRaised := Handler.IsRaised();
-
-Assertion.AssertEquals_BOOL(Expected     := TRUE,
-                            Actual       := IsRaised,
-                            VariableName := 'IsRaised');
-
-IsRaised := Handler.IsRaised();
-
-Assertion.AssertEquals_BOOL(Expected     := FALSE,
-                            Actual       := IsRaised,
-                            VariableName := 'IsRaised');
-
-TestFinished();
-]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="RunTest" Id="{e4801cbe-a69b-4c40-b3f3-077fc4956321}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
+                            bInCopyCode  := FALSE);
+
+Notification
+    .ClearNotificationHandlers()
+    .AddNotificationHandler(NotificationHandler)
+    .AddNotificationHandler(NotificationHandler);
+
+Notification.Raise();
+IsRaised := NotificationHandler.IsRaised();
+
+AssertIsTrue(Condition := IsRaised = TRUE,
+             Message   := 'IsRaised is not true');
+
+IsRaised := NotificationHandler.IsRaised();
+
+AssertIsTrue(Condition := IsRaised = FALSE,
+             Message   := 'IsRaised is not false');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

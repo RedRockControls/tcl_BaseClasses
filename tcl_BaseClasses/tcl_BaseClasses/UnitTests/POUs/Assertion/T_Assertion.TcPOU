@@ -24,14 +24,16 @@ VAR_INPUT
     Source   : T_MaxString;
     Expected : BOOL;
     Actual   : BOOL;
-    VariableName : T_MaxString;
+    Message  : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AssertEquals_BOOL := AssertTrue(Source    := 'Unit Test',
-                                Condition := Expected = Actual,
-                                Message   := F_FormatStringEx1('Assertion Failed - %s', VariableName),
-                                Failed    =>);
+        <ST><![CDATA[IF Expected <> Actual THEN
+    F_LogResult(Source, F_FormatStringEx1('Assertion Failed - %s', Message));
+    RETURN;
+END_IF
+
+AssertEquals_BOOL := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -41,14 +43,15 @@ VAR_INPUT
     Source   : T_MaxString;
     Expected : DINT;
     Actual   : DINT;
-    VariableName : T_MaxString;
+    Message  : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AssertEquals_DINT := AssertTrue(Source    := 'Unit Test',
-                                Condition := Expected = Actual,
-                                Message   := F_FormatStringEx1('Assertion Failed - %s', VariableName),
-                                Failed    =>);
+        <ST><![CDATA[IF Expected <> Actual THEN
+    F_LogResult(Source, F_FormatStringEx1('Assertion Failed - %s', Message));
+END_IF
+
+AssertEquals_DINT := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
@@ -58,14 +61,15 @@ VAR_INPUT
     Source   : T_MaxString;
     Expected : T_MaxString;
     Actual   : T_MaxString;
-    VariableName : T_MaxString;
+    Message  : T_MaxString;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AssertEquals_STRING := AssertTrue(Source    := 'Unit Test',
-                                Condition := Expected = Actual,
-                                Message   := F_FormatStringEx1('Assertion Failed - %s', VariableName),
-                                Failed    =>);
+        <ST><![CDATA[IF Expected <> Actual THEN
+    F_LogResult(Source, F_FormatStringEx1('Assertion Failed - %s', Message));
+END_IF
+
+AssertEquals_STRING := TRUE;
 ]]></ST>
       </Implementation>
     </Method>

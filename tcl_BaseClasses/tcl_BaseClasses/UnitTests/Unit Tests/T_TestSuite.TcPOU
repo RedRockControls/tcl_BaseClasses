@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_TestSuite" Id="{70a6f186-bf9f-446b-b8ad-6a94cd0284ed}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'call_after_init'}
+FUNCTION_BLOCK T_TestSuite
+VAR
+    TestRunner : T_TestRunner();
+
+    Test_AggregateResult_Ready                      : Test_AggregateResult_Ready;
+    Test_AggregateResult_Starting                   : Test_AggregateResult_Starting;
+    Test_AggregateResult_Busy                       : Test_AggregateResult_Busy;
+    Test_AggregateResult_Done                       : Test_AggregateResult_Done;
+    Test_AggregateResult_Error                      : Test_AggregateResult_Error;
+    Test_AggregateResult_ErrorMsg                   : Test_AggregateResult_ErrorMsg;
+    Test_AggregateResult_Aborting                   : Test_AggregateResult_Aborting;
+    Test_AggregateResult_Aborted                    : Test_AggregateResult_Aborted;
+    Test_TExecution_WhenBusy_Abort_SelectsAborting  : Test_TExecutionWhenBusy_Abort_SelectsAborting;
+    Test_TExecution_WhenBusy_SetDone_SetsDone       : Test_TExecutionWhenBusy_SetDone_SetsDone;
+    Test_TExecution_WhenReady_Start_SelectsStarting : Test_TExecutionWhenReady_Start_SelectsStarting;
+    Test_TExecution_SetErrorHandlesString_ErrorId   : Test_TExecution_SetErrorHandlesString_ErrorId;
+    Test_F_DINT_TO_UDINT_Conversion                 : Test_F_DINT_TO_UDINT_Conversion;
+    Test_F_UDINT_TO_DINT_Conversion                 : Test_F_UDINT_TO_DINT_Conversion;
+    Test_F_Equals                                   : Test_F_Equals;
+    Test_F_NotEqual                                 : Test_F_NotEqual;
+    Test_ErrorIdToString                            : Test_ErrorIdToString;
+    Test_NotificationNoArgs                         : Test_NotificationNoArgs;
+    Test_NotificationWithStringArg                  : Test_NotificationWithStringArg;
+    Test_NotificationCountWithQueueingEnabled       : Test_NotificationCountWithQueueingEnabled;
+    Test_MultipleNotificationsWithStringArgs        : Test_MultipleNotificationsWithStringArgs;
+    Test_NotificationHandlerOnlyAddedOnce           : Test_NotificationHandlerOnlyAddedOnce;
+
+    Test_TStreamAdd_Read_BLOB                 : Test_TStreamAdd_Read_BLOB;
+    Test_TStreamAdd_Read_BLOB_CheckAlignment  : Test_TStreamAdd_Read_BLOB_CheckAlignment;
+    Test_TStreamAdd_Read_BOOL                 : Test_TStreamAdd_Read_BOOL;
+    Test_TStreamAdd_Read_BYTE                 : Test_TStreamAdd_Read_BYTE;
+    Test_TStreamAdd_Read_DINT                 : Test_TStreamAdd_Read_DINT;
+    Test_TStreamAdd_Read_DINT_CheckAlignment  : Test_TStreamAdd_Read_DINT_CheckAlignment;
+    Test_TStreamAdd_Read_INT                  : Test_TStreamAdd_Read_INT;
+    Test_TStreamAdd_Read_INT_CheckAlignment   : Test_TStreamAdd_Read_INT_CheckAlignment;
+    Test_TStreamAdd_Read_LINT                 : Test_TStreamAdd_Read_LINT;
+    Test_TStreamAdd_Read_LINT_CheckAlignment  : Test_TStreamAdd_Read_LINT_CheckAlignment;
+    Test_TStreamAdd_Read_LREAL                : Test_TStreamAdd_Read_LREAL;
+    Test_TStreamAdd_Read_LREAL_CheckAlignment : Test_TStreamAdd_Read_LREAL_CheckAlignment;
+    Test_TStreamAdd_Read_PVOID                : Test_TStreamAdd_Read_PVOID;
+    Test_TStreamAdd_Read_PVOID_CheckAlignment : Test_TStreamAdd_Read_PVOID_CheckAlignment;
+    Test_TStreamAdd_Read_REAL                 : Test_TStreamAdd_Read_REAL;
+    Test_TStreamAdd_Read_REAL_CheckAlignment  : Test_TStreamAdd_Read_REAL_CheckAlignment;
+    Test_TStreamAdd_Read_Short_STRING         : Test_TStreamAdd_Read_Short_STRING;
+    Test_TStreamAdd_Read_STRING               : Test_TStreamAdd_Read_STRING;
+    Test_TStreamAdd_Read_T_MaxString          : Test_TStreamAdd_Read_T_MaxString;
+    Test_TStreamAdd_Read_UDINT                : Test_TStreamAdd_Read_UDINT;
+    Test_TStreamAdd_Read_UDINT_CheckAlignment : Test_TStreamAdd_Read_UDINT_CheckAlignment;
+    Test_TStreamAdd_Read_UINT                 : Test_TStreamAdd_Read_UINT;
+    Test_TStreamAdd_Read_UINT_CheckAlignment  : Test_TStreamAdd_Read_UINT_CheckAlignment;
+    Test_TStreamAdd_Read_ULINT                : Test_TStreamAdd_Read_ULINT;
+    Test_TStreamAdd_Read_ULINT_CheckAlignment : Test_TStreamAdd_Read_ULINT_CheckAlignment;
+    Test_TStreamAddReadArgType                : Test_TStreamAddReadArgType;
+    Test_TStreamAddReadArgType_CheckAlignment : Test_TStreamAddReadArgType_CheckAlignment;
+    Test_TStreamBufferResizes                 : Test_TStreamBufferResizes;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TestRunner.CyclicUpdate();]]></ST>
+    </Implementation>
+    <Method Name="Init" Id="{f36ae9a2-0297-4751-9df9-586e00c19fef}">
+      <Declaration><![CDATA[{attribute 'call_after_online_change_slot' := '100'}
+{attribute 'call_after_init'}
+METHOD Init
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[TestRunner.TestSuiteName := 'tcl_BaseClasses Tests';
+TestRunner.Verbose       := FALSE;
+
+TestRunner.ClearTests();
+
+TestRunner.AddTest(THIS^.Test_AggregateResult_Ready);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Starting);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Busy);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Done);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Error);
+TestRunner.AddTest(THIS^.Test_AggregateResult_ErrorMsg);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Aborting);
+TestRunner.AddTest(THIS^.Test_AggregateResult_Aborted);
+TestRunner.AddTest(THIS^.Test_TExecution_WhenBusy_Abort_SelectsAborting);
+TestRunner.AddTest(THIS^.Test_TExecution_WhenBusy_SetDone_SetsDone);
+TestRunner.AddTest(THIS^.Test_TExecution_WhenReady_Start_SelectsStarting);
+TestRunner.AddTest(THIS^.Test_TExecution_SetErrorHandlesString_ErrorId);
+TestRunner.AddTest(THIS^.Test_F_DINT_TO_UDINT_Conversion);
+TestRunner.AddTest(THIS^.Test_F_UDINT_TO_DINT_Conversion);
+TestRunner.AddTest(THIS^.Test_F_Equals);
+TestRunner.AddTest(THIS^.Test_F_NotEqual);
+TestRunner.AddTest(THIS^.Test_ErrorIdToString);
+TestRunner.AddTest(THIS^.Test_NotificationNoArgs);
+TestRunner.AddTest(THIS^.Test_NotificationWithStringArg);
+TestRunner.AddTest(THIS^.Test_NotificationCountWithQueueingEnabled);
+TestRunner.AddTest(THIS^.Test_MultipleNotificationsWithStringArgs);
+TestRunner.AddTest(THIS^.Test_NotificationHandlerOnlyAddedOnce);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BLOB);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BLOB_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BOOL);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BYTE);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_DINT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_DINT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_INT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_INT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LINT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LINT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LREAL);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LREAL_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_PVOID);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_PVOID_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_REAL);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_REAL_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_Short_STRING);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_STRING);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_T_MaxString);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UDINT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UDINT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UINT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UINT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_ULINT);
+TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_ULINT_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamAddReadArgType);
+TestRunner.AddTest(THIS^.Test_TStreamAddReadArgType_CheckAlignment);
+TestRunner.AddTest(THIS^.Test_TStreamBufferResizes);
+
+TestRunner.Start();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

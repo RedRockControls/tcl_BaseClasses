@@ -1,32 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamAddReadArgType" Id="{0ca6517b-463e-4805-91ec-6008b72845da}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamAddReadArgType" Id="{3f884bce-15bd-4284-8d11-76cd93e31e35}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAddReadArgType EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{f22959de-fa1e-47c4-89cc-d8ee70c8e77d}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stream.Init(2);
 
 Stream.SetNextArgTypeId(E_ArgTypeId.Type_LINT);
 
-Assertion.AssertEquals_UDINT(Expected     := 2,
+AssertEquals_UDINT(Expected     := 2,
                              Actual       := Stream.WritePosition,
-                             VariableName := 'Stream.WritePosition');
+                             Message := 'Stream.WritePosition');
 
 Stream.SetReadPosition(0);
 
-Assertion.AssertEquals_INT(Expected     := E_ArgTypeId.Type_LINT,
+AssertEquals_INT(Expected     := E_ArgTypeId.Type_LINT,
                            Actual       := Stream.GetNextArgTypeId(),
-                           VariableName := 'Stream.GetNextArgTypeId()');
+                           Message := 'Stream.GetNextArgTypeId()');
 
-Assertion.AssertEquals_UDINT(Expected     := 2,
+AssertEquals_UDINT(Expected     := 2,
                              Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+                             Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

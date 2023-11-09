@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamAdd_Read_REAL_CheckAlignment" Id="{f6f24f4f-449f-4d4b-9188-09f3d21a95c8}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamAdd_Read_REAL_CheckAlignment" Id="{2b7e2bb1-1fbc-4e1f-a942-1bad658be938}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_REAL_CheckAlignment EXTENDS T_UnitTestBase
 VAR
     Stream  : T_Stream(StreamLength := 2);
@@ -8,7 +8,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{e430165a-f041-4a2c-87fa-cff11ef2f96e}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stream.Init(2);
 
 Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_REAL(1.234567);
@@ -18,18 +25,19 @@ Stream.SetReadPosition(0);
 Stream.Read_BYTE();
 
 // check next value...	
-Assertion.AssertEquals_REAL(Expected     := 1.234567,
+AssertEquals_REAL(Expected     := 1.234567,
                             Actual       := Stream.Read_REAL(),
                             Delta        := 0.000001,
-                            VariableName := 'Stream.Read_REAL()');
+                            Message := 'Stream.Read_REAL()');
 
 // check we are at the end of the stream..							
-Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+                             Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

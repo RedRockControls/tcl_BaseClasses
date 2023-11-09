@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
-  <POU Name="Test_TStreamAdd_Read_BLOB" Id="{b43a968d-646d-494e-a9b6-e0cb28030d7b}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_TStreamAdd_Read_BLOB" Id="{123e39ee-a121-488e-8212-4b56f9ea6bd5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_BLOB EXTENDS T_UnitTestBase
 VAR
     Stream : T_Stream(StreamLength := 2);
@@ -16,7 +16,14 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Stream.Init(2);
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{91316099-699a-4969-aaff-d4288609d457}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Stream.Init(2);
 NowFromStream.wDay    := 0;
 NowFromStream.wMonth  := 0;
 NowFromStream.wYear   := 0;
@@ -34,17 +41,18 @@ IF Stream.GetNextArgTypeId() = E_ArgTypeId.Type_Blob THEN
 END_IF
 
 // check the value...
-Assertion.AssertEquals_BLOB(Expected     := Now,
+AssertEquals_ANY(Expected     := Now,
                             Actual       := NowFromStream,
-                            VariableName := 'NowFromStream');
+                            Message := 'NowFromStream');
 
 // check we are at the end of the stream..							
-Assertion.AssertEquals_UDINT(Expected     := Stream.StreamLength,
+AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
-                             VariableName := 'Stream.ReadPosition');
+                             Message := 'Stream.ReadPosition');
 
-TestFinished();
+TestCompleted := TRUE;
 ]]></ST>
-    </Implementation>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

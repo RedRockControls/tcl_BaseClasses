@@ -1,33 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="Test_ErrorIdToString" Id="{ae965cb6-9e2e-468f-834f-a33cad0a304a}" SpecialFunc="None">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Test_ErrorIdToString" Id="{932a14fe-2c3a-4e26-b5ff-ff299c485b65}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ErrorIdToString EXTENDS T_UnitTestBase
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
+	Assertion : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Assertion.AssertEquals_STRING(Expected     := 'Error 0x12BD',
-                              Actual       := F_ErrorIdToString(16#12BD),
-                              VariableName := 'F_ErrorIdToString(16#12BD)');
-
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x12345678',
-                              Actual       := F_ErrorIdToString(16#12345678),
-                              VariableName := 'F_ErrorIdToString(16#12345678)');
-
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x00FF',
-                              Actual       := F_ErrorIdToString(16#FF),
-                              VariableName := 'F_ErrorIdToString(16#FF)');
-
-Assertion.AssertEquals_STRING(Expected     := 'Error 0x0011 - No debugging available',
-                              Actual       := F_ErrorIdToString(16#11),
-                              VariableName := 'F_ErrorIdToString(16#11)');
-
-TestFinished();
-]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="RunTest" Id="{323e7f4e-87f5-4973-b46e-7a12c295ef73}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AssertEquals_STRING(Expected := 'Error 0x12BD',
+                      Actual   := F_ErrorIdToString(16#12BD),
+                      Message  := 'F_ErrorIdToString(16#12BD)');
+
+AssertEquals_STRING(Expected := 'Error 0x12345678',
+                      Actual   := F_ErrorIdToString(16#12345678),
+                      Message  := 'F_ErrorIdToString(16#12345678)');
+
+AssertEquals_STRING(Expected := 'Error 0x00FF',
+                      Actual   := F_ErrorIdToString(16#FF),
+                      Message  := 'F_ErrorIdToString(16#FF)');
+
+AssertEquals_STRING(Expected := 'Error 0x0011 - No debugging available',
+                      Actual   := F_ErrorIdToString(16#11),
+                      Message  := 'F_ErrorIdToString(16#11)');
+
+TestCompleted := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

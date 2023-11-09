@@ -16,7 +16,9 @@ END_VAR
       <Declaration><![CDATA[METHOD Init
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
+        <ST><![CDATA[SUPER^.Init();
+
+Execution1.FB_init(FALSE,FALSE);
 Execution2.FB_init(FALSE,FALSE);
 Execution3.FB_init(FALSE,FALSE);
 
@@ -26,10 +28,6 @@ Execution3.FB_init(FALSE,FALSE);
     <Method Name="RunTest" Id="{3000fcde-2c85-46dc-88e3-83e892ccbd82}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
-VAR_OUTPUT
-    TestCompleted : BOOL;
-    TestFailed    : BOOL;
-END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[ResultAggregate.ClearResults();
@@ -38,19 +36,15 @@ ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);
 ResultAggregate.AddResult(Execution3);
 
-TestFailed S= NOT AssertFalse(Source    := TestName,
-                              Condition := ResultAggregate.Aborting,
-                              Message   := 'ResultAggregate.Aborting is not false',
-                              Failed    =>);
+AssertIsTrue(Condition := ResultAggregate.Aborting = FALSE,
+             Message   := 'ResultAggregate.Aborting is not false');
 
 Execution3.Start();
 Execution3.SetBusy();
 Execution3.Abort();
 
-TestFailed S= NOT AssertTrue(Source    := TestName,
-                             Condition := ResultAggregate.Aborting,
-                             Message   := 'ResultAggregate.Aborting is false',
-                             Failed    =>);
+AssertIsTrue(Condition := ResultAggregate.Aborting = TRUE,
+             Message   := 'ResultAggregate.Aborting is false');
 
 TestCompleted := TRUE;
 ]]></ST>
