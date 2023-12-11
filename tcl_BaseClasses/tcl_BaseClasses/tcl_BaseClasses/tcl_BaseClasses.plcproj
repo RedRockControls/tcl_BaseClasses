@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.45.0</ProjectVersion>
+    <ProjectVersion>1.1.46.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Unit Tests updated to use UnitTest Lib v1.0.9.0</Description>
+    <Description>ChangeThreshold parameter of T_MonitoredValue initialised in FB_init</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>

@@ -28,6 +28,19 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="FB_init" Id="{fd041a86-6e8c-4dbe-845d-52fd2d0a583e}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+    bInitRetains    : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+    bInCopyCode     : BOOL; // if TRUE, the instance afterwards gets moved into the copy code (online change)
+    ChangeThreshold : LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^._ChangeThreshold := ChangeThreshold;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Read" Id="{2fa24f69-75b6-4b6d-b9ee-b5b8f70b1cdf}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read : LREAL
 VAR_INPUT
