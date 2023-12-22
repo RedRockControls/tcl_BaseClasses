@@ -8,8 +8,7 @@ TYPE
     (
         Ready := 0,
         Starting,
-        Busy,
-        Aborting
+        Busy
     );
 END_TYPE
 ]]></Declaration>

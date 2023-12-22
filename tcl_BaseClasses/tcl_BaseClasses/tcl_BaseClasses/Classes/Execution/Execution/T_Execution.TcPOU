@@ -13,6 +13,8 @@ VAR
     _Error    : BOOL;
     _Aborted  : BOOL;
     _ErrorMsg : T_MaxString;
+	
+	_Aborting : BOOL;
 
 //    {attribute 'instance-path'}
 //    {attribute 'no_init'}
@@ -32,11 +34,7 @@ END_VAR
       <Declaration><![CDATA[METHOD Abort
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[// Aborting must be handled by the client class - cleanup and set Ready state
-IF NOT Aborting AND NOT Aborted THEN // avoid going back into aborting if execution has already been aborted
-    _State := T_ExecutionState.Aborting;
-END_IF
-]]></ST>
+        <ST><![CDATA[_Aborting := TRUE;]]></ST>
       </Implementation>
     </Method>
     <Property Name="Aborted" Id="{47f18dce-47db-4b5b-a019-8668343f98f9}" FolderPath="Properties\">
@@ -60,7 +58,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Aborting := _State = T_ExecutionState.Aborting;
+          <ST><![CDATA[Aborting := _Aborting;
 ]]></ST>
         </Implementation>
       </Get>
@@ -79,20 +77,15 @@ END_VAR
       </Get>
     </Property>
     <Method Name="Clear" Id="{e820ac7a-e3e5-421e-9394-79fc023e1ef0}" FolderPath="Methods\">
-      <Declaration><![CDATA[// Clears the results flags provided State = Ready
-METHOD Clear
+      <Declaration><![CDATA[METHOD Clear
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
-    _Done     := FALSE;
-    _Aborted  := FALSE;
-    _Error    := FALSE;
-    _ErrorMsg := '';
-ELSE
-    IF _Logger <> 0 THEN
-        _Logger.LogError(Source := Name, Message := 'Clear requested while not ready');
-    END_IF
-END_IF
+        <ST><![CDATA[_Done     := FALSE;
+_Aborted  := FALSE;
+_Error    := FALSE;
+_Aborting := FALSE;
+_ErrorMsg := '';
+_State    := T_ExecutionState.Ready;
 ]]></ST>
       </Implementation>
     </Method>
@@ -182,13 +175,14 @@ END_VAR
       <Declaration><![CDATA[METHOD SetAborted 
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State <> T_ExecutionState.Ready THEN
-    _Done     := FALSE;
+        <ST><![CDATA[_Aborting := FALSE;
+_Done     := FALSE;
+_Error    := FALSE;
+
+IF _State <> T_ExecutionState.Ready THEN
     _Aborted  := TRUE;
-    _Error    := FALSE;
     _ErrorMsg := 'Execution aborted';
-    _State := T_ExecutionState.Ready;
-	
+    _State    := T_ExecutionState.Ready;
     IF _Logger <> 0 THEN
         _Logger.LogWarning(Source := Name, Message := _ErrorMsg);
     END_IF
@@ -265,7 +259,7 @@ ELSIF _State = T_ExecutionState.Busy THEN
 ELSIF _State = T_ExecutionState.Starting THEN
     SetError('Start requested while already starting');
 	
-ELSIF _State = T_ExecutionState.Aborting THEN
+ELSIF _Aborting THEN
     SetError('Start requested while aborting');
 	
 ELSE
