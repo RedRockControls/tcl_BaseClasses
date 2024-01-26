@@ -3,11 +3,12 @@
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
-    Args_LocalCopy      : T_Stream(StreamLength := 4); // Local copy of notification arguments
-    Args_PublicCopy     : T_Stream(StreamLength := 4); // Public copy of notification arguments
-    CriticalSection     : FB_IecCriticalSection;
-    NotificationCounter : T_Counter;
-    QueueingEnabled     : BOOL; // if required, set via variable initialisation in instance declaration
+    Args_LocalCopy                      : T_Stream(StreamLength := 4); // Local copy of notification arguments
+    Args_PublicCopy                     : T_Stream(StreamLength := 4); // Public copy of notification arguments
+    CriticalSection                     : FB_IecCriticalSection;
+    NotificationCounter                 : T_Counter;
+    QueueingEnabled                     : BOOL; // if required, set via variable initialisation in instance declaration
+    RisingEdge_CriticalSectionInitError : T_RisingEdge; // Sometimes on online change we get CriticalSection.hrInit <> S_OK, so we need to log 1 error message (not every scan!)
 END_VAR
 VAR CONSTANT
     MAX_UNHANDLED_NOTIFICATIONS : DINT := 1000;
@@ -39,6 +40,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF CriticalSection.hrInit = S_OK THEN
+	RisingEdge_CriticalSectionInitError.Test(FALSE);
     IF CriticalSection.Enter() THEN           // will block while receiving a notification
         IF NotificationCounter.Value > 0 THEN // at least one unhandled notification to be handled...
             IsRaised := TRUE;
@@ -65,7 +67,9 @@ END_VAR
         CriticalSection.Leave();
     END_IF
 ELSE
-    F_LogError(Source := 'T_NotificationHandler', Message := 'FB_IEC_CriticalSection not initialised!');
+	IF RisingEdge_CriticalSectionInitError.Test(TRUE) THEN // send error message only once!
+    	F_LogError(Source := 'T_NotificationHandler', Message := 'FB_IEC_CriticalSection not initialised!');
+	END_IF
 END_IF
 ]]></ST>
       </Implementation>
