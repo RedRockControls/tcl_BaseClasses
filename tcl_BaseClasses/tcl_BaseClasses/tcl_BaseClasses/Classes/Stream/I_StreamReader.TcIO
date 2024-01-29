@@ -68,6 +68,14 @@ END_VAR
       <Declaration><![CDATA[METHOD Read_STRING : STRING(255)
 ]]></Declaration>
     </Method>
+    <Method Name="Read_STRUCT" Id="{d547bbc2-a9a7-40a2-a606-c957f749b757}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_STRUCT
+VAR_INPUT
+    StructureAddress : PVOID;
+    StructureLength  : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Read_UDINT" Id="{bc95bb0c-f0ce-0a03-227c-c8ac3d307b3a}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Read_UDINT : UDINT
 ]]></Declaration>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_Monitor_INT" Id="{5f0f2757-52fb-40f3-ae44-eeedf54b4f8a}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
+FUNCTION_BLOCK T_Monitor_INT
+VAR
+    _CurrentValue  : INT := UnlikelyValue; 
+    _Changed       : BOOL;
+END_VAR
+VAR CONSTANT
+	UnlikelyValue : INT := 12345;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{b3e9e832-1b47-4234-8b79-65d391f3492e}" />
+    <Folder Name="Properties" Id="{ae08b8d8-0b4b-4d79-a149-41e632f63163}" />
+    <Property Name="Changed" Id="{0494b128-5084-49e2-8e6b-19fd417acd85}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Changed : BOOL
+]]></Declaration>
+      <Get Name="Get" Id="{3c0a7d7e-6b2c-406d-9a12-918c6f74d107}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Changed := _Changed;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="CyclicUpdate" Id="{1ee59d27-4eb7-435c-884b-c24410b93960}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD CyclicUpdate : BOOL
+VAR_INPUT
+    Value : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Changed      := Value <> _CurrentValue;
+_CurrentValue := Value;
+CyclicUpdate  := _Changed;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Reset" Id="{9939ac72-4f13-48e7-a1e0-548d2d65c0aa}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Reset
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_CurrentValue := UnlikelyValue;
+_Changed      := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

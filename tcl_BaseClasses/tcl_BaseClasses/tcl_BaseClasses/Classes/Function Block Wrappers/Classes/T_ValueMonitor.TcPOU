@@ -2,7 +2,7 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_ValueMonitor" Id="{4b037847-6583-01a2-1bbd-221df4c80ab7}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
-FUNCTION_BLOCK T_ValueMonitor
+FUNCTION_BLOCK T_ValueMonitor 
 VAR
     _CurrentValue  : INT := -1;
     _PreviousValue : INT;

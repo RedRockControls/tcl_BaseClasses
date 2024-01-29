@@ -304,6 +304,32 @@ Add_STRING := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="Add_STRUCT" Id="{98f6117e-1f02-4d7f-8fb6-ed7c281a8ecc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_STRUCT : I_StreamWriter
+VAR_INPUT
+    StructureAddress : PVOID;
+    StructureLength  : UDINT;
+END_VAR
+VAR
+    pValue : POINTER TO BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _WritePosition,
+                              Alignment := 8);
+
+_ResizeIfNecessary(SpaceRequired := StructureLength);
+
+MEMCPY(destAddr := pBuffer + _WritePosition,
+       srcAddr  := StructureAddress,
+       n        := StructureLength);
+
+_WritePosition := _WritePosition + StructureLength;
+
+Add_STRUCT := THIS^;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Add_UDINT" Id="{2f4586aa-cb30-039c-24e6-bbfc08c0c422}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_UDINT : I_StreamWriter
 VAR_INPUT
@@ -703,6 +729,30 @@ StringSize := INT_TO_UDINT(LEN(pValue^) + 1);
 IF _ReadPosition + StringSize <= _StreamLength THEN // end of string is in the buffer, so proceed...
     _ReadPosition := _ReadPosition + StringSize;
     Read_STRING   := pValue^;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Read_STRUCT" Id="{f5d69e5f-16cc-4b93-a3a4-0cf3b7c623e2}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Read_STRUCT
+VAR_INPUT
+    StructureAddress : PVOID;
+    StructureLength  : UDINT;
+END_VAR
+VAR
+    pValue : POINTER TO BYTE;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SetPointerToAlignmentBoundary(Address   := _ReadPosition,
+                              Alignment := 8);
+
+IF _ReadPosition + StructureLength <= _StreamLength THEN
+    MEMCPY(destAddr := StructureAddress,
+           srcAddr  := pBuffer + _ReadPosition,
+           n        := StructureLength);
+
+    _ReadPosition := _ReadPosition + StructureLength;
 END_IF
 ]]></ST>
       </Implementation>

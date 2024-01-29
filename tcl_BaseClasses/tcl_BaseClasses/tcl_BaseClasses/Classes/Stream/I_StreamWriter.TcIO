@@ -83,6 +83,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
     </Method>
+    <Method Name="Add_STRUCT" Id="{a1a0819b-8f7d-4291-b59e-d7fabe685060}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Add_STRUCT : I_StreamWriter
+VAR_INPUT
+    StructureAddress : PVOID;
+    StructureLength  : UDINT;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="Add_UDINT" Id="{b1a663c4-27ab-0810-24ef-9325bfd028e7}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Add_UDINT : I_StreamWriter
 VAR_INPUT
