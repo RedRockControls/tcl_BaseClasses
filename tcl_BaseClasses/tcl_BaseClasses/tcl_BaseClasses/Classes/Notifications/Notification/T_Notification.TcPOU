@@ -2,7 +2,8 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_Notification" Id="{34c3e11c-b24b-47fd-988a-f99b18a3f2ec}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
-FUNCTION_BLOCK T_Notification IMPLEMENTS I_Notification
+{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK T_Notification EXTENDS T_Object IMPLEMENTS I_Notification
 VAR
     EventHandlers    : T_ListONotificationHandlers(Capacity := 5);
     NotificationArgs : T_Stream(StreamLength := 8);
@@ -62,6 +63,8 @@ END_VAR
             Handler.RaiseNotification(NotificationArgs := NotificationArgs);
         END_IF
     END_FOR
+ELSE
+	F_LogWarning(Source := SUPER^._Name, Message := 'Notification has no notification handlers');
 END_IF
 
 NotificationArgs.Clear(); // to leave event args empty for next time event is raised

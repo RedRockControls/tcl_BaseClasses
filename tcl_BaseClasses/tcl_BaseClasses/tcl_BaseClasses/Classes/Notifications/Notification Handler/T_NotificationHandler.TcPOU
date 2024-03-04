@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'do not call this POU directly'} 
+FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
     Args_LocalCopy                      : T_Stream(StreamLength := 4); // Local copy of notification arguments
     Args_PublicCopy                     : T_Stream(StreamLength := 4); // Public copy of notification arguments

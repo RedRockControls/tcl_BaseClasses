@@ -18,12 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.49.0</ProjectVersion>
+    <ProjectVersion>1.1.50.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_Monitor_INT added
-T_Monitor_DINT added
-T_MonitorStructure added
-Read_STRUCT, Add_STRUCT added to T_Stream</Description>
+    <Description>attribute 'no_explicit_call' added to T_Notification, T_NotificationHandler</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
