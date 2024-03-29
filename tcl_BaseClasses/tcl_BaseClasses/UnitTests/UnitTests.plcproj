@@ -24,9 +24,6 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Assertion\T_Assertion.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -186,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GVLs" />
-    <Folder Include="POUs\Assertion" />
     <Folder Include="Unit Tests" />
     <Folder Include="POUs" />
     <Folder Include="Unit Tests\Execution" />

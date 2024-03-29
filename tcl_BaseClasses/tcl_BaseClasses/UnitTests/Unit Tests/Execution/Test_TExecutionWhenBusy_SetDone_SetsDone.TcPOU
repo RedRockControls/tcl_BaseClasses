@@ -14,9 +14,7 @@ END_VAR
       <Declaration><![CDATA[METHOD Init
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.Init();
-
-// Setup...
+        <ST><![CDATA[// Setup...
 Execution.FB_init(bInitRetains := FALSE,
                   bInCopyCode  := FALSE);
 ]]></ST>

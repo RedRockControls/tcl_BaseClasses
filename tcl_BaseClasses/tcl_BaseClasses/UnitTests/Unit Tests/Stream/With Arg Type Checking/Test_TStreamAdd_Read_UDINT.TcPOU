@@ -10,6 +10,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{819f090f-3d8f-44cc-aac4-0a616d5256cc}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{51b97a74-e859-4c85-925e-a18affe75f1b}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

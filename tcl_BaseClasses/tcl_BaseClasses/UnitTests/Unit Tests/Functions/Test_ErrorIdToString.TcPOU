@@ -7,12 +7,20 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	Assertion : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{55d83018-2d13-41a9-aa1e-5553df636b7b}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{323e7f4e-87f5-4973-b46e-7a12c295ef73}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

@@ -6,12 +6,20 @@ VAR
     Notification        : T_Notification;
     NotificationHandler : T_NotificationHandler;
     IsRaised            : BOOL;
-    Assertion           : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{4682e57e-171d-4766-990e-46f6a03e0e82}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{e4801cbe-a69b-4c40-b3f3-077fc4956321}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

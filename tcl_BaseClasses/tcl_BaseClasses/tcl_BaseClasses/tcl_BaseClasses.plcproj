@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.50.0</ProjectVersion>
+    <ProjectVersion>1.1.51.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>attribute 'no_explicit_call' added to T_Notification, T_NotificationHandler</Description>
+    <Description>Obsolete functions removed</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -219,9 +219,6 @@
     <Compile Include="Functions\F_LogWarning.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\F_ReadAndClear.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Functions\F_ReadFlag.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -234,13 +231,6 @@
     <Compile Include="Functions\F_UDINT_TO_DINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\Globals.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
-    <Compile Include="Functions\F_Assert.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Functions\F_ClearMem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -248,9 +238,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_GetAdsPort.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Functions\F_GetTaskTime.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Version\Global_Version.TcGVL">

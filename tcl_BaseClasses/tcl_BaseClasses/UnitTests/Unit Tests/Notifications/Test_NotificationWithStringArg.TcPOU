@@ -10,12 +10,20 @@ VAR
     ResultString : T_MaxString;
     Args         : I_StreamReader;
     IsRaised     : BOOL;
-    Assertion    : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{b59153ef-942d-4fca-b645-7dd8f992e3b9}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{eb6cd482-2f7c-4752-8e5d-ca8001dd58a6}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

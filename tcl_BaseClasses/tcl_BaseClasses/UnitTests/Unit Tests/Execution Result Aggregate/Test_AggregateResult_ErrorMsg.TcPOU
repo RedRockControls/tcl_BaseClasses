@@ -16,9 +16,7 @@ END_VAR
       <Declaration><![CDATA[METHOD Init
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.Init();
-
-Execution1.FB_init(FALSE,FALSE);
+        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
 Execution2.FB_init(FALSE,FALSE);
 Execution3.FB_init(FALSE,FALSE);
 ]]></ST>

@@ -11,9 +11,6 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF value.31 THEN // out of range
-    F_Assert(Assertion   := FALSE,
-             FailMessage := 'Input arg of F_UDINT_TO_DINT too large to convert, so value of Max DINT (2147483647) was returned');
-
     inRangeValue := 16#7FFF_FFFF; // ‭Max DINT = 2147483647‬
 ELSE
     inRangeValue := value;

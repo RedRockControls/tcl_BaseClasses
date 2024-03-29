@@ -9,12 +9,20 @@ VAR
 
     IsRaised          : BOOL;
     NotificationCount : DINT;
-    Assertion         : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{08cc2829-cce6-4ded-90f1-dd3c483231c6}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{31f34b70-06bc-4dfb-bb6b-2d182b20f751}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

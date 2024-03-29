@@ -5,12 +5,20 @@
 VAR
     InputValue     : DINT;
     ConvertedValue : UDINT;
-	Assertion : T_Assertion;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{2653a6d9-ac62-4f24-a923-d751cd9c184a}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{6ed875d1-3fde-410a-857e-06de330f684a}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

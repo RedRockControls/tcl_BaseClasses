@@ -12,6 +12,15 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{51ae3893-f76c-48aa-b5fb-963841dc28da}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{c802fc6f-c2eb-473d-9d52-1f1564e9b40b}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
@@ -20,9 +29,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[SUPER^.Init();
-
-Execution.Start();
+        <ST><![CDATA[Execution.Start();
 Execution.SetBusy();
 Execution.SetError(ErrorMsg);
 

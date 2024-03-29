@@ -1,5 +1,3 @@
-![Pic](https://github.com/RedRockControls/SimpleUnitTestLibrary/blob/master/img/Banner.JPG)
-
 # tcl_BaseClasses
 
 This library is intended for use in Beckhoff TwinCAT3 projects. 
@@ -13,9 +11,6 @@ Motivation - [OO Architecture in TwinCAT3](https://www.redrockcontrols.co.uk/?p=
 T_Execution - [OOP in TwinCAT3 – Command Pattern](https://www.redrockcontrols.co.uk/?p=118)
 
 T_Notification - [OOP in TwinCAT3 – Asynchronous Notifications](https://www.redrockcontrols.co.uk/?p=723)
-
-Also, but depreciated - use Notifications:
-T_EventBase - [OOP in TwinCAT3 – Events Framework](https://www.redrockcontrols.co.uk/?p=374) 
 
 Code automatically formatted using
 

@@ -3,12 +3,21 @@
   <POU Name="Test_F_NotEqual" Id="{46cb45ee-c3e1-4c93-8936-b9ccbc45cb74}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS T_UnitTestBase
 VAR
-	Assertion : T_Assertion;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
+    <Method Name="Init" Id="{15a7d2ed-6828-43e7-9faa-58d031449851}">
+      <Declaration><![CDATA[METHOD  Init
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="RunTest" Id="{7c7d6744-2aba-48ba-a649-66e5e276e7d6}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest

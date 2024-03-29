@@ -5,8 +5,8 @@
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK T_Notification EXTENDS T_Object IMPLEMENTS I_Notification
 VAR
-    EventHandlers    : T_ListONotificationHandlers(Capacity := 5);
-    NotificationArgs : T_Stream(StreamLength := 8);
+    NotificationtHandlers : T_ListONotificationHandlers(Capacity := 5);
+    NotificationArgs      : T_Stream(StreamLength := 8);
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -21,7 +21,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[EventHandlers.AddHandler(Handler);
+        <ST><![CDATA[NotificationtHandlers.AddHandler(Handler);
 AddNotificationHandler := THIS^;
 ]]></ST>
       </Implementation>
@@ -43,7 +43,7 @@ END_VAR
       <Declaration><![CDATA[METHOD ClearNotificationHandlers : I_Notification
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[EventHandlers.Clear();
+        <ST><![CDATA[NotificationtHandlers.Clear();
 ClearNotificationHandlers := THIS^;
 ]]></ST>
       </Implementation>
@@ -56,9 +56,9 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF EventHandlers.Count > 0 THEN
-    FOR i := 0 TO EventHandlers.Count - 1 DO
-        Handler := EventHandlers.GetHandler(i);
+        <ST><![CDATA[IF NotificationtHandlers.Count > 0 THEN
+    FOR i := 0 TO NotificationtHandlers.Count - 1 DO
+        Handler := NotificationtHandlers.GetHandler(i);
         IF Handler <> 0 THEN
             Handler.RaiseNotification(NotificationArgs := NotificationArgs);
         END_IF
