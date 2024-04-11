@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_DetectOnlineChange" Id="{4a5b4e3a-5eaa-41a7-8bb3-20de1a062cb9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_DetectOnlineChange : BOOL
+VAR_STAT
+    StoredOnlineChangeCnt : UDINT := 99;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_DetectOnlineChange  := (TwinCAT_SystemInfoVarList._AppInfo.OnlineChangeCnt <> StoredOnlineChangeCnt);
+StoredOnlineChangeCnt := TwinCAT_SystemInfoVarList._AppInfo.OnlineChangeCnt;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

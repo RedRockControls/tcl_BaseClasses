@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="Globals" Id="{4e5b706e-dc0d-401f-85dd-00e2ee03882e}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'global_init_slot' := '40000'} // first GVL to initialise so Logger is not ovewritten to zero
+VAR_GLOBAL
+	Logger : I_Logger; // Default logger used by T_Execution, etc...
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

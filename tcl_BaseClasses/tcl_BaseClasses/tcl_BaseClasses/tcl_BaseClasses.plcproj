@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.51.0</ProjectVersion>
+    <ProjectVersion>1.1.52.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Obsolete functions removed</Description>
+    <Description>F_DetectOnlineChange added
+Globals.Logger re-instated</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -195,6 +196,9 @@
     <Compile Include="Functions\F_CopyMem.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions\F_DetectOnlineChange.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Functions\F_DINT_TO_UDINT.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -239,6 +243,10 @@
     </Compile>
     <Compile Include="Functions\F_GetAdsPort.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GVLs\Globals.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="Version\Global_Version.TcGVL">
       <SubType>Code</SubType>

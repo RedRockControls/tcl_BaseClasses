@@ -57,7 +57,9 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[StringSplitter.Init(Str    := _Name,
+        <ST><![CDATA[_Logger := Globals.Logger; // Connect to default Logger
+
+StringSplitter.Init(Str    := _Name,
                     Delim1 := '.',
                     Delim2 := '');
 
