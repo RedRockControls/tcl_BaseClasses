@@ -119,21 +119,28 @@ END_VAR
     RETURN;
 END_IF
 
-IF CriticalSection.Enter() THEN
-    IF NotificationArgs.WritePosition > 0 THEN // has event arguments..
-
-        // Notification args are stored in a local copy using a stream
-        // If the notification is raised again before being handled, the newer notification args are just added to the stream
-        // The size of the args is stored in the stream before the args themselves so they
-        // can be retrieved seperately when the notifications are handled    
-
-        Args_LocalCopy.Add_UDINT(NotificationArgs.WritePosition); // length of args is stored first
-        Args_LocalCopy.AppendBytesFromStream(StreamToAppend        := NotificationArgs,
-                                             NumberOfBytesToAppend := NotificationArgs.WritePosition); // followed by args themselves
-    END_IF
-
-    NotificationCounter.Inc(); // keep track of how many times the notification has been raised, so we can handle each notification seperately
-    CriticalSection.Leave();
+IF CriticalSection.hrInit = S_OK THEN
+	RisingEdge_CriticalSectionInitError.Test(FALSE);
+	IF CriticalSection.Enter() THEN
+		IF NotificationArgs.WritePosition > 0 THEN // has event arguments..
+	
+			// Notification args are stored in a local copy using a stream
+			// If the notification is raised again before being handled, the newer notification args are just added to the stream
+			// The size of the args is stored in the stream before the args themselves so they
+			// can be retrieved seperately when the notifications are handled    
+	
+			Args_LocalCopy.Add_UDINT(NotificationArgs.WritePosition); // length of args is stored first
+			Args_LocalCopy.AppendBytesFromStream(StreamToAppend        := NotificationArgs,
+												 NumberOfBytesToAppend := NotificationArgs.WritePosition); // followed by args themselves
+		END_IF
+	
+		NotificationCounter.Inc(); // keep track of how many times the notification has been raised, so we can handle each notification seperately
+		CriticalSection.Leave();
+	END_IF
+ELSE
+	IF RisingEdge_CriticalSectionInitError.Test(TRUE) THEN // send error message only once!
+    	F_LogError(Source := 'T_NotificationHandler', Message := 'FB_IEC_CriticalSection not initialised!');
+	END_IF
 END_IF
 ]]></ST>
       </Implementation>
