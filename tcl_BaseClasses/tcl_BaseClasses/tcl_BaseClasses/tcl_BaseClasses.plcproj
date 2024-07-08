@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.53.0</ProjectVersion>
+    <ProjectVersion>1.1.54.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>CriicalSection.hrInit chaked when raising a notification</Description>
+    <Description>T_NullableBaseClass added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -77,6 +77,7 @@
     <Folder Include="Classes\Logger" />
     <Folder Include="Classes\Execution Result Aggregate" />
     <Folder Include="Classes\Change Monitoring" />
+    <Folder Include="Classes\Nullable Base Class" />
     <Folder Include="Classes\Object base class" />
     <Folder Include="Classes\Notifications" />
     <Folder Include="Classes\Notifications\Notification Handler" />
@@ -172,6 +173,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Notifications\Notification\T_Notification.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Nullable Base Class\T_NullableBaseClass.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\Object base class\T_Object.TcPOU">

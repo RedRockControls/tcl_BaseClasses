@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="T_NullableBaseClass" Id="{6918528b-1f2d-49da-b5a1-1e8c3d318bfe}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT T_NullableBaseClass
+VAR
+	_Stubbed : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Stub" Id="{d096dc91-6a78-4247-b9c0-a385b806bf7a}">
+      <Declaration><![CDATA[METHOD Stub
+VAR_INPUT
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Stubbed := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Stubbed" Id="{5b0c7159-d46a-4902-aa32-4a6d5b18f358}">
+      <Declaration><![CDATA[PROPERTY Stubbed : BOOL]]></Declaration>
+      <Get Name="Get" Id="{2aa51fea-b957-4959-890e-4dedfdacb9e4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Stubbed := _Stubbed;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>
