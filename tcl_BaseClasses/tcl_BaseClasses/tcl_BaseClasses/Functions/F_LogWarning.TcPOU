@@ -6,11 +6,31 @@ VAR_INPUT
     Source  : T_MaxString;
     Message : T_MaxString;
 END_VAR
-]]></Declaration>
+VAR_STAT
+    LastMessage        : T_MaxString;
+    RepeatMessageCount : UDINT;
+END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[ADSLOGSTR(msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_WARN OR ADSLOG_MSGTYPE_LOG,
-          msgFmtStr   := F_FormatStringEx2('%s : %s', Source, Message),
-          strArg      := '');
+      <ST><![CDATA[IF Message = LastMessage THEN
+    F_Inc(RepeatMessageCount);
+ELSE
+    RepeatMessageCount := 0;
+    LastMessage        := Message;
+END_IF
+
+IF RepeatMessageCount < 10 THEN // Avoid flooding the Error List...
+    ADSLOGSTR(msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_WARN OR ADSLOG_MSGTYPE_LOG,
+              msgFmtStr   := F_FormatStringEx2('%s : %s',
+                                               Source,
+                                               Message),
+              strArg := '');
+END_IF
+
+IF RepeatMessageCount = 10 THEN 
+    ADSLOGSTR(msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_ERROR OR ADSLOG_MSGTYPE_LOG,
+              msgFmtStr   := 'Log Warnings suspended - too many identical messages!',
+              strArg := '');
+END_IF
 ]]></ST>
     </Implementation>
   </POU>

@@ -5,8 +5,9 @@
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK T_Notification EXTENDS T_Object IMPLEMENTS I_Notification
 VAR
-    NotificationtHandlers : T_ListONotificationHandlers(Capacity := 5);
-    NotificationArgs      : T_Stream(StreamLength := 8);
+    NotificationtHandlers         : T_ListONotificationHandlers(Capacity := 5);
+    NotificationArgs              : T_Stream(StreamLength := 8);
+    InhibitNoHandlersErrorMessage : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -63,7 +64,7 @@ END_VAR
             Handler.RaiseNotification(NotificationArgs := NotificationArgs);
         END_IF
     END_FOR
-ELSE
+ELSIF NOT InhibitNoHandlersErrorMessage THEN
 	F_LogWarning(Source := SUPER^._Name, Message := 'Notification has no notification handlers');
 END_IF
 
