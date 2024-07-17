@@ -65,7 +65,13 @@ END_VAR
         END_IF
     END_FOR
 ELSIF NOT InhibitNoHandlersErrorMessage THEN
+	InhibitNoHandlersErrorMessage := TRUE; // Only log 1 message
 	F_LogWarning(Source := SUPER^._Name, Message := 'Notification has no notification handlers');
+	
+	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning,_Source);
+	_Message.ipArguments.AddString('Notification has no notification handlers');
+	_Message.Send(0);
+	_Message.Release();
 END_IF
 
 NotificationArgs.Clear(); // to leave event args empty for next time event is raised

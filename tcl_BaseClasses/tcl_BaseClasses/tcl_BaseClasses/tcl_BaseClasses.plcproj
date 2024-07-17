@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.55.0</ProjectVersion>
+    <ProjectVersion>1.1.56.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Flood Control added to ADSLOG messages</Description>
+    <Description>Execution and Notification messages sent via event logger</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -85,7 +85,6 @@
     <Folder Include="Classes\Notifications\Notification" />
     <Folder Include="Classes\Stream" />
     <Folder Include="Functions" />
-    <Folder Include="GVLs" />
     <Folder Include="Classes" />
     <Folder Include="Version" />
   </ItemGroup>
@@ -246,10 +245,6 @@
     </Compile>
     <Compile Include="Functions\F_GetAdsPort.TcPOU">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GVLs\Globals.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="Version\Global_Version.TcGVL">
       <SubType>Code</SubType>

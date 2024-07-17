@@ -9,43 +9,15 @@ VAR
     _Name     : T_MaxString; // Automatically initialised with the full name of the instance
     _Project  : T_MaxString;
     _Solution : T_MaxString;
-    _Logger   : I_Logger;
 
-    LastAssertionFailMessage : T_MaxString;
-
+    _Source  : FB_TcSourceInfo;
+    _Message : FB_TcMessage;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
     <Folder Name="Methods" Id="{dc548abd-b6a3-4014-a101-3b65a6d0dea8}" />
-    <Folder Name="Properties" Id="{9911eaf4-d574-4580-9275-4cad34ea57b8}" />
-    <Method Name="Assert" Id="{411e5610-2e60-4dff-a835-d38fba866537}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Assert : BOOL
-VAR_INPUT
-    Assertion   : BOOL;
-    FailMessage : T_MaxString;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Assert := Assertion;
-IF Assertion = FALSE THEN
-    IF _Logger <> 0 AND (FailMessage <> LastAssertionFailMessage) THEN
-        _Logger.LogError(Source := _Name, Message := FailMessage);
-    END_IF
-	LastAssertionFailMessage := FailMessage;
-END_IF
-
-
-
-
-
-
-
-
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="FB_init" Id="{b12f17b8-f7db-4c88-b638-535fabfa1752}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
@@ -57,36 +29,16 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Logger := Globals.Logger; // Connect to default Logger
-
-StringSplitter.Init(Str    := _Name,
+        <ST><![CDATA[StringSplitter.Init(Str    := _Name,
                     Delim1 := '.',
                     Delim2 := '');
 
 _Solution := StringSplitter.GetNext();
 _Project  := StringSplitter.GetNext();
 _Name     := StringSplitter.GetRemainder();
-]]></ST>
+
+_Source.sName := _Name;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Logger" Id="{c24cf836-da05-49ff-81a3-00466b9549d6}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Logger : I_Logger]]></Declaration>
-      <Get Name="Get" Id="{368667f0-391f-49d9-917e-32827a20a823}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Logger := _Logger;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{b432f205-208f-4122-a563-5daa9890030c}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_Logger := Logger;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
   </POU>
 </TcPlcObject>

@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
-    <Declaration><![CDATA[(*
-:Class for handling communications between a client requesting a service 
-:and a server providing the service
-*)
-//{attribute 'reflection'}
+    <Declaration><![CDATA[// Class for handling communications between a client requesting a service 
+// and a server providing the service
+
 FUNCTION_BLOCK T_Execution EXTENDS T_Object IMPLEMENTS I_Execution, I_ExecutionResult
 VAR
     _State    : T_ExecutionState;
@@ -13,16 +11,7 @@ VAR
     _Error    : BOOL;
     _Aborted  : BOOL;
     _ErrorMsg : T_MaxString;
-	
-	_Aborting : BOOL;
-
-//    {attribute 'instance-path'}
-//    {attribute 'no_init'}
-//    Name     : T_MaxString; // Automatically initialised with the full name of the instance
-//    Project  : T_MaxString;
-//    Solution : T_MaxString;
-
-//    _Logger : I_Logger;
+    _Aborting : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -128,25 +117,6 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="Logger" Id="{aa3a07cc-d6f4-4f98-8b7b-3359c2af12a3}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Logger : I_Logger]]></Declaration>
-      <Get Name="Get" Id="{c3c457a0-461c-49bf-ac68-8e6be3bd6e90}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[Logger := _Logger;]]></ST>
-        </Implementation>
-      </Get>
-      <Set Name="Set" Id="{04d4611b-bd6f-40b2-afe9-0de5449d6d5f}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[_Logger := Logger;]]></ST>
-        </Implementation>
-      </Set>
-    </Property>
     <Property Name="Name" Id="{4a0e8d76-e64a-42c8-826b-cacfd21b0049}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
       <Get Name="Get" Id="{8e7f88bf-3e72-4dae-8eed-46c3c9025668}">
@@ -183,9 +153,11 @@ IF _State <> T_ExecutionState.Ready THEN
     _Aborted  := TRUE;
     _ErrorMsg := 'Execution aborted';
     _State    := T_ExecutionState.Ready;
-    IF _Logger <> 0 THEN
-        _Logger.LogWarning(Source := Name, Message := _ErrorMsg);
-    END_IF
+	
+	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning,_Source);
+	_Message.ipArguments.AddString(_ErrorMsg);
+	_Message.Send(0);
+	_Message.Release();
 END_IF
 ]]></ST>
       </Implementation>
@@ -232,10 +204,10 @@ END_VAR
     _ErrorMsg := ErrorMsg;
     _State    := T_ExecutionState.Ready;
 
-    IF _Logger <> 0 THEN
-        _Logger.LogError(Source := Name, Message := _ErrorMsg);
-    END_IF
-
+	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError,_Source);
+	_Message.ipArguments.AddString(_ErrorMsg);
+	_Message.Send(0);
+	_Message.Release();
 END_IF
 ]]></ST>
       </Implementation>
