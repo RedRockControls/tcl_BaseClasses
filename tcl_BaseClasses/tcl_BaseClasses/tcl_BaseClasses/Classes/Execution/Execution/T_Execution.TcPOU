@@ -117,6 +117,17 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <Method Name="FB_init" Id="{ff7577e2-f2ff-4c2b-b71b-78960e7480f7}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD FB_init : BOOL
+VAR_INPUT
+	bInitRetains : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
+	bInCopyCode : BOOL;  // if TRUE, the instance afterwards gets moved into the copy code (online change)
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_Source.sName := 'Execution';]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="Name" Id="{4a0e8d76-e64a-42c8-826b-cacfd21b0049}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Name : T_MaxString]]></Declaration>
       <Get Name="Get" Id="{8e7f88bf-3e72-4dae-8eed-46c3c9025668}">
@@ -151,7 +162,7 @@ _Error    := FALSE;
 
 IF _State <> T_ExecutionState.Ready THEN
     _Aborted  := TRUE;
-    _ErrorMsg := 'Execution aborted';
+    _ErrorMsg := F_FormatStringEx1('%s - Execution aborted',SUPER^._Name);
     _State    := T_ExecutionState.Ready;
 	
 	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning,_Source);
@@ -195,7 +206,9 @@ END_IF
 VAR_INPUT
     ErrorMsg : T_MaxString;
 END_VAR
-]]></Declaration>
+VAR_INST
+	fullMessage : T_MaxString;
+END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF NOT _Error THEN
     _Error    := TRUE; // to ignore subsequent errors in an execution sequence
@@ -204,8 +217,9 @@ END_VAR
     _ErrorMsg := ErrorMsg;
     _State    := T_ExecutionState.Ready;
 
+    fullMessage := F_FormatStringEx2('%s - %s',_Name, ErrorMsg);
 	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError,_Source);
-	_Message.ipArguments.AddString(_ErrorMsg);
+	_Message.ipArguments.AddString(fullMessage);
 	_Message.Send(0);
 	_Message.Release();
 END_IF

@@ -146,6 +146,14 @@ END_VAR
     16#1018: Result := 'Error 0x1018 - Intel VT-x extension is not enabled in the BIOS';
     16#1019: Result := 'Error 0x1019 - Missing function in Intel VT-x extension';
     16#101A: Result := 'Error 0x101A - Activation of Intel VT-x fails';
+	
+	16#4260: Result := 'Error 0x4260 - Controller enable not present';
+	16#4285: Result := 'Error 0x4285 - Invalid accel/decel parameter(s)';          
+	16#4286: Result := 'Error 0x4286 - Invalid velocity parameter';                              
+	16#42A0: Result := 'Error 0x42A0 - Group/axis consequential error';                                           
+	16#4550: Result := 'Error 0x4550 - Following error limit exceeded';                                           
+	16#4650: Result := 'Error 0x4650 - Drive hardware not ready to operate';                                      
+	16#4655: Result := 'Error 0x4655 - Invalid IO data for more than n NC cycles';                      
 
 ELSE
     IF (ErrorId AND 16#FFFF0000) > 0 THEN
