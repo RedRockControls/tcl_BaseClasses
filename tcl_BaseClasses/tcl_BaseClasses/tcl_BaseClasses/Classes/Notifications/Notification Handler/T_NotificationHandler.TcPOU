@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="T_NotificationHandler" Id="{607f5e14-d01e-4493-979d-0fc6e8f214bb}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'do not call this POU directly'} 
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'do not call this POU directly'}
 FUNCTION_BLOCK T_NotificationHandler IMPLEMENTS I_NotificationHandler
 VAR
     Args_LocalCopy                      : T_Stream(StreamLength := 4); // Local copy of notification arguments
     Args_PublicCopy                     : T_Stream(StreamLength := 4); // Public copy of notification arguments
     CriticalSection                     : FB_IecCriticalSection;
     NotificationCounter                 : T_Counter;
-    QueueingEnabled                     : BOOL; // if required, set via variable initialisation in instance declaration
+    QueueingEnabled                     : BOOL;         // if required, set via variable initialisation in instance declaration
     RisingEdge_CriticalSectionInitError : T_RisingEdge; // Sometimes on online change we get CriticalSection.hrInit <> S_OK, so we need to log 1 error message (not every scan!)
-END_VAR
-VAR CONSTANT
-    MAX_UNHANDLED_NOTIFICATIONS : DINT := 1000;
+    MAX_UNHANDLED_NOTIFICATIONS         : DINT := 10;
 END_VAR
 ]]></Declaration>
     <Implementation>
