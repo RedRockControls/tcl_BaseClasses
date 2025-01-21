@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.58.0</ProjectVersion>
+    <ProjectVersion>1.1.60.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>MAX_UNHANDLED_NOTIFICATIONS made writable</Description>
+    <Description>T_Execution always logs error now on SetError()</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -232,6 +232,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_NotEqual.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_Toggle.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_UDINT_TO_DINT.TcPOU">

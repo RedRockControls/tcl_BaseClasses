@@ -210,19 +210,17 @@ VAR_INST
 	fullMessage : T_MaxString;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF NOT _Error THEN
-    _Error    := TRUE; // to ignore subsequent errors in an execution sequence
-    _Aborted  := FALSE;
-    _Done     := FALSE;
-    _ErrorMsg := ErrorMsg;
-    _State    := T_ExecutionState.Ready;
+        <ST><![CDATA[_Error    := TRUE;
+_Aborted  := FALSE;
+_Done     := FALSE;
+_ErrorMsg := ErrorMsg;
+_State    := T_ExecutionState.Ready;
 
-    fullMessage := F_FormatStringEx2('%s - %s',_Name, ErrorMsg);
-	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError,_Source);
-	_Message.ipArguments.AddString(fullMessage);
-	_Message.Send(0);
-	_Message.Release();
-END_IF
+fullMessage := F_FormatStringEx2('%s - %s', _Name, ErrorMsg);
+_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError, _Source);
+_Message.ipArguments.AddString(fullMessage);
+_Message.Send(0);
+_Message.Release();
 ]]></ST>
       </Implementation>
     </Method>

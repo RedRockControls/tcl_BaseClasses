@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="F_Toggle" Id="{2fd9d643-df72-4f53-bfab-05136b8b1401}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Toggle : BOOL
+VAR_IN_OUT
+	Flag : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Flag     := NOT Flag;
+F_Toggle := Flag;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
