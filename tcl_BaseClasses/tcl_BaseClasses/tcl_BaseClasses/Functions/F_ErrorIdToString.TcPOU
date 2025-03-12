@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="F_ErrorIdToString" Id="{24fd8532-6f1f-4178-8d49-9f27acdf8b72}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_ErrorIdToString : T_MaxString
 VAR_INPUT
@@ -151,6 +151,10 @@ END_VAR
 	16#4285: Result := 'Error 0x4285 - Invalid accel/decel parameter(s)';          
 	16#4286: Result := 'Error 0x4286 - Invalid velocity parameter';                              
 	16#42A0: Result := 'Error 0x42A0 - Group/axis consequential error';                                           
+	16#4460: Result := 'Error 0x4460 - Target position is below min software position';                      
+	16#4461: Result := 'Error 0x4461 - Target position is above max software position';                      
+	16#4462: Result := 'Error 0x4462 - Min software position violated';                      
+	16#4463: Result := 'Error 0x4463 - Max software position violated';                      
 	16#4550: Result := 'Error 0x4550 - Following error limit exceeded';                                           
 	16#4650: Result := 'Error 0x4650 - Drive hardware not ready to operate';                                      
 	16#4655: Result := 'Error 0x4655 - Invalid IO data for more than n NC cycles';                      
