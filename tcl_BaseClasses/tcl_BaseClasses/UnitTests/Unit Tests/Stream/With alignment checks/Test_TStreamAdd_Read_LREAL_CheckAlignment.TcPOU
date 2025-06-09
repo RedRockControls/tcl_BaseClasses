@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_TStreamAdd_Read_LREAL_CheckAlignment" Id="{24ee5d05-14c7-4334-b9cb-4c7dec7a4439}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_LREAL_CheckAlignment EXTENDS T_UnitTestBase
 VAR
@@ -10,21 +10,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{800ce986-d6d3-4c98-b81c-be3b526ddffd}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{f98297ca-ab0f-4e0b-8756-bd55c1387389}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Stream.Init(2);
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+Stream.Init(2);
 
 Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_LREAL(1.234567891234);

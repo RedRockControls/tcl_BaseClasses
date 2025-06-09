@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_AggregateResult_Aborted" Id="{4a1005d9-5a4e-41b6-b8ab-e43407083448}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Aborted EXTENDS T_UnitTestBase
 VAR
@@ -12,23 +12,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{6355ff28-0796-4ec0-82f3-a0c98f2e7966}">
-      <Declaration><![CDATA[METHOD Init
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
-Execution2.FB_init(FALSE,FALSE);
-Execution3.FB_init(FALSE,FALSE);
-
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{2d34d322-da1b-484f-817c-82e5d6e016a3}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResultAggregate.ClearResults();
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+ResultAggregate.Clear();
 
 ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);

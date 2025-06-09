@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="T_TestSuite" Id="{70a6f186-bf9f-446b-b8ad-6a94cd0284ed}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'call_after_init'}
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'do not call this POU directly'} 
 FUNCTION_BLOCK T_TestSuite
 VAR
-    TestRunner : T_TestRunner();
-
     Test_AggregateResult_Ready                      : Test_AggregateResult_Ready;
     Test_AggregateResult_Starting                   : Test_AggregateResult_Starting;
     Test_AggregateResult_Busy                       : Test_AggregateResult_Busy;
@@ -60,71 +58,71 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[TestRunner.CyclicUpdate();]]></ST>
+      <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{f36ae9a2-0297-4751-9df9-586e00c19fef}">
-      <Declaration><![CDATA[{attribute 'call_after_online_change_slot' := '100'}
-{attribute 'call_after_init'}
-METHOD Init
+    <Method Name="RunTests" Id="{4b4a0afb-16f7-4d56-bd76-d23e71f119fb}">
+      <Declaration><![CDATA[METHOD RunTests
+VAR_INPUT
+END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[TestRunner.TestSuiteName := 'tcl_BaseClasses Tests';
-TestRunner.Verbose       := FALSE;
+        <ST><![CDATA[Test_AggregateResult_Ready                     		.RunTest();
+Test_AggregateResult_Starting                       .RunTest();
+Test_AggregateResult_Busy                           .RunTest();
+Test_AggregateResult_Done                           .RunTest();
+Test_AggregateResult_Error                          .RunTest();
+Test_AggregateResult_ErrorMsg                       .RunTest();
+Test_AggregateResult_Aborting                       .RunTest();
+Test_AggregateResult_Aborted                        .RunTest();
+Test_TExecution_WhenBusy_Abort_SelectsAborting      .RunTest();
+Test_TExecution_WhenBusy_SetDone_SetsDone           .RunTest();
+Test_TExecution_WhenReady_Start_SelectsStarting     .RunTest();
+Test_TExecution_SetErrorHandlesString_ErrorId       .RunTest();
+Test_F_DINT_TO_UDINT_Conversion                     .RunTest();
+Test_F_UDINT_TO_DINT_Conversion                     .RunTest();
+Test_F_Equals                                       .RunTest();
+Test_F_NotEqual                                     .RunTest();
+Test_ErrorIdToString                                .RunTest();
+Test_NotificationNoArgs                             .RunTest();
+Test_NotificationWithStringArg                      .RunTest();
+Test_NotificationCountWithQueueingEnabled           .RunTest();
+Test_MultipleNotificationsWithStringArgs            .RunTest();
+Test_NotificationHandlerOnlyAddedOnce               .RunTest();
 
-TestRunner.ClearTests();
+Test_TStreamAdd_Read_BLOB                			.RunTest();
+Test_TStreamAdd_Read_BLOB_CheckAlignment            .RunTest();
+Test_TStreamAdd_Read_BOOL                           .RunTest();
+Test_TStreamAdd_Read_BYTE                           .RunTest();
+Test_TStreamAdd_Read_DINT                           .RunTest();
+Test_TStreamAdd_Read_DINT_CheckAlignment            .RunTest();
+Test_TStreamAdd_Read_INT                            .RunTest();
+Test_TStreamAdd_Read_INT_CheckAlignment             .RunTest();
+Test_TStreamAdd_Read_LINT                           .RunTest();
+Test_TStreamAdd_Read_LINT_CheckAlignment            .RunTest();
+Test_TStreamAdd_Read_LREAL                          .RunTest();
+Test_TStreamAdd_Read_LREAL_CheckAlignment           .RunTest();
+Test_TStreamAdd_Read_PVOID                          .RunTest();
+Test_TStreamAdd_Read_PVOID_CheckAlignment           .RunTest();
+Test_TStreamAdd_Read_REAL                           .RunTest();
+Test_TStreamAdd_Read_REAL_CheckAlignment            .RunTest();
+Test_TStreamAdd_Read_Short_STRING                   .RunTest();
+Test_TStreamAdd_Read_STRING                         .RunTest();
+Test_TStreamAdd_Read_T_MaxString                    .RunTest();
+Test_TStreamAdd_Read_UDINT                          .RunTest();
+Test_TStreamAdd_Read_UDINT_CheckAlignment           .RunTest();
+Test_TStreamAdd_Read_UINT                           .RunTest();
+Test_TStreamAdd_Read_UINT_CheckAlignment            .RunTest();
+Test_TStreamAdd_Read_ULINT                          .RunTest();
+Test_TStreamAdd_Read_ULINT_CheckAlignment           .RunTest();
+Test_TStreamAddReadArgType                          .RunTest();
+Test_TStreamAddReadArgType_CheckAlignment           .RunTest();
+Test_TStreamBufferResizes                           .RunTest();
 
-TestRunner.AddTest(THIS^.Test_AggregateResult_Ready);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Starting);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Busy);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Done);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Error);
-TestRunner.AddTest(THIS^.Test_AggregateResult_ErrorMsg);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Aborting);
-TestRunner.AddTest(THIS^.Test_AggregateResult_Aborted);
-TestRunner.AddTest(THIS^.Test_TExecution_WhenBusy_Abort_SelectsAborting);
-TestRunner.AddTest(THIS^.Test_TExecution_WhenBusy_SetDone_SetsDone);
-TestRunner.AddTest(THIS^.Test_TExecution_WhenReady_Start_SelectsStarting);
-TestRunner.AddTest(THIS^.Test_TExecution_SetErrorHandlesString_ErrorId);
-TestRunner.AddTest(THIS^.Test_F_DINT_TO_UDINT_Conversion);
-TestRunner.AddTest(THIS^.Test_F_UDINT_TO_DINT_Conversion);
-TestRunner.AddTest(THIS^.Test_F_Equals);
-TestRunner.AddTest(THIS^.Test_F_NotEqual);
-TestRunner.AddTest(THIS^.Test_ErrorIdToString);
-TestRunner.AddTest(THIS^.Test_NotificationNoArgs);
-TestRunner.AddTest(THIS^.Test_NotificationWithStringArg);
-TestRunner.AddTest(THIS^.Test_NotificationCountWithQueueingEnabled);
-TestRunner.AddTest(THIS^.Test_MultipleNotificationsWithStringArgs);
-TestRunner.AddTest(THIS^.Test_NotificationHandlerOnlyAddedOnce);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BLOB);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BLOB_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BOOL);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_BYTE);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_DINT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_DINT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_INT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_INT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LINT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LINT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LREAL);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_LREAL_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_PVOID);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_PVOID_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_REAL);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_REAL_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_Short_STRING);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_STRING);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_T_MaxString);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UDINT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UDINT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UINT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_UINT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_ULINT);
-TestRunner.AddTest(THIS^.Test_TStreamAdd_Read_ULINT_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamAddReadArgType);
-TestRunner.AddTest(THIS^.Test_TStreamAddReadArgType_CheckAlignment);
-TestRunner.AddTest(THIS^.Test_TStreamBufferResizes);
 
-TestRunner.Start();
+
+
+
+
 ]]></ST>
       </Implementation>
     </Method>

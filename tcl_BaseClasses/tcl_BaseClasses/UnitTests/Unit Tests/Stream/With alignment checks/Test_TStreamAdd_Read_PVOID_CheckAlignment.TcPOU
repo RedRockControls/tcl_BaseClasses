@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_TStreamAdd_Read_PVOID_CheckAlignment" Id="{acf46996-4dfc-4d27-ad64-59556ad8f864}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_PVOID_CheckAlignment EXTENDS T_UnitTestBase
 VAR
@@ -11,21 +11,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{1ef74f18-4eaa-4058-ac09-962082242174}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{91e66146-7b52-4f15-9c69-8591d1ade112}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Stream.Init(2);
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+Stream.Init(2);
 
 Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_PVOID(ADR(Bob));

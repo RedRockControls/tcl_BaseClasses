@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_TStreamAdd_Read_ULINT" Id="{d00d46f5-ceb2-47dd-889b-b54c309f515b}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_ULINT EXTENDS T_UnitTestBase
 VAR
@@ -10,21 +10,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{02f484ba-c4d5-486d-8c8d-e900c3c80f9e}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{5934fd4f-6c47-4b25-987c-efe3ec001fc4}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+
 Stream.Init(2);
 
 // add a ULINT...

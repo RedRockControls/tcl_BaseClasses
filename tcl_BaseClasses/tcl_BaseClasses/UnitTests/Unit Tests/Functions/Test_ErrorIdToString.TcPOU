@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_ErrorIdToString" Id="{932a14fe-2c3a-4e26-b5ff-ff299c485b65}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_ErrorIdToString EXTENDS T_UnitTestBase
 VAR_INPUT
@@ -12,21 +12,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{55d83018-2d13-41a9-aa1e-5553df636b7b}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{323e7f4e-87f5-4973-b46e-7a12c295ef73}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AssertEquals_STRING(Expected := 'Error 0x12BD',
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+AssertEquals_STRING(Expected := 'Error 0x12BD',
                       Actual   := F_ErrorIdToString(16#12BD),
                       Message  := 'F_ErrorIdToString(16#12BD)');
 

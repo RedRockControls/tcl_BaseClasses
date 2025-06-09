@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_NotificationNoArgs" Id="{b0e0872e-d94f-4d7d-8638-6a5be13a36bd}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationNoArgs EXTENDS T_UnitTestBase
 VAR
@@ -11,22 +11,23 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{ccd8ef5c-e19f-4a79-9495-72a2838da062}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{05a006be-4cb6-4ddd-80b2-0abb8e5d388d}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
-                            bInCopyCode  := FALSE);
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
 
 Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_F_NotEqual" Id="{46cb45ee-c3e1-4c93-8936-b9ccbc45cb74}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_F_NotEqual EXTENDS T_UnitTestBase
 VAR
@@ -9,21 +9,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{15a7d2ed-6828-43e7-9faa-58d031449851}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{7c7d6744-2aba-48ba-a649-66e5e276e7d6}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[AssertIsTrue(Condition := F_NotEqual(1.000_005,
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+AssertIsTrue(Condition := F_NotEqual(1.000_005,
                                      1.000_003,
                                      0.000_001),
              Message := 'F_NotEquals returns incorrect result');

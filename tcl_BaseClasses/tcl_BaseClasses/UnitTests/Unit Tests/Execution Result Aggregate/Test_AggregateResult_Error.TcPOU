@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_AggregateResult_Error" Id="{2cc1540d-06bd-4742-a6db-1ca1c7513675}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Error EXTENDS T_UnitTestBase
 VAR
@@ -12,22 +12,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{2ebfb763-8f5f-4d4a-b7e6-afe836ec19bc}">
-      <Declaration><![CDATA[METHOD Init
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
-Execution2.FB_init(FALSE,FALSE);
-Execution3.FB_init(FALSE,FALSE);
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{8df4aa35-d688-4c72-8ddd-5f355b6b1baa}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResultAggregate.ClearResults();
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+ResultAggregate.Clear();
 
 ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);
@@ -41,7 +44,7 @@ AssertIsTrue(Condition := ResultAggregate.Error = FALSE,
 
 Execution3.Start();
 Execution3.SetBusy();
-Execution3.SetError('Error Message');
+Execution3.SetError('Expected Error Message');
 
 AssertIsTrue(Condition := ResultAggregate.Error = TRUE,
              Message   := 'ResultAggregate.Error is false');

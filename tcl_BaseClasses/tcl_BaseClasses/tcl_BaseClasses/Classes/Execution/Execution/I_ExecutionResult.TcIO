@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <Itf Name="I_ExecutionResult" Id="{7cb626a8-6c74-46b1-83b3-a65a904d339c}">
     <Declaration><![CDATA[INTERFACE I_ExecutionResult EXTENDS I_ListItem // Just exposes the state of the execution object. Usage is "Result := Execution.Start()" so Result can be monitored
 ]]></Declaration>
@@ -32,6 +32,10 @@ END_VAR
         <Declaration><![CDATA[]]></Declaration>
       </Get>
     </Property>
+    <Method Name="Clear" Id="{27910187-9981-4e2d-89b8-3fda85e082c6}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Clear
+]]></Declaration>
+    </Method>
     <Property Name="Done" Id="{7c811fc8-7e1f-463b-a57b-12e85c5a1400}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Done : BOOL
 ]]></Declaration>

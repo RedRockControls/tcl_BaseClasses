@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_AggregateResult_Busy" Id="{5ee0aa7d-00d6-433e-bb66-fb3816002789}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Busy EXTENDS T_UnitTestBase
 VAR
@@ -12,22 +12,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{10d5e106-bf7a-4578-ba85-5cbfd17c8f16}">
-      <Declaration><![CDATA[METHOD Init
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Execution1.FB_init(FALSE,FALSE);
-Execution2.FB_init(FALSE,FALSE);
-Execution3.FB_init(FALSE,FALSE);
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{d2211e7e-8e5d-47ef-9b39-832160780443}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[ResultAggregate.ClearResults();
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+ResultAggregate.Clear();
 
 ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);

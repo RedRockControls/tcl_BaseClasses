@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_MultipleNotificationsWithStringArgs" Id="{498ab529-1915-457a-a89d-d6efea9df911}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS T_UnitTestBase
@@ -14,22 +14,23 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{08cc2829-cce6-4ded-90f1-dd3c483231c6}">
-      <Declaration><![CDATA[METHOD  Init
-VAR_INPUT
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{31f34b70-06bc-4dfb-bb6b-2d182b20f751}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[NotificationHandler.FB_init(bInitRetains := FALSE,
-                            bInCopyCode  := FALSE);
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
 
 NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
 
@@ -65,8 +66,8 @@ AssertEquals_DINT(Expected := 1234,
                   Message  := 'Handler.Args.Read_INT() is not 1234');
 
 AssertEquals_STRING(Expected := 'String1',
-                      Actual   := NotificationHandler.Args.Read_STRING(),
-                      Message  := 'Handler.Args.Read_STRING() returns incorrect value');
+                    Actual   := NotificationHandler.Args.Read_STRING(),
+                    Message  := 'Handler.Args.Read_STRING() returns incorrect value');
 
 AssertIsTrue(Condition := NotificationHandler.IsRaised(),
              Message   := 'Handler.IsRaised() returns false');
@@ -80,8 +81,8 @@ AssertEquals_DINT(Expected := 5678,
                   Message  := 'Handler.Args.Read_INT() does not return 5678');
 
 AssertEquals_STRING(Expected := 'String2',
-                      Actual   := NotificationHandler.Args.Read_STRING(),
-                      Message  := 'Handler.Args.Read_STRING() does not return String2');
+                    Actual   := NotificationHandler.Args.Read_STRING(),
+                    Message  := 'Handler.Args.Read_STRING() does not return String2');
 
 AssertIsTrue(Condition := NotificationHandler.IsRaised() = FALSE,
              Message   := 'Handler.IsRaised() return true');

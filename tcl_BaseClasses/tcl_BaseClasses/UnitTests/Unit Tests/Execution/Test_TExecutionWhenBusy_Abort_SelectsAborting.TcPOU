@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="Test_TExecutionWhenBusy_Abort_SelectsAborting" Id="{6aa2306c-ed22-4a07-beed-a9481480c75d}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Abort_SelectsAborting EXTENDS T_UnitTestbase
 VAR
@@ -9,21 +9,25 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Init" Id="{7d2cb2a3-6dbe-4722-b6b5-d0eb4c0e79db}">
-      <Declaration><![CDATA[METHOD Init
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[Execution.FB_init(bInitRetains := FALSE,
-                  bInCopyCode  := FALSE);
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="RunTest" Id="{f1dc014c-f1ac-4f15-8775-88aed48a9767}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Execution.Start();
+        <ST><![CDATA[IF Retest THEN
+    SUPER^.Init();
+END_IF
+
+IF TestCompleted THEN
+    RETURN;
+END_IF
+
+F_Inc(CycleCount);
+IF CycleCount > 1000 THEN
+    Fail(Message := 'Timeout');
+END_IF
+
+Execution.Start();
 Execution.SetBusy();
 Execution.Abort();
 
