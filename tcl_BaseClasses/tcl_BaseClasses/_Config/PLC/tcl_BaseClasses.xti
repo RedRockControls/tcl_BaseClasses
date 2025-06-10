@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.54" ClassName="CNestedPlcProjDef">
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66" ClassName="CNestedPlcProjDef">
 	<Project GUID="{77183005-6CED-49E8-8FF6-76B983034AB5}" Name="tcl_BaseClasses" PrjFilePath="..\..\tcl_BaseClasses\tcl_BaseClasses.plcproj" TmcFilePath="..\..\tcl_BaseClasses\tcl_BaseClasses.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tcl_BaseClasses\tcl_BaseClasses.tmc" TmcHash="{00C6139C-D56D-C214-B655-D39F6D824D6A}">
+		<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tcl_BaseClasses\tcl_BaseClasses.tmc" TmcHash="{A97B3EF6-0FC9-47CD-8F86-92DE3873A8EF}">
 			<Name>tcl_BaseClasses Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Contexts>

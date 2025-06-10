@@ -28,7 +28,7 @@ IF CycleCount > 1000 THEN
     Fail(Message := 'Timeout');
 END_IF
 
-InputValue     := 2147483648;                  // too big
+InputValue     := UDINT#2147483648;            // too big
 ConvertedValue := F_UDINT_TO_DINT(InputValue); // limit to largest DINT
 
 AssertIsTrue(Condition := (ConvertedValue = 2147483647),

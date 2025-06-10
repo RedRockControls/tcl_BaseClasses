@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="T_Message" Id="{d35cceee-a0d0-497d-a2cb-926fa7b15887}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_Message
+VAR
+    Msg        : FB_TcMessage;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="Send" Id="{d6fc9380-5e9d-4ca1-979c-5dcbedc0332d}">
+      <Declaration><![CDATA[METHOD Send
+VAR_INPUT
+	Severity : TcEventSeverity;
+    Source  : FB_TcSourceInfo;
+    Message : Tc2_System.T_MaxString;
+END_VAR
+VAR
+	Result : HRESULT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE Severity OF 
+	TcEventSeverity.Critical:
+		Result := Msg.CreateEx(TC_EVENTS.PLC_Exceptions.LogCritical, Source);
+		
+	TcEventSeverity.Error:
+		Result := Msg.CreateEx(TC_EVENTS.PLC_Exceptions.LogError, Source);
+		
+	TcEventSeverity.Warning:
+		Result := Msg.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning, Source);
+		
+	TcEventSeverity.Info:
+		Result := Msg.CreateEx(TC_EVENTS.PLC_Exceptions.LogInfo, Source);
+		
+	TcEventSeverity.Verbose:
+		Result := Msg.CreateEx(TC_EVENTS.PLC_Exceptions.LogDebug, Source);
+		
+END_CASE
+
+IF Result = S_OK THEN
+	Msg.ipArguments.Clear().AddString(Message);
+    Msg.Send(0);
+	Msg.Release();
+ELSE
+    F_LogError(Source := 'Logger', 'Failed to create EventLogger.Message instance');
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

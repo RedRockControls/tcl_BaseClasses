@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="Globals" Id="{3c6e8760-3da3-4725-ba68-f667404cea96}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	DefaultLogger : T_Logger;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

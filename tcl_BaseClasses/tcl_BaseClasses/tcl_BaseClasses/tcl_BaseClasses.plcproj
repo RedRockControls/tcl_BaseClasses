@@ -18,11 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.62.0</ProjectVersion>
+    <ProjectVersion>1.1.63.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>Clear() added to I_Execution
-
-Unit Tests updated</Description>
+    <Description>T_Logger added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -257,7 +255,7 @@ Unit Tests updated</Description>
     <Compile Include="Functions\F_GetAdsPort.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Param.TcGVL">
+    <Compile Include="Globals.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
     </Compile>

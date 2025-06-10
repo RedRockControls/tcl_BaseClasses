@@ -78,6 +78,21 @@
     <Compile Include="Unit Tests\Functions\Test_F_UDINT_TO_DINT_Conversion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Unit Tests\Logger\Test_TLogger_LogCritical.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Logger\Test_TLogger_LogError.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Logger\Test_TLogger_LogWarning.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Logger\Test_TLogger_LogInfo.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Unit Tests\Logger\Test_TLogger_LogDebug.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Unit Tests\Notifications\Test_MultipleNotificationsWithStringArgs.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -188,6 +203,7 @@
     <Folder Include="Unit Tests\Execution" />
     <Folder Include="Unit Tests\Execution Result Aggregate" />
     <Folder Include="Unit Tests\Functions" />
+    <Folder Include="Unit Tests\Logger" />
     <Folder Include="Unit Tests\Notifications" />
     <Folder Include="Unit Tests\Stream" />
     <Folder Include="Unit Tests\Stream\General" />
@@ -207,6 +223,9 @@
       <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_Utilities</Namespace>
     </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_EventLogger">
+      <DefaultResolution>Tc3_EventLogger, * (Beckhoff Automation GmbH)</DefaultResolution>
+    </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
@@ -217,6 +236,7 @@
     </PlaceholderReference>
     <PlaceholderReference Include="tcl_StringUtils">
       <DefaultResolution>tcl_StringUtils, * (Red Rock Controls Limited)</DefaultResolution>
+      <Namespace>tcl_StringUtils</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="tcl_UnitTestLibrary">
       <DefaultResolution>tcl_UnitTestLibrary, * (Red Rock Controls Limited)</DefaultResolution>

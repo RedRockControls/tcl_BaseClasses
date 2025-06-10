@@ -1,12 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <Itf Name="I_Logger" Id="{d6915353-f7c0-4c6f-b0da-5364769d4b0d}">
     <Declaration><![CDATA[INTERFACE I_Logger
 ]]></Declaration>
+    <Method Name="LogCritical" Id="{6d6a42df-7810-48fa-9bac-d4259e669614}">
+      <Declaration><![CDATA[METHOD LogCritical
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+    Message : T_MaxString;
+END_VAR
+]]></Declaration>
+    </Method>
     <Method Name="LogDebug" Id="{0903a0cb-a44d-4638-86d5-a89b41aec2cb}">
       <Declaration><![CDATA[METHOD LogDebug
 VAR_INPUT
-    Source  : T_MaxString;
+	Source	: FB_TcSourceInfo;
     Message : T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -14,7 +22,7 @@ END_VAR
     <Method Name="LogError" Id="{a1807b73-2133-4309-aa8e-36f133cadc56}">
       <Declaration><![CDATA[METHOD LogError
 VAR_INPUT
-    Source  : T_MaxString;
+	Source	: FB_TcSourceInfo;
     Message : T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -22,7 +30,7 @@ END_VAR
     <Method Name="LogInfo" Id="{488d2f10-6234-4a74-9ecc-a8b29153f3c1}">
       <Declaration><![CDATA[METHOD LogInfo
 VAR_INPUT
-    Source  : T_MaxString;
+	Source	: FB_TcSourceInfo;
     Message : T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -30,7 +38,7 @@ END_VAR
     <Method Name="LogWarning" Id="{85177536-4212-41a4-b833-0df1ae72a337}">
       <Declaration><![CDATA[METHOD LogWarning
 VAR_INPUT
-    Source  : T_MaxString;
+	Source	: FB_TcSourceInfo;
     Message : T_MaxString;
 END_VAR
 ]]></Declaration>

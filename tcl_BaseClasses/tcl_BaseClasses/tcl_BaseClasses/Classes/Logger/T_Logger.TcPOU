@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="T_Logger" Id="{70ca3160-d298-4ee2-b622-102e6aeec323}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call' := 'do not call this POU directly'}
+FUNCTION_BLOCK T_Logger IMPLEMENTS I_Logger
+VAR
+    DebugMessage    : T_Message;
+    InfoMessage     : T_Message;
+    WarningMessage  : T_Message;
+    ErrorMessage    : T_Message;
+    CriticalMessage : T_Message;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="LogCritical" Id="{ecb6602c-87f6-49e8-8d1a-1bc5d3deda4c}">
+      <Declaration><![CDATA[METHOD LogCritical
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+	Message	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CriticalMessage.Send(TcEventSeverity.Critical, Source,Message);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogDebug" Id="{ca9e8e2b-0eb7-4666-8779-8521bec7bf46}">
+      <Declaration><![CDATA[METHOD LogDebug
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+	Message	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[DebugMessage.Send(TcEventSeverity.Verbose, Source,Message);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogError" Id="{a794fe89-b095-43ad-8664-03e657853ef5}">
+      <Declaration><![CDATA[METHOD LogError
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+	Message	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ErrorMessage.Send(TcEventSeverity.Error, Source,Message);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogInfo" Id="{acc82549-dcc9-4d2d-ab31-37aaa21f9143}">
+      <Declaration><![CDATA[METHOD LogInfo
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+	Message	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InfoMessage.Send(TcEventSeverity.Info, Source,Message);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="LogWarning" Id="{4379dce1-9e59-478f-802e-9722950c9fc6}">
+      <Declaration><![CDATA[METHOD LogWarning
+VAR_INPUT
+	Source	: FB_TcSourceInfo;
+	Message	: Tc2_System.T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[WarningMessage.Send(TcEventSeverity.Warning, Source,Message);]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
-  <POU Name="Test_F_DINT_TO_UDINT_Conversion" Id="{7618d050-2f09-4dc1-a5bb-d62f65f5c08f}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_DINT_TO_UDINT_Conversion EXTENDS T_UnitTestBase
+  <POU Name="Test_TLogger_LogCritical" Id="{087d6fa3-78f6-45f8-b55c-6e1051bcef68}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TLogger_LogCritical EXTENDS T_UnitTestBase
 VAR
-    InputValue     : DINT;
-    ConvertedValue : UDINT;
+    SourceInfo : FB_TcSourceInfo;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="RunTest" Id="{6ed875d1-3fde-410a-857e-06de330f684a}">
+    <Method Name="RunTest" Id="{cdfd7c6c-cf69-4e44-8636-1637ac8832af}">
       <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
 METHOD RunTest
+VAR
+    ErrorMsg : STRING := 'Expected error message';
+END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF Retest THEN
@@ -28,12 +30,9 @@ IF CycleCount > 1000 THEN
     Fail(Message := 'Timeout');
 END_IF
 
-InputValue     := DINT#-1;                  // out of range
-ConvertedValue := F_DINT_TO_UDINT(InputValue); // limit to smalles UDINT
-
-AssertEquals_UDINT(Expected := 0,
-                  Actual   := ConvertedValue,
-                  Message  := 'ConvertedValue is not correct');
+SourceInfo.sName := 'ExpectedSourceName';
+DefaultLogger.LogCritical(SourceInfo,'Expected critical message1');
+DefaultLogger.LogCritical(SourceInfo,'Expected critical message2');
 
 TestCompleted := TRUE;
 ]]></ST>
