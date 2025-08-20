@@ -12,13 +12,14 @@ END_VAR
     <Method Name="Send" Id="{d6fc9380-5e9d-4ca1-979c-5dcbedc0332d}">
       <Declaration><![CDATA[METHOD Send
 VAR_INPUT
-	Severity : TcEventSeverity;
-    Source  : FB_TcSourceInfo;
-    Message : Tc2_System.T_MaxString;
+    Severity : TcEventSeverity;
+    Source   : I_TcSourceInfo;
+    Message  : Tc2_System.T_MaxString;
 END_VAR
 VAR
-	Result : HRESULT;
-END_VAR]]></Declaration>
+    Result : HRESULT;
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[CASE Severity OF 
 	TcEventSeverity.Critical:

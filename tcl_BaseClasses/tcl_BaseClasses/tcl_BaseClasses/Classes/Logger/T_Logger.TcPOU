@@ -18,7 +18,7 @@ END_VAR
     <Method Name="LogCritical" Id="{ecb6602c-87f6-49e8-8d1a-1bc5d3deda4c}">
       <Declaration><![CDATA[METHOD LogCritical
 VAR_INPUT
-	Source	: FB_TcSourceInfo;
+	Source	: I_TcSourceInfo;
 	Message	: Tc2_System.T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -29,7 +29,7 @@ END_VAR
     <Method Name="LogDebug" Id="{ca9e8e2b-0eb7-4666-8779-8521bec7bf46}">
       <Declaration><![CDATA[METHOD LogDebug
 VAR_INPUT
-	Source	: FB_TcSourceInfo;
+	Source	: I_TcSourceInfo;
 	Message	: Tc2_System.T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -40,7 +40,7 @@ END_VAR
     <Method Name="LogError" Id="{a794fe89-b095-43ad-8664-03e657853ef5}">
       <Declaration><![CDATA[METHOD LogError
 VAR_INPUT
-	Source	: FB_TcSourceInfo;
+	Source	: I_TcSourceInfo;
 	Message	: Tc2_System.T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -51,7 +51,7 @@ END_VAR
     <Method Name="LogInfo" Id="{acc82549-dcc9-4d2d-ab31-37aaa21f9143}">
       <Declaration><![CDATA[METHOD LogInfo
 VAR_INPUT
-	Source	: FB_TcSourceInfo;
+	Source	: I_TcSourceInfo;
 	Message	: Tc2_System.T_MaxString;
 END_VAR
 ]]></Declaration>
@@ -62,7 +62,7 @@ END_VAR
     <Method Name="LogWarning" Id="{4379dce1-9e59-478f-802e-9722950c9fc6}">
       <Declaration><![CDATA[METHOD LogWarning
 VAR_INPUT
-	Source	: FB_TcSourceInfo;
+	Source	: I_TcSourceInfo;
 	Message	: Tc2_System.T_MaxString;
 END_VAR
 ]]></Declaration>
