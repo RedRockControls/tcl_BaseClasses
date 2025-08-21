@@ -2,7 +2,7 @@
 <TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.66">
 	<DataTypes>
 		<DataType>
-			<Name GUID="{2BE6132F-5386-4196-AEB7-333D83F66608}" PersistentType="true">PLC_Exceptions</Name>
+			<Name GUID="{6F32B0D1-4674-4484-9EA2-86BC9E4F1B2A}" PersistentType="true">PLC_Exceptions</Name>
 			<DisplayName TxtId=""><![CDATA[PLC Event]]></DisplayName>
 			<EventId>
 				<Name Id="1">NoNotificationHandlersLinked</Name>
@@ -11,27 +11,27 @@
 			</EventId>
 			<EventId>
 				<Name Id="2">LogCritical</Name>
-				<DisplayName TxtId=""><![CDATA[Critical Error - {0}]]></DisplayName>
+				<DisplayName TxtId=""><![CDATA[{0}]]></DisplayName>
 				<Severity>Critical</Severity>
 			</EventId>
 			<EventId>
 				<Name Id="3">LogError</Name>
-				<DisplayName TxtId=""><![CDATA[Error - {0}]]></DisplayName>
+				<DisplayName TxtId=""><![CDATA[{0}]]></DisplayName>
 				<Severity>Error</Severity>
 			</EventId>
 			<EventId>
 				<Name Id="4">LogWarning</Name>
-				<DisplayName TxtId=""><![CDATA[Warning - {0}]]></DisplayName>
+				<DisplayName TxtId=""><![CDATA[{0}]]></DisplayName>
 				<Severity>Warning</Severity>
 			</EventId>
 			<EventId>
 				<Name Id="5">LogInfo</Name>
-				<DisplayName TxtId=""><![CDATA[Info - {0}]]></DisplayName>
+				<DisplayName TxtId=""><![CDATA[{0}]]></DisplayName>
 				<Severity>Info</Severity>
 			</EventId>
 			<EventId>
 				<Name Id="6">LogDebug</Name>
-				<DisplayName TxtId=""><![CDATA[Debug - {0}]]></DisplayName>
+				<DisplayName TxtId=""><![CDATA[{0}]]></DisplayName>
 				<Severity>Verbose</Severity>
 			</EventId>
 			<Hides>
@@ -39,6 +39,7 @@
 				<Hide GUID="{C54DC845-16FE-433C-A96D-B1D9C25D4CF2}"/>
 				<Hide GUID="{0AFC16AA-6300-4BD5-81D4-BA122A1D2939}"/>
 				<Hide GUID="{23D9C086-071C-41DD-B845-FD1A39171889}"/>
+				<Hide GUID="{2BE6132F-5386-4196-AEB7-333D83F66608}"/>
 			</Hides>
 		</DataType>
 	</DataTypes>
