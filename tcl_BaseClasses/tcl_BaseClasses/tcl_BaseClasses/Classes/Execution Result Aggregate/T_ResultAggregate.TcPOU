@@ -237,6 +237,17 @@ END_IF
         </Implementation>
       </Get>
     </Property>
+    <Property Name="ResultCount" Id="{017d542d-7496-4360-9267-4e0033b3c085}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY ResultCount : DINT]]></Declaration>
+      <Get Name="Get" Id="{4df98dac-690b-4072-bf68-703bf318d70d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ResultCount := Results.Count;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Property Name="Starting" Id="{a9227d0a-cd83-4746-8b89-c559fb812990}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Starting : BOOL
 ]]></Declaration>
