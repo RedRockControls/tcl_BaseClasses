@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="F_LogWarning" Id="{4ea0074e-5c4d-4b81-859b-5e051f788c21}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_LogWarning : T_MaxString
 VAR_INPUT
@@ -20,16 +20,14 @@ END_IF
 
 IF RepeatMessageCount < 10 THEN // Avoid flooding the Error List...
     ADSLOGSTR(msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_WARN OR ADSLOG_MSGTYPE_LOG,
-              msgFmtStr   := F_FormatStringEx2('%s : %s',
-                                               Source,
-                                               Message),
-              strArg := '');
+              msgFmtStr   := CONCAT(Source, ' : %s'),
+              strArg      := Message);
 END_IF
 
-IF RepeatMessageCount = 10 THEN 
+IF RepeatMessageCount = 10 THEN
     ADSLOGSTR(msgCtrlMask := ADSLOG_MSGTYPE_STRING OR ADSLOG_MSGTYPE_ERROR OR ADSLOG_MSGTYPE_LOG,
               msgFmtStr   := 'Log Warnings suspended - too many identical messages!',
-              strArg := '');
+              strArg      := '');
 END_IF
 ]]></ST>
     </Implementation>

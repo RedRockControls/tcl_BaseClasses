@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.67.0</ProjectVersion>
+    <ProjectVersion>1.1.68.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>F_Dec added</Description>
+    <Description>F_LogMessage, F_LogWarning and F_LogError updated to handle % characters in the message string</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
