@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="F_Dec" Id="{77ed6693-f333-4b74-a982-8ca0a6f220ce}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_Dec : BOOL
+VAR_INPUT
+    in : ANY_INT;
+END_VAR
+VAR
+    pSINT  : POINTER TO SINT;
+    pINT   : POINTER TO INT;
+    pDINT  : POINTER TO DINT;
+    pLINT  : POINTER TO LINT;
+    pUSINT : POINTER TO USINT;
+    pUINT  : POINTER TO UINT;
+    pUDINT : POINTER TO UDINT;
+    pULINT : POINTER TO ULINT;
+    pBYTE  : POINTER TO BYTE;
+    pWORD  : POINTER TO WORD;
+    pDWORD : POINTER TO DWORD;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE in.TypeClass OF
+	// Signed types can go below zero...
+    __SYSTEM.TYPE_CLASS.TYPE_SINT:
+        pSINT  := in.pValue;
+        pSint^ := pSint^ - 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_INT:
+        pINT  := in.pValue;
+        pINT^ := pINT^ - 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_DINT:
+        pDINT  := in.pValue;
+        pDINT^ := pDINT^ - 1;
+
+    __SYSTEM.TYPE_CLASS.TYPE_LINT:
+        pLINT  := in.pValue;
+        pLINT^ := pLINT^ - 1;
+
+	// Unsigned types cannot go below zero...
+    __SYSTEM.TYPE_CLASS.TYPE_USINT:
+        pUSINT := in.pValue;
+        IF pUSINT^ > 0 THEN
+            pUSINT^ := pUSINT^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_UINT:
+        pUINT  := in.pValue;
+        IF pUINT^ > 0 THEN
+            pUINT^ := pUINT^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_UDINT:
+        pUDINT  := in.pValue;
+        IF pUDINT^ > 0 THEN
+            pUDINT^ := pUDINT^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_ULINT:
+        pULINT  := in.pValue;
+        IF pULINT^ > 0 THEN
+            pULINT^ := pULINT^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_BYTE:
+        pBYTE  := in.pValue;
+        IF pBYTE^ > 0 THEN
+            pBYTE^ := pBYTE^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_WORD:
+        pWORD  := in.pValue;
+        IF pWORD^ > 0 THEN
+            pWORD^ := pWORD^ - 1;
+        END_IF
+
+    __SYSTEM.TYPE_CLASS.TYPE_DWORD:
+        pDWORD  := in.pValue;
+        IF pDWORD^ > 0 THEN
+            pDWORD^ := pDWORD^ - 1;
+        END_IF
+
+END_CASE
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

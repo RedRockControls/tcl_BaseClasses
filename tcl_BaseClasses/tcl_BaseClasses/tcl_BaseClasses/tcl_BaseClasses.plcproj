@@ -18,9 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.66.0</ProjectVersion>
+    <ProjectVersion>1.1.67.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>ResultAggregate.ResultCount property added</Description>
+    <Description>F_Dec added</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>
@@ -208,6 +208,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_DINT_TO_UDINT.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Functions\F_Dec.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Functions\F_InLimits.TcPOU">
