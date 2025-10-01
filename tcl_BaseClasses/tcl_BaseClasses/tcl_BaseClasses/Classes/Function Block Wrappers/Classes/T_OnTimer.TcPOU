@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="T_OnTimer" Id="{124c9a8e-014d-0bbe-2276-3abf7760eeb2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_OnTimer
 VAR
@@ -33,6 +33,17 @@ Delay := TON1.Q;
 ]]></ST>
       </Implementation>
     </Method>
+    <Property Name="ElapsedTime" Id="{4fdcf4b8-2018-46a0-b656-84752884a7b7}">
+      <Declaration><![CDATA[PROPERTY ElapsedTime : LREAL]]></Declaration>
+      <Get Name="Get" Id="{1ba9f3eb-17dc-4e34-868c-08ed80628735}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ElapsedTime := TIME_TO_LREAL(TON1.ET) / 1000.0; // in seconds]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
     <Method Name="FB_init" Id="{270a6cd2-c16c-0b13-1a36-751302649b14}">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
