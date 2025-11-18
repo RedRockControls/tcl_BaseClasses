@@ -2,12 +2,12 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="T_ResultAggregate" Id="{454a147b-6226-4993-b56f-2debc6963635}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_ResultAggregate IMPLEMENTS I_ExecutionResult
-VAR_INPUT
-END_VAR
-VAR_OUTPUT
-END_VAR
 VAR
-	Results : T_ListOfInterfaces(Capacity := 10);
+	Results : ARRAY[0..ResultsUpperBound] OF I_ExecutionResult;
+	Count   : UINT;
+END_VAR
+VAR CONSTANT
+	ResultsUpperBound : UINT := 99;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -24,10 +24,10 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
+        <ST><![CDATA[IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
             Result.Abort(); 
         END_IF
     END_FOR
@@ -40,17 +40,16 @@ END_IF
 ]]></Declaration>
       <Get Name="Get" Id="{089695a4-b523-4d4a-936a-6af96a3618ab}">
         <Declaration><![CDATA[VAR
-    i      : DINT;
+    i      : UINT;
     Result : I_ExecutionResult;
-    IP     : I_ListItem;
 END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Aborted := TRUE;
-IF Results.Count > 0 THEN
-	FOR i := 0 TO Results.Count - 1 DO
-		IP := Results.GetInterface(i);
-		IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
 			Aborted := Aborted AND Result.Aborted; // Done if all result.aborted
 		END_IF
 	END_FOR
@@ -71,10 +70,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Aborting := FALSE;
-IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
             Aborting := Aborting OR Result.Aborting; // Busy if any result.aborting
         END_IF
     END_FOR
@@ -90,7 +89,12 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Results.AddInterface(Result);]]></ST>
+        <ST><![CDATA[IF Count <= ResultsUpperBound THEN
+	Results[Count] := Result;
+	F_Inc(Count);
+	AddResult := TRUE;
+END_IF
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Busy" Id="{4816830d-f3b9-42d1-8bce-e46a4f1ac9f0}" FolderPath="Properties\">
@@ -105,10 +109,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Busy := FALSE;
-IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
             Busy := Busy OR Result.Busy; // Busy if any result.busy
         END_IF
     END_FOR
@@ -120,22 +124,24 @@ END_IF
     <Method Name="Clear" Id="{df7f106c-b618-4f10-b8d6-6d0167d310bd}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Clear
 VAR
-    i      : DINT;
+    i      : UINT;
     Result : I_ExecutionResult;
-    IP     : I_ListItem;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
-            Result.Clear(); 
-        END_IF
-    END_FOR
+        <ST><![CDATA[IF Count > 0 THEN
+    FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
+			Result.Clear(); 
+		END_IF
+	END_FOR
 END_IF
 
-Results.Clear();]]></ST>
+F_ClearMem(Results);
+Count := 0;
+
+]]></ST>
       </Implementation>
     </Method>
     <Property Name="Done" Id="{ac71d1f6-e94b-4b82-9737-80ef387eff14}" FolderPath="Properties\">
@@ -150,10 +156,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Done := TRUE;
-IF Results.Count > 0 THEN
-	FOR i := 0 TO Results.Count - 1 DO
-		IP := Results.GetInterface(i);
-		IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
 			Done := Done AND Result.Done; // Done if all result.done
 		END_IF
 	END_FOR
@@ -174,10 +180,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Error := FALSE;
-IF Results.Count > 0 THEN
-	FOR i := 0 TO Results.Count - 1 DO
-		IP := Results.GetInterface(i);
-		IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
 			Error := Error OR Result.Error; // Error if any result.error
 		END_IF
 	END_FOR
@@ -198,10 +204,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[ErrorMsg := '';
-IF Results.Count > 0 THEN
-	FOR i := 0 TO Results.Count - 1 DO
-		IP := Results.GetInterface(i);
-		IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
 			IF Result.Error THEN
 				ErrorMsg := Result.ErrorMsg;
 				RETURN;
@@ -225,10 +231,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Ready := TRUE;
-IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
             Ready := Ready AND Result.Ready; // Ready if all result.ready
         END_IF
     END_FOR
@@ -244,7 +250,7 @@ END_IF
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[ResultCount := Results.Count;]]></ST>
+          <ST><![CDATA[ResultCount := Count;]]></ST>
         </Implementation>
       </Get>
     </Property>
@@ -260,10 +266,10 @@ END_VAR
 ]]></Declaration>
         <Implementation>
           <ST><![CDATA[Starting := FALSE;
-IF Results.Count > 0 THEN
-    FOR i := 0 TO Results.Count - 1 DO
-        IP := Results.GetInterface(i);
-        IF __QUERYINTERFACE(IP, Result) THEN
+IF Count > 0 THEN
+	FOR i := 0 TO Count - 1 DO
+		Result := Results[i];
+		IF Result <> 0 THEN
             Starting := Starting OR Result.Starting; // Starting if any result.starting
         END_IF
     END_FOR

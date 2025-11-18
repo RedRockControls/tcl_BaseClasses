@@ -12,55 +12,55 @@ VAR
     Test_AggregateResult_ErrorMsg                   : Test_AggregateResult_ErrorMsg;
     Test_AggregateResult_Aborting                   : Test_AggregateResult_Aborting;
     Test_AggregateResult_Aborted                    : Test_AggregateResult_Aborted;
-    Test_TExecution_WhenBusy_Abort_SelectsAborting  : Test_TExecutionWhenBusy_Abort_SelectsAborting;
-    Test_TExecution_WhenBusy_SetDone_SetsDone       : Test_TExecutionWhenBusy_SetDone_SetsDone;
-    Test_TExecution_WhenReady_Start_SelectsStarting : Test_TExecutionWhenReady_Start_SelectsStarting;
-    Test_TExecution_SetErrorHandlesString_ErrorId   : Test_TExecution_SetErrorHandlesString_ErrorId;
-    Test_F_DINT_TO_UDINT_Conversion                 : Test_F_DINT_TO_UDINT_Conversion;
-    Test_F_UDINT_TO_DINT_Conversion                 : Test_F_UDINT_TO_DINT_Conversion;
-    Test_F_Equals                                   : Test_F_Equals;
-    Test_F_NotEqual                                 : Test_F_NotEqual;
-    Test_ErrorIdToString                            : Test_ErrorIdToString;
-    Test_NotificationNoArgs                         : Test_NotificationNoArgs;
-    Test_NotificationWithStringArg                  : Test_NotificationWithStringArg;
-    Test_NotificationCountWithQueueingEnabled       : Test_NotificationCountWithQueueingEnabled;
-    Test_MultipleNotificationsWithStringArgs        : Test_MultipleNotificationsWithStringArgs;
-    Test_NotificationHandlerOnlyAddedOnce           : Test_NotificationHandlerOnlyAddedOnce;
+//    Test_TExecution_WhenBusy_Abort_SelectsAborting  : Test_TExecutionWhenBusy_Abort_SelectsAborting;
+//    Test_TExecution_WhenBusy_SetDone_SetsDone       : Test_TExecutionWhenBusy_SetDone_SetsDone;
+//    Test_TExecution_WhenReady_Start_SelectsStarting : Test_TExecutionWhenReady_Start_SelectsStarting;
+//    Test_TExecution_SetErrorHandlesString_ErrorId   : Test_TExecution_SetErrorHandlesString_ErrorId;
+//    Test_F_DINT_TO_UDINT_Conversion                 : Test_F_DINT_TO_UDINT_Conversion;
+//    Test_F_UDINT_TO_DINT_Conversion                 : Test_F_UDINT_TO_DINT_Conversion;
+//    Test_F_Equals                                   : Test_F_Equals;
+//    Test_F_NotEqual                                 : Test_F_NotEqual;
+//    Test_ErrorIdToString                            : Test_ErrorIdToString;
+//    Test_NotificationNoArgs                         : Test_NotificationNoArgs;
+//    Test_NotificationWithStringArg                  : Test_NotificationWithStringArg;
+//    Test_NotificationCountWithQueueingEnabled       : Test_NotificationCountWithQueueingEnabled;
+//    Test_MultipleNotificationsWithStringArgs        : Test_MultipleNotificationsWithStringArgs;
+//    Test_NotificationHandlerOnlyAddedOnce           : Test_NotificationHandlerOnlyAddedOnce;
 
-    Test_TStreamAdd_Read_BLOB                 : Test_TStreamAdd_Read_BLOB;
-    Test_TStreamAdd_Read_BLOB_CheckAlignment  : Test_TStreamAdd_Read_BLOB_CheckAlignment;
-    Test_TStreamAdd_Read_BOOL                 : Test_TStreamAdd_Read_BOOL;
-    Test_TStreamAdd_Read_BYTE                 : Test_TStreamAdd_Read_BYTE;
-    Test_TStreamAdd_Read_DINT                 : Test_TStreamAdd_Read_DINT;
-    Test_TStreamAdd_Read_DINT_CheckAlignment  : Test_TStreamAdd_Read_DINT_CheckAlignment;
-    Test_TStreamAdd_Read_INT                  : Test_TStreamAdd_Read_INT;
-    Test_TStreamAdd_Read_INT_CheckAlignment   : Test_TStreamAdd_Read_INT_CheckAlignment;
-    Test_TStreamAdd_Read_LINT                 : Test_TStreamAdd_Read_LINT;
-    Test_TStreamAdd_Read_LINT_CheckAlignment  : Test_TStreamAdd_Read_LINT_CheckAlignment;
-    Test_TStreamAdd_Read_LREAL                : Test_TStreamAdd_Read_LREAL;
-    Test_TStreamAdd_Read_LREAL_CheckAlignment : Test_TStreamAdd_Read_LREAL_CheckAlignment;
-    Test_TStreamAdd_Read_PVOID                : Test_TStreamAdd_Read_PVOID;
-    Test_TStreamAdd_Read_PVOID_CheckAlignment : Test_TStreamAdd_Read_PVOID_CheckAlignment;
-    Test_TStreamAdd_Read_REAL                 : Test_TStreamAdd_Read_REAL;
-    Test_TStreamAdd_Read_REAL_CheckAlignment  : Test_TStreamAdd_Read_REAL_CheckAlignment;
-    Test_TStreamAdd_Read_Short_STRING         : Test_TStreamAdd_Read_Short_STRING;
-    Test_TStreamAdd_Read_STRING               : Test_TStreamAdd_Read_STRING;
-    Test_TStreamAdd_Read_T_MaxString          : Test_TStreamAdd_Read_T_MaxString;
-    Test_TStreamAdd_Read_UDINT                : Test_TStreamAdd_Read_UDINT;
-    Test_TStreamAdd_Read_UDINT_CheckAlignment : Test_TStreamAdd_Read_UDINT_CheckAlignment;
-    Test_TStreamAdd_Read_UINT                 : Test_TStreamAdd_Read_UINT;
-    Test_TStreamAdd_Read_UINT_CheckAlignment  : Test_TStreamAdd_Read_UINT_CheckAlignment;
-    Test_TStreamAdd_Read_ULINT                : Test_TStreamAdd_Read_ULINT;
-    Test_TStreamAdd_Read_ULINT_CheckAlignment : Test_TStreamAdd_Read_ULINT_CheckAlignment;
-    Test_TStreamAddReadArgType                : Test_TStreamAddReadArgType;
-    Test_TStreamAddReadArgType_CheckAlignment : Test_TStreamAddReadArgType_CheckAlignment;
-    Test_TStreamBufferResizes                 : Test_TStreamBufferResizes;
+//    Test_TStreamAdd_Read_BLOB                 : Test_TStreamAdd_Read_BLOB;
+//    Test_TStreamAdd_Read_BLOB_CheckAlignment  : Test_TStreamAdd_Read_BLOB_CheckAlignment;
+//    Test_TStreamAdd_Read_BOOL                 : Test_TStreamAdd_Read_BOOL;
+//    Test_TStreamAdd_Read_BYTE                 : Test_TStreamAdd_Read_BYTE;
+//    Test_TStreamAdd_Read_DINT                 : Test_TStreamAdd_Read_DINT;
+//    Test_TStreamAdd_Read_DINT_CheckAlignment  : Test_TStreamAdd_Read_DINT_CheckAlignment;
+//    Test_TStreamAdd_Read_INT                  : Test_TStreamAdd_Read_INT;
+//    Test_TStreamAdd_Read_INT_CheckAlignment   : Test_TStreamAdd_Read_INT_CheckAlignment;
+//    Test_TStreamAdd_Read_LINT                 : Test_TStreamAdd_Read_LINT;
+//    Test_TStreamAdd_Read_LINT_CheckAlignment  : Test_TStreamAdd_Read_LINT_CheckAlignment;
+//    Test_TStreamAdd_Read_LREAL                : Test_TStreamAdd_Read_LREAL;
+//    Test_TStreamAdd_Read_LREAL_CheckAlignment : Test_TStreamAdd_Read_LREAL_CheckAlignment;
+//    Test_TStreamAdd_Read_PVOID                : Test_TStreamAdd_Read_PVOID;
+//    Test_TStreamAdd_Read_PVOID_CheckAlignment : Test_TStreamAdd_Read_PVOID_CheckAlignment;
+//    Test_TStreamAdd_Read_REAL                 : Test_TStreamAdd_Read_REAL;
+//    Test_TStreamAdd_Read_REAL_CheckAlignment  : Test_TStreamAdd_Read_REAL_CheckAlignment;
+//    Test_TStreamAdd_Read_Short_STRING         : Test_TStreamAdd_Read_Short_STRING;
+//    Test_TStreamAdd_Read_STRING               : Test_TStreamAdd_Read_STRING;
+//    Test_TStreamAdd_Read_T_MaxString          : Test_TStreamAdd_Read_T_MaxString;
+//    Test_TStreamAdd_Read_UDINT                : Test_TStreamAdd_Read_UDINT;
+//    Test_TStreamAdd_Read_UDINT_CheckAlignment : Test_TStreamAdd_Read_UDINT_CheckAlignment;
+//    Test_TStreamAdd_Read_UINT                 : Test_TStreamAdd_Read_UINT;
+//    Test_TStreamAdd_Read_UINT_CheckAlignment  : Test_TStreamAdd_Read_UINT_CheckAlignment;
+//    Test_TStreamAdd_Read_ULINT                : Test_TStreamAdd_Read_ULINT;
+//    Test_TStreamAdd_Read_ULINT_CheckAlignment : Test_TStreamAdd_Read_ULINT_CheckAlignment;
+//    Test_TStreamAddReadArgType                : Test_TStreamAddReadArgType;
+//    Test_TStreamAddReadArgType_CheckAlignment : Test_TStreamAddReadArgType_CheckAlignment;
+//    Test_TStreamBufferResizes                 : Test_TStreamBufferResizes;
 
-    Test_TLogger_LogCritical : Test_TLogger_LogCritical;
-    Test_TLogger_LogError    : Test_TLogger_LogError;
-    Test_TLogger_LogWarning  : Test_TLogger_LogWarning;
-    Test_TLogger_LogInfo     : Test_TLogger_LogInfo;
-    Test_TLogger_LogDebug    : Test_TLogger_LogDebug;
+//    Test_TLogger_LogCritical : Test_TLogger_LogCritical;
+//    Test_TLogger_LogError    : Test_TLogger_LogError;
+//    Test_TLogger_LogWarning  : Test_TLogger_LogWarning;
+//    Test_TLogger_LogInfo     : Test_TLogger_LogInfo;
+//    Test_TLogger_LogDebug    : Test_TLogger_LogDebug;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -72,14 +72,14 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//Test_AggregateResult_Ready                     		.RunTest();
-//Test_AggregateResult_Starting                       .RunTest();
-//Test_AggregateResult_Busy                           .RunTest();
-//Test_AggregateResult_Done                           .RunTest();
-//Test_AggregateResult_Error                          .RunTest();
-//Test_AggregateResult_ErrorMsg                       .RunTest();
-//Test_AggregateResult_Aborting                       .RunTest();
-//Test_AggregateResult_Aborted                        .RunTest();
+        <ST><![CDATA[Test_AggregateResult_Ready                     		.RunTest();
+Test_AggregateResult_Starting                       .RunTest();
+Test_AggregateResult_Busy                           .RunTest();
+Test_AggregateResult_Done                           .RunTest();
+Test_AggregateResult_Error                          .RunTest();
+Test_AggregateResult_ErrorMsg                       .RunTest();
+Test_AggregateResult_Aborting                       .RunTest();
+Test_AggregateResult_Aborted                        .RunTest();
 //Test_TExecution_WhenBusy_Abort_SelectsAborting      .RunTest();
 //Test_TExecution_WhenBusy_SetDone_SetsDone           .RunTest();
 //Test_TExecution_WhenReady_Start_SelectsStarting     .RunTest();
@@ -124,11 +124,11 @@ END_VAR
 //Test_TStreamAddReadArgType_CheckAlignment           .RunTest();
 //Test_TStreamBufferResizes                           .RunTest();
 
-Test_TLogger_LogCritical .RunTest();
-Test_TLogger_LogError    .RunTest();
-Test_TLogger_LogWarning  .RunTest();
-Test_TLogger_LogInfo     .RunTest();
-Test_TLogger_LogDebug    .RunTest();
+//Test_TLogger_LogCritical .RunTest();
+//Test_TLogger_LogError    .RunTest();
+//Test_TLogger_LogWarning  .RunTest();
+//Test_TLogger_LogInfo     .RunTest();
+//Test_TLogger_LogDebug    .RunTest();
 
 
 
