@@ -18,9 +18,10 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.70.0</ProjectVersion>
+    <ProjectVersion>1.1.71.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>ResultAggregate updated to use array of I_ExecutionResult interfaces for transparency during debugging</Description>
+    <Description>ErrorMsg setter added
+Stores error message so SetDone() can report the error and set the error flag</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>

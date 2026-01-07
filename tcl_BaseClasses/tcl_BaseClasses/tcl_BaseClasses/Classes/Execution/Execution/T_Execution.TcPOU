@@ -1,17 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[// Class for handling communications between a client requesting a service 
 // and a server providing the service
 
 FUNCTION_BLOCK T_Execution EXTENDS T_Object IMPLEMENTS I_Execution, I_ExecutionResult
 VAR
-    _State    : T_ExecutionState;
-    _Done     : BOOL;
-    _Error    : BOOL;
-    _Aborted  : BOOL;
-    _ErrorMsg : T_MaxString;
-    _Aborting : BOOL;
+    _State           : T_ExecutionState;
+    _Done            : BOOL;
+    _Error           : BOOL;
+    _PendingError    : BOOL;
+    _Aborted         : BOOL;
+    _ErrorMsg        : T_MaxString;
+    _PendingErrorMsg : T_MaxString;
+    _Aborting        : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -69,12 +71,14 @@ END_VAR
       <Declaration><![CDATA[METHOD Clear
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Done     := FALSE;
-_Aborted  := FALSE;
-_Error    := FALSE;
-_Aborting := FALSE;
-_ErrorMsg := '';
-_State    := T_ExecutionState.Ready;
+        <ST><![CDATA[_Done            := FALSE;
+_Aborted         := FALSE;
+_Error           := FALSE;
+_PendingError    := FALSE;
+_Aborting        := FALSE;
+_ErrorMsg        := '';
+_PendingErrorMsg := '';
+_State           := T_ExecutionState.Ready;
 ]]></ST>
       </Implementation>
     </Method>
@@ -192,11 +196,15 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    _Error    := FALSE;
-    _ErrorMsg := '';
-    _Aborted  := FALSE;
-    _Done     := TRUE;
-    _State    := T_ExecutionState.Ready;
+    IF _PendingError THEN
+		SetError(_PendingErrorMsg);
+    ELSE
+        _Error    := FALSE;
+        _ErrorMsg := '';
+        _Aborted  := FALSE;
+        _Done     := TRUE;
+        _State    := T_ExecutionState.Ready;
+    END_IF
 END_IF
 ]]></ST>
       </Implementation>
@@ -224,6 +232,21 @@ _Message.Release();
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="SetPendingError" Id="{05fd48d7-4d57-4678-8c3c-c8d4a5c806dc}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD SetPendingError
+// Stores an error message for display when sequence is done, but
+// does not set the error flag, allowing execution to continue so sequence
+// can clean-up, etc.
+VAR_INPUT
+	PendingErrorMsg : T_MaxString;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_PendingErrorMsg := PendingErrorMsg;
+_PendingError    := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="Start" Id="{def3bafe-9648-0b74-364e-7150751f5a3a}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Start : I_ExecutionResult
 VAR_INPUT
@@ -231,21 +254,23 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
-    _Done     := FALSE;
-    _Aborted  := FALSE;
-    _Error    := FALSE;
-    _ErrorMsg := '';
-    _State := T_ExecutionState.Starting;
-	
+    _Done            := FALSE;
+    _Aborted         := FALSE;
+    _Error           := FALSE;
+    _PendingError    := FALSE;
+    _ErrorMsg        := '';
+    _PendingErrorMsg := '';
+    _State           := T_ExecutionState.Starting;
+
 ELSIF _State = T_ExecutionState.Busy THEN
     SetError('Start requested while already busy');
-	
+
 ELSIF _State = T_ExecutionState.Starting THEN
     SetError('Start requested while already starting');
-	
+
 ELSIF _Aborting THEN
     SetError('Start requested while aborting');
-	
+
 ELSE
     SetError('Start requested while not ready');
 END_IF
