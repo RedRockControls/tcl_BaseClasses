@@ -22,7 +22,7 @@ END_VAR
     <Folder Name="Methods" Id="{e45bf685-06c9-4e29-a8a9-cbf0453f59ad}" />
     <Folder Name="Properties" Id="{a48b7191-6aa5-4ac4-bdc5-b99d3da36639}" />
     <Method Name="Abort" Id="{f3b9b616-ecb6-448b-9a68-cf8864d1ed1d}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Abort
+      <Declaration><![CDATA[METHOD Abort // External abort request - sets Aborting
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[_Aborting := TRUE;]]></ST>
@@ -42,7 +42,7 @@ END_VAR
       </Get>
     </Property>
     <Property Name="Aborting" Id="{f8431846-1954-03c8-30df-5a7e741c3ebe}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY Aborting : BOOL
+      <Declaration><![CDATA[PROPERTY Aborting : BOOL // Abort has been request but not yet actioned
 ]]></Declaration>
       <Get Name="Get" Id="{eb3b9983-c850-041a-1155-83f5216a49d2}">
         <Declaration><![CDATA[VAR
@@ -157,22 +157,24 @@ END_VAR
       </Get>
     </Property>
     <Method Name="SetAborted" Id="{3457d55d-8917-427f-b4b1-3d8dae8fe5f2}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD SetAborted 
+      <Declaration><![CDATA[METHOD SetAborted // Clears Aborting and reset Execution State to Ready
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Aborting := FALSE;
-_Done     := FALSE;
-_Error    := FALSE;
+        <ST><![CDATA[_Aborting     := FALSE;
+_Done         := FALSE;
+_Error        := FALSE;
+_PendingError := FALSE;
+_PendingErrorMsg := '';
 
 IF _State <> T_ExecutionState.Ready THEN
     _Aborted  := TRUE;
-    _ErrorMsg := F_FormatStringEx1('%s - Execution aborted',SUPER^._Name);
+    _ErrorMsg := F_FormatStringEx1('%s - Execution aborted', SUPER^._Name);
     _State    := T_ExecutionState.Ready;
-	
-	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning,_Source);
-	_Message.ipArguments.AddString(_ErrorMsg);
-	_Message.Send(0);
-	_Message.Release();
+
+    _Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning, _Source);
+    _Message.ipArguments.AddString(_ErrorMsg);
+    _Message.Send(0);
+    _Message.Release();
 END_IF
 ]]></ST>
       </Implementation>

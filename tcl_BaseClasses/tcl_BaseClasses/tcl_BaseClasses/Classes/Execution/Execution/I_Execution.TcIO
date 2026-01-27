@@ -6,7 +6,7 @@
     <Folder Name="Methods" Id="{4df2c49f-ecc5-41ac-a5f7-eb029ec847e7}" />
     <Folder Name="Properties" Id="{858ea4b7-fbd7-4d4c-a650-4ab711825959}" />
     <Method Name="Abort" Id="{b913466c-26cf-0433-3b1e-51d91dedf168}" FolderPath="Methods\">
-      <Declaration><![CDATA[METHOD Abort
+      <Declaration><![CDATA[METHOD Abort // External abort request - sets Aborting
 VAR_INPUT
 END_VAR
 ]]></Declaration>
