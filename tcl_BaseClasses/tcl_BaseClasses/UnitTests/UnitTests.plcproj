@@ -8,7 +8,7 @@
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>UnitTests</Name>
-    <ProgramVersion>3.1.4024.0</ProgramVersion>
+    <ProgramVersion>3.1.4026.24</ProgramVersion>
     <Application>{ce60c475-9233-4614-b182-57a1f93112b1}</Application>
     <TypeSystem>{d5951638-126e-46ca-bad8-adb8d67ba2cb}</TypeSystem>
     <Implicit_Task_Info>{3eb67118-fb29-4a32-9417-86d4eba1f8ea}</Implicit_Task_Info>
@@ -251,7 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderResolution Include="tcl_UnitTestLibrary">
-      <Resolution>tcl_UnitTestLibrary, 1.1.10.0 (Red Rock Controls Limited)</Resolution>
+      <Resolution>tcl_UnitTestLibrary, * (Red Rock Controls Limited)</Resolution>
     </PlaceholderResolution>
   </ItemGroup>
   <ProjectExtensions>

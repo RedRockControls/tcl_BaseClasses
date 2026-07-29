@@ -1,19 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[// Class for handling communications between a client requesting a service 
 // and a server providing the service
 
 FUNCTION_BLOCK T_Execution EXTENDS T_Object IMPLEMENTS I_Execution, I_ExecutionResult
 VAR
-    _State           : T_ExecutionState;
+    _StartRequested  : BOOL;
+    _Busy            : BOOL;
     _Done            : BOOL;
+    _Aborting        : BOOL;
+    _Aborted         : BOOL;
     _Error           : BOOL;
     _PendingError    : BOOL;
-    _Aborted         : BOOL;
     _ErrorMsg        : T_MaxString;
     _PendingErrorMsg : T_MaxString;
-    _Aborting        : BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -62,7 +63,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Busy := _State = T_ExecutionState.Busy;
+          <ST><![CDATA[Busy := _Busy;
 ]]></ST>
         </Implementation>
       </Get>
@@ -71,14 +72,15 @@ END_VAR
       <Declaration><![CDATA[METHOD Clear
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Done            := FALSE;
+        <ST><![CDATA[_StartRequested  := FALSE;
+_Busy            := FALSE;
+_Done            := FALSE;
+_Aborting        := FALSE;
 _Aborted         := FALSE;
 _Error           := FALSE;
 _PendingError    := FALSE;
-_Aborting        := FALSE;
 _ErrorMsg        := '';
 _PendingErrorMsg := '';
-_State           := T_ExecutionState.Ready;
 ]]></ST>
       </Implementation>
     </Method>
@@ -151,7 +153,7 @@ END_VAR
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Ready := _State = T_ExecutionState.Ready;
+          <ST><![CDATA[Ready := NOT _StartRequested AND NOT _Busy;
 ]]></ST>
         </Implementation>
       </Get>
@@ -160,16 +162,16 @@ END_VAR
       <Declaration><![CDATA[METHOD SetAborted // Clears Aborting and reset Execution State to Ready
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Aborting     := FALSE;
-_Done         := FALSE;
-_Error        := FALSE;
-_PendingError := FALSE;
-_PendingErrorMsg := '';
-
-IF _State <> T_ExecutionState.Ready THEN
+        <ST><![CDATA[IF _Busy THEN
+	_StartRequested  := FALSE;
+	_Busy            := FALSE;
+	_Aborting        := FALSE;
     _Aborted  := TRUE;
+	_Done            := FALSE;
+	_Error           := FALSE;
+	_PendingError    := FALSE;
+	_PendingErrorMsg := '';
     _ErrorMsg := F_FormatStringEx1('%s - Execution aborted', SUPER^._Name);
-    _State    := T_ExecutionState.Ready;
 
     _Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning, _Source);
     _Message.ipArguments.AddString(_ErrorMsg);
@@ -185,8 +187,16 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Starting THEN
-    _State := T_ExecutionState.Busy;
+        <ST><![CDATA[IF _StartRequested THEN
+    _StartRequested  := FALSE;
+    _Busy            := TRUE;
+    _Done            := FALSE;
+    _Aborting        := FALSE;
+    _Aborted         := FALSE;
+    _Error           := FALSE;
+    _PendingError    := FALSE;
+    _ErrorMsg        := '';
+    _PendingErrorMsg := '';
 END_IF
 ]]></ST>
       </Implementation>
@@ -197,15 +207,18 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Starting OR _State = T_ExecutionState.Busy THEN
-    IF _PendingError THEN
-		SetError(_PendingErrorMsg);
+        <ST><![CDATA[IF _StartRequested OR _Busy THEN
+    IF _PendingError THEN // this trumps the Done state - we have an error!
+        SetError(_PendingErrorMsg);
     ELSE
-        _Error    := FALSE;
-        _ErrorMsg := '';
-        _Aborted  := FALSE;
-        _Done     := TRUE;
-        _State    := T_ExecutionState.Ready;
+        _StartRequested := FALSE;
+        _Busy           := FALSE;
+        _Done           := TRUE;
+        _Aborting       := FALSE;
+        _Aborted        := FALSE;
+        _Error          := FALSE;
+        _PendingError   := FALSE;
+        _ErrorMsg       := '';
     END_IF
 END_IF
 ]]></ST>
@@ -220,11 +233,14 @@ VAR_INST
 	fullMessage : T_MaxString;
 END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[_Error    := TRUE;
-_Aborted  := FALSE;
-_Done     := FALSE;
-_ErrorMsg := ErrorMsg;
-_State    := T_ExecutionState.Ready;
+        <ST><![CDATA[_StartRequested := FALSE;
+_Busy           := FALSE;
+_Done           := FALSE;
+_Aborting       := FALSE;
+_Aborted        := FALSE;
+_Error          := TRUE;
+_PendingError   := FALSE;
+_ErrorMsg       := ErrorMsg;
 
 fullMessage := F_FormatStringEx2('%s - %s', _Name, ErrorMsg);
 _Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError, _Source);
@@ -255,26 +271,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _State = T_ExecutionState.Ready THEN
-    _Done            := FALSE;
-    _Aborted         := FALSE;
-    _Error           := FALSE;
-    _PendingError    := FALSE;
-    _ErrorMsg        := '';
-    _PendingErrorMsg := '';
-    _State           := T_ExecutionState.Starting;
-
-ELSIF _State = T_ExecutionState.Busy THEN
+        <ST><![CDATA[IF _Busy THEN
     SetError('Start requested while already busy');
 
-ELSIF _State = T_ExecutionState.Starting THEN
+ELSIF _StartRequested THEN
     SetError('Start requested while already starting');
 
 ELSIF _Aborting THEN
     SetError('Start requested while aborting');
 
 ELSE
-    SetError('Start requested while not ready');
+    _StartRequested  := TRUE;
+    _Done            := FALSE;
+    _Aborted         := FALSE;
+    _Error           := FALSE;
+    _PendingError    := FALSE;
+    _ErrorMsg        := '';
+    _PendingErrorMsg := '';
 END_IF
 
 Start := THIS^;
@@ -289,20 +302,7 @@ Start := THIS^;
 END_VAR
 ]]></Declaration>
         <Implementation>
-          <ST><![CDATA[Starting := _State = T_ExecutionState.Starting;
-]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
-    <Property Name="State" Id="{34686f20-e5ce-076a-20fe-0604181ce5eb}" FolderPath="Properties\">
-      <Declaration><![CDATA[PROPERTY State : T_ExecutionState
-]]></Declaration>
-      <Get Name="Get" Id="{643951a8-dea2-0da6-338f-29e7e986b3be}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[State := _State;
+          <ST><![CDATA[Starting := _StartRequested;
 ]]></ST>
         </Implementation>
       </Get>
