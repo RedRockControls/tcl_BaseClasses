@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_ValueMonitorEx" Id="{bacae591-70bd-03f3-1d52-321cbceb26da}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK T_ValueMonitorEx
@@ -11,7 +11,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="Changed" Id="{51edbcfe-dede-04c7-0459-a6015be2ca88}">
+    <Folder Name="Methods" Id="{c8b83971-1d4e-410e-901d-aa2dff88d868}" />
+    <Folder Name="Properties" Id="{2947772b-103f-464d-99fa-57e29ed4fbe6}" />
+    <Property Name="Changed" Id="{51edbcfe-dede-04c7-0459-a6015be2ca88}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Changed : BOOL
 ]]></Declaration>
       <Get Name="Get" Id="{99977f8b-4a89-07a7-3d53-1ff3084f751a}">
@@ -24,7 +26,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Reset" Id="{0b7c1ee6-a5c4-0d75-1e2b-580f2737e28e}">
+    <Method Name="Reset" Id="{0b7c1ee6-a5c4-0d75-1e2b-580f2737e28e}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Reset
 VAR_INPUT
 END_VAR
@@ -36,7 +38,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test" Id="{24bc92f7-bd36-0ba0-0222-49588d079fd0}">
+    <Method Name="Test" Id="{24bc92f7-bd36-0ba0-0222-49588d079fd0}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Test : BOOL;
 VAR_INPUT
     Value : ANY_NUM;

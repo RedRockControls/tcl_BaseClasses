@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_OnTimer" Id="{124c9a8e-014d-0bbe-2276-3abf7760eeb2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_OnTimer
 VAR
@@ -9,7 +9,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Clock" Id="{46635ffb-5cbe-4dc8-b7e9-53166acde37b}">
+    <Folder Name="Methods" Id="{742c64c7-52ad-4d86-9116-b7dedb0be0d2}" />
+    <Folder Name="Properties" Id="{8cdd71e6-8225-4a8c-89f5-df0bd1660684}" />
+    <Method Name="Clock" Id="{46635ffb-5cbe-4dc8-b7e9-53166acde37b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Clock : BOOL
 ]]></Declaration>
       <Implementation>
@@ -21,7 +23,7 @@ END_IF
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Delay" Id="{78a602f0-5cc4-0d95-13a2-8f01cd3d694c}">
+    <Method Name="Delay" Id="{78a602f0-5cc4-0d95-13a2-8f01cd3d694c}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Delay : BOOL
 VAR_INPUT
     In : BOOL;
@@ -33,7 +35,7 @@ Delay := TON1.Q;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="ElapsedTime" Id="{4fdcf4b8-2018-46a0-b656-84752884a7b7}">
+    <Property Name="ElapsedTime" Id="{4fdcf4b8-2018-46a0-b656-84752884a7b7}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY ElapsedTime : LREAL]]></Declaration>
       <Get Name="Get" Id="{1ba9f3eb-17dc-4e34-868c-08ed80628735}">
         <Declaration><![CDATA[VAR
@@ -44,7 +46,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="FB_init" Id="{270a6cd2-c16c-0b13-1a36-751302649b14}">
+    <Method Name="FB_init" Id="{270a6cd2-c16c-0b13-1a36-751302649b14}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains : BOOL;  // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -57,7 +59,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="OutputState" Id="{d7b83ff1-258e-4688-84b0-85322bc7596d}">
+    <Property Name="OutputState" Id="{d7b83ff1-258e-4688-84b0-85322bc7596d}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY OutputState : BOOL
 ]]></Declaration>
       <Get Name="Get" Id="{c2125d2f-97e5-4d16-8d04-1044ed147f9a}">
@@ -70,7 +72,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="PresetTime" Id="{b0441a1c-a168-0c1b-2899-7925e3bff834}">
+    <Property Name="PresetTime" Id="{b0441a1c-a168-0c1b-2899-7925e3bff834}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY PresetTime : LREAL
 ]]></Declaration>
       <Get Name="Get" Id="{76eae6fc-dfdf-0bfd-1e48-baacbed5e95f}">
@@ -92,7 +94,7 @@ END_VAR
         </Implementation>
       </Set>
     </Property>
-    <Method Name="Reset" Id="{bf1ce0ca-ddda-0a0e-2ec5-8f64ee894393}">
+    <Method Name="Reset" Id="{bf1ce0ca-ddda-0a0e-2ec5-8f64ee894393}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Reset
 ]]></Declaration>
       <Implementation>
@@ -100,7 +102,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Run" Id="{015a040d-e1c7-0001-3207-3310fc552742}">
+    <Method Name="Run" Id="{015a040d-e1c7-0001-3207-3310fc552742}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Run : BOOL
 ]]></Declaration>
       <Implementation>

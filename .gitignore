@@ -49,3 +49,4 @@ tchmipublish.journal.json
 **/*.d.ts
 **/*.js.map
 
+*.~u

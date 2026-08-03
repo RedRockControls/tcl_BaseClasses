@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_Counter" Id="{9ae51f40-0403-4a86-af5a-dd20e2f13d36}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Counter
 VAR
@@ -9,7 +9,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Dec" Id="{b171eb38-4d54-4cd6-ba87-90a20011def8}">
+    <Folder Name="Methods" Id="{a67e5076-3b83-470f-b052-9d957d7256fe}" />
+    <Folder Name="Properties" Id="{fb2efb55-b78d-496d-997a-689b00c8010f}" />
+    <Method Name="Dec" Id="{b171eb38-4d54-4cd6-ba87-90a20011def8}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Dec : DINT
 VAR_INPUT
 END_VAR
@@ -20,7 +22,7 @@ Dec   := Count;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Inc" Id="{5991a3e3-6db5-42ff-a03f-727af1168b75}">
+    <Method Name="Inc" Id="{5991a3e3-6db5-42ff-a03f-727af1168b75}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Inc : DINT
 VAR_INPUT
 END_VAR
@@ -31,7 +33,7 @@ Inc   := Count;
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Init" Id="{871de783-64f5-4f07-ae83-1cbba81f7a2b}">
+    <Method Name="Init" Id="{871de783-64f5-4f07-ae83-1cbba81f7a2b}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Init
 VAR_INPUT
     Value : DINT;
@@ -42,7 +44,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Reset" Id="{cbcf06e0-d3ca-4315-8289-cb98c114d361}">
+    <Method Name="Reset" Id="{cbcf06e0-d3ca-4315-8289-cb98c114d361}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Reset
 VAR_INPUT
 END_VAR
@@ -52,7 +54,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Value" Id="{e951dec6-7422-4b6b-aa6c-19510cfee734}">
+    <Property Name="Value" Id="{e951dec6-7422-4b6b-aa6c-19510cfee734}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Value : DINT
 ]]></Declaration>
       <Get Name="Get" Id="{b2ac9b57-6bf7-42c8-a903-1b7f5f32981e}">
@@ -65,7 +67,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Property Name="ValueAsTArg" Id="{b4294afa-304a-49ee-9808-015ca4b4ff95}">
+    <Property Name="ValueAsTArg" Id="{b4294afa-304a-49ee-9808-015ca4b4ff95}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY ValueAsTArg : T_Arg
 ]]></Declaration>
       <Get Name="Get" Id="{a9cee73b-b802-48ba-905a-a816c5c7cf4d}">

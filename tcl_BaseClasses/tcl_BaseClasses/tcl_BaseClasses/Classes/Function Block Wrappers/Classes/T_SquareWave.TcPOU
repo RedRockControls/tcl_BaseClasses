@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_SquareWave" Id="{b035f7ff-e211-4c60-8a51-254ce2e5934f}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_SquareWave
 VAR
@@ -18,7 +18,9 @@ IF OnTimer_Space.Delay(NOT _Output) THEN
 END_IF
 ]]></ST>
     </Implementation>
-    <Method Name="FB_init" Id="{4004e9f3-828f-47bd-89ba-37c58e3a543d}">
+    <Folder Name="Methods" Id="{a3bb2599-8d84-4cb8-a214-ee9fd4fa6582}" />
+    <Folder Name="Properties" Id="{5d7d31a1-9ce4-484b-a570-65bd9de6e6dd}" />
+    <Method Name="FB_init" Id="{4004e9f3-828f-47bd-89ba-37c58e3a543d}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD FB_init : BOOL
 VAR_INPUT
     bInitRetains  : BOOL; // if TRUE, the retain variables are initialized (warm start / cold start)
@@ -33,7 +35,7 @@ OnTimer_Space.PresetTime := SpaceDuration;
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Output" Id="{af0dfab3-1a4b-4223-b802-6c081c39927c}">
+    <Property Name="Output" Id="{af0dfab3-1a4b-4223-b802-6c081c39927c}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Output : BOOL
 ]]></Declaration>
       <Get Name="Get" Id="{7462565f-b677-439e-9afd-62873ca06293}">

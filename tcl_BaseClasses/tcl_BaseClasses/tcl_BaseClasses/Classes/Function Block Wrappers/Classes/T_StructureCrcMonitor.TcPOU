@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_StructureCrcMonitor" Id="{4ff37301-51db-0d33-1801-69eaef5746f6}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
 FUNCTION_BLOCK T_StructureCrcMonitor 
@@ -11,7 +11,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="Changed" Id="{b58d1fdb-bd27-0669-252f-03a922d82a2c}">
+    <Folder Name="Methods" Id="{0608c8e9-13b8-4d49-bf1a-116b38c8cae6}" />
+    <Folder Name="Properties" Id="{0922f049-eb3c-4a6f-862a-472509348de1}" />
+    <Property Name="Changed" Id="{b58d1fdb-bd27-0669-252f-03a922d82a2c}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Changed : BOOL
 ]]></Declaration>
       <Get Name="Get" Id="{1abfd3ce-79a9-0f67-2fbb-cb772335c15a}">
@@ -24,7 +26,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Reset" Id="{68db21ce-aedd-0b3b-35b4-c6242b4cf77c}">
+    <Method Name="Reset" Id="{68db21ce-aedd-0b3b-35b4-c6242b4cf77c}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Reset
 VAR_INPUT
 END_VAR
@@ -34,7 +36,7 @@ END_VAR
 ]]></ST>
       </Implementation>
     </Method>
-    <Method Name="Test" Id="{4f5aa998-1605-0b49-0b94-abed0a451d48}">
+    <Method Name="Test" Id="{4f5aa998-1605-0b49-0b94-abed0a451d48}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Test : BOOL 
 VAR_INPUT
     Structure : ANY;

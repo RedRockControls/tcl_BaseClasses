@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_FallingEdge" Id="{0a565260-f94b-034b-35fb-51ec95acf4da}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_FallingEdge
 VAR
@@ -9,7 +9,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Property Name="EdgeDetected" Id="{8a7f01d2-2231-0532-02d7-e8b5bde55955}">
+    <Folder Name="Methods" Id="{a0f5f001-a0d8-49c8-a622-e27dd72c2fa8}" />
+    <Folder Name="Properties" Id="{96aaa0e4-593e-4343-b32b-5488bb008270}" />
+    <Property Name="EdgeDetected" Id="{8a7f01d2-2231-0532-02d7-e8b5bde55955}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY EdgeDetected : BOOL
 ]]></Declaration>
       <Get Name="Get" Id="{b2ae2c08-c211-0afc-1096-2bc7a2591a0a}">
@@ -22,7 +24,7 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
-    <Method Name="Test" Id="{6e01adbb-ead7-0505-0d79-1e7ea44ce992}">
+    <Method Name="Test" Id="{6e01adbb-ead7-0505-0d79-1e7ea44ce992}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Test : BOOL
 VAR_INPUT
     Value : BOOL;

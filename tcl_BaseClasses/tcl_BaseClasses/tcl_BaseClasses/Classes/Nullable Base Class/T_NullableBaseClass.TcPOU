@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
   <POU Name="T_NullableBaseClass" Id="{6918528b-1f2d-49da-b5a1-1e8c3d318bfe}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT T_NullableBaseClass
 VAR
@@ -9,7 +9,9 @@ END_VAR
     <Implementation>
       <ST><![CDATA[]]></ST>
     </Implementation>
-    <Method Name="Stub" Id="{d096dc91-6a78-4247-b9c0-a385b806bf7a}">
+    <Folder Name="Methods" Id="{b38cc8a7-9abc-4ea2-91dd-113620fb3d9d}" />
+    <Folder Name="Properties" Id="{d48dead3-6b8a-4e01-9b37-e807eb6d08a2}" />
+    <Method Name="Stub" Id="{d096dc91-6a78-4247-b9c0-a385b806bf7a}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Stub
 VAR_INPUT
 
@@ -19,7 +21,7 @@ END_VAR
         <ST><![CDATA[_Stubbed := TRUE;]]></ST>
       </Implementation>
     </Method>
-    <Property Name="Stubbed" Id="{5b0c7159-d46a-4902-aa32-4a6d5b18f358}">
+    <Property Name="Stubbed" Id="{5b0c7159-d46a-4902-aa32-4a6d5b18f358}" FolderPath="Properties\">
       <Declaration><![CDATA[PROPERTY Stubbed : BOOL]]></Declaration>
       <Get Name="Get" Id="{2aa51fea-b957-4959-890e-4dedfdacb9e4}">
         <Declaration><![CDATA[VAR
