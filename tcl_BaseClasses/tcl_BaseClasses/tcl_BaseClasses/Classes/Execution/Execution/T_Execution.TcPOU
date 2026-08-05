@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="T_Execution" Id="{b17395d1-e10b-079c-263b-2eb9c4f6194b}" SpecialFunc="None">
     <Declaration><![CDATA[// Class for handling communications between a client requesting a service 
 // and a server providing the service
@@ -162,22 +162,22 @@ END_VAR
       <Declaration><![CDATA[METHOD SetAborted // Clears Aborting and reset Execution State to Ready
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Busy THEN
-	_StartRequested  := FALSE;
-	_Busy            := FALSE;
-	_Aborting        := FALSE;
-    _Aborted  := TRUE;
-	_Done            := FALSE;
-	_Error           := FALSE;
-	_PendingError    := FALSE;
-	_PendingErrorMsg := '';
+        <ST><![CDATA[IF _Busy OR _Aborting THEN
     _ErrorMsg := F_FormatStringEx1('%s - Execution aborted', SUPER^._Name);
-
     _Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning, _Source);
     _Message.ipArguments.AddString(_ErrorMsg);
     _Message.Send(0);
     _Message.Release();
 END_IF
+
+_StartRequested  := FALSE;
+_Busy            := FALSE;
+_Aborting        := FALSE;
+_Aborted         := TRUE;
+_Done            := FALSE;
+_Error           := FALSE;
+_PendingError    := FALSE;
+_PendingErrorMsg := '';
 ]]></ST>
       </Implementation>
     </Method>
