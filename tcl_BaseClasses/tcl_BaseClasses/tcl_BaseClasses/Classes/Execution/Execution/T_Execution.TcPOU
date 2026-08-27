@@ -162,7 +162,7 @@ END_VAR
       <Declaration><![CDATA[METHOD SetAborted // Clears Aborting and reset Execution State to Ready
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _Busy OR _Aborting THEN
+        <ST><![CDATA[IF _Busy THEN
     _ErrorMsg := F_FormatStringEx1('%s - Execution aborted', SUPER^._Name);
     _Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogWarning, _Source);
     _Message.ipArguments.AddString(_ErrorMsg);

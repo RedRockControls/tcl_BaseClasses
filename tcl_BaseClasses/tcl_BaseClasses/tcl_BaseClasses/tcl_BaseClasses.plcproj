@@ -18,7 +18,7 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.75.0</ProjectVersion>
+    <ProjectVersion>1.1.76.0</ProjectVersion>
     <Author>Roger Christopher</Author>
     <Description>SetAborted method updated</Description>
     <LibraryCategories>
