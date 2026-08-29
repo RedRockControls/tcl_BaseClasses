@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="T_ListONotificationHandlers" Id="{1fcff8f0-b8c4-4bed-b839-fdb26fdb9776}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
 FUNCTION_BLOCK T_ListONotificationHandlers
