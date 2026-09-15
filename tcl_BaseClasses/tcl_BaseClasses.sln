@@ -56,6 +56,7 @@ Global
 		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT CE7 (ARMV7).Build.0 = Release|TwinCAT CE7 (ARMV7)
 		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT OS (ARMT2).ActiveCfg = Release|TwinCAT OS (ARMV8-A)
 		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT RT (x64).ActiveCfg = Release|TwinCAT RT (x64)
+		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT RT (x64).Build.0 = Release|TwinCAT RT (x64)
 		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT RT (x86).ActiveCfg = Release|TwinCAT RT (x86)
 		{31D0F34C-8773-453B-AC18-0F307892175A}.Release|TwinCAT RT (x86).Build.0 = Release|TwinCAT RT (x86)
 	EndGlobalSection

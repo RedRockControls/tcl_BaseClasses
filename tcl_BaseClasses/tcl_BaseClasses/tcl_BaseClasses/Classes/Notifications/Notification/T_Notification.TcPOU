@@ -1,11 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="T_Notification" Id="{34c3e11c-b24b-47fd-988a-f99b18a3f2ec}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'reflection'}
 {attribute 'no_explicit_call' := 'do not call this POU directly'}
-FUNCTION_BLOCK T_Notification EXTENDS T_Object IMPLEMENTS I_Notification
+FUNCTION_BLOCK T_Notification
+VAR_GENERIC CONSTANT
+    MaxHandlers : UDINT := 5;
+END_VAR
+EXTENDS T_Object IMPLEMENTS I_Notification
 VAR
-    NotificationtHandlers         : T_ListONotificationHandlers(Capacity := 5);
+	NotificationtHandlers : T_ListOfNotificationHandlers<MaxHandlers>;
     NotificationArgs              : T_Stream(StreamLength := 8);
     InhibitNoHandlersErrorMessage : BOOL;
 END_VAR
@@ -20,9 +24,20 @@ END_VAR
 VAR_INPUT
     Handler : I_NotificationHandler;
 END_VAR
-]]></Declaration>
+VAR_INST
+	fullMessage : T_MaxString;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[NotificationtHandlers.AddHandler(Handler);
+        <ST><![CDATA[IF NotificationtHandlers.Full THEN
+	fullMessage := F_FormatStringEx2('%s - %s', _Name, 'Max notifications exceeded - Increase MaxItems');
+	_Message.CreateEx(TC_EVENTS.PLC_Exceptions.LogError, _Source);
+	_Message.ipArguments.AddString(fullMessage);
+	_Message.Send(0);
+	_Message.Release();
+ELSE
+	NotificationtHandlers.AddHandler(Handler);
+END_IF
+
 AddNotificationHandler := THIS^;
 ]]></ST>
       </Implementation>
@@ -75,6 +90,18 @@ ELSIF NOT InhibitNoHandlersErrorMessage THEN
 END_IF
 
 NotificationArgs.Clear(); // to leave event args empty for next time event is raised
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveNotificationHandler" Id="{009292f1-020c-41ed-9b8a-34af05b93625}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RemoveNotificationHandler : I_Notification
+VAR_INPUT
+    Handler : I_NotificationHandler;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[NotificationtHandlers.RemoveHandler(Handler);
+RemoveNotificationHandler := THIS^;
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Test_AssertEquals_STRING" Id="{75079ee0-e49c-438a-aaa2-185999de7306}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AssertEquals_STRING EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{f4bcfeff-7dbf-4d88-90f0-b5bec5ba1bd0}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+VAR
+    Expected : T_MaxString := 'A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string';
+    Actual   : T_MaxString := 'A very long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string,A long string';
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[THIS^.AssertEquals_STRING(Expected := Expected,
+                          Actual   := Actual,
+                          Message  := 'Assertion is not working correctly');
+
+						  
+// Should fail the assertion!
+						  
+TestCompleted();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

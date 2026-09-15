@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_NotificationWithStringArg" Id="{e1171451-9ffb-40b1-b7d0-7319c599907b}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute 'hide'}
-FUNCTION_BLOCK Test_NotificationWithStringArg EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationWithStringArg EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    Notification        : T_Notification;
+    Notification        : T_Notification<5>;
     NotificationHandler : T_NotificationHandler;
 
     ResultString : T_MaxString;
@@ -20,21 +19,8 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
-Notification.Args.Init(81);
+        <ST><![CDATA[Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+Notification.Args.Init(256);
 
 Notification.Args.Clear().Add_STRING('Big long string passed to the notification handler for later use');
 Notification.Raise();
@@ -48,7 +34,7 @@ AssertEquals_STRING(Expected := 'Big long string passed to the notification hand
                     Actual   := ResultString,
                     Message  := 'ResultString is not correct');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

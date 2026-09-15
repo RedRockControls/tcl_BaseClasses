@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="T_ListOfNotificationHandlers" Id="{efdcf796-9d31-441b-a99c-4fd4a473f98e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK T_ListOfNotificationHandlers
+VAR_GENERIC CONSTANT
+    MaxItems : UDINT := 10;
+END_VAR
+VAR
+    _Count : UDINT;
+    Items  : ARRAY[0..MaxItems - 1] OF I_NotificationHandler;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Methods" Id="{3d114acc-040e-4e27-8558-4e85fd10eea6}" />
+    <Folder Name="Properties" Id="{5d90d975-848f-4a9f-a35b-3776ce125fd4}" />
+    <Method Name="AddHandler" Id="{f0f02ca8-b2d4-4255-877a-514fb694031d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD AddHandler
+VAR_INPUT
+    Handler : I_NotificationHandler;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Count < MaxItems THEN
+	Items[Count] := Handler;
+	F_Inc(_Count);
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Clear" Id="{b8dd6654-a37d-4b8a-bea5-3d7513a7295a}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD Clear
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[F_ClearMem(Items);
+_Count := 0;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Count" Id="{8898362c-5f01-4d65-b805-e83211742bad}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Count : UDINT
+]]></Declaration>
+      <Get Name="Get" Id="{8f67f0dd-fe96-4929-95fe-2afe73d0f3af}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Count := _Count;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Full" Id="{317243b2-18b4-47c6-aadd-b8ef5990c13f}" FolderPath="Properties\">
+      <Declaration><![CDATA[PROPERTY Full : BOOL]]></Declaration>
+      <Get Name="Get" Id="{4f799741-0f42-44e9-81a6-6b3c1b4f24b2}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Full := _Count >= MaxItems;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GetHandler" Id="{86fce3f8-1332-44cb-87b7-dff84ff95854}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD GetHandler : I_NotificationHandler
+VAR_INPUT
+    Index : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Index < _Count THEN
+    GetHandler := Items[Index];
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="HandlerInList" Id="{23038192-9103-44af-a66f-062d5347818b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD HandlerInList : BOOL
+VAR_INPUT
+    HandlerToFind : I_NotificationHandler;
+END_VAR
+VAR
+    NextHandler : I_NotificationHandler;
+    i           : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Count < 1 THEN
+    RETURN;
+END_IF
+
+FOR i := 0 TO _Count - 1 DO
+    NextHandler := GetHandler(i);
+    IF NextHandler = HandlerToFind THEN
+        HandlerInList := TRUE;
+    END_IF
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="RemoveHandler" Id="{41fc765e-18fa-4390-bc72-51ab9c6a726b}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RemoveHandler
+VAR_INPUT
+    HandlerToRemove : I_NotificationHandler;
+END_VAR
+VAR
+    NextHandler         : I_NotificationHandler;
+    i                   : UDINT;
+    RemovedHandlerIndex : UDINT;
+    HandlerFound        : BOOL;
+	LastHandlerIndex : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF _Count < 1 THEN
+    RETURN;
+END_IF
+
+LastHandlerIndex := _Count - 1;
+
+FOR i := 0 TO LastHandlerIndex DO
+    // Get next handler...
+    NextHandler := Items[i];
+
+    // See if it the handler to remove...
+    IF NextHandler = HandlerToRemove THEN
+        RemovedHandlerIndex := i;
+        HandlerFound        := TRUE;
+    END_IF
+END_FOR
+
+IF HandlerFound THEN
+    Items[RemovedHandlerIndex] := 0;
+
+    IF RemovedHandlerIndex < LastHandlerIndex THEN
+        // Shuffle remaining handlers...
+		FOR i := RemovedHandlerIndex TO LastHandlerIndex - 1 DO
+			Items[i] := Items[i + 1];
+		END_FOR
+		
+    END_IF
+    _Count := _Count - 1;
+
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

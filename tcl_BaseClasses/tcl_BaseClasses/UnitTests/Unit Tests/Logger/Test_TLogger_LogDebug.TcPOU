@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TLogger_LogDebug" Id="{1a5a8484-7c74-4857-ad11-9c53d98d8646}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TLogger_LogDebug EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TLogger_LogDebug EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    SourceInfo : FB_TcSourceInfo;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,24 +17,11 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-SourceInfo.sName := 'ExpectedSourceName';
+        <ST><![CDATA[SourceInfo.sName := 'ExpectedSourceName';
 DefaultLogger.LogDebug(SourceInfo,'Expected debug message1');
 DefaultLogger.LogDebug(SourceInfo,'Expected debug message2');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="Test_NotificationWithLrealArg" Id="{d3ee6f46-5aed-4aef-98f0-668fd3367855}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationWithLrealArg EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
+VAR
+    Notification        : T_Notification<5>;
+    NotificationHandler : T_NotificationHandler;
+
+    ResultLreal : LREAL;
+    Args         : I_StreamReader;
+    IsRaised     : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="RunTest" Id="{69cbbb46-ae80-4d16-a409-b2ec6ded4f95}">
+      <Declaration><![CDATA[{attribute 'analysis' := '-33'} // inhibit unused variable warning
+METHOD RunTest
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
+Notification.Args.Init(16);
+
+Notification.Args.Clear().Add_LREAL(1.2345);
+Notification.Raise();
+
+IF NotificationHandler.IsRaised() THEN
+    Args        := NotificationHandler.Args;
+    ResultLreal := Args.Read_LREAL();
+END_IF
+
+AssertEquals_LREAL(Expected := 1.2345,
+                   Actual   := ResultLreal,
+                   Delta    := 0.0001,
+                   Message  := 'ResultLreal is not correct');
+
+TestCompleted();
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

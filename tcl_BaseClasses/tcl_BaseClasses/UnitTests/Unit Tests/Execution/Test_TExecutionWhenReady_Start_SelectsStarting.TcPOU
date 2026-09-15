@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TExecutionWhenReady_Start_SelectsStarting" Id="{0349ca1d-2308-406f-93fd-15ff4a011555}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS T_UnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenReady_Start_SelectsStarting EXTENDS T_UnitTestbase  IMPLEMENTS I_UnitTest
 VAR
     Execution : T_Execution;
 END_VAR
@@ -15,26 +15,14 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-// Test...
+        <ST><![CDATA[// Test...
+Execution.Clear();
 Execution.Start();
 
 AssertIsTrue(Condition := Execution.Starting,
              Message   := 'Execution.Starting not true');
 
-TestCompleted := TRUE;
+SUPER^.TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

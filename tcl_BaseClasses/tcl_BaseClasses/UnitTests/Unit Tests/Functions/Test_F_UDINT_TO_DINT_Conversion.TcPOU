@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_F_UDINT_TO_DINT_Conversion" Id="{0f7dcc90-c1e5-4697-8983-52848bcba636}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_UDINT_TO_DINT_Conversion EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_UDINT_TO_DINT_Conversion EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
     InputValue     : UDINT;
     ConvertedValue : DINT;
@@ -15,26 +15,13 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-InputValue     := UDINT#2147483648;            // too big
+        <ST><![CDATA[InputValue     := UDINT#2147483648;            // too big
 ConvertedValue := F_UDINT_TO_DINT(InputValue); // limit to largest DINT
 
 AssertIsTrue(Condition := (ConvertedValue = 2147483647),
              Message   := 'F_UDINT_TO_DINT returns incorrect value');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TLogger_LogWarning" Id="{de4437c8-a768-43ea-a955-88e6e9b0b358}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TLogger_LogWarning EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TLogger_LogWarning EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    SourceInfo : FB_TcSourceInfo;
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,24 +17,11 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-SourceInfo.sName := 'ExpectedSourceName';
+        <ST><![CDATA[SourceInfo.sName := 'ExpectedSourceName';
 DefaultLogger.LogWarning(SourceInfo,'Expected warning error message1');
 DefaultLogger.LogWarning(SourceInfo,'Expected warning error message2');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_NotificationCountWithQueueingEnabled" Id="{cc4afe9e-8e15-4d59-a92f-3d05885e6e5b}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationCountWithQueueingEnabled EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationCountWithQueueingEnabled EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    Notification   : T_Notification;
+    Notification   : T_Notification<5>;
     NotificationHandler : T_NotificationHandler;
     IsRaised : BOOL;
 END_VAR
@@ -16,20 +16,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
+        <ST><![CDATA[NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
 
 Notification.ClearNotificationHandlers().AddNotificationHandler(NotificationHandler);
 
@@ -67,7 +54,7 @@ AssertEquals_DINT(Expected     := 0,
 AssertIsTrue(Condition    := NotificationHandler.IsRaised() = FALSE,
              Message := 'Handler.IsRaised() is not false');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

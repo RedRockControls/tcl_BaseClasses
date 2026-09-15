@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_F_Equals" Id="{d450eb35-6669-43c3-b7d1-9542fcdbe9ff}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_Equals EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_F_Equals EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
 	
 END_VAR
@@ -14,20 +14,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-AssertIsTrue(Condition := F_Equals(1.000_005,
+        <ST><![CDATA[AssertIsTrue(Condition := F_Equals(1.000_005,
                                    1.000_004,
                                    0.000_002),
              Message := 'F_Equals does not return TRUE');
@@ -37,7 +24,7 @@ AssertIsTrue(Condition := NOT F_Equals(1.000_005,
                                    0.000_001),
              Message := 'F_Equals does not return FALSE');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

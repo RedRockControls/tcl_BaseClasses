@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.24">
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4026.25">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{6F32B0D1-4674-4484-9EA2-86BC9E4F1B2A}" PersistentType="true">PLC_Exceptions</Name>
@@ -96,8 +96,8 @@
 		</System>
 		<Plc>
 			<Project File="tcl_BaseClasses.xti"/>
-			<Project Disabled="true" GUID="{31D0F34C-8773-453B-AC18-0F307892175A}" Name="UnitTests" PrjFilePath="UnitTests\UnitTests.plcproj" TmcFilePath="UnitTests\UnitTests.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{13891913-6F01-E80E-3A15-66D7886D7863}" TmcPath="UnitTests\UnitTests.tmc">
+			<Project GUID="{31D0F34C-8773-453B-AC18-0F307892175A}" Name="UnitTests" PrjFilePath="UnitTests\UnitTests.plcproj" TmcFilePath="UnitTests\UnitTests.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0978415B-6D06-406D-34A3-AA1280FF0674}" TmcPath="UnitTests\UnitTests.tmc">
 					<Name>UnitTests Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

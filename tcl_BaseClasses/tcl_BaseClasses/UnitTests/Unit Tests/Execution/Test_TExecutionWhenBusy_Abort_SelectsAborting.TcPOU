@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TExecutionWhenBusy_Abort_SelectsAborting" Id="{6aa2306c-ed22-4a07-beed-a9481480c75d}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Abort_SelectsAborting EXTENDS T_UnitTestbase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecutionWhenBusy_Abort_SelectsAborting EXTENDS T_UnitTestbase  IMPLEMENTS I_UnitTest
 VAR
     Execution : T_Execution;
 END_VAR
@@ -14,19 +14,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
+        <ST><![CDATA[Execution.Clear();
 Execution.Start();
 Execution.SetBusy();
 Execution.Abort();
@@ -34,7 +22,7 @@ Execution.Abort();
 AssertIsTrue(Condition := Execution.Aborting,
              Message   := 'Execution.Aborting not true');
 
-TestCompleted := TRUE;
+SUPER^.TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

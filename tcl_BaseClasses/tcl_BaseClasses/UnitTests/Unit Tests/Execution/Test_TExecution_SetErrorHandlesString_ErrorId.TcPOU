@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TExecution_SetErrorHandlesString_ErrorId" Id="{16f08f29-068e-4798-90d6-e31f6569f288}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecution_SetErrorHandlesString_ErrorId EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TExecution_SetErrorHandlesString_ErrorId EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
     Execution : T_Execution;
 END_VAR
@@ -20,19 +20,7 @@ VAR
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
+        <ST><![CDATA[Execution.Clear();
 Execution.Start();
 Execution.SetBusy();
 Execution.SetError(ErrorMsg);
@@ -40,7 +28,7 @@ Execution.SetError(ErrorMsg);
 AssertIsTrue(Condition := Execution.ErrorMsg = 'Expected error message',
              Message   := 'Execution.ErrorMsg not correct');
 
-TestCompleted := TRUE;
+SUPER^.TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

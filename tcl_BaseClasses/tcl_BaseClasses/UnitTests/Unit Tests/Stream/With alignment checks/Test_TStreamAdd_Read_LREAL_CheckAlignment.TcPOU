@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TStreamAdd_Read_LREAL_CheckAlignment" Id="{24ee5d05-14c7-4334-b9cb-4c7dec7a4439}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_LREAL_CheckAlignment EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_LREAL_CheckAlignment EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
     Stream  : T_Stream(StreamLength := 2);
     ArgType : E_ArgTypeId := E_ArgTypeId.Type_LREAL;
@@ -15,20 +15,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-Stream.Init(2);
+        <ST><![CDATA[Stream.Init(2);
 
 Stream.Add_BYTE(123);// add a byte to test alignment checks...
 Stream.Add_LREAL(1.234567891234);
@@ -48,7 +35,7 @@ AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
                              Message := 'Stream.ReadPosition');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_AggregateResult_Aborted" Id="{4a1005d9-5a4e-41b6-b8ab-e43407083448}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Aborted EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_AggregateResult_Aborted EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
     ResultAggregate : T_ResultAggregate;
     Execution1      : T_Execution;
@@ -17,20 +17,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-ResultAggregate.Clear();
+        <ST><![CDATA[ResultAggregate.Clear();
 
 ResultAggregate.AddResult(Execution1);
 ResultAggregate.AddResult(Execution2);
@@ -57,7 +44,7 @@ Execution3.SetAborted();
 AssertIsTrue(Condition := ResultAggregate.Aborted,
              Message   := 'ResultAggregate.Aborting is false');
 
-TestCompleted := TRUE;
+SUPER^.TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

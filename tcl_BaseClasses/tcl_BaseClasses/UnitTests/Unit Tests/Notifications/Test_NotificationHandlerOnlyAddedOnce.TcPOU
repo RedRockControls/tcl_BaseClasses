@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_NotificationHandlerOnlyAddedOnce" Id="{d822493b-b417-457e-b68d-ce48b3adc9d5}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationHandlerOnlyAddedOnce EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_NotificationHandlerOnlyAddedOnce EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    Notification        : T_Notification;
+    Notification        : T_Notification<5>;
     NotificationHandler : T_NotificationHandler;
     IsRaised            : BOOL;
 END_VAR
@@ -16,20 +16,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-Notification
+        <ST><![CDATA[Notification
     .ClearNotificationHandlers()
     .AddNotificationHandler(NotificationHandler)
     .AddNotificationHandler(NotificationHandler);
@@ -45,7 +32,7 @@ IsRaised := NotificationHandler.IsRaised();
 AssertIsTrue(Condition := IsRaised = FALSE,
              Message   := 'IsRaised is not false');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

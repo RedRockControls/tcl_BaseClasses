@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_TStreamAdd_Read_Short_STRING" Id="{26a7714d-6abb-4cdf-ba46-ea1540b1ab15}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_Short_STRING EXTENDS T_UnitTestBase
+    <Declaration><![CDATA[FUNCTION_BLOCK Test_TStreamAdd_Read_Short_STRING EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
     Stream     : T_Stream(StreamLength := 2);
     ArgType    : E_ArgTypeId := E_ArgTypeId.Type_STRING;
@@ -16,21 +16,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-
-Stream.Init(2);
+        <ST><![CDATA[Stream.Init(2);
 
 // add a STRING...
 Stream.SetNextArgTypeId(ArgType);
@@ -53,7 +39,7 @@ AssertEquals_UDINT(Expected     := Stream.StreamLength,
                              Actual       := Stream.ReadPosition,
                              Message := 'Stream.ReadPosition');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

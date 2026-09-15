@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
+  <POU Name="T_DetectOnlineChange" Id="{424d8bc0-80ad-4ff2-af04-d54ec3aa7c3d}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'no_explicit_call':= 'do not call this POU directly'}
+FUNCTION_BLOCK T_DetectOnlineChange
+VAR
+    StoredOnlineChangeCnt : UDINT := 99;
+	_OnlineChangeDetected : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="CyclicUpdate" Id="{ca6150a4-825e-4ae2-a66d-4ccf39e851c0}">
+      <Declaration><![CDATA[METHOD CyclicUpdate
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF TwinCAT_SystemInfoVarList._AppInfo.OnlineChangeCnt <> StoredOnlineChangeCnt THEN
+    _OnlineChangeDetected  := TRUE;
+    StoredOnlineChangeCnt := TwinCAT_SystemInfoVarList._AppInfo.OnlineChangeCnt;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="OnlineChangeDetected" Id="{8b032061-7ebc-4bef-90b5-0185eb36d1fc}">
+      <Declaration><![CDATA[PROPERTY OnlineChangeDetected : BOOL]]></Declaration>
+      <Get Name="Get" Id="{fe7cfc2e-5c73-4d4f-b1ce-90d3f01b68df}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OnlineChangeDetected := _OnlineChangeDetected;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

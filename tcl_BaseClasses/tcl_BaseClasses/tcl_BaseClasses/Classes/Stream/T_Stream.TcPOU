@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="T_Stream" Id="{7de9e7b4-a803-0786-2483-a2ef3055cb50}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK T_Stream IMPLEMENTS I_StreamWriter, I_StreamReader
 VAR
 
-    MemoryManager : FB_DynMem_Manager;
-    Buffer        : FB_DynMem_Buffer(ipMemMan := MemoryManager);
+//     MemoryManager : FB_DynMem_Manager;
+//     Buffer        : FB_DynMem_Buffer(ipMemMan := MemoryManager);
     pBuffer       : POINTER TO BYTE;
 
     _StreamLength  : UDINT := 4;
@@ -24,14 +24,27 @@ VAR_INPUT
     NewStreamLength : UDINT;
     Preserve        : BOOL;
 END_VAR
-]]></Declaration>
+VAR_INST
+	pNewBuffer : POINTER TO BYTE;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Buffer.Resize(nSize     := NewStreamLength,
-              bPreserve := Preserve,
-              bReset    := TRUE);
+        <ST><![CDATA[// Create a new, larger buffer...
+pNewBuffer := __NEW(BYTE, NewStreamLength);
 
-_StreamLength := NewStreamLength;
-pBuffer       := Buffer.pBuffer;
+IF Preserve THEN
+    // Initialise new buffer with contents of old buffer...
+    MEMCPY(destAddr := pNewBuffer,
+           srcAddr  := pBuffer,
+           n        := THIS^.StreamLength); // old buffer length!
+END_IF
+
+THIS^._StreamLength := NewStreamLength; // Update to reflect new stream length - addded 15-09-2026
+
+// free the old buffer memory
+__DELETE(pBuffer);
+
+// point to new buffer memory...
+pBuffer := pNewBuffer;
 ]]></ST>
       </Implementation>
     </Method>
@@ -414,7 +427,7 @@ END_VAR
 
     _ResizeIfNecessary(NumberOfBytesToAppend);
 
-    MEMCPY(destAddr := Buffer.pBuffer + _WritePosition,
+    MEMCPY(destAddr := pBuffer + _WritePosition,
            srcAddr  := StreamToAppend.BufferAddress + StreamToAppend.ReadPosition,
            n        := NumberOfBytesToAppend);
 
@@ -441,11 +454,16 @@ END_VAR
       <Declaration><![CDATA[METHOD Clear : I_StreamWriter
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[Buffer.Clear();
+        <ST><![CDATA[//Buffer.Clear();
+
+MEMSET(pBuffer,
+       fillByte := 0,
+       n        := THIS^._StreamLength);
+
 _ReadPosition  := 0;
 _WritePosition := 0;
-pBuffer        := Buffer.pBuffer;
-Clear          := THIS^;
+//pBuffer        := Buffer.pBuffer;
+Clear := THIS^;
 ]]></ST>
       </Implementation>
     </Method>
@@ -457,7 +475,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF NOT bInCopyCode THEN
-    Buffer.DeleteBuffer();
+	__DELETE(pBuffer);
+    //Buffer.DeleteBuffer();
 END_IF
 ]]></ST>
       </Implementation>
@@ -504,17 +523,23 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Buffer.bAvailable THEN
-    Buffer.DeleteBuffer();
+        <ST><![CDATA[// IF Buffer.bAvailable THEN
+//     Buffer.DeleteBuffer();
+// END_IF
+
+IF pBuffer <> 0 THEN
+	__DELETE(pBuffer);
 END_IF
 
 _StreamLength := StreamLength;
-Buffer.CreateBuffer(nSize  := _StreamLength,
-                    bReset := TRUE);
+// Buffer.CreateBuffer(nSize  := _StreamLength,
+//                     bReset := TRUE);
+					
+pBuffer := __NEW(BYTE,_StreamLength);					
 
 _ReadPosition  := 0;
 _WritePosition := 0;
-pBuffer        := Buffer.pBuffer;
+// pBuffer        := Buffer.pBuffer;
 ]]></ST>
       </Implementation>
     </Method>

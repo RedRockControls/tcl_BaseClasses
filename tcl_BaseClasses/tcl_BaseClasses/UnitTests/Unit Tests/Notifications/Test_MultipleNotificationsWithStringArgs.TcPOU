@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <POU Name="Test_MultipleNotificationsWithStringArgs" Id="{498ab529-1915-457a-a89d-d6efea9df911}" SpecialFunc="None">
     <Declaration><![CDATA[{attribute 'hide'}
-FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS T_UnitTestBase
+FUNCTION_BLOCK Test_MultipleNotificationsWithStringArgs EXTENDS T_UnitTestBase IMPLEMENTS I_UnitTest
 VAR
-    Notification        : T_Notification;
+    Notification        : T_Notification<5>;
     NotificationHandler : T_NotificationHandler;
 
     IsRaised          : BOOL;
@@ -19,20 +19,7 @@ END_VAR
 METHOD RunTest
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF Retest THEN
-    SUPER^.Init();
-END_IF
-
-IF TestCompleted THEN
-    RETURN;
-END_IF
-
-F_Inc(CycleCount);
-IF CycleCount > 1000 THEN
-    Fail(Message := 'Timeout');
-END_IF
-
-NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
+        <ST><![CDATA[NotificationHandler.NotificationQueueingEnabled := TRUE; // Notification Queuing requires care to ensure all notifications are handled, so disabled by default!
 
 IsRaised          := FALSE;
 NotificationCount := 0;
@@ -87,7 +74,7 @@ AssertEquals_STRING(Expected := 'String2',
 AssertIsTrue(Condition := NotificationHandler.IsRaised() = FALSE,
              Message   := 'Handler.IsRaised() return true');
 
-TestCompleted := TRUE;
+TestCompleted();
 ]]></ST>
       </Implementation>
     </Method>

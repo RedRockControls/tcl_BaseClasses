@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.19">
   <Itf Name="I_Notification" Id="{7718dd74-9654-4af8-a63b-c5e9a3756592}">
     <Declaration><![CDATA[INTERFACE I_Notification
 ]]></Declaration>
@@ -27,6 +27,13 @@ END_VAR
     </Method>
     <Method Name="Raise" Id="{39bb1e56-1c4d-4d8d-9ff2-78ad891a1fca}" FolderPath="Methods\">
       <Declaration><![CDATA[METHOD Raise
+]]></Declaration>
+    </Method>
+    <Method Name="RemoveNotificationHandler" Id="{5bf605a4-450b-406c-983f-6d1f6dd6835d}" FolderPath="Methods\">
+      <Declaration><![CDATA[METHOD RemoveNotificationHandler : I_Notification
+VAR_INPUT
+    Handler : I_NotificationHandler;
+END_VAR
 ]]></Declaration>
     </Method>
   </Itf>
