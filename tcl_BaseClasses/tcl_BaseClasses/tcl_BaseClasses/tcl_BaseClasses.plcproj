@@ -8,7 +8,7 @@
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <Name>tcl_BaseClasses</Name>
-    <ProgramVersion>3.1.4026.25</ProgramVersion>
+    <ProgramVersion>3.1.4026.27</ProgramVersion>
     <Application>{6784b651-2f80-4523-a2ed-a82009209537}</Application>
     <TypeSystem>{d87bf44e-a0a9-4971-9c9d-fcf3b02ed5f9}</TypeSystem>
     <Implicit_Task_Info>{8b64dbcb-0d16-4332-ab5c-11d7458227b1}</Implicit_Task_Info>
@@ -18,11 +18,9 @@
     <Company>Red Rock Controls Limited</Company>
     <Released>false</Released>
     <Title>tcl_BaseClasses</Title>
-    <ProjectVersion>1.1.78.0</ProjectVersion>
+    <ProjectVersion>1.1.79.0</ProjectVersion>
     <Author>Roger Christopher</Author>
-    <Description>T_DetectOnlineChange added (allows multiple instances to be created)
-RemoveEventHandler method added to T_Notification
-Unit Tests updated</Description>
+    <Description>F_ErrorIdToString updated with additional errors</Description>
     <LibraryCategories>
       <LibraryCategory>
         <Id>{0d08a09c-9493-4b37-a26c-544e7211ff2d}</Id>

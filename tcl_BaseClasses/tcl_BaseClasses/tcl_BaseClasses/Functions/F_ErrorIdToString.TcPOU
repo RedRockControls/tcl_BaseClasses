@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.21">
   <POU Name="F_ErrorIdToString" Id="{24fd8532-6f1f-4178-8d49-9f27acdf8b72}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_ErrorIdToString : T_MaxString
 VAR_INPUT
@@ -147,6 +147,10 @@ END_VAR
     16#1019: Result := 'Error 0x1019 - Missing function in Intel VT-x extension';
     16#101A: Result := 'Error 0x101A - Activation of Intel VT-x fails';
 	
+	16#4221: Result := 'Error 0x4221 - Requested target velocity is not allowed';                                           
+	16#4222: Result := 'Error 0x4222 - Requested target position is not allowed (master axis)';                                           
+	16#4223: Result := 'Error 0x4223 - No enable for controller and/or feed (master axis)';                                           
+	16#422A: Result := 'Error 0x422A - No enable for controller and/or feed (slave axis)';                                           
 	16#4260: Result := 'Error 0x4260 - Controller enable not present';
 	16#4285: Result := 'Error 0x4285 - Invalid accel/decel parameter(s)';          
 	16#4286: Result := 'Error 0x4286 - Invalid velocity parameter';                              
